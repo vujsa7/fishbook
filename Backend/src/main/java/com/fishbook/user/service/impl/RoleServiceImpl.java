@@ -1,4 +1,4 @@
-package com.fishbook.user.service;
+package com.fishbook.user.service.impl;
 
 import com.fishbook.user.dao.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
