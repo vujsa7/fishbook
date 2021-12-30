@@ -6,6 +6,8 @@ import com.fishbook.registration.service.RegistrationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RegistrationRequestServiceImpl implements RegistrationRequestService {
     private final RegistrationRequestRepository registrationRequestRepository;
@@ -18,5 +20,10 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     @Override
     public RegistrationRequest create(RegistrationRequest registrationRequest) {
         return registrationRequestRepository.save(registrationRequest);
+    }
+
+    @Override
+    public List<RegistrationRequest> getAll() {
+        return registrationRequestRepository.findAll();
     }
 }
