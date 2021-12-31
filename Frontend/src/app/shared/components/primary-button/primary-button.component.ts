@@ -7,7 +7,5 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PrimaryButtonComponent {
   @Input() text: string = "Button";
-  @Input() color: string = "#214975";
-  @Input() textColor: string = "#214975";
   @Input() isBtnDisabled: boolean = false;
 }

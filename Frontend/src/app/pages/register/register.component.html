@@ -1,1 +1,65 @@
-<p>register works!</p>
+<div class="register-page d-flex flex-row">
+    <img src="assets/images/register.jpg" alt="Join us today!" class="register-image">
+    <app-glass-container class="glass-container"></app-glass-container>
+    <div class="back-to-website d-flex flex-row align-items-center">
+        <svg class="back-arrow"></svg>
+        <span>Back to website</span>
+    </div>
+    <div class="register-wrapper d-flex align-items-center">
+        <div class="content-wrapper d-flex flex-column">
+            <h4>Join us and choose from more than 10.000 boats, houses and adventures.</h4>
+            <span class="subtitle">Register today and embark on a new journey!</span>
+            <form>
+                <div class="form-fields d-flex flex-row">
+                    <div class="input-container first">
+                        <label for="firstName" class="input-label">First name</label>
+                        <input id="firstName" type="text">
+                    </div>
+                    <div class="input-container second">
+                        <label for="lastName" class="input-label">Last name</label>
+                        <input id="lastName" type="text">
+                    </div>
+                </div>
+                <div class="form-fields d-flex flex-row">
+                    <div class="input-container first">
+                        <label for="streetNumber" class="input-label">Street and number</label>
+                        <input id="streetNumber" type="text">
+                    </div>
+                    <div class="d-flex flex-row second w-100">
+                        <div class="input-container w-50 me-2">
+                            <label for="city" class="input-label">City</label>
+                            <input id="city" type="text">
+                        </div>
+                        <div class="input-container w-50 ms-2">
+                            <label for="state" class="input-label">State</label>
+                            <input id="state" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-fields d-flex flex-row">
+                    <div class="input-container first">
+                        <label for="email" class="input-label">Email address</label>
+                        <input id="email" type="text">
+                    </div>
+                    <div class="input-container second">
+                        <label for="phone" class="input-label">Phone number</label>
+                        <input id="phone" type="text">
+                    </div>
+                </div>
+                <div class="form-fields d-flex flex-row">
+                    <div class="input-container first">
+                        <label for="password" class="input-label">Password</label>
+                        <input id="password" type="password">
+                    </div>
+                    <div class="input-container second">
+                        <label for="confirm-password" class="input-label">Confirm password</label>
+                        <input id="confirm-password" type="password">
+                    </div>
+                </div>
+            </form>
+            <span class="subtitle">Already have an account?<a> Sign in.</a></span>
+            <app-primary-button [text]="'Create account'"></app-primary-button>
+        </div>
+    </div>
+</div>
+

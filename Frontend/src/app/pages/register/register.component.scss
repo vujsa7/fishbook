@@ -1,0 +1,64 @@
+@import "src/styles/main.scss";
+
+.register-image{
+    position: absolute;
+    z-index: -10;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.glass-container{
+    position: absolute;
+    z-index: -9;
+    width: 56.21vw;
+    height: 100%;
+}
+
+.back-to-website{
+    color: color(blue);
+    position: absolute;
+    top: 40px;
+    left: $grid-margin-width;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+    .back-arrow{
+        width: 29px;
+        height: 7px;
+        margin-right: 10px;
+        @include background-svg($back-arrow);
+    }
+
+.register-wrapper{
+    margin-left: $grid-margin-width;
+    height: 100vh;
+    width: 37.98vw;
+}
+
+    h4{
+        margin-bottom: 10px;
+    }
+
+    .subtitle{
+        color: color(darkgrey);
+        margin-bottom: 20px;
+    }
+
+    .form-fields{
+        margin-bottom: 20px;
+    }
+    
+        .input-container{
+            width: 100%;
+        }
+
+        .first{
+            margin-right: 15px;
+        }
+
+        .second{
+            margin-left: 15px;
+        }
