@@ -10,10 +10,10 @@ import { environment } from 'src/environments/environment';
 export class RegistrationService {
   private baseUrl: string = environment.baseUrl;
   // For testing 
-  private header = {
-    headers: new HttpHeaders()
-      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQwODk1MjkyLCJleHAiOjE2NDA4OTcwOTJ9.KmOm_c5VKbnFnwPse4pyq00ScUezz90GAnfWPVFivl57CXCwfOr1IQbAafWLPQFOKn6YJ34bGOrhZu1N4G9PXQ`)
-  }
+  private header = new HttpHeaders()
+      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQwOTYyNDU3LCJleHAiOjE2NDA5NjQyNTd9.CnPoUdaM2zMpanouaxRTFClF0wlRs1aWkJ6eHC3c13t3dQkfjqJMCemndjz0nNyxpGDHaVCtRg3nLx0_uwL-2Q`)
+      .set('Content-Type', 'application/json')
+  
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +22,15 @@ export class RegistrationService {
   }
 
   getRegistartionRequests(): Observable<RegistrationRequest[]> {
-    return this.http.get<RegistrationRequest[]>(this.baseUrl + 'registrationRequests', this.header);
+    return this.http.get<RegistrationRequest[]>(this.baseUrl + 'registrationRequests', {headers: this.header});
+  }
+
+  deleteRegistrationRequest(id: number, registrationResponse: any): Observable<any> {
+    const options = {
+      headers: this.header,
+      body: registrationResponse    
+    };
+
+    return this.http.delete<any>(this.baseUrl + 'registrationRequests/' + id, options);
   }
 }

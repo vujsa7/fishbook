@@ -10,6 +10,8 @@ import { RegistrationRequestsComponent } from './pages/registration-requests/reg
 import { GlassContainerComponent } from './shared/components/glass-container/glass-container.component';
 import { PrimaryButtonComponent } from './shared/components/primary-button/primary-button.component';
 import { RegistrationTypePipe } from './shared/pipes/registration-type.pipe';
+import { ConfirmationDialogComponent } from './pages/registration-requests/confirmation-dialog/confirmation-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,12 +22,14 @@ import { RegistrationTypePipe } from './shared/pipes/registration-type.pipe';
     RegistrationTypePipe,
     HomeComponent,
     RegisterComponent,
-    GlassContainerComponent
+    GlassContainerComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
