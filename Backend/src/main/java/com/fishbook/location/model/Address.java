@@ -1,4 +1,4 @@
-package com.fishbook.location;
+package com.fishbook.location.model;
 
 import javax.persistence.*;
 
@@ -19,6 +19,11 @@ public class Address {
     private Double latitude;
 
     public Address() {
+    }
+
+    public Address(String address, City city) {
+        this.address = address;
+        this.city = city;
     }
 
     public Long getId() {
