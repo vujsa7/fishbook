@@ -1,4 +1,4 @@
-package com.fishbook.location;
+package com.fishbook.location.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,6 +19,11 @@ public class Country {
     private Set<City> cities;
 
     public Country() {
+    }
+
+    public Country(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public void setId(Long id) {

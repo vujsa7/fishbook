@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegistrationRequestServiceImpl implements RegistrationRequestService {
@@ -25,5 +26,15 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     @Override
     public List<RegistrationRequest> getAll() {
         return registrationRequestRepository.findAll();
+    }
+
+    @Override
+    public Optional<RegistrationRequest> getById(Long id) {
+        return registrationRequestRepository.findById(id);
+    }
+
+    @Override
+    public void delete(RegistrationRequest request) {
+        registrationRequestRepository.delete(request);
     }
 }

@@ -1,6 +1,8 @@
 package com.fishbook.user.model;
 
-import com.fishbook.location.Address;
+import com.fishbook.location.model.Address;
+import com.fishbook.location.model.Country;
+import com.fishbook.registration.model.RegistrationRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -46,6 +48,18 @@ public class User implements UserDetails {
     private Boolean isDeleted;
 
     public User() {}
+
+    public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.isEnabled = true;
+        this.isDeleted = false;
+    }
 
     public Long getId() {
         return id;

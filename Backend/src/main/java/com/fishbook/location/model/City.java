@@ -1,4 +1,4 @@
-package com.fishbook.location;
+package com.fishbook.location.model;
 
 import javax.persistence.*;
 
@@ -19,6 +19,12 @@ public class City {
     private Country country;
 
     public City() {
+    }
+
+    public City(String postalCode, String name, Country country) {
+        this.postalCode = postalCode;
+        this.name = name;
+        this.country = country;
     }
 
     public Long getId() {
