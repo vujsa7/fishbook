@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,14 @@ public class RegistrationRequestController {
     private final RegistrationRequestService registrationRequestService;
     private final UserService userService;
     private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationRequestController(RegistrationRequestService registrationRequestService, UserService userService, EmailService emailService){
+    public RegistrationRequestController(RegistrationRequestService registrationRequestService, UserService userService, EmailService emailService, PasswordEncoder passwordEncoder){
         this.registrationRequestService = registrationRequestService;
         this.userService = userService;
         this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -39,6 +42,10 @@ public class RegistrationRequestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegistrationRequest> createRegistrationRequest(@RequestBody RegistrationRequest registrationRequest){
+        if(userService.findByEmail(registrationRequest.getEmail()) != null){
+            return new ResponseEntity<>(registrationRequest, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        registrationRequest.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         RegistrationRequest req = registrationRequestService.create(registrationRequest);
         return new ResponseEntity<>(req, HttpStatus.CREATED);
     }
