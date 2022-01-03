@@ -13,6 +13,12 @@
     z-index: -9;
     width: 56.21vw;
     height: 100%;
+    transition: all 0.4s ease;
+}
+
+.glass-container-expanded{
+    width: 67.21vw;
+    transition: width 0.4s ease;
 }
 
 .back-to-website{
@@ -47,6 +53,23 @@
         margin-bottom: 20px;
     }
 
+    .subtitle2{
+        color: color(blue);
+        margin-top: 20px;
+    }
+
+    .slide-toggle{
+        margin-left: 10px;
+    }
+
+    :host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+        background-color: color(lightblue);
+    }
+    
+    :host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+        background-color: color(lightblue);
+    }
+
     .form-fields{
         margin-bottom: 20px;
     }
@@ -61,4 +84,30 @@
 
         .second{
             margin-left: 15px;
+        }
+
+.expanded-register-wrapper{
+    padding-top: 316px;
+    margin-left: 30px;
+    height: 100vh;
+    width: 17.98vw;
+
+}
+    .form-fields{
+        margin-bottom: 20px;
+    }
+
+        .input-container{
+            width: 100%;
+        }
+
+        .first{
+            margin-right: 15px;
+            height: 56px;
+        }
+
+        .message{
+            padding-top: 25px;
+            margin-right: 15px;
+            height: 207px;
         }

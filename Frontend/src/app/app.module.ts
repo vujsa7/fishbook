@@ -12,6 +12,7 @@ import { PrimaryButtonComponent } from './shared/components/primary-button/prima
 import { RegistrationTypePipe } from './shared/pipes/registration-type.pipe';
 import { ConfirmationDialogComponent } from './pages/registration-requests/confirmation-dialog/confirmation-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule, 
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
