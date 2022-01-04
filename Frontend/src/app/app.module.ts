@@ -14,6 +14,8 @@ import { ConfirmationDialogComponent } from './pages/requests/components/confirm
 import { FormsModule } from '@angular/forms';
 import { SecondaryButtonComponent } from './shared/components/secondary-button/secondary-button.component';
 import { RequestsComponent } from './pages/requests/requests.component';
+import { BusinessComponent } from './pages/business/business.component';
+import { LoyaltySettingsComponent } from './pages/business/components/loyalty-settings/loyalty-settings.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { RequestsComponent } from './pages/requests/requests.component';
     GlassContainerComponent,
     ConfirmationDialogComponent,
     SecondaryButtonComponent,
-    RequestsComponent
+    RequestsComponent,
+    BusinessComponent,
+    LoyaltySettingsComponent
   ],
   imports: [
     BrowserModule,

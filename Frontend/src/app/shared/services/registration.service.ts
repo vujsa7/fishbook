@@ -11,7 +11,7 @@ export class RegistrationService {
   private baseUrl: string = environment.baseUrl;
   // For testing 
   private header = new HttpHeaders()
-      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzAzNjU1LCJleHAiOjE2NDEzMDU0NTV9.TUrlTCeLMikmhulv1tyonDdSeQiddVUBtYv6PNMHq_6ba7KAmYfT8DgBdIuTol-7JB4iQYtxotzHSihDd6DO9g`)
+      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzA2MjI4LCJleHAiOjE2NDEzMDgwMjh9.YeOpO8n6XIXjINTXOVbPAjjzJQxWVpki8Dgl8zI-rTYzeOd27aqEFjgAhDXB0HbwPpn28Du8CBs65NE8Snkzfw`)
       .set('Content-Type', 'application/json')
   
 
