@@ -17,6 +17,7 @@ import { RequestsComponent } from './pages/requests/requests.component';
 import { BusinessComponent } from './pages/business/business.component';
 import { LoyaltySettingsComponent } from './pages/business/components/loyalty-settings/loyalty-settings.component';
 import { AdminFormComponent } from './pages/business/components/admin-form/admin-form.component';
+import { IncomeComponent } from './pages/business/components/income/income.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AdminFormComponent } from './pages/business/components/admin-form/admin
     RequestsComponent,
     BusinessComponent,
     LoyaltySettingsComponent,
-    AdminFormComponent
+    AdminFormComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,

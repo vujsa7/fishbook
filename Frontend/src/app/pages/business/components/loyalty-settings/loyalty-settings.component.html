@@ -2,47 +2,47 @@
     <div class="title">{{title}} settings</div>
     <form class="d-flex flex-column">
         <div class="input-container form-fields">
-            <label for="numOfPointsForReservation" class="input-label">Number of points {{title | lowercase}}s gain with each reservation</label>
-            <input id="numOfPointsForReservation" type="text" name="numOfPointsForReservation">
+            <label for="{{title | lowercase}}NumOfPointsForReservation" class="input-label">Number of points {{title | lowercase}}s gain with each reservation</label>
+            <input id="{{title | lowercase}}NumOfPointsForReservation" type="text" name="{{title | lowercase}}NumOfPointsForReservation">
         </div>
         <div class="d-flex flex-row form-fields">
             <div class="input-container first">
-                <label for="babySeahorsePoints" class="input-label">Baby Seahorse Points</label>
-                <input id="babySeahorsePoints" type="text" name="babySeahorsePoints">
+                <label for="{{title | lowercase}}BabySeahorsePoints" class="input-label">Baby Seahorse Points</label>
+                <input id="{{title | lowercase}}BabySeahorsePoints" type="text" name="{{title | lowercase}}BabySeahorsePoints">
             </div>
             <div class="input-container second">
-                <label for="babySeahorseDiscount" class="input-label">{{loyaltyText}}</label>
-                <input id="babySeahorseDiscount" type="text" name="babySeahorseDiscount">
+                <label for="{{title | lowercase}}BabySeahorseBenefit" class="input-label">{{loyaltyText}}</label>
+                <input id="{{title | lowercase}}BabySeahorseBenefit" type="text" name="{{title | lowercase}}BabySeahorseBenefit">
             </div>
         </div>
         <div class="d-flex flex-row form-fields">
             <div class="input-container first">
-                <label for="wildSwordfishPoints" class="input-label">Wild Swordfish Points</label>
-                <input id="wildSwordfishPoints" type="text" name="wildSwordfishPoints">
+                <label for="{{title | lowercase}}WildSwordfishPoints" class="input-label">Wild Swordfish Points</label>
+                <input id="{{title | lowercase}}WildSwordfishPoints" type="text" name="{{title | lowercase}}WildSwordfishPoints">
             </div>
             <div class="input-container second">
-                <label for="wildSwordfishDiscount" class="input-label">{{loyaltyText}}</label>
-                <input id="wildSwordfishDiscount" type="text" name="wildSwordfishDiscount">
+                <label for="wildSwordfishBenefit" class="input-label">{{loyaltyText}}</label>
+                <input id="{{title | lowercase}}WildSwordfishBenefit" type="text" name="{{title | lowercase}}WildSwordfishBenefit">
             </div>
         </div>
         <div class="d-flex flex-row form-fields">
             <div class="input-container first">
                 <label for="experiencedSharkPoints" class="input-label">Experienced Shark Points</label>
-                <input id="experiencedSharkPoints" type="text" name="experiencedSharkPoints">
+                <input id="{{title | lowercase}}ExperiencedSharkPoints" type="text" name="{{title | lowercase}}ExperiencedSharkPoints">
             </div>
             <div class="input-container second">
-                <label for="experiencedSharkDiscount" class="input-label">{{loyaltyText}}</label>
-                <input id="experiencedSharkDiscount" type="text" name="experiencedSharkDiscount">
+                <label for="{{title | lowercase}}ExperiencedSharkBenefit" class="input-label">{{loyaltyText}}</label>
+                <input id="{{title | lowercase}}ExperiencedSharkBenefit" type="text" name="{{title | lowercase}}xperiencedSharkBenefit">
             </div>
         </div>
         <div class="d-flex flex-row form-fields">
             <div class="input-container first">
-                <label for="mightyWhalePoints" class="input-label">Mighty Whale Points</label>
-                <input id="mightyWhalePoints" type="text" name="mightyWhalePoints">
+                <label for="{{title | lowercase}}MightyWhalePoints" class="input-label">Mighty Whale Points</label>
+                <input id="{{title | lowercase}}MightyWhalePoints" type="text" name="{{title | lowercase}}MightyWhalePoints">
             </div>
             <div class="input-container second">
-                <label for="mightyWhaleDiscount" class="input-label">{{loyaltyText}}</label>
-                <input id="mightyWhaleDiscount" type="text" name="mightyWhaleDiscount">
+                <label for="{{title | lowercase}}MightyWhaleBenefit" class="input-label">{{loyaltyText}}</label>
+                <input id="{{title | lowercase}}MightyWhaleBenefit" type="text" name="{{title | lowercase}}MightyWhaleBenefit">
             </div>
         </div>
         <app-primary-button text="Save settings" class="form-fields"></app-primary-button>
