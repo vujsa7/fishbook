@@ -16,6 +16,7 @@ import { SecondaryButtonComponent } from './shared/components/secondary-button/s
 import { RequestsComponent } from './pages/requests/requests.component';
 import { BusinessComponent } from './pages/business/business.component';
 import { LoyaltySettingsComponent } from './pages/business/components/loyalty-settings/loyalty-settings.component';
+import { AdminFormComponent } from './pages/business/components/admin-form/admin-form.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { LoyaltySettingsComponent } from './pages/business/components/loyalty-se
     SecondaryButtonComponent,
     RequestsComponent,
     BusinessComponent,
-    LoyaltySettingsComponent
+    LoyaltySettingsComponent,
+    AdminFormComponent
   ],
   imports: [
     BrowserModule,
