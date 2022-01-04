@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestsComponent implements OnInit {
   dialogVisible: boolean = false;
+  selectedButton: string = 'registration-requests';
   
   constructor() { }
 
@@ -19,6 +20,10 @@ export class RequestsComponent implements OnInit {
 
   hideDialog(): void {
     this.dialogVisible = false;
+  }
+  
+  selectButton(selectedButton: string): void {
+    this.selectedButton = selectedButton;
   }
 
 }

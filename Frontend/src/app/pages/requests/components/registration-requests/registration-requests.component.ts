@@ -37,5 +37,4 @@ export class RegistrationRequestsComponent implements OnInit {
     this.requestId = requestId;
     this.notifyShowDialog.emit();
   }
-
 }
