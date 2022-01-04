@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RegistrationRequest } from 'src/app/models/registration/registration-request.model';
 import { RegistrationService } from 'src/app/shared/services/registration.service';
 
@@ -9,9 +9,10 @@ import { RegistrationService } from 'src/app/shared/services/registration.servic
 })
 export class RegistrationRequestsComponent implements OnInit {
   requests: RegistrationRequest[] = [];
-  dialogVisible: boolean = false;
-  header: string = 'Whatever';
   requestId: number = -1;
+  header: string = '';
+  @Output() notifyHideDialog: EventEmitter<any> = new EventEmitter<any>();
+  @Output() notifyShowDialog: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private registrationService: RegistrationService) { }
 
@@ -23,18 +24,18 @@ export class RegistrationRequestsComponent implements OnInit {
     );
   }
 
-  showDialog(header: string, requestId: number): void {
-    this.dialogVisible = true;
-    this.header = header;
-    this.requestId = requestId;
-  }
-
-  hideDialog(): void {
-    this.dialogVisible = false;
-  }
-
   removeRequest(): void {
     this.requests = this.requests.filter(request => request.id != this.requestId);
+  }
+
+  hideDialog(){
+    this.notifyHideDialog.emit();
+  }
+
+  showDialog(header: string, requestId: number): void {
+    this.header = header;
+    this.requestId = requestId;
+    this.notifyShowDialog.emit();
   }
 
 }

@@ -6,13 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { RegistrationRequestsComponent } from './pages/registration-requests/registration-requests.component';
+import { RegistrationRequestsComponent } from './pages/requests/components/registration-requests/registration-requests.component';
 import { GlassContainerComponent } from './shared/components/glass-container/glass-container.component';
 import { PrimaryButtonComponent } from './shared/components/primary-button/primary-button.component';
-import { RegistrationTypePipe } from './shared/pipes/registration-type.pipe';
-import { ConfirmationDialogComponent } from './pages/registration-requests/confirmation-dialog/confirmation-dialog.component';
+import { UserTypePipe } from './shared/pipes/user-type.pipe';
+import { ConfirmationDialogComponent } from './pages/requests/components/confirmation-dialog/confirmation-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { SecondaryButtonComponent } from './shared/components/secondary-button/secondary-button.component';
+import { RequestsComponent } from './pages/requests/requests.component';
 
 
 @NgModule({
@@ -20,12 +21,13 @@ import { SecondaryButtonComponent } from './shared/components/secondary-button/s
     AppComponent,
     RegistrationRequestsComponent,
     PrimaryButtonComponent,
-    RegistrationTypePipe,
+    UserTypePipe,
     HomeComponent,
     RegisterComponent,
     GlassContainerComponent,
     ConfirmationDialogComponent,
-    SecondaryButtonComponent
+    SecondaryButtonComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,

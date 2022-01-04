@@ -1,9 +1,4 @@
 <div class="d-flex flex-column">
-    <div class="d-flex flex-row wrapper">
-        <div class="container">
-            <button class="btn toolbar-btn ps-0">Registration requests</button>
-        </div>
-    </div>
     <div class="container mt-4 mb-0 p-4" id="request-card" *ngFor="let request of requests">
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-column">
@@ -36,7 +31,7 @@
             </div>
             <div class="d-flex flex-column">
                 <span>Registration type</span>
-                <span>{{request.registrationType | registrationType}}</span>
+                <span>{{request.registrationType | userType}}</span>
             </div>
         </div>
         <div class="d-flex flex-column mt-2">
@@ -48,9 +43,5 @@
             <app-secondary-button text="Deny request" (click)="showDialog('Deny request', request.id)"></app-secondary-button>
         </div>
     </div> 
-
-    <div class="backdrop d-flex align-items-center justify-content-center" *ngIf="dialogVisible">
-        <app-confirmation-dialog [requestId]='requestId' header={{header}} class="form-container" (notifyHideDialog)="hideDialog()" (notifyRemoveRequest)="removeRequest()"></app-confirmation-dialog>
-    </div>
 
 </div>
