@@ -1,8 +1,6 @@
 package com.fishbook.user.model;
 
 import com.fishbook.location.model.Address;
-import com.fishbook.location.model.Country;
-import com.fishbook.registration.model.RegistrationRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
