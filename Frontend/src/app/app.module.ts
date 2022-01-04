@@ -19,6 +19,8 @@ import { LoyaltySettingsComponent } from './pages/business/components/loyalty-se
 import { AdminFormComponent } from './pages/business/components/admin-form/admin-form.component';
 import { IncomeComponent } from './pages/business/components/income/income.component';
 import { UsersComponent } from './pages/users/users.component';
+import { ReportsComponent } from './pages/reports/reports.component';
+import { ServicesComponent } from './pages/services/services.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { UsersComponent } from './pages/users/users.component';
     LoyaltySettingsComponent,
     AdminFormComponent,
     IncomeComponent,
-    UsersComponent
+    UsersComponent,
+    ReportsComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,

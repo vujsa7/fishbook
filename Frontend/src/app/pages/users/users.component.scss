@@ -4,29 +4,29 @@
     border: 1px solid color(lightgrey);
 }
 
-    .toolbar-btn{
-        color: color(lightblue);
-        font-weight: bold;
-        padding-bottom: 0;
-        border-bottom: 0;
+    .btn{
+        margin-right: 10px;
     }
 
-        .toolbar-btn:after{
-            content: "";
-            display: block;
-            margin: 0 auto;
-            width: 25%; 
-            padding-top: 5px;
-            border-bottom: 2px solid color(lightblue);
+        .btn-unselected{
+            color: color(darkgrey);
         }
 
-.btn{
-    margin-right: 10px;
-}
+        .toolbar-btn{
+            color: color(lightblue);
+            font-weight: bold;
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
 
-    .btn-unselected{
-        color: color(darkgrey);
-    }
+            .toolbar-btn:after{
+                content: "";
+                display: block;
+                margin: 0 auto;
+                width: 25%; 
+                padding-top: 5px;
+                border-bottom: 2px solid color(lightblue);
+            }
 
 #user-img{
     width: 80px;
