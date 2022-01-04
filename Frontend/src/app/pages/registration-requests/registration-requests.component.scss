@@ -22,7 +22,7 @@
 
 #request-card{
     color: color(darkgrey);
-    @include card;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
     cursor: default;
 }
 
@@ -39,8 +39,7 @@
 }
 
 .form-container{
-    width: 45%;
-    height: 68%;
+    width: 480px;
     background-color: white;
     border-radius: 5px;
 }

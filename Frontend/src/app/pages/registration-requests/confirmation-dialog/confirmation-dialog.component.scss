@@ -7,5 +7,19 @@
 }
 
 textarea{
-    width: 80%;
+    border: 1px solid color(darkgrey) !important;
+    border-radius: 7px;
+    margin: 20px 0px 20px 0px; 
+    height: 150px; 
 }
+
+.first{
+    width: 100%;
+    margin-right: 10px;
+}
+
+.second{
+    width: 100%;
+    margin-left: 10px;
+}
+

@@ -12,6 +12,7 @@ import { PrimaryButtonComponent } from './shared/components/primary-button/prima
 import { RegistrationTypePipe } from './shared/pipes/registration-type.pipe';
 import { ConfirmationDialogComponent } from './pages/registration-requests/confirmation-dialog/confirmation-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { SecondaryButtonComponent } from './shared/components/secondary-button/secondary-button.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     RegisterComponent,
     GlassContainerComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    SecondaryButtonComponent
   ],
   imports: [
     BrowserModule,
