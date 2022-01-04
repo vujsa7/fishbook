@@ -18,6 +18,7 @@ import { BusinessComponent } from './pages/business/business.component';
 import { LoyaltySettingsComponent } from './pages/business/components/loyalty-settings/loyalty-settings.component';
 import { AdminFormComponent } from './pages/business/components/admin-form/admin-form.component';
 import { IncomeComponent } from './pages/business/components/income/income.component';
+import { UsersComponent } from './pages/users/users.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { IncomeComponent } from './pages/business/components/income/income.compo
     BusinessComponent,
     LoyaltySettingsComponent,
     AdminFormComponent,
-    IncomeComponent
+    IncomeComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
