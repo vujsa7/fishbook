@@ -11,17 +11,18 @@ export class RegistrationRequest {
     public registrationType: string;
     public registrationMessage: string;
 
-    constructor(id: number, firstName: string, lastName: string, email: string, password: string, phoneNumber: string, address: string, city: string, country: string, registrationType: string, registrationMessage: string) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.city = city;
-        this.country = country;
-        this.registrationType = registrationType;
-        this.registrationMessage = registrationMessage;
+    constructor() {
+        this.id = -1;
+        this.firstName = "";
+        this.lastName = "";
+        this.email = "";
+        this.password = "";
+        this.phoneNumber = "";
+        this.address = "";
+        this.city = "";
+        this.country = "";
+        this.registrationType = "";
+        this.registrationMessage = "";
     }
+
 }

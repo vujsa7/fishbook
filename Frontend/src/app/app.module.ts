@@ -11,7 +11,8 @@ import { GlassContainerComponent } from './shared/components/glass-container/gla
 import { PrimaryButtonComponent } from './shared/components/primary-button/primary-button.component';
 import { RegistrationTypePipe } from './shared/pipes/registration-type.pipe';
 import { ConfirmationDialogComponent } from './pages/registration-requests/confirmation-dialog/confirmation-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule, 
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   providers: [],
