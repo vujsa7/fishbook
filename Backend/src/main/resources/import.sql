@@ -6,4 +6,4 @@ insert into role (name) values ('ROLE_BOAT_OWNER')
 insert into role (name) values ('ROLE_INSTRUCTOR')
 insert into role (name) values ('ROLE_HOUSE_OWNER')
 insert into role (name) values ('ROLE_ADMIN')
-insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Nikola', 'Nikolic', 'niki@gmail.com', 'pass', '12345', 1, 5, false, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Nikola', 'Nikolic', 'niki@gmail.com', '$2a$10$5lObVsz.nPpAxIUNInrYE.0qiwKMc1yFBYekTOqJ2sBhnYvmxOEv.', '12345', 1, 5, true, false);

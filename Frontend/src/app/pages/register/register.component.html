@@ -58,8 +58,13 @@
                 </div>
             </form>
             <span class="subtitle">Already have an account?<a> Sign in.</a></span>
-            <app-primary-button [text]="'Create account'" (click)="submitRequest()"></app-primary-button>
-            <span class="subtitle2">Partner with us and sell on our website?<mat-slide-toggle class="slide-toggle" [(ngModel)]="registrationExpanded"></mat-slide-toggle></span>
+            <app-primary-button [text]="'Create account'" (click)="submitRequest()"></app-primary-button> 
+            <span class="subtitle2">Partner with us and sell on our website?
+                <label class="switch">
+                    <input type="checkbox" [(ngModel)]="registrationExpanded">
+                    <span class="slider round"></span>
+                </label>
+            </span>
         </div>
     </div>
     <div *ngIf="registrationExpanded" class="expanded-register-wrapper d-flex flex-column align-items-flex-start">
