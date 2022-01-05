@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +20,18 @@ public class ConfigController {
     @Autowired
     public ConfigController(ConfigService configService){
         this.configService = configService;
+    }
+
+    @GetMapping(value = "/loyalty")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<LoyaltyConfig>> getLoyaltyConfig(){
+        return new ResponseEntity<>(configService.getLoyaltyConfig(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/global")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<GlobalConfig> getGlobalConfig(){
+        return new ResponseEntity<>(configService.getGlobalConfig(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/loyalty/{id}")

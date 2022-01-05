@@ -8,6 +8,7 @@ import com.fishbook.system.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,16 @@ public class ConfigServiceImpl implements ConfigService {
     public ConfigServiceImpl(LoyaltyConfigRepository loyaltyConfigRepository, GlobalConfigRepository globalConfigRepository){
         this.loyaltyConfigRepository = loyaltyConfigRepository;
         this.globalConfigRepository = globalConfigRepository;
+    }
+
+    @Override
+    public List<LoyaltyConfig> getLoyaltyConfig() {
+        return loyaltyConfigRepository.findAll();
+    }
+
+    @Override
+    public GlobalConfig getGlobalConfig() {
+        return globalConfigRepository.findAll().stream().findFirst().orElse(new GlobalConfig());
     }
 
     @Override
