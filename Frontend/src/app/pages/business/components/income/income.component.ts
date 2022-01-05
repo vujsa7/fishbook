@@ -24,7 +24,14 @@ export class IncomeComponent implements OnInit {
   }
 
   updateGlobalConfig(): void {
-    this.configService.updateGlobalConfig(this.globalConfig).subscribe();
+    this.configService.getGlobalConfig().subscribe(
+      data => {
+        let config = data;
+        this.globalConfig.buyerPointsPerReservation = config.buyerPointsPerReservation;
+        this.globalConfig.sellerPointsPerReservation = config.sellerPointsPerReservation;
+        this.configService.updateGlobalConfig(this.globalConfig).subscribe();
+      })
+    
     this.isBtnDisabled = true;
   }
 }
