@@ -8,4 +8,5 @@ import java.util.List;
 public interface LocationService {
     List<Country> getAllCountries();
     List<City> getAllCities();
+    City findCityByName(String name);
 }

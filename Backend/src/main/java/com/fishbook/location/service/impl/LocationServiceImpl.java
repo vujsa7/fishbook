@@ -33,4 +33,9 @@ public class LocationServiceImpl implements LocationService {
     public List<City> getAllCities(){
         return cityRepository.findAll();
     }
+
+    @Override
+    public City findCityByName(String name) {
+        return cityRepository.findByName(name);
+    }
 }

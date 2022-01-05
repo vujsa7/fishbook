@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name = "addressId")
     private Address address;
 

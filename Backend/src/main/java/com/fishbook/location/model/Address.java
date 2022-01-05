@@ -11,7 +11,7 @@ public class Address {
     @Column(nullable = false)
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cityId")
     private City city;
 
@@ -21,9 +21,11 @@ public class Address {
     public Address() {
     }
 
-    public Address(String address, City city) {
+    public Address(String address, City city, Double longitude, Double latitude) {
         this.address = address;
         this.city = city;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public Long getId() {

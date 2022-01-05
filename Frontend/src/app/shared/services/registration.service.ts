@@ -17,8 +17,8 @@ export class RegistrationService {
 
   constructor(private http: HttpClient) { }
 
-  postClient(client: RegistrationRequest): Observable<RegistrationRequest>{
-      return this.http.post<RegistrationRequest>(this.baseUrl + 'user', client);
+  postClient(client: Object): Observable<RegistrationRequest>{
+      return this.http.post<RegistrationRequest>(this.baseUrl + 'users', client);
   }
 
   postRegistrationRequest(seller: RegistrationRequest): Observable<RegistrationRequest> {

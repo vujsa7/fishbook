@@ -50,10 +50,11 @@
                             </div>
                         </div>
                         <div class="form-fields d-flex flex-row">
-                            <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['required'])}">
+                            <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.email.touched && registrationForm.controls.email.errors)}">
                                 <label for="email" class="input-label">Email address</label>
                                 <input id="email" type="text" formControlName="email" name="email">
                                 <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['required']">Email address cannot be empty.</span>
+                                <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['email']">You must enter valid email address.</span>
                             </div>
                             <div class="input-container second" [ngClass]="{'input-container-error' : (registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required'])}">
                                 <label for="phone" class="input-label">Phone number</label>
@@ -61,16 +62,16 @@
                                 <span class="error-message" *ngIf="registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required']">Phone number cannot be empty.</span>
                             </div>
                         </div>
-                        <div class="form-fields d-flex flex-row">
-                            <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.password.touched && registrationForm.controls.password.errors?.['required'])}">
+                        <div class="form-fields d-flex flex-row" formGroupName="passwords">
+                            <div class="input-container first" [ngClass]="{'input-container-error' : (getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required'])}">
                                 <label for="password" class="input-label">Password</label>
                                 <input id="password" type="password" formControlName="password" name="password">
-                                <span class="error-message" *ngIf="registrationForm.controls.password.touched && registrationForm.controls.password.errors?.['required']">Password cannot be empty.</span>
+                                <span class="error-message" *ngIf="getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required']">Password cannot be empty.</span>
                             </div>
-                            <div class="input-container second" [ngClass]="{'input-container-error' : (registrationForm.controls.confirmPassword.touched && registrationForm.controls.confirmPassword.errors?.['required'])}">
+                            <div class="input-container second" [ngClass]="{'input-container-error' : getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || registrationForm.controls.passwords.errors?.noMatch)}">
                                 <label for="confirm-password" class="input-label">Confirm password</label>
                                 <input id="confirm-password" type="password" formControlName="confirmPassword" name="confirm-password">
-                                <span class="error-message" *ngIf="registrationForm.controls.confirmPassword.touched && registrationForm.controls.confirmPassword.errors?.['required']">You must confirm your password.</span>
+                                <span class="error-message" *ngIf="getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || registrationForm.controls.passwords.errors?.noMatch)">{{confirmPasswordErrorMessage()}}</span>
                             </div>
                         </div>
                     </div>
