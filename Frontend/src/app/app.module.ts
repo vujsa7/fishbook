@@ -24,6 +24,8 @@ import { ServicesComponent } from './pages/services/services.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MessageDialogComponent } from './shared/components/message-dialog/message-dialog.component';
 import { HeaderComponent } from './shared/components/navbar/header.component';
+import { NewBoatComponent } from './pages/new-boat/new-boat.component';
+import { GeneralComponent } from './pages/new-boat/general/general/general.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { HeaderComponent } from './shared/components/navbar/header.component';
     ReportsComponent,
     ServicesComponent,
     MessageDialogComponent,
-    HeaderComponent
+    HeaderComponent,
+    NewBoatComponent,
+    GeneralComponent
   ],
   imports: [
     BrowserModule,

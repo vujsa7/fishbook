@@ -1,0 +1,11 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row wrapper">
+        <div class="container">
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'general' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('general')">General</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'specifications' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('specifications')">Boat specifications</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'pricing' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('pricing')">Pricing</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'gallery' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('gallery')">Gallery</button>
+        </div>
+    </div>
+    <app-general [style.display]=" selectedButton=='general' ? 'block' : 'none'"></app-general>
+</div>

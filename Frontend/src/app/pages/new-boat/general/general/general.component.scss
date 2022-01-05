@@ -1,0 +1,47 @@
+@import 'src/styles/main.scss';
+
+.form-wrapper{
+    margin-top: 47px;
+    height: 100vh;
+    width: 100vw;
+}
+
+    .next-btn{
+        width: 33.12vw;
+        padding-bottom: 10px;
+    }
+
+    .checkbox-text{
+        color: color(darkgrey);
+    }
+
+    .form-fields{
+        margin-bottom: 20px;
+        width: 33.12vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .maxchar{
+            display: inline-block;
+            align-self: flex-end;
+            color: color(darkgrey);
+        }
+
+        .input-container{
+            width: 100%;
+        }
+
+        .description{
+            padding-top: 25px;
+            height: 192px;
+        }
+
+        .checkbox-label{
+            color: color(blue);
+            margin-left: 5px;
+        }
+
+        .checkbox-title{
+            margin-top: 10px;
+        }

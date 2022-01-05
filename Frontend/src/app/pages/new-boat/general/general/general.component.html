@@ -1,0 +1,72 @@
+<div class="form-wrapper d-flex flex-column align-items-center">
+    <form>
+        <div class="form-fields">
+            <div class="input-container">
+                <label for="boatName" class="input-label">Boat name</label>
+                <input id="boatName" type="text" name="boatName">
+            </div>
+            <span class="maxchar">0/40max</span>
+        </div>
+        <div class="form-fields">
+            <div class="input-container description">
+                <label for="description" class="input-label">Description</label>
+                <textarea id="description" maxLength="200"></textarea>
+            </div>
+            <span class="maxchar">0/200max</span>
+        </div>
+        <div class="form-fields">
+            <div class="input-container">
+                <label for="street" class="input-label">Street and number</label>
+                <input id="street" type="text" name="street">
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="input-container w-50 me-2">
+                <label for="city" class="input-label">City</label>
+                <input id="city" type="text" name="city">
+            </div>
+            <div class="input-container w-50 ms-2">
+                <label for="state" class="input-label">State</label>
+                <input id="state" type="text" name="country">
+            </div>
+        </div>
+        <span class="checkbox-text">Choose which rules are applied when renting</span>
+        <div class="form-fields checkbox-title d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="smoking" type="checkbox" name="smoking">
+                <label for="smoking" class="checkbox-label">No smoking</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="trash" type="checkbox" name="trash">
+                <label for="trash" class="checkbox-label">No trash in water</label>
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="otherBoats" type="checkbox" name="otherBoats">
+                <label for="otherBoats" class="checkbox-label">Be cautious of other boaters</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="restrictedAreas" type="checkbox" name="restrictedAreas">
+                <label for="restrictedAreas" class="checkbox-label">Avoid restricted areas</label>
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="lookout" type="checkbox" name="lookout">
+                <label for="lookout" class="checkbox-label">Always have a lookout</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="waterShallow" type="checkbox" name="waterShallow">
+                <label for="waterShallow" class="checkbox-label">Don’t go into shallow waters</label>
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="speedLimit" type="checkbox" name="speedLimit">
+                <label for="speedLimit" class="checkbox-label">Don’t go too fast</label>
+            </div>
+        </div>
+    </form>
+    <app-primary-button [text]="'Next'" class="next-btn"></app-primary-button>
+</div>
