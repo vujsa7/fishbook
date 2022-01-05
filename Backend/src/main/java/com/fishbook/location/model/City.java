@@ -14,17 +14,15 @@ public class City {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "countryId")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id")
     private Country country;
 
-    public City() {
-    }
+    public City() {}
 
-    public City(String postalCode, String name, Country country) {
+    public City(String postalCode, String name) {
         this.postalCode = postalCode;
         this.name = name;
-        this.country = country;
     }
 
     public Long getId() {

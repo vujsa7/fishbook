@@ -69,7 +69,7 @@ h5 {
         height: 100%;
         border: none;
         outline: none;
-
+        background-color: transparent;
 
         &:focus{
             box-shadow: none;
@@ -87,7 +87,8 @@ h5 {
         width: 100%;
         box-shadow: none;
         border: none;
-
+        background-color: transparent;
+        
         &:focus{
             box-shadow: none;
             border: none;

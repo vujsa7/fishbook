@@ -54,22 +54,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(RegistrationRequest request) {
-        Country country = countryRepository.findByName(request.getCountry());
-        if(country == null){
-            country = new Country(request.getCountry().substring(0, 2), request.getCountry());
-            countryRepository.save(country);
-        }
-        City city = cityRepository.findByName(request.getCity());
-        if(city == null){
-            city = new City("postalCode", request.getCity(), country);
-            cityRepository.save(city);
-        }
-        Address address = new Address(request.getAddress(), city);
-        addressRepository.save(address);
-        Role role = roleRepository.findByName(request.getRegistrationType());
-
-        User user = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), request.getPhoneNumber(), address, role);
-        return userRepository.save(user);
+//        Country country = countryRepository.findByName(request.getCountry());
+//        if(country == null){
+//            country = new Country(request.getCountry().substring(0, 2), request.getCountry());
+//            countryRepository.save(country);
+//        }
+//        City city = cityRepository.findByName(request.getCity());
+//        if(city == null){
+//            city = new City("postalCode", request.getCity(), country);
+//            cityRepository.save(city);
+//        }
+//        Address address = new Address(request.getAddress(), city);
+//        addressRepository.save(address);
+//        Role role = roleRepository.findByName(request.getRegistrationType());
+//
+//        User user = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), request.getPhoneNumber(), address, role);
+        return null;
     }
 
     @Override

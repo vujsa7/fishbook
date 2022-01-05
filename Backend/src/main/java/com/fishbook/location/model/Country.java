@@ -3,6 +3,7 @@ package com.fishbook.location.model;
 import javax.persistence.*;
 import java.util.Set;
 
+
 @Entity
 public class Country {
     @Id
@@ -15,11 +16,10 @@ public class Country {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<City> cities;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "country")
+//    private Set<City> cities;
 
-    public Country() {
-    }
+    public Country() {}
 
     public Country(String code, String name) {
         this.code = code;
@@ -38,9 +38,9 @@ public class Country {
         this.name = name;
     }
 
-    public void setCities(Set<City> cities) {
-        this.cities = cities;
-    }
+//    public void setCities(Set<City> cities) {
+//        this.cities = cities;
+//    }
 
     public Long getId() {
         return id;
@@ -54,7 +54,7 @@ public class Country {
         return name;
     }
 
-    public Set<City> getCities() {
-        return cities;
-    }
+//    public Set<City> getCities() {
+//        return cities;
+//    }
 }
