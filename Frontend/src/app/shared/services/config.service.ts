@@ -12,7 +12,7 @@ export class ConfigService {
   private baseUrl: string = environment.baseUrl;
   // For testing 
   private header = new HttpHeaders()
-      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzgzOTA2LCJleHAiOjE2NDEzODU3MDZ9.LwcTc_QEmygKEMLNKy8MZzoeoVXDLQJrsnCGH9esGpjUo-d4MzCf_RKW2yF2Kbwdwp-NP27b3jobilby4vqi7w`)
+      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzk1MDMwLCJleHAiOjE2NDEzOTY4MzB9.w-SgCwQKRVNyLeaSP7gA5rsHhpCDjoCoA0skQBlQWieSomSoEXs_obUkIVDqSsQjAcBGggNmtCKOclMcjh-LWQ`)
       .set('Content-Type', 'application/json')
   
   constructor(private http: HttpClient) { }
