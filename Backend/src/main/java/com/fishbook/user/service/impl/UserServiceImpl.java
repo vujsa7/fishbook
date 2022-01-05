@@ -23,16 +23,14 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final CountryRepository countryRepository;
     private final AddressRepository addressRepository;
     private final CityRepository cityRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, CountryRepository countryRepository,
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
                            CityRepository cityRepository, AddressRepository addressRepository){
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.addressRepository = addressRepository;
     }
@@ -54,23 +52,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(RegistrationRequest request) {
-        // TODO: Remove this method completely and use save(User user) method and insert user conversion in Controller
-        Country country = countryRepository.findByName(request.getCountry());
-        if(country == null){
-            country = new Country(request.getCountry().substring(0, 2), request.getCountry());
-            countryRepository.save(country);
-        }
         City city = cityRepository.findByName(request.getCity());
-        if(city == null){
-            city = new City("postalCode", request.getCity());
-            cityRepository.save(city);
-        }
         Address address = new Address(request.getAddress(), city, 0.0, 0.0);
         addressRepository.save(address);
         Role role = roleRepository.findByName(request.getRegistrationType());
 
         User user = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), request.getPhoneNumber(), address, role);
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
