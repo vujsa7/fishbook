@@ -1,0 +1,132 @@
+<div class="form-wrapper d-flex flex-column align-items-center">
+    <form>
+        <div class="form-fields">
+            <div class="input-container">
+                <label for="boatType" class="input-label">Boat type</label>
+                <select id="boatType" name='boatType'>
+                    <option style="display:none"></option>
+                    <option [ngValue]="5">Fast</option>
+                    <option [ngValue]="10">Very fast</option>
+                    <option [ngValue]="150">I am speed</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-fields">
+            <div class="input-container">
+                <label for="maxPeople" class="input-label">Maximum people</label>
+                <input id="maxPeople" type="text" name="maxPeople">
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="input-container w-50 me-2">
+                <label for="length" class="input-label">Length</label>
+                <div class="d-flex flex-row">
+                    <input id="length" type="text" name="length">
+                    <span class="measurment">m</span>
+                </div>
+            </div>
+            <div class="input-container w-50 ms-2">
+                <label for="loadCapacity" class="input-label">Load capacity</label>
+                <div class="d-flex flex-row">
+                    <input id="loadCapacity" type="text" name="loadCapacity">
+                    <span class="measurment">kg</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="input-container w-50 me-2">
+                <label for="maxSpeed" class="input-label">Maximum speed</label>
+                <div class="d-flex flex-row">
+                    <input id="maxSpeed" type="text" name="maxSpeed">
+                    <span class="measurment">km/h</span>
+                </div>
+            </div>
+            <div class="input-container w-50 ms-2">
+                <label for="horsepower" class="input-label">Horsepower</label>
+                <input id="horsepower" type="text" name="horsepower">
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="input-container w-50 me-2">
+                <label for="motorsOnBoat" class="input-label">Motors on boat</label>
+                <input id="motorsOnBoat" type="text" name="motorsOnBoat">
+            </div>
+            <div class="input-container w-50 ms-2">
+                <label for="fuelConsumption" class="input-label">Fuel consumption</label>
+                <div class="d-flex flex-row">
+                    <input id="fuelConsumption" type="text" name="fuelConsumption">
+                    <span class="measurment">l/h</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="input-container w-50 me-2">
+                <label for="maxDistance" class="input-label">Max distance on tank</label>
+                <div class="d-flex flex-row">
+                    <input id="maxDistance" type="text" name="maxDistance">
+                    <span class="measurment">km</span>
+                </div>
+            </div>
+            <div class="input-container w-50 ms-2">
+                <label for="en  ergyConsumption" class="input-label">Energy consumption</label>
+                <div class="d-flex flex-row">
+                    <input id="energyConsumption" type="text" name="energyConsumption">
+                    <span class="measurment">W/h</span>
+                </div>
+            </div>
+        </div>
+        <span class="checkbox-text">Choose navigational equipment</span>
+        <div class="form-fields checkbox-title d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="gps" type="checkbox" name="gps">
+                <label for="gps" class="checkbox-label">GPS System</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="vhf" type="checkbox" name="vhf">
+                <label for="vhf" class="checkbox-label">VHF</label>
+            </div>
+        </div>
+        <div class="form-fields d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="radar" type="checkbox" name="radar">
+                <label for="radar" class="checkbox-label">Marine Radar</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="fishfinder" type="checkbox" name="fishfinder">
+                <label for="fishfinder" class="checkbox-label">Fishfinder</label>
+            </div>
+        </div>
+        <span class="checkbox-text">Choose fishing equipment</span>
+        <div class="form-fields checkbox-title d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="rod" type="checkbox" name="rod">
+                <label for="rod" class="checkbox-label">Fishing Rod</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="net" type="checkbox" name="net">
+                <label for="net" class="checkbox-label">Fishing net</label>
+            </div>
+        </div>
+        <div class="form-fields checkbox-title d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="lures" type="checkbox" name="lures">
+                <label for="lures" class="checkbox-label">Lures</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="gloves" type="checkbox" name="gloves">
+                <label for="gloves" class="checkbox-label">Gloves</label>
+            </div>
+        </div>
+        <div class="form-fields checkbox-title d-flex flex-row">
+            <div class="w-50 me-2">
+                <input id="fridge" type="checkbox" name="fridge">
+                <label for="fridge" class="checkbox-label">Fridge</label>
+            </div>
+            <div class="w-50 ms-2">
+                <input id="knifes" type="checkbox" name="knifes">
+                <label for="knifes" class="checkbox-label">Knifes</label>
+            </div>
+        </div>
+    </form>
+    <app-primary-button [text]="'Next'" class="next-btn"></app-primary-button>
+</div>

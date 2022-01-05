@@ -25,7 +25,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { MessageDialogComponent } from './shared/components/message-dialog/message-dialog.component';
 import { HeaderComponent } from './shared/components/navbar/header.component';
 import { NewBoatComponent } from './pages/new-boat/new-boat.component';
-import { GeneralComponent } from './pages/new-boat/general/general/general.component';
+import { GeneralComponent } from './pages/new-boat/general/general.component';
+import { BoatSpecComponent } from './pages/new-boat/boat-spec/boat-spec.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { GeneralComponent } from './pages/new-boat/general/general/general.compo
     MessageDialogComponent,
     HeaderComponent,
     NewBoatComponent,
-    GeneralComponent
+    GeneralComponent,
+    BoatSpecComponent
   ],
   imports: [
     BrowserModule,
