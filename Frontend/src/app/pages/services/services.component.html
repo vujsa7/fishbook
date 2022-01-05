@@ -1,0 +1,9 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row wrapper">
+        <div class="container">
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'boats' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('boats')">Boats</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'houses' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('houses')">Houses</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'adventures' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('adventures')">Adventures</button>
+        </div>
+    </div>
+</div>

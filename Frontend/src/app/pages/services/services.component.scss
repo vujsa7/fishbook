@@ -1,0 +1,29 @@
+@import 'src/styles/main.scss';
+
+.wrapper{
+    border: 1px solid color(lightgrey);
+}
+
+    .btn{
+        margin-right: 10px;
+    }
+
+        .btn-unselected{
+            color: color(darkgrey);
+        }
+
+        .toolbar-btn{
+            color: color(lightblue);
+            font-weight: bold;
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+            .toolbar-btn:after{
+                content: "";
+                display: block;
+                margin: 0 auto;
+                width: 25%; 
+                padding-top: 5px;
+                border-bottom: 2px solid color(lightblue);
+            }

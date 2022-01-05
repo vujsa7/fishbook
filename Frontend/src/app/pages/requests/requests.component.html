@@ -1,0 +1,12 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row wrapper">
+        <div class="container">
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'registration-requests' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('registration-requests')">Registration requests</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'delete-requests' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('delete-requests')">Delete requests</button>
+        </div>
+    </div>
+    <app-registration-requests #registrationRequests (notifyHideDialog)="hideDialog()" (notifyShowDialog)="showDialog()"></app-registration-requests>
+    <div class="backdrop d-flex align-items-center justify-content-center" *ngIf="dialogVisible">
+        <app-confirmation-dialog [requestId]='registrationRequests.requestId' [header]='registrationRequests.header' class="form-container" (notifyHideDialog)="hideDialog()" (notifyRemoveRequest)="registrationRequests.removeRequest()"></app-confirmation-dialog>
+    </div>
+</div>

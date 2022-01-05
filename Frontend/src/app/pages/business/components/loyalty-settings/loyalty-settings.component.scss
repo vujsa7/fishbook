@@ -1,0 +1,22 @@
+@import 'src/styles/main.scss';
+
+.title{
+    color: color(darkgrey);
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: $h5-size;
+}
+
+.form-fields{
+    margin-bottom: 20px;
+}
+
+    .first{
+        margin-right: 15px;
+        width: 100%;
+    }
+
+    .second{
+        margin-left: 15px;
+        width: 100%;
+    }

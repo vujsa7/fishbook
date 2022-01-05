@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'registrationType'
+  name: 'userType'
 })
-export class RegistrationTypePipe implements PipeTransform {
+export class UserTypePipe implements PipeTransform {
 
   transform(value: string): string {
     if(value == 'ROLE_BOAT_OWNER'){
