@@ -14,11 +14,10 @@ export class RegistrationService {
       .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzA2MjI4LCJleHAiOjE2NDEzMDgwMjh9.YeOpO8n6XIXjINTXOVbPAjjzJQxWVpki8Dgl8zI-rTYzeOd27aqEFjgAhDXB0HbwPpn28Du8CBs65NE8Snkzfw`)
       .set('Content-Type', 'application/json')
   
-
   constructor(private http: HttpClient) { }
 
-  postClient(client: Object): Observable<RegistrationRequest>{
-      return this.http.post<RegistrationRequest>(this.baseUrl + 'users', client);
+  postClient(client: Object): Observable<any>{
+      return this.http.post<any>(this.baseUrl + 'users', client);
   }
 
   postRegistrationRequest(seller: RegistrationRequest): Observable<RegistrationRequest> {
