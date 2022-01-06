@@ -23,6 +23,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MessageDialogComponent } from './shared/components/message-dialog/message-dialog.component';
+import { HeaderComponent } from './shared/components/navbar/header.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MessageDialogComponent } from './shared/components/message-dialog/messa
     UsersComponent,
     ReportsComponent,
     ServicesComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
