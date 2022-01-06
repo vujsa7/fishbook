@@ -20,7 +20,7 @@ export class RegistrationService {
       return this.http.post<any>(this.baseUrl + 'users', client);
   }
 
-  postRegistrationRequest(seller: RegistrationRequest): Observable<RegistrationRequest> {
+  postRegistrationRequest(seller: Object): Observable<RegistrationRequest> {
     return this.http.post<RegistrationRequest>(this.baseUrl + 'registrationRequests', seller);
   }
 

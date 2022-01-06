@@ -1,3 +1,4 @@
+<app-message-dialog [hidden]="!isMessageDialogVisible" [title]="messageDialogTitle" [message]="messageDialogMessage" [buttonText]="messageDialogButtonText" (notify)="onMessageDialogNotify($event)"></app-message-dialog>
 <div class="register-page d-flex flex-row">
     <img src="assets/images/register.jpg" alt="Join us today!" class="register-image">
     <app-glass-container [class.glass-container-expanded]="registrationForSeller" class="glass-container"></app-glass-container>
