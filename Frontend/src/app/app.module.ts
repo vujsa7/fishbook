@@ -21,6 +21,8 @@ import { IncomeComponent } from './pages/business/components/income/income.compo
 import { UsersComponent } from './pages/users/users.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ServicesComponent } from './pages/services/services.component';
+import { LoginComponent } from './pages/login/login.component';
+import { MessageDialogComponent } from './shared/components/message-dialog/message-dialog.component';
 
 
 @NgModule({
@@ -32,6 +34,7 @@ import { ServicesComponent } from './pages/services/services.component';
     HomeComponent,
     RegisterComponent,
     GlassContainerComponent,
+    LoginComponent,
     ConfirmationDialogComponent,
     SecondaryButtonComponent,
     RequestsComponent,
@@ -41,7 +44,8 @@ import { ServicesComponent } from './pages/services/services.component';
     IncomeComponent,
     UsersComponent,
     ReportsComponent,
-    ServicesComponent
+    ServicesComponent,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,

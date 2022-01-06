@@ -22,10 +22,9 @@
 }
 
 .back-to-website{
+    min-height: 20px;
     color: color(blue);
-    position: absolute;
-    top: 40px;
-    left: $grid-margin-width;
+    margin: 40px $grid-margin-width 0;
     &:hover{
         cursor: pointer;
     }
@@ -40,7 +39,6 @@
 
 .register-wrapper{
     margin-left: $grid-margin-width;
-    height: 100vh;
 }
 
         h4{
