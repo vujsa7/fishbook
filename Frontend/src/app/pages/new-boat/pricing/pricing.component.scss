@@ -9,9 +9,28 @@
     .next-btn{
         width: 33.12vw;
         padding-bottom: 10px;
+        padding-top: 30px;
     }
 
-    .checkbox-text{
+    .add-service-btn{
+        justify-content: center;
+        align-items: center;
+        height: 38px;
+        background-color: color(lightgrey);
+        border-radius: 7px;
+        transition: 0.4s all ease-in-out;
+
+        &:active{
+            box-shadow: none !important;
+            color: color(darkgrey);
+        }
+
+        &:hover{
+            background-color: rgb(229, 229, 229);
+        }
+    }
+
+    .add-service-text{
         color: color(darkgrey);
     }
 
@@ -21,7 +40,7 @@
         display: flex;
         flex-direction: column;
     }
-
+        
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -33,16 +52,4 @@
             align-self: flex-end;
             color: color(darkgrey);
         }
-
-        .input-container{
-            width: 100%;
-        }
-
-        .checkbox-label{
-            color: color(blue);
-            margin-left: 5px;
-        }
-
-        .checkbox-title{
-            margin-top: 10px;
-        }
+        

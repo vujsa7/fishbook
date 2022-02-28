@@ -27,6 +27,7 @@ import { HeaderComponent } from './shared/components/navbar/header.component';
 import { NewBoatComponent } from './pages/new-boat/new-boat.component';
 import { GeneralComponent } from './pages/new-boat/general/general.component';
 import { BoatSpecComponent } from './pages/new-boat/boat-spec/boat-spec.component';
+import { PricingComponent } from './pages/new-boat/pricing/pricing.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { BoatSpecComponent } from './pages/new-boat/boat-spec/boat-spec.componen
     HeaderComponent,
     NewBoatComponent,
     GeneralComponent,
-    BoatSpecComponent
+    BoatSpecComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,
