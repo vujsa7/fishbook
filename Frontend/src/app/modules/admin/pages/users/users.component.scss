@@ -1,8 +1,12 @@
 @import 'src/styles/main.scss';
 
 .wrapper{
-    border: 1px solid color(lightgrey);
+    border-bottom: 1px solid color(lightgrey);
 }
+
+    .toolbar{
+        margin-left: $grid-margin-width;
+    }
 
     .btn{
         margin-right: 10px;
@@ -23,7 +27,7 @@
                 content: "";
                 display: block;
                 margin: 0 auto;
-                width: 25%; 
+                width: 30px; 
                 padding-top: 5px;
                 border-bottom: 2px solid color(lightblue);
             }

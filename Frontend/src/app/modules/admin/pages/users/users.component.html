@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
     <div class="d-flex flex-row wrapper">
-        <div class="container">
+        <div class="toolbar">
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'users' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('users')">Customers</button>
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'boatOwners' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('boatOwners')">Boat owners</button>
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'houseOwners' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('houseOwners')">House owners</button>
