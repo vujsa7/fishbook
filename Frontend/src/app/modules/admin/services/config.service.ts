@@ -10,8 +10,7 @@ import { AuthService } from '../../../shared/services/auth.service';
   providedIn: 'root'
 })
 export class ConfigService {
-  private baseUrl: string = environment.baseUrl;
-  // For testing 
+  private baseUrl: string = environment.baseUrl; 
   private header: HttpHeaders;
   
   constructor(private http: HttpClient, private authService: AuthService) {
