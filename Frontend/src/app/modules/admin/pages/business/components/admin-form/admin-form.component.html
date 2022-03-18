@@ -1,49 +1,63 @@
 <div class="d-flex flex-column fb-container">
     <div class="title">New admin account</div>
-    <form class="d-flex flex-column">
+    <form class="d-flex flex-column" [formGroup]="registrationForm">
         <div class="d-flex flex-row form-fields">
-            <div class="input-container first">
+            <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.email.touched && registrationForm.controls.email.errors)}">
                 <label for="email" class="input-label">Email address</label>
-                <input id="email" type="text" name="email">
+                <input id="email" type="text" name="email" formControlName="email">
+                <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['required']">Email address cannot be empty.</span>
+                <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['email']">You must enter valid email address.</span>
             </div>
-            <div class="input-container second">
+            <div class="input-container second" [ngClass]="{'input-container-error' : (registrationForm.controls.password.touched && registrationForm.controls.password.errors?.['required'])}">
                 <label for="password" class="input-label">Password</label>
-                <input id="password" type="password" name="password">
+                <input id="password" type="password" name="password" formControlName="password">
+                <span class="error-message" *ngIf="registrationForm.controls.password.touched && registrationForm.controls.password.errors?.['required']">Password cannot be empty.</span>
             </div>
         </div>
         <div class="d-flex flex-row form-fields">
-            <div class="input-container first">
+            <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.firstName.touched && registrationForm.controls.firstName.errors?.['required'])}">
                 <label for="firstName" class="input-label">First name</label>
-                <input id="firstName" type="text" name="firstName">
+                <input id="firstName" type="text" name="firstName" formControlName="firstName">
+                <span class="error-message" *ngIf="registrationForm.controls.firstName.touched && registrationForm.controls.firstName.errors?.['required']">First name cannot be empty.</span>
             </div>
-            <div class="input-container second">
+            <div class="input-container second" [ngClass]="{'input-container-error' : (registrationForm.controls.lastName.touched && registrationForm.controls.lastName.errors?.['required'])}">
                 <label for="lastName" class="input-label">Last name</label>
-                <input id="lastName" type="text" name="lastName">
+                <input id="lastName" type="text" name="lastName" formControlName="lastName">
+                <span class="error-message" *ngIf="registrationForm.controls.lastName.touched && registrationForm.controls.lastName.errors?.['required']">Last name cannot be empty.</span>
             </div>
         </div>
-        <div class="d-flex flex-row form-fields">
-            <div class="input-container first">
-                <label for="street" class="input-label">Street and number</label>
-                <input id="street" type="text" name="street">
+        <div class="form-fields w-100 d-flex flex-row">
+            <div class="w-50 first">
+                <div class="input-container" [ngClass]="{'input-container-error' : (registrationForm.controls.address.touched && registrationForm.controls.address.errors?.['required'])}">
+                    <label for="address" class="input-label">Street and number</label>
+                    <input id="address" type="text" name="address" formControlName="address">
+                    <span class="error-message" *ngIf="registrationForm.controls.address.touched && registrationForm.controls.address.errors?.['required']">Address cannot be empty.</span>
+                </div>
             </div>
-            <div class="d-flex flex-row second">
-                <div class="input-container first">
+            <div class="d-flex flex-row w-50 second">
+                <div class="input-container me-2 w-50" [ngClass]="{'input-container-error' : (registrationForm.controls.country.touched && registrationForm.controls.country.errors?.['required'])}">
+                    <label for="country" class="input-label">Country</label>
+                    <select id="country" name='country' formControlName="country" (change)="onCountryChanged()">
+                        <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+                    </select>
+                    <span class="error-message" *ngIf="registrationForm.controls.country.touched && registrationForm.controls.country.errors?.['required']">Select country.</span>
+                </div>
+                <div class="input-container ms-2 w-50" [ngClass]="{'input-container-error' : (registrationForm.controls.city.touched && registrationForm.controls.city.errors?.['required'])}">
                     <label for="city" class="input-label">City</label>
-                    <input id="city" type="text" name="city">
-                </div>
-                <div class="input-container second">
-                    <label for="state" class="input-label">State</label>
-                    <input id="state" type="text" name="state">
+                    <select id="city" name='city' formControlName="city">
+                        <option *ngFor="let city of filteredCities" [value]="city.name">{{city.name}}</option>
+                    </select>
+                    <span class="error-message" *ngIf="registrationForm.controls.city.touched && registrationForm.controls.city.errors?.['required']">Select city.</span>
                 </div>
             </div>
         </div>
         <div class="d-flex flex-row form-fields">
-            <div class="input-container first">
+            <div class="input-container w-100" [ngClass]="{'input-container-error' : (registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required'])}">
                 <label for="phone" class="input-label">Phone number</label>
-                <input id="phone" type="text" name="phone">
+                <input id="phone" type="text" name="phone" formControlName="phoneNumber">
+                <span class="error-message" *ngIf="registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required']">Phone number cannot be empty.</span>
             </div>
-            <div class="second"></div>
         </div>
     </form>
-    <app-primary-button text="Create admin account" class="form-fields"></app-primary-button>
+    <app-primary-button text="Create admin account" class="form-fields" [isBtnDisabled]="!registrationForm.valid" (click)="onSubmit()"></app-primary-button>
 </div>
