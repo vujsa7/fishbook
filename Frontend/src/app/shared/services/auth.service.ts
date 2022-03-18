@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +33,22 @@ export class AuthService {
 
     getToken(): any {
         return localStorage.getItem('jwtToken');
+    }
+
+    getTokenRole(): any{
+        let decodedToken = this.getDecodedAccessToken(localStorage.getItem('jwtToken') || '');
+        if(decodedToken == null){
+            return 'ROLE_UNSIGNED';
+        }
+        return decodedToken.role;
+    }
+
+    getDecodedAccessToken(token: string): any {
+        try {
+            return jwt_decode(token);
+        } catch(Error) {
+            return null;
+        }
     }
 
 }
