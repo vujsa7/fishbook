@@ -43,6 +43,14 @@ export class AuthService {
         return decodedToken.role;
     }
 
+    getTokenUsername(): any{
+        let decodedToken = this.getDecodedAccessToken(localStorage.getItem('jwtToken') || '');
+        if(decodedToken == null){
+            return null;
+        }
+        return decodedToken.sub;
+    }
+
     getDecodedAccessToken(token: string): any {
         try {
             return jwt_decode(token);

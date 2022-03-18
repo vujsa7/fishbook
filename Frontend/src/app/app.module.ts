@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { PublicHeaderComponent } from './shared/layout/headers/public-header/public-header.component';
 import { ClientHeaderComponent } from './shared/layout/headers/client-header/client-header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
+import { AdminHeaderComponent } from './shared/layout/headers/admin-header/admin-header.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
     AppComponent,
     PublicHeaderComponent,
     ClientHeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AdminHeaderComponent
   ],
   imports: [
     BrowserModule,

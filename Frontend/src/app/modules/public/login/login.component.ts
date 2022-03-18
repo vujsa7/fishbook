@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         data => {
           this.authService.setToken(data.accessToken);
-          this.route.navigate(["/homepage"]);
+          if(this.authService.getTokenRole() == 'ROLE_ADMIN'){
+            this.navigateToAdminModule();
+          }else{
+            this.route.navigate(["/homepage"]);
+          }
         },
         error => {
           if(error.status == 401)
@@ -54,6 +58,21 @@ export class LoginComponent implements OnInit {
   onMessageDialogNotify(message: string): void{
     if(message == "close")
       this.isMessageDialogVisible = false;
+  }
+
+  navigateToAdminModule(): void {
+    let username = this.authService.getTokenUsername();
+
+    // this.passwordRenewalService.getPasswordRenewalMark(username).subscribe(
+    //   data => {
+    //     this.route.navigate(["/admin/password-renewal"]);
+    //   },
+    //   error => {
+    //     if(error.status == 404){
+    //       this.route.navigate(["/admin/business"]);
+    //     }
+    //   }
+    // );
   }
 
 }
