@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalConfig } from 'src/app/models/config/global-config.model';
-import { ConfigService } from 'src/app/shared/services/config.service';
+import { ConfigService } from 'src/app/modules/admin/services/config.service';
 
 @Component({
   selector: 'app-income',

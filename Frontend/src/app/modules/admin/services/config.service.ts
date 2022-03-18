@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GlobalConfig } from 'src/app/models/config/global-config.model';
 import { LoyaltyConfig } from 'src/app/models/config/loyalty-config.model';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ import { environment } from 'src/environments/environment';
 export class ConfigService {
   private baseUrl: string = environment.baseUrl;
   // For testing 
-  private header = new HttpHeaders()
-      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzk1MDMwLCJleHAiOjE2NDEzOTY4MzB9.w-SgCwQKRVNyLeaSP7gA5rsHhpCDjoCoA0skQBlQWieSomSoEXs_obUkIVDqSsQjAcBGggNmtCKOclMcjh-LWQ`)
-      .set('Content-Type', 'application/json')
+  private header: HttpHeaders;
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.header = authService.getHeader();
+   }
 
   getLoyaltyConfig(): Observable<LoyaltyConfig[]> {
     return this.http.get<LoyaltyConfig[]>(this.baseUrl + 'config/loyalty', {headers: this.header});

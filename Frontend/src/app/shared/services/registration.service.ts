@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegistrationRequest } from 'src/app/models/registration/registration-request.model';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
   private baseUrl: string = environment.baseUrl;
-  // For testing 
-  private header = new HttpHeaders()
-      .set('Authorization',  `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJmaXNoYm9vayIsInN1YiI6Im5pa2lAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQxMzA2MjI4LCJleHAiOjE2NDEzMDgwMjh9.YeOpO8n6XIXjINTXOVbPAjjzJQxWVpki8Dgl8zI-rTYzeOd27aqEFjgAhDXB0HbwPpn28Du8CBs65NE8Snkzfw`)
-      .set('Content-Type', 'application/json')
+  private header: HttpHeaders;
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.header = authService.getHeader();
+   }
 
   postClient(client: Object): Observable<any>{
       return this.http.post<any>(this.baseUrl + 'users', client);

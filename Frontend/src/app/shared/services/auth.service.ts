@@ -25,8 +25,8 @@ export class AuthService {
         let token = localStorage.getItem('jwtToken');
         let header = new HttpHeaders().set('Content-Type', 'application/json');
         if(token != null){
-            header
-            .set('Authorization',  'Bearer' + localStorage.getItem('jwtToken'))
+            header = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Authorization',  'Bearer ' + localStorage.getItem('jwtToken'));
         }
         return header;
     }
