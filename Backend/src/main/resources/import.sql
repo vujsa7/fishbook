@@ -35,14 +35,23 @@ insert into city (postal_code, name, country_id) values ('10005', 'New York', 7)
 insert into city (postal_code, name, country_id) values ('10502', 'Ardsley', 7);
 insert into city (postal_code, name, country_id) values ('10506', 'Bedford', 7);
 
-insert into address (address, city_id, longitude, latitude) values ('Valley St ', 6, 34.06471951699135, -118.27002914663697)
+insert into address (address, city_id, longitude, latitude) values ('20 Cooper Square', 8, 34.06471951699135, -118.27002914663697)
+insert into address (address, city_id, longitude, latitude) values ('Long St 33', 2, 34.06471951699135, -118.27002914663697)
+insert into address (address, city_id, longitude, latitude) values ('Valley Street 1', 24, 34.06471951699135, -118.27002914663697)
+insert into address (address, city_id, longitude, latitude) values ('13th Street 3', 26, 34.06471951699135, -118.27002914663697)
+insert into address (address, city_id, longitude, latitude) values ('WallStreet 7', 28, 34.06471951699135, -118.27002914663697)
 
 insert into role (name) values ('ROLE_CLIENT')
 insert into role (name) values ('ROLE_BOAT_OWNER')
 insert into role (name) values ('ROLE_INSTRUCTOR')
 insert into role (name) values ('ROLE_HOUSE_OWNER')
 insert into role (name) values ('ROLE_ADMIN')
-insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Nikola', 'Nikolic', 'niki@gmail.com', '$2a$10$5lObVsz.nPpAxIUNInrYE.0qiwKMc1yFBYekTOqJ2sBhnYvmxOEv.', '12345', 1, 5, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Clementine', 'Charles', 'admin@gmail.com', '$2a$10$t5B4Vu20.u//zjDP2IU4kOR49tqzbUo9WRVQ50rV1Og3FxBsioG2C', '+1 (359) 824-2578', 1, 5, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Aphrodite', 'Sellers', 'boat-seller@gmail.com', '$2a$10$qonYFJh8vYljXXcoih76ke2fG8PMx1r18rdqpodqfgwMJR6njA3Xq', '+1 (655) 143-1354', 2, 2, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Ursa', 'Foster', 'house-seller@gmail.com', '$2a$10$CsCg4yGBinBwzr2KnOMftuBvERAwk86nnhMmOyhyb97rZpetWCQDK', '+1 (344) 589-9773', 3, 4, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Farrah', 'Wilkins', 'instructor-seller@gmail.com', '$2a$10$Rg7YmVRX6KoLBqtNRsonOO2bMcM4I/FxR80avrUuwWiB6Q7tbnthG', '+1 (109) 862-3819', 4, 3, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Alexander', 'Sparks', 'client@gmail.com', '$2a$10$l45eAw.KTerds3fxaaIKMuGssB5dTZ9GXb7hTiSShgN18faN/F1C.', '+1 (327) 206-3487', 5, 1, true, false);
+
 
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 100, 200, 0.5, 0.5)
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (1, 200, 200, 0.5, 0.5)
