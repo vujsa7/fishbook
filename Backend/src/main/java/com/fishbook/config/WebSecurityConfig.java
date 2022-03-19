@@ -66,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.POST, "/api/auth");
         web.ignoring().antMatchers(HttpMethod.POST, "/api/users");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/users");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/location/**");
         web.ignoring().antMatchers(HttpMethod.POST, "/api/registrationRequests");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico", "/**/*.html",

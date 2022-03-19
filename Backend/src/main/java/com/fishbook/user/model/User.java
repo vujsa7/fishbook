@@ -1,13 +1,12 @@
 package com.fishbook.user.model;
 
 import com.fishbook.location.model.Address;
+import com.fishbook.registration.model.VerificationCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "Users")
@@ -45,9 +44,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean isDeleted;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<VerificationCode> verificationCodes;
+
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role) {
+    public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role, Boolean isEnabled) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -55,8 +58,9 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.role = role;
-        this.isEnabled = true;
+        this.isEnabled = isEnabled;
         this.isDeleted = false;
+        this.verificationCodes = new HashSet<>();
     }
 
     public Long getId() {
@@ -137,6 +141,24 @@ public class User implements UserDetails {
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public Set<VerificationCode> getVerificationCodes() {
+        return verificationCodes;
+    }
+
+    public void setVerificationCodes(Set<VerificationCode> verificationCodes) {
+        this.verificationCodes = verificationCodes;
+    }
+
+    public void addVerificationCode(VerificationCode verificationCode){
+        this.verificationCodes.add(verificationCode);
+        verificationCode.setUser(this);
+    }
+
+    public void removeVerificationCode(VerificationCode verificationCode){
+        this.verificationCodes.remove(verificationCode);
+        verificationCode.setUser(null);
     }
 
     @Override

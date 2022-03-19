@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
         };
         this.registrationService.postRegistrationRequest(seller).subscribe(
           data => {
-            this.showMessageDialog("Waiting for admin approval", "Admin must first approve your request. Once your account is approved you will be norified by email.", "Okay");
+            this.showMessageDialog("Waiting for admin approval", "Admin must first approve your request. Once your account is approved you will be notified by email.", "Okay");
           },
           error => {
             // Implement error
@@ -127,23 +127,21 @@ export class RegisterComponent implements OnInit {
         };
         this.registrationService.postClient(user).subscribe(
           data => {
-            this.showMessageDialog("Check your email", "Thanks for signing up. To active your account, please verify your email address by checking your email inbox.", "Okay");
+            this.showMessageDialog("Check your email", "Thanks for signing up. To active your account, please verify your email address by following the link in the email.", "Okay");
           },
           error => {
             // Implement error
+            this.showMessageDialog("Email already exists", "Looks like there already is an account with that email. Try again with a different email.", "Okay");
           }
         );
       }
     }
-    
   }
 
   onCountryChanged() {
     this.filteredCities = this.cities.filter(c => c.country.name == this.registrationForm.get('country')?.value);
     this.registrationForm.controls.city.setValue('');
   }
-
-  
 
   showMessageDialog(title: string, message: string, buttonText: string) {
     this.messageDialogTitle = title;
@@ -155,7 +153,7 @@ export class RegisterComponent implements OnInit {
   onMessageDialogNotify(message: string): void{
     if(message == "close"){
       this.isMessageDialogVisible = false;
-      this.route.navigate(["/homepage"]);
+      this.route.navigate([""]);
     }
       
   }
