@@ -15,6 +15,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PasswordRenewalComponent } from './pages/password-renewal/password-renewal.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RequestsComponent,
     UsersComponent,
     ReportsComponent,
-    ServicesComponent
+    ServicesComponent,
+    PasswordRenewalComponent
   ],
   imports: [
     CommonModule,

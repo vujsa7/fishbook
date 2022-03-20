@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { PasswordRenewalService } from 'src/app/modules/admin/services/password-renewal.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   messageDialogButtonText: string = "";
   isMessageDialogVisible: boolean = false;
 
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(private authService: AuthService, private passwordRenewalService: PasswordRenewalService, private route: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -63,16 +64,18 @@ export class LoginComponent implements OnInit {
   navigateToAdminModule(): void {
     let username = this.authService.getTokenUsername();
 
-    // this.passwordRenewalService.getPasswordRenewalMark(username).subscribe(
-    //   data => {
-    //     this.route.navigate(["/admin/password-renewal"]);
-    //   },
-    //   error => {
-    //     if(error.status == 404){
-    //       this.route.navigate(["/admin/business"]);
-    //     }
-    //   }
-    // );
+    this.passwordRenewalService.getPasswordRenewalMark(username).subscribe(
+      data => {
+        this.route.navigate(["/admin/password-renewal"]);
+      },
+      error => {
+        if(error.status == 404){
+          this.route.navigate(["/admin/business"]).then(() => { 
+            window.location.reload();
+          });
+        }
+      }
+    );
   }
 
 }

@@ -57,12 +57,12 @@ export class AdminFormComponent implements OnInit {
       firstName: this.registrationForm.get("firstName")?.value,
       lastName: this.registrationForm.get("lastName")?.value,
       email: this.registrationForm.get("email")?.value,
-      address: this.registrationForm.get("address")?.value,
-      city: this.registrationForm.get("city")?.value,
-      country: this.registrationForm.get("country")?.value,
+      address: {
+        address: this.registrationForm.get("address")?.value,
+        city: this.cities.filter(c => c.name == this.registrationForm.get("city")?.value)[0]
+      },
       phoneNumber: this.registrationForm.get("phoneNumber")?.value,
-      password: this.registrationForm.get("password")?.value,
-      registrationType: 'ROLE_ADMIN'
+      password: this.registrationForm.get("password")?.value
     };
     this.adminService.postAdmin(newAdmin).subscribe(
       data => {

@@ -6,6 +6,8 @@ import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PasswordRenewalMarkServiceImpl implements PasswordRenewalMarkService {
     private final PasswordRenewalMarkRepository passwordRenewalMarkRepository;
@@ -24,4 +26,10 @@ public class PasswordRenewalMarkServiceImpl implements PasswordRenewalMarkServic
     public void unmarkUserForPasswordRenewal(String username) {
         passwordRenewalMarkRepository.deletePasswordRenewalMarkByUsername(username);
     }
+
+    @Override
+    public Optional<PasswordRenewalMark> findPasswordRenewalMark(String username) {
+        return passwordRenewalMarkRepository.findPasswordRenewalMarkByUsername(username);
+    }
+
 }

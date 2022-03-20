@@ -7,6 +7,7 @@ import com.fishbook.registration.service.VerificationCodeService;
 import com.fishbook.location.model.Address;
 import com.fishbook.location.model.City;
 import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
+import com.fishbook.user.dto.UserDto;
 import com.fishbook.user.dto.UserRegistrationDto;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -84,16 +85,14 @@ public class UserController {
 
     @PostMapping(value = "/admins", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity createAdmin(@RequestBody UserRegistrationDto userRegistrationDto){
-        if(userService.findByEmail(userRegistrationDto.getEmail()) != null){
-            return new ResponseEntity<>(userRegistrationDto, HttpStatus.UNPROCESSABLE_ENTITY);
+    public ResponseEntity createAdmin(@RequestBody UserDto userDto){
+        if(userService.findByEmail(userDto.getEmail()) != null){
+            return new ResponseEntity<>(userDto, HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        City city = locationService.findCityByName(userRegistrationDto.getCity());
-        Address address = new Address(userRegistrationDto.getAddress(), city, 0.0, 0.0);
 
-        User admin = new User(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                userRegistrationDto.getEmail(), passwordEncoder.encode(userRegistrationDto.getPassword()), userRegistrationDto.getPhoneNumber(),
-                address, roleService.findByName("ROLE_ADMIN"));
+        User admin = new User(userDto.getFirstName(), userDto.getLastName(),
+                userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()), userDto.getPhoneNumber(),
+                userDto.getAddress(), roleService.findByName("ROLE_ADMIN"));
 
         userService.save(admin);
         passwordRenewalMarkService.markUserForPasswordRenewal(admin.getUsername());
