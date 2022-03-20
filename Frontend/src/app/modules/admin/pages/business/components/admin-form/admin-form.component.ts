@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
+import { AdminService } from 'src/app/modules/admin/services/admin.service';
 import { LocationService } from 'src/app/shared/services/location.service';
-import { RegistrationService } from 'src/app/shared/services/registration.service';
 
 @Component({
   selector: 'app-admin-form',
@@ -17,7 +17,7 @@ export class AdminFormComponent implements OnInit {
   cities: City[] = [];
   filteredCities: City[] = [];
 
-  constructor(private registrationService: RegistrationService, private locationService: LocationService, private route: Router) { }
+  constructor(private adminService: AdminService, private locationService: LocationService, private route: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -64,7 +64,18 @@ export class AdminFormComponent implements OnInit {
       password: this.registrationForm.get("password")?.value,
       registrationType: 'ROLE_ADMIN'
     };
-    console.log(newAdmin)
+    this.adminService.postAdmin(newAdmin).subscribe(
+      data => {
+        this.registrationForm.reset();
+      },
+      error => {
+        if(error.status == 422){
+          alert("Email already exists");
+        } else {
+          alert(error.message);
+        }
+      }
+    );
   }
 
 }
