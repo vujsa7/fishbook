@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-header',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent implements OnInit {
+  isVisible: boolean = true;
   dropdownMenuVisible: boolean = false;
   selectedButton: string = 'business';
 
-  constructor() { }
+  constructor(private router: Router) {
+    router.events.subscribe(
+      data => {
+        if(this.router.url.includes("password-renewal") || this.router.url.includes("login") || this.router.url.includes("register")){
+          this.isVisible = false;
+        }else {
+          this.isVisible = true;
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
   }

@@ -70,9 +70,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         if(error.status == 404){
-          this.route.navigate(["/admin/business"]).then(() => { 
-            window.location.reload();
-          });
+          this.route.navigate(["/admin/business"]);
         }
       }
     );

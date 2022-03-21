@@ -16,15 +16,16 @@ export class PasswordRenewalService {
   }
 
   getPasswordRenewalMark(username: string): Observable<any> {
+    this.header = this.authService.getHeader();
     let options = {params: new HttpParams().set('username', username), headers: this.header}
     return this.http.get<any>(this.baseUrl + 'passwordRenewalMarks', options);
   }
 
-  deletePasswordRenewalMark(username: string): Observable<any> {
-    return this.http.delete<any>(this.baseUrl + 'passwordRenewalMarks/' + username, {headers: this.header});
-  }
-
-  renewPassword(): void {
-    //this.http.put<any>(this.baseUrl + '/users', )
+  renewPassword(newPassword: any): Observable<any> {
+    let options: any = {
+      headers: this.authService.getHeader(), 
+      responseType: 'text'
+    }
+    return this.http.put<any>(this.baseUrl + 'passwordRenewalMarks/' + this.authService.getTokenUsername(), newPassword, options);
   }
 }
