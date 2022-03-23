@@ -1,12 +1,8 @@
 <app-message-dialog [hidden]="!isMessageDialogVisible" [title]="messageDialogTitle" [message]="messageDialogMessage" [buttonText]="messageDialogButtonText" (notify)="onMessageDialogNotify($event)"></app-message-dialog>
 <div class="login-page d-flex flex-row">
     <img src="assets/images/login.jpg" alt="Welcome back!" class="login-image">
-    <app-glass-container  class="glass-container"></app-glass-container>
+    <app-glass-container class="glass-container"></app-glass-container>
     <div class="page-wrapper d-flex flex-column vh-100">
-        <div class="back-to-website d-flex flex-row align-items-center">
-            <svg class="back-arrow"></svg>
-            <span>Back to website</span>
-        </div>
         <div class="login-wrapper d-flex flex-column h-100 align-items-center justify-content-center">
             <div class="d-flex flex-column">
                 <h4>We're glad to see you again!</h4>
@@ -23,7 +19,7 @@
                         <input id="password" type="password" formControlName="password" name="password" (keyup.enter)="onSubmit()">
                         <span class="error-message" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']">Password cannot be empty.</span>
                     </div>
-                    <span class="subtitle">Not a member?<a> Register today.</a></span>
+                    <span class="subtitle">Not a member?<a routerLink="/register"> Register today.</a></span>
                     <app-primary-button [text]="'Login'" [isBtnDisabled]="!loginForm.valid" (click)="onSubmit()"></app-primary-button>
                 </form>
             </div>

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light" *ngIf="isVisible">
-    <div class="d-flex align-items-center">
+    <div routerLink="/" class="fishbook-logo-wrapper d-flex align-items-center">
         <svg class="fishbook-logo"></svg>
         <h5 class="fw-bold brand">Fishbook</h5>
     </div>
@@ -7,8 +7,8 @@
         <span class="nav-item">Boats</span>
         <span class="nav-item">Houses</span>
         <span class="nav-item">Adventures</span>
-        <span class="nav-item">Sign in</span>
-        <app-primary-button [text]="'Sign up'"></app-primary-button>
+        <span class="nav-item" routerLink="/login">Sign in</span>
+        <app-primary-button routerLink="/register" [text]="'Sign up'"></app-primary-button>
     </div>
     <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
 </nav>

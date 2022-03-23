@@ -4,6 +4,7 @@ import { PrimaryButtonComponent } from './components/primary-button/primary-butt
 import { UserTypePipe } from './pipes/user-type.pipe';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { GlassContainerComponent } from './components/glass-container/glass-container.component';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     UserTypePipe,
     SecondaryButtonComponent,
     MessageDialogComponent,
+    GlassContainerComponent
   ],
   imports: [
     CommonModule
@@ -20,6 +22,7 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     UserTypePipe,
     SecondaryButtonComponent,
     MessageDialogComponent,
+    GlassContainerComponent
   ]
 })
 export class SharedModule { }

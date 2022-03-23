@@ -6,16 +6,20 @@
     height: 70px;
 }
 
-    .fishbook-logo{
-        @include background-svg($fishbook-logo);
-        width: 41px;
-        height: 34px;
-        background-repeat: no-repeat;
+    .fishbook-logo-wrapper{
+        cursor: pointer;
     }
 
-    h5{
-        margin: 0px;
-    }
+        .fishbook-logo{
+            @include background-svg($fishbook-logo);
+            width: 41px;
+            height: 34px;
+            background-repeat: no-repeat;
+        }
+
+        h5{
+            margin: 0px;
+        }
 
     .brand{
         background-color: #f3ec78;

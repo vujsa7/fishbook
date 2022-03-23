@@ -4,22 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { GlassContainerComponent } from './shared/components/glass-container/glass-container.component';
-import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HeaderComponent } from './shared/components/navbar/header.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { SharedModule } from './shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    RegisterComponent,
-    GlassContainerComponent,
-    LoginComponent,
     HeaderComponent,
   ],
   imports: [
@@ -28,7 +21,8 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })
