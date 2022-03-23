@@ -5,15 +5,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HeaderComponent } from './shared/components/header/header.component';
+import { PublicHeaderComponent } from './shared/layout/headers/public-header/public-header.component';
 import { SharedModule } from './shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './shared/layout/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    PublicHeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -21,8 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
-    NgbModule
+    SharedModule
   ],
   bootstrap: [AppComponent]
 })

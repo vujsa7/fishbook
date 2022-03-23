@@ -3,10 +3,10 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './public-header.component.html',
+  styleUrls: ['./public-header.component.scss']
 })
-export class HeaderComponent  implements OnInit{
+export class PublicHeaderComponent  implements OnInit{
   isVisible: boolean = true;
   dropdownMenuVisible: boolean = false;
 

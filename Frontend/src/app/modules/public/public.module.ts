@@ -6,21 +6,21 @@ import { RegisterComponent } from './register/register.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PublicRoutingModule } from './public-routing.module';
-
-
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     PublicComponent,
+    HomeComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ]
 })
 export class PublicModule { }
