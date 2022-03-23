@@ -16,9 +16,12 @@ export class PasswordRenewalService {
   }
 
   getPasswordRenewalMark(username: string): Observable<any> {
-    this.header = this.authService.getHeader();
-    let options = {params: new HttpParams().set('username', username), headers: this.header}
-    return this.http.get<any>(this.baseUrl + 'passwordRenewalMarks', options);
+    let options = {
+      headers: this.authService.getHeader(), 
+      params: new HttpParams().set('username', username), 
+      responseType: 'text' as 'text'
+    }
+    return this.http.get(this.baseUrl + 'passwordRenewalMarks', options);
   }
 
   renewPassword(newPassword: any): Observable<any> {
