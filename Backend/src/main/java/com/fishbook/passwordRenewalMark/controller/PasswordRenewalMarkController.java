@@ -47,10 +47,8 @@ public class PasswordRenewalMarkController {
         if(user == null){
             return new ResponseEntity<>("User doesn't exist.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-
         user.setPassword(passwordEncoder.encode(renewedPassword.getPassword()));
-        userService.save(user);
-        passwordRenewalMarkService.unmarkUserForPasswordRenewal(email);
+        userService.updateAdminsPassword(user);
 
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }

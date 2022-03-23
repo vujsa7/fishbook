@@ -11,4 +11,5 @@ public interface UserService extends UserDetailsService {
     User save(RegistrationRequest request);
     User findByEmail(String email);
     void activateUser(VerificationCode verificationCode);
+    void updateAdminsPassword(User user);
 }

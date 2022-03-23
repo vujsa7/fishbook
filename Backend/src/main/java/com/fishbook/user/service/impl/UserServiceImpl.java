@@ -10,15 +10,14 @@ import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.model.RegistrationRequest;
 import com.fishbook.user.dao.RoleRepository;
 import com.fishbook.user.dao.UserRepository;
-import com.fishbook.user.dto.UserRegistrationDto;
 import com.fishbook.user.model.Role;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,21 +30,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final AddressRepository addressRepository;
     private final CityRepository cityRepository;
     private final VerificationCodeRepository verificationCodeRepository;
-
     private final LocationService locationService;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           CityRepository cityRepository, AddressRepository addressRepository,
-                           LocationService locationService, VerificationCodeRepository verificationCodeRepository){
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository, CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.cityRepository = cityRepository;
         this.addressRepository = addressRepository;
+        this.cityRepository = cityRepository;
         this.verificationCodeRepository = verificationCodeRepository;
-
         this.locationService = locationService;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -97,9 +92,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void activateUser(VerificationCode verificationCode) {
+    public void activateUser(VerificationCode verificationCode){
         User user = verificationCode.getUser();
-        if(user.getEnabled() == false){
+        if (user.getEnabled() == false) {
             user.setEnabled(true);
             user.removeVerificationCode(verificationCode);
             userRepository.save(user);
@@ -108,6 +103,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
         //else
-            // TODO: Throw UserAlreadyEnabledException
+        // TODO: Throw UserAlreadyEnabledException
+    }
+
+    @Transactional
+    public void updateAdminsPassword(User user) {
+        userRepository.save(user);
+        passwordRenewalMarkRepository.deletePasswordRenewalMarkByUsername(user.getUsername());
     }
 }
