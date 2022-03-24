@@ -1,5 +1,6 @@
 <div>
-    <nav class="navbar navbar-light" *ngIf="isVisible">
+    <div *ngIf="isVisible" class="glass" [ngClass]="{ 'active' : isGlassEffect }"></div>
+    <nav *ngIf="isVisible" class="navbar navbar-light">
         <div routerLink="/" class="fishbook-logo-wrapper d-flex align-items-center">
             <svg class="fishbook-logo"></svg>
             <h5 class="fw-bold brand">Fishbook</h5>
