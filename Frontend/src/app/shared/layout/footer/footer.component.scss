@@ -3,19 +3,29 @@
 .call-to-action{
     padding: 25px $grid-margin-width;
     background-color: color(lightblue);
+
+    @include media("<phone-large"){
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
 }
 
     h4{
         margin-right: 50px !important;
         color: white !important;
+
+        @include media("<phone-large"){
+            margin: 0 0 20px 0 !important;
+        }
     }
 
     .contact-us-btn{
         background-color: transparent;
         border: 1px solid white;
         border-radius: 7px;
-        padding: 10px 30px;
+        padding: 0 30px;
         color: white;
+        height: 38px;
     }
 
 .footer-body{
@@ -23,49 +33,52 @@
     background-image: linear-gradient(to right top, rgb(8, 71, 131), rgb(75, 179, 253));
 }
 
-    .links{
-        margin-right: 70px;
-        
-        &:last-child{
-            margin-right: 0;
+    .links-wrapper{
+        @include media("<tablet"){
+            order: 2;
+        }
+
+        @include media("<450px"){
+            flex-direction: column !important;
         }
     }
 
-        h5{
-            margin-bottom: 20px !important;
-            color: white !important;
-        }
-
-        .link {
-            cursor: pointer;
-            color: white !important;
-            display: inline-block;
-            margin-bottom: 10px;
-
+        .links{
+            margin-right: 70px;
+            
             &:last-child{
-                margin-bottom: 0;
+                margin-right: 0;
             }
 
-            a{
+            @include media("<phone-large"){
+                margin-right: 30px;
+            }
+
+            @include media("<450px"){
+                margin-bottom: 30px;
+                margin-right: 0;
+            }
+        }
+
+            h5{
+                margin-bottom: 20px !important;
                 color: white !important;
             }
-        }
-    
-    .fishbook-logo-wrapper{
-        cursor: pointer;
 
-        h5{
-            margin-bottom: 0 !important;
-            margin-left: 5px !important;
-        }
-    }
+            .link {
+                cursor: pointer;
+                color: white !important;
+                display: inline-block;
+                margin-bottom: 10px;
 
-        .fishbook-white-logo{
-            @include background-svg($fishbook-white-logo);
-            width: 41px;
-            height: 34px;
-            background-repeat: no-repeat;
-        }
+                &:last-child{
+                    margin-bottom: 0;
+                }
+
+                a{
+                    color: white !important;
+                }
+            }
 
     .notice{
         display: inline-block;

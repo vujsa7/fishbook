@@ -14,15 +14,15 @@
         </div>
         <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
     </nav>
-    <div class="overlay d-flex justify-content-end w-100" [ngClass]="{'hidden-overlay' : !dropdownMenuVisible}">
-        <div class="d-flex justify-content-end w-0" [ngClass]="{'menu-container' : dropdownMenuVisible}">
-            <div [hidden]="!dropdownMenuVisible" class="nav-items-menu align-items-end">
-                <span class="nav-item-menu mt-2">Boats</span>
-                <span class="nav-item-menu">Houses</span>
-                <span class="nav-item-menu">Adventures</span>
-                <span class="nav-item-menu">Sign in</span>
-                <span class="nav-item-menu">Sign up</span>
-            </div>
+    <div class="mobile-nav">
+        <div class="overlay" [ngClass]="{'overlay-visible' : dropdownMenuVisible}" (click)="toggleDropdownMenu()"></div>
+        <div class="nav-items-mobile d-flex flex-column" [ngClass]="{'nav-items-mobile-visible' : dropdownMenuVisible}">
+            <span class="nav-item-mobile mt-2">Boats</span>
+            <span class="nav-item-mobile">Houses</span>
+            <span class="nav-item-mobile">Adventures</span>
+            <span class="nav-item-mobile">Sign in</span>
+            <span class="nav-item-mobile">Sign up</span>
         </div>
     </div>
+    
 </div>

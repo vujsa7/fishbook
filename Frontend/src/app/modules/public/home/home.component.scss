@@ -23,7 +23,7 @@
 }
 
     .home-image{
-        height: 100vh;
+        height: 90vh;
         object-fit: cover;
     }
 
@@ -33,16 +33,18 @@
     }
 
     .first{
-        top: 132px;
+        top: 70px;
         left: $grid-margin-width;
         right: unset;
+        margin-right: $grid-margin-width;
         text-align: start;
     }
 
     .second{
-        top: 132px;
+        top: 70px;
         right: $grid-margin-width;
         left: unset;
+        margin-left: $grid-margin-width;
         text-align: end;
     }
 
@@ -50,5 +52,10 @@
         top: 132px;
         right: $grid-margin-width;
         left: unset;
+        margin-left: $grid-margin-width;
         text-align: end;
     }
+
+        h1{
+            margin-bottom: 10px !important;
+        }

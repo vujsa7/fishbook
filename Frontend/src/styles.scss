@@ -27,22 +27,66 @@ h1, h2, h3, h4, h5{
 
 h1 {
     font-size: $h1-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h2-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h3-size !important;
+    }
+
+    @include media("<phone-large"){
+        font-size: $h4-size !important;
+    }
 }
 
 h2 {
     font-size: $h2-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h3-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h4-size !important;
+    }
+
+    @include media("<phone-large"){
+        font-size: $h5-size !important;
+    }
 }
 
 h3 {
     font-size: $h3-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h4-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h5-size !important;
+    }
 }
 
 h4 {
     font-size: $h4-size !important;
+
+    @include media("<tablet-large"){
+        font-size: $h5-size !important;
+    }
 }
 
 h5 {
     font-size: $h5-size !important;
+}
+
+span{
+    font-size: $body-size;
+
+    @include media("<desktop-medium"){
+        font-size: $body-size !important;
+    }
 }
 
 .input-container {
