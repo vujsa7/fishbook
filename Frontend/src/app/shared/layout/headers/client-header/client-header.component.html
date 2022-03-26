@@ -9,8 +9,15 @@
             <span class="nav-item">Boats</span>
             <span class="nav-item">Houses</span>
             <span class="nav-item">Adventures</span>
-            <span class="nav-item" routerLink="/login">Sign in</span>
-            <app-primary-button routerLink="/register" [text]="'Sign up'"></app-primary-button>
+            <img class="profile-img" src="assets/images/user.jpg">
+            <div style="cursor: pointer" (click)="toggleSettings()">
+                <span class="nav-item full-name">Aleksa Vujisic</span>
+                <svg class="down-arrow"></svg>
+            </div>
+            <div class="settings d-flex flex-column" [ngClass]="{'settings-visible': isSettingsVisible}">
+                <span class="settings-item">Settings</span>
+                <span class="settings-item" (click)="logout()">Log out</span>
+            </div>
         </div>
         <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
     </nav>
@@ -20,8 +27,7 @@
             <span class="nav-item-mobile mt-2">Boats</span>
             <span class="nav-item-mobile">Houses</span>
             <span class="nav-item-mobile">Adventures</span>
-            <span class="nav-item-mobile">Sign in</span>
-            <span class="nav-item-mobile">Sign up</span>
+            <span class="nav-item-mobile">Profile settings</span>
         </div>
     </div>
 </div>

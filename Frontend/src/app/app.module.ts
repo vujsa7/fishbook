@@ -8,12 +8,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PublicHeaderComponent } from './shared/layout/headers/public-header/public-header.component';
 import { SharedModule } from './shared/shared.module';
 import { FooterComponent } from './shared/layout/footer/footer.component';
+import { ClientHeaderComponent } from './shared/layout/headers/client-header/client-header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PublicHeaderComponent,
+    ClientHeaderComponent,
     FooterComponent
   ],
   imports: [

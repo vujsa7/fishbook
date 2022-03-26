@@ -36,7 +36,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
 })
 export class AdminModule { }

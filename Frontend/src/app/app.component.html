@@ -1,3 +1,4 @@
-<app-header *ngIf="role=='ROLE_UNSIGNED'"></app-header>
+<app-public-header *ngIf="role=='ROLE_UNSIGNED'"></app-public-header>
+<app-client-header *ngIf="role=='ROLE_CLIENT'"></app-client-header>
 <router-outlet></router-outlet>
 <app-footer></app-footer>

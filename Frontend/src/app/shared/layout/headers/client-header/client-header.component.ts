@@ -1,20 +1,25 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+
+
+import { Component, HostListener } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { AuthService } from 'src/app/core/authentication/auth.service';
+
 
 @Component({
-  selector: 'app-public-header',
-  templateUrl: './public-header.component.html',
-  styleUrls: ['./public-header.component.scss']
+  selector: 'app-client-header',
+  templateUrl: './client-header.component.html',
+  styleUrls: ['./client-header.component.scss']
 })
-export class PublicHeaderComponent{
+export class ClientHeaderComponent{
 
   isVisible: boolean = true;
   dropdownMenuVisible: boolean = false;
+  isSettingsVisible: boolean = false;
   isGlassEffect: boolean = false;
   _ = require('lodash');
   debouncedOnScroll = this._.debounce(() => this.toggleNavigationBackground(), 300, {})
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url.includes("login") || this.router.url.includes("register")){
@@ -35,15 +40,23 @@ export class PublicHeaderComponent{
     this.dropdownMenuVisible = !this.dropdownMenuVisible;
   }
 
+  toggleSettings(): void{
+    this.isSettingsVisible = !this.isSettingsVisible;
+  }
+
   toggleNavigationBackground(): void{
     if(window.pageYOffset == 0)
       this.isGlassEffect = false;
     else
       this.isGlassEffect = true;
+  }
 
-    console.log(this.isGlassEffect)
+  logout(): void{
+    this.authService.setToken("");
+    window.location.reload();
   }
   
 
 }
+
 

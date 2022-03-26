@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { GlobalConfig } from 'src/app/models/config/global-config.model';
 import { LoyaltyConfig } from 'src/app/models/config/loyalty-config.model';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../../../shared/services/auth.service';
 
 @Injectable({
   providedIn: 'root'

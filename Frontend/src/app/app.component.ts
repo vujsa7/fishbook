@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './shared/services/auth.service';
+import { Router, Event, NavigationStart } from '@angular/router';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,21 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService){}
-
   role: string = 'ROLE_UNSIGNED';
+
+  constructor(private authService: AuthService, private router: Router){
+    router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        if(this.router.url.includes("login")){
+          this.role = this.authService.getTokenRole();
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.role = this.authService.getTokenRole();
   }
+
+
 }
