@@ -9,6 +9,7 @@ import { BoatSpecComponent } from './pages/new-boat/boat-spec/boat-spec.componen
 import { PricingComponent } from './pages/new-boat/pricing/pricing.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GalleryComponent } from './pages/new-boat/gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NewBoatComponent,
     GeneralComponent,
     BoatSpecComponent,
-    PricingComponent
+    PricingComponent,
+    GalleryComponent
   ],
   imports: [
     CommonModule,
