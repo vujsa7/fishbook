@@ -7,6 +7,8 @@ import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
 import com.fishbook.registration.dao.VerificationCodeRepository;
 import com.fishbook.registration.model.VerificationCode;
+import com.fishbook.passwordRenewalMark.dao.PasswordRenewalMarkRepository;
+import com.fishbook.passwordRenewalMark.model.PasswordRenewalMark;
 import com.fishbook.registration.model.RegistrationRequest;
 import com.fishbook.user.dao.RoleRepository;
 import com.fishbook.user.dao.UserRepository;
@@ -19,13 +21,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
 import java.util.Date;
 import java.util.HashSet;
 import java.util.UUID;
-=======
+
 import java.util.List;
->>>>>>> ef422f2 (feat: Retrieve and display users to admin)
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -110,6 +110,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         // TODO: Throw UserAlreadyEnabledException
     }
 
+    @Override
+    @Transactional
+    public void saveAdmin(User user) {
+        userRepository.save(user);
+        passwordRenewalMarkRepository.save(new PasswordRenewalMark(user.getUsername()));
+    }
+
+    @Override
     @Transactional
     public void updateAdminsPassword(User user) {
         userRepository.save(user);

@@ -4,8 +4,6 @@ import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
-import com.fishbook.location.model.Address;
-import com.fishbook.location.model.City;
 import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
 import com.fishbook.user.dto.UserDto;
 import com.fishbook.user.dto.UserInfoDto;
@@ -22,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,8 +95,7 @@ public class UserController {
                 userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()), userDto.getPhoneNumber(),
                 userDto.getAddress(), roleService.findByName("ROLE_ADMIN"));
 
-        userService.save(admin);
-        passwordRenewalMarkService.markUserForPasswordRenewal(admin.getUsername());
+        userService.saveAdmin(admin);
         return new ResponseEntity<>(admin, HttpStatus.CREATED);
     }
 

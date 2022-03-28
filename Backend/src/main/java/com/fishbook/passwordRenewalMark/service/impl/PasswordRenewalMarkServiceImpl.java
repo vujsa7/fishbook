@@ -18,16 +18,6 @@ public class PasswordRenewalMarkServiceImpl implements PasswordRenewalMarkServic
     }
 
     @Override
-    public void markUserForPasswordRenewal(String username) {
-        passwordRenewalMarkRepository.save(new PasswordRenewalMark(username));
-    }
-
-    @Override
-    public void unmarkUserForPasswordRenewal(String username) {
-        passwordRenewalMarkRepository.deletePasswordRenewalMarkByUsername(username);
-    }
-
-    @Override
     public Optional<PasswordRenewalMark> findPasswordRenewalMark(String username) {
         return passwordRenewalMarkRepository.findPasswordRenewalMarkByUsername(username);
     }

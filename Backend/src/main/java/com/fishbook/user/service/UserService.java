@@ -13,6 +13,7 @@ public interface UserService extends UserDetailsService {
     User save(RegistrationRequest request);
     User findByEmail(String email);
     void activateUser(VerificationCode verificationCode);
+    void saveAdmin(User user);
     void updateAdminsPassword(User user);
     List<User> getUsers(String role);
 }
