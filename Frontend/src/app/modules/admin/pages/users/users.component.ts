@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -6,15 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  selectedButton: string = 'users';
+  selectedButton: string = 'ROLE_CLIENT';
+  users: any[] = [];
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUsersByRole('ROLE_CLIENT');
   }
 
   selectButton(selectedButton: string): void {
     this.selectedButton = selectedButton;
+    this.getUsersByRole(selectedButton);
+  }
+
+  getUsersByRole(role: string) {
+    this.userService.getUsersByRole(role).subscribe(
+      data => {
+        this.users = data;
+      }
+    );
   }
 
 }

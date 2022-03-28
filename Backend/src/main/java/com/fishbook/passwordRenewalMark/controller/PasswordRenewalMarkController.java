@@ -41,7 +41,6 @@ public class PasswordRenewalMarkController {
 
     @PutMapping(value = "/{email}")
     @PreAuthorize("hasRole('ADMIN')")
-    @Transactional
     public ResponseEntity updatePasswordRenewalMark(@RequestBody RenewedPassword renewedPassword, @PathVariable String email){
         User user = userService.findByEmail(email);
         if(user == null){

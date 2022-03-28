@@ -1,51 +1,49 @@
 <div class="d-flex flex-column">
     <div class="d-flex flex-row wrapper">
         <div class="toolbar">
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'users' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('users')">Customers</button>
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'boatOwners' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('boatOwners')">Boat owners</button>
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'houseOwners' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('houseOwners')">House owners</button>
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'instructors' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('instructors')">Instructors</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'ROLE_CLIENT' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('ROLE_CLIENT')">Customers</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'ROLE_BOAT_OWNER' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('ROLE_BOAT_OWNER')">Boat owners</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'ROLE_HOUSE_OWNER' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('ROLE_HOUSE_OWNER')">House owners</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'ROLE_INSTRUCTOR' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('ROLE_INSTRUCTOR')">Instructors</button>
         </div>
     </div>
 
-    <div class="d-flex flex-row">
-        <div class="container mt-4 mb-0 p-4 fb-container" id="user-card">
+    <div class="d-flex flex-row" *ngFor="let user of users">
+        <div class="fb-container" id="user-card">
             <div class="d-flex flex-row justify-content-between">
-                <img src="../../../assets/images/user.jpg" alt="user-img" id="user-img" class="me-4">
-                <div class="d-flex flex-row justify-content-between w-100">
-                    <div class="d-flex flex-column">
-                        <span>First name</span>
-                        <span>Aleksa</span>
-                        <span>Last name</span>
-                        <span>Aleksa</span>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <span>Country</span>
-                        <span>Serbia</span>
-                        <span>Email address</span>
-                        <span>Serbia</span>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <span>City</span>
-                        <span>Kragujevac</span>
-                        <span>Phone number</span>
-                        <span>123456789</span>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <span>Street and number</span>
-                        <span>Aerodrom BB</span>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <span>Loyalty level</span>
-                        <span>Baby Seahorse</span>
-                        <span>Points</span>
-                        <span>452</span>
-                    </div>
-                    <div class="d-flex flex-column align-self-end">
-                        <div class="d-flex flex-row">
-                            <button class="btn" id="delete-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V9C18 7.9 17.1 7 16 7H8C6.9 7 6 7.9 6 9V19ZM18 4H15.5L14.79 3.29C14.61 3.11 14.35 3 14.09 3H9.91C9.65 3 9.39 3.11 9.21 3.29L8.5 4H6C5.45 4 5 4.45 5 5C5 5.55 5.45 6 6 6H18C18.55 6 19 5.55 19 5C19 4.45 18.55 4 18 4Z" fill="#A2A2A2"/></svg></button>
-                            <app-secondary-button text="Block user"></app-secondary-button>
-                        </div>
+                <img src="../../../assets/images/user.jpg" alt="user-img" id="user-img">
+                <div class="d-flex flex-column">
+                    <span>First name</span>
+                    <span>{{ user.firstName }}</span>
+                    <span>Last name</span>
+                    <span>{{ user.lastName }}</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span>Country</span>
+                    <span>{{ user.country }}</span>
+                    <span>Email address</span>
+                    <span>{{ user.email }}</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span>City</span>
+                    <span>{{ user.city }}</span>
+                    <span>Phone number</span>
+                    <span>{{ user.phoneNumber }}</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span>Street and number</span>
+                    <span>{{ user.address }}</span>
+                </div>
+                <div class="d-flex flex-column">
+                    <span>Loyalty level</span>
+                    <span>Baby Seahorse</span>
+                    <span>Points</span>
+                    <span>452</span>
+                </div>
+                <div class="d-flex flex-column align-self-end">
+                    <div class="d-flex flex-row">
+                        <button class="btn" id="delete-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V9C18 7.9 17.1 7 16 7H8C6.9 7 6 7.9 6 9V19ZM18 4H15.5L14.79 3.29C14.61 3.11 14.35 3 14.09 3H9.91C9.65 3 9.39 3.11 9.21 3.29L8.5 4H6C5.45 4 5 4.45 5 5C5 5.55 5.45 6 6 6H18C18.55 6 19 5.55 19 5C19 4.45 18.55 4 18 4Z" fill="#A2A2A2"/></svg></button>
+                        <app-secondary-button text="Block user"></app-secondary-button>
                     </div>
                 </div>
             </div>

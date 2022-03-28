@@ -2,6 +2,9 @@
 
 #request-card{
     color: color(darkgrey);
+    margin-left: $grid-margin-width;
+    margin-right: $grid-margin-width;
+    margin-top: 30px;
 }
 
     div span:nth-child(2){

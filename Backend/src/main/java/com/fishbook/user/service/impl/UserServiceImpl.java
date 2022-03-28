@@ -19,9 +19,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import java.util.Date;
 import java.util.HashSet;
 import java.util.UUID;
+=======
+import java.util.List;
+>>>>>>> ef422f2 (feat: Retrieve and display users to admin)
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -110,5 +114,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void updateAdminsPassword(User user) {
         userRepository.save(user);
         passwordRenewalMarkRepository.deletePasswordRenewalMarkByUsername(user.getUsername());
+    }
+
+    @Override
+    public List<User> getUsers(String role) {
+        return userRepository.findAllByRoleName(role);
     }
 }

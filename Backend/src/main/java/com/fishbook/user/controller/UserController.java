@@ -8,6 +8,7 @@ import com.fishbook.location.model.Address;
 import com.fishbook.location.model.City;
 import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
 import com.fishbook.user.dto.UserDto;
+import com.fishbook.user.dto.UserInfoDto;
 import com.fishbook.user.dto.UserRegistrationDto;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -19,9 +20,11 @@ import org.springframework.mail.MailException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -97,6 +100,17 @@ public class UserController {
         userService.save(admin);
         passwordRenewalMarkService.markUserForPasswordRenewal(admin.getUsername());
         return new ResponseEntity<>(admin, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity getUsers(@RequestParam String role){
+        List<UserInfoDto> users = userService.getUsers(role).stream()
+                .map(user -> new UserInfoDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress().getCity().getCountry().getName(),
+                        user.getAddress().getCity().getName(), user.getAddress().getAddress()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }
