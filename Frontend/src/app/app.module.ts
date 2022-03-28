@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { PublicHeaderComponent } from './shared/layout/headers/public-header/public-header.component';
 import { ClientHeaderComponent } from './shared/layout/headers/client-header/client-header.component';
+import { SellerHeaderComponent } from './shared/layout/headers/seller-header/seller-header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { AdminHeaderComponent } from './shared/layout/headers/admin-header/admin-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PublicHeaderComponent,
     ClientHeaderComponent,
     FooterComponent,
-    AdminHeaderComponent
+    AdminHeaderComponent,
+    SellerHeaderComponent
   ],
   imports: [
     BrowserModule,
