@@ -2,6 +2,7 @@
 
 .form-wrapper{
     margin-top: 47px;
+    margin-bottom: 36px;
     height: 100vh;
     width: 100vw;
 }
@@ -31,6 +32,10 @@
         .input-container{
             width: 100%;
         }
+
+            .error-textarea{
+                top: 193px;
+            }
 
         .description{
             padding-top: 25px;

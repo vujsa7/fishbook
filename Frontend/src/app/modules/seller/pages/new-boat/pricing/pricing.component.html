@@ -1,23 +1,25 @@
 <div class="form-wrapper d-flex flex-column align-items-center">
-    <form>
+    <form [formGroup]="newBoatForm">
         <div class="form-fields">
-            <div class="input-container">
+            <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.price.touched && newBoatForm.controls.price.errors?.['required'])}">
                 <label for="price" class="input-label">Price</label>
                 <div class="d-flex flex-row">
-                    <input id="price" type="number" name="price">
+                    <input id="price" type="number" formControlName="price" name="price">
                     <span class="measurment">$/day</span>
                 </div>
+                <span class="error-message" *ngIf="newBoatForm.controls.price.touched && newBoatForm.controls.price.errors?.['required']">Price must be specified.</span>
             </div>
         </div>
         <div class="form-fields">
-            <div class="input-container">
+            <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.advancePayment.touched && newBoatForm.controls.advancePayment.errors?.['required'])}">
                 <label for="advancePayment" class="input-label">How much % do you keep if someone cancels?</label>
-                <select id="advancePayment" name="advancePayment">
+                <select id="advancePayment" formControlName="advancePayment" name="advancePayment">
                     <option style="display:none"></option>
                     <option [ngValue]="15">15%</option>
                     <option [ngValue]="25">25%</option>
                     <option [ngValue]="35">35%</option>
                 </select>
+                <span class="error-message" *ngIf="newBoatForm.controls.advancePayment.touched && newBoatForm.controls.advancePayment.errors?.['required']">Advance payment must be specified.</span>
             </div>
         </div>
         <span class="add-service-text">Chose additional services you provide</span>
