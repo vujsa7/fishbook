@@ -104,10 +104,17 @@ public class UserController {
     public ResponseEntity getUsers(@RequestParam String role){
         List<UserInfoDto> users = userService.getUsers(role).stream()
                 .map(user -> new UserInfoDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress().getCity().getCountry().getName(),
-                        user.getAddress().getCity().getName(), user.getAddress().getAddress()))
+                        user.getAddress().getCity().getName(), user.getAddress().getAddress(), user.getDeleted(), user.isEnabled()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{username}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity deleteUser(@PathVariable() String username){
+        userService.deleteUser(username);
+        return new ResponseEntity<>("Successfully deleted " + username, HttpStatus.OK);
     }
 
 }

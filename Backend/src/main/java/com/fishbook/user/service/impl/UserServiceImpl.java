@@ -80,11 +80,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public void save(User user){
+        userRepository.save(user);
+    }
+
+    @Override
     public User save(RegistrationRequest request) {
         City city = cityRepository.findByName(request.getCity());
         Address address = new Address(request.getAddress(), city, 0.0, 0.0);
         addressRepository.save(address);
         Role role = roleRepository.findByName(request.getRegistrationType());
+
 
         User user = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), request.getPhoneNumber(), address, role, true);
         return userRepository.save(user);
@@ -127,5 +133,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getUsers(String role) {
         return userRepository.findAllByRoleName(role);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(String username) {
+        userRepository.deleteUser(username);
     }
 }

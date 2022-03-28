@@ -19,4 +19,8 @@ export class UserService {
     }
     return this.http.get<any>(this.baseUrl + 'users', options);
   }
+
+  deleteUser(username: string) : Observable<any> {
+    return this.http.delete<any>(this.baseUrl + 'users/' + username, {headers: this.authService.getHeader()});
+  }
 }

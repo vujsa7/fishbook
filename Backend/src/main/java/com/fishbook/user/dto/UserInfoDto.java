@@ -9,10 +9,12 @@ public class UserInfoDto {
     private String country;
     private String city;
     private String address;
+    private Boolean deleted;
+    private Boolean enabled;
     private String customerType;
     private Double points;
 
-    public UserInfoDto(Long id, String firstName, String lastName, String email, String phoneNumber, String country, String city, String address) {
+    public UserInfoDto(Long id, String firstName, String lastName, String email, String phoneNumber, String country, String city, String address, Boolean isDeleted, Boolean isEnabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +23,8 @@ public class UserInfoDto {
         this.country = country;
         this.city = city;
         this.address = address;
+        this.deleted = isDeleted;
+        this.enabled = isEnabled;
     }
 
     public UserInfoDto(Long id, String firstName, String lastName, String email, String phoneNumber, String country, String city, String address, String customerType, Double points) {
@@ -68,6 +72,14 @@ public class UserInfoDto {
         return address;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
     public String getCustomerType() {
         return customerType;
     }
@@ -102,6 +114,14 @@ public class UserInfoDto {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setAddress(String address) {

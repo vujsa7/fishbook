@@ -2,10 +2,15 @@ package com.fishbook.user.dao;
 
 import com.fishbook.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
     List<User> findAllByRoleName(String roleName);
+    @Modifying
+    @Query("update User u set u.isDeleted = true, u.isEnabled = false where u.email = :username")
+    void deleteUser(String username);
 }
