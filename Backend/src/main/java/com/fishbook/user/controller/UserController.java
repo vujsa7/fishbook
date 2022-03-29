@@ -59,9 +59,9 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    @RequestMapping(value = "/verificationCodes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity verifyEmailAddress(@RequestParam String code){
+
+    @RequestMapping(value = "/verificationCodes/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity verifyEmailAddress(@PathVariable() String code){
 
         // TODO: Move into service method this logic
         VerificationCode verificationCode = verficationCodeService.findByVerificationCode(code);
@@ -80,7 +80,7 @@ public class UserController {
     private void sendVerificationCode(String emailAddress, String verificationCode, String url) throws MailException, InterruptedException{
         Email email = new Email(emailAddress, "Complete registration for Fishbook",
                 "Follow the activation link to activate your account:\n" +
-                        "http://localhost:8080" + url + "/verificationCodes?code=" + verificationCode);
+                        "http://localhost:8080" + url + "/verificationCodes/" + verificationCode);
         emailService.sendEmail(email);
     }
 

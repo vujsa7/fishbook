@@ -31,6 +31,10 @@
                 padding-top: 5px;
                 border-bottom: 2px solid color(lightblue);
             }
+            
+.content-wrapper{
+    margin-bottom: $grid-margin-height;
+}
      
 .backdrop{
     position: absolute;

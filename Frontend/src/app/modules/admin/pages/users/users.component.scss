@@ -32,6 +32,10 @@
                 border-bottom: 2px solid color(lightblue);
             }
 
+.content{
+    margin-bottom: $grid-margin-height;
+}
+
 #user-img{
     width: 80px;
     object-fit: cover;

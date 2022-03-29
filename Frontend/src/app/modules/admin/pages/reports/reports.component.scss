@@ -30,3 +30,10 @@
                 padding-top: 5px;
                 border-bottom: 2px solid color(lightblue);
             }
+
+#content-wrapper{
+    margin-left: $grid-margin-width;
+    margin-right: $grid-margin-width;
+    margin-top: $grid-margin-height;
+    margin-bottom: $grid-margin-height;
+}
