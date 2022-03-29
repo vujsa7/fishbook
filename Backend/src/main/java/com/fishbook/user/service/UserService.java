@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
     String saveNewClient(UserRegistrationDto userRegistrationDto);
-    User save(RegistrationRequest request);
+    void save(RegistrationRequest request);
     User findByEmail(String email);
     void activateUser(VerificationCode verificationCode);
     void saveAdmin(User user);

@@ -1,8 +1,8 @@
-package com.fishbook.passwordRenewalMark.service.impl;
+package com.fishbook.password.renewal.service.impl;
 
-import com.fishbook.passwordRenewalMark.model.PasswordRenewalMark;
-import com.fishbook.passwordRenewalMark.dao.PasswordRenewalMarkRepository;
-import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
+import com.fishbook.password.renewal.model.PasswordRenewalMark;
+import com.fishbook.password.renewal.dao.PasswordRenewalMarkRepository;
+import com.fishbook.password.renewal.service.PasswordRenewalMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

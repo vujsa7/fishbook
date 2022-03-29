@@ -4,11 +4,11 @@ import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
-import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
 import com.fishbook.user.dto.UserDto;
 import com.fishbook.user.dto.UserInfoDto;
 import com.fishbook.user.dto.UserRegistrationDto;
 import com.fishbook.user.model.User;
+import com.fishbook.user.service.RoleService;
 import com.fishbook.user.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,14 +31,14 @@ public class UserController {
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     private final VerificationCodeService verficationCodeService;
-    private final PasswordRenewalMarkService passwordRenewalMarkService;
+    private final RoleService roleService;
 
-    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verficationCodeService, PasswordRenewalMarkService passwordRenewalMarkService) {
+    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verficationCodeService, RoleService roleService) {
         this.userService = userService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.verficationCodeService = verficationCodeService;
-        this.passwordRenewalMarkService = passwordRenewalMarkService;
+        this.roleService = roleService;
     }
 
 
@@ -59,7 +59,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    
     @RequestMapping(value = "/verificationCodes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity verifyEmailAddress(@RequestParam String code){
 
@@ -101,7 +101,7 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity getUsers(@RequestParam String role){
+    public ResponseEntity getUsers(@RequestParam(value = "role") String role){
         List<UserInfoDto> users = userService.getUsers(role).stream()
                 .map(user -> new UserInfoDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress().getCity().getCountry().getName(),
                         user.getAddress().getCity().getName(), user.getAddress().getAddress(), user.getDeleted(), user.isEnabled()))

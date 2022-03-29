@@ -1,6 +1,6 @@
-package com.fishbook.passwordRenewalMark.service;
+package com.fishbook.password.renewal.service;
 
-import com.fishbook.passwordRenewalMark.model.PasswordRenewalMark;
+import com.fishbook.password.renewal.model.PasswordRenewalMark;
 
 import java.util.Optional;
 

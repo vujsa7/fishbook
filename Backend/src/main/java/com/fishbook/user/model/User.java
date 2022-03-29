@@ -50,6 +50,19 @@ public class User implements UserDetails {
 
     public User() {}
 
+    public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.isEnabled = true;
+        this.isDeleted = false;
+        this.verificationCodes = new HashSet<>();
+    }
+
     public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role, Boolean isEnabled) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -62,6 +75,7 @@ public class User implements UserDetails {
         this.isDeleted = false;
         this.verificationCodes = new HashSet<>();
     }
+
 
     public Long getId() {
         return id;

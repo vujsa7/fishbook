@@ -1,4 +1,4 @@
-package com.fishbook.passwordRenewalMark.dto;
+package com.fishbook.password.renewal.dto;
 
 public class RenewedPassword {
     private String password;

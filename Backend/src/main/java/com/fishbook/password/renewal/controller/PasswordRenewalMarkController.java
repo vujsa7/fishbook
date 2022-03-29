@@ -1,8 +1,8 @@
-package com.fishbook.passwordRenewalMark.controller;
+package com.fishbook.password.renewal.controller;
 
-import com.fishbook.passwordRenewalMark.dto.RenewedPassword;
-import com.fishbook.passwordRenewalMark.model.PasswordRenewalMark;
-import com.fishbook.passwordRenewalMark.service.PasswordRenewalMarkService;
+import com.fishbook.password.renewal.dto.RenewedPassword;
+import com.fishbook.password.renewal.service.PasswordRenewalMarkService;
+import com.fishbook.password.renewal.model.PasswordRenewalMark;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.fishbook.passwordRenewalMark.model;
+package com.fishbook.password.renewal.model;
 
 import javax.persistence.*;
 

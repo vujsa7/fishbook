@@ -1,6 +1,6 @@
-package com.fishbook.passwordRenewalMark.dao;
+package com.fishbook.password.renewal.dao;
 
-import com.fishbook.passwordRenewalMark.model.PasswordRenewalMark;
+import com.fishbook.password.renewal.model.PasswordRenewalMark;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

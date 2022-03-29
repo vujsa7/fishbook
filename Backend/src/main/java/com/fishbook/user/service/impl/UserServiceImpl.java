@@ -5,13 +5,14 @@ import com.fishbook.location.dao.CityRepository;
 import com.fishbook.location.model.Address;
 import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
+import com.fishbook.password.renewal.dao.PasswordRenewalMarkRepository;
 import com.fishbook.registration.dao.VerificationCodeRepository;
 import com.fishbook.registration.model.VerificationCode;
-import com.fishbook.passwordRenewalMark.dao.PasswordRenewalMarkRepository;
-import com.fishbook.passwordRenewalMark.model.PasswordRenewalMark;
+import com.fishbook.password.renewal.model.PasswordRenewalMark;
 import com.fishbook.registration.model.RegistrationRequest;
 import com.fishbook.user.dao.RoleRepository;
 import com.fishbook.user.dao.UserRepository;
+import com.fishbook.user.dto.UserRegistrationDto;
 import com.fishbook.user.model.Role;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -35,14 +36,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final CityRepository cityRepository;
     private final VerificationCodeRepository verificationCodeRepository;
     private final LocationService locationService;
+    private final PasswordRenewalMarkRepository passwordRenewalMarkRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository, CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository, CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService, PasswordRenewalMarkRepository passwordRenewalMarkRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.addressRepository = addressRepository;
         this.cityRepository = cityRepository;
         this.verificationCodeRepository = verificationCodeRepository;
         this.locationService = locationService;
+        this.passwordRenewalMarkRepository = passwordRenewalMarkRepository;
     }
 
 
@@ -80,12 +83,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void save(User user){
-        userRepository.save(user);
-    }
-
-    @Override
-    public User save(RegistrationRequest request) {
+    public void save(RegistrationRequest request) {
         City city = cityRepository.findByName(request.getCity());
         Address address = new Address(request.getAddress(), city, 0.0, 0.0);
         addressRepository.save(address);
@@ -93,7 +91,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
         User user = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), request.getPhoneNumber(), address, role, true);
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Override
