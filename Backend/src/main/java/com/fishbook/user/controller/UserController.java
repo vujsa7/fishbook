@@ -2,6 +2,7 @@ package com.fishbook.user.controller;
 
 import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
+import com.fishbook.password.renewal.dto.RenewedPassword;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
 import com.fishbook.user.dto.PasswordUpdateDto;
