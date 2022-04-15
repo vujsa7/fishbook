@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { PasswordRenewalService } from '../../services/password-renewal.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { PasswordRenewalService } from '../../services/password-renewal.service'
 export class PasswordRenewalComponent implements OnInit {
   passwordRenewalForm!: FormGroup;
 
-  constructor(private passwordRenewalService: PasswordRenewalService, private router: Router) { }
+  constructor(private passwordRenewalService: PasswordRenewalService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -57,7 +58,7 @@ export class PasswordRenewalComponent implements OnInit {
         this.router.navigate(['/admin/business']);
       },
       error => {
-        alert(error.message);
+        this.toastr.error(error.message, "Error");
       }
     );
   }

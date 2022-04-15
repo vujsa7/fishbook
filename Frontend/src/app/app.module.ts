@@ -10,6 +10,8 @@ import { PublicHeaderComponent } from './shared/layout/headers/public-header/pub
 import { ClientHeaderComponent } from './shared/layout/headers/client-header/client-header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { AdminHeaderComponent } from './shared/layout/headers/admin-header/admin-header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AdminHeaderComponent } from './shared/layout/headers/admin-header/admin
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { GlobalConfig } from 'src/app/models/config/global-config.model';
 import { LoyaltyConfig, LoyaltyType } from 'src/app/models/config/loyalty-config.model';
 import { ConfigService } from 'src/app/modules/admin/services/config.service';
@@ -15,7 +16,7 @@ export class LoyaltySettingsComponent implements OnInit {
   loyaltyConfigChanged: number[] = [];
   isBtnDisabled: boolean = true;
 
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigService, private toastr: ToastrService) {
     let loyaltyConfig = {id: -1, loyaltyType: LoyaltyType.BABY_SEAHORSE, buyerMinPoints: -1, sellerMinPoints: -1, discount: -1, extraRevenue: -1};
     this.loyaltyConfig.push(loyaltyConfig);
     this.loyaltyConfig.push(loyaltyConfig);
@@ -59,7 +60,14 @@ export class LoyaltySettingsComponent implements OnInit {
 
   updateConfig(): void {
     if(this.globalConfigChanged){
-      this.configService.updateGlobalConfig(this.globalConfig).subscribe();
+      this.configService.updateGlobalConfig(this.globalConfig).subscribe(
+        data => {
+          this.toastr.success("Settings successfully updated.", "Success");
+        },
+        error => {
+          this.toastr.error("Error updating settings.", "Error");
+        }
+      );
     }
     for(let i of this.loyaltyConfigChanged){
       this.configService.updateLoyaltyConfig(this.loyaltyConfig[i]).subscribe();

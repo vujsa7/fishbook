@@ -40,6 +40,17 @@ public class UserInfoDto {
         this.points = points;
     }
 
+    public UserInfoDto(Long id, String firstName, String lastName, String email, String phoneNumber, String country, String city, String address) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }

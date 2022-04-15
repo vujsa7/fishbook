@@ -5,6 +5,7 @@ import { UserTypePipe } from './pipes/user-type.pipe';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { GlassContainerComponent } from './components/glass-container/glass-container.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { GlassContainerComponent } from './components/glass-container/glass-cont
     UserTypePipe,
     SecondaryButtonComponent,
     MessageDialogComponent,
-    GlassContainerComponent
+    GlassContainerComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule

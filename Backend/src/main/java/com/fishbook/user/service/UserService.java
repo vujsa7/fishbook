@@ -11,6 +11,7 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     String saveNewClient(UserRegistrationDto userRegistrationDto);
     void save(RegistrationRequest request);
+    void save(User user);
     User findByEmail(String email);
     void activateUser(VerificationCode verificationCode);
     void saveAdmin(User user);
