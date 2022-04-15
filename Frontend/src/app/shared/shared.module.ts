@@ -10,6 +10,7 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { MaterialModule } from './material/material.module';
 import { EntityCardComponent } from './components/entity-card/entity-card.component';
 import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-fullscreen.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-
     InfoDialogComponent,
     DatePickerComponent,
     EntityCardComponent,
-    SpinnerFullscreenComponent
+    SpinnerFullscreenComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

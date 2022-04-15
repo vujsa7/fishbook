@@ -304,3 +304,22 @@ input:checked + .slider:before {
 .lightblue-text{
     color: color(lightblue);
 }
+
+.c-toast-container{
+    padding: 0 !important;
+}
+  
+    .c-toast{
+        padding: 10px 20px;
+        border-radius: 0 !important;
+        border: 0;
+        margin: 15px $grid-margin-width 15px 0 !important;
+    }
+  
+    .c-toast--success{
+        background-color: color(green) !important;
+    }
+  
+    .c-toast--error{
+      background-color: color(red) !important;
+    }
