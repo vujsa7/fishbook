@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { GlobalConfig } from 'src/app/models/config/global-config.model';
 import { ConfigService } from 'src/app/modules/admin/services/config.service';
 
@@ -11,7 +12,7 @@ export class IncomeComponent implements OnInit {
   globalConfig: GlobalConfig = new GlobalConfig(-1, -1, -1, -1);
   isBtnDisabled: boolean = true;
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.configService.getGlobalConfig().subscribe(
@@ -29,7 +30,14 @@ export class IncomeComponent implements OnInit {
         let config = data;
         this.globalConfig.buyerPointsPerReservation = config.buyerPointsPerReservation;
         this.globalConfig.sellerPointsPerReservation = config.sellerPointsPerReservation;
-        this.configService.updateGlobalConfig(this.globalConfig).subscribe();
+        this.configService.updateGlobalConfig(this.globalConfig).subscribe(
+          data => {
+            this.toastr.success("Income successfully updated.", "Success");
+          }, 
+          error => {
+            this.toastr.error("Error updating", "Error");
+          }
+        );
       })
     
     this.isBtnDisabled = true;

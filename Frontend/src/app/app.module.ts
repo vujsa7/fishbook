@@ -12,6 +12,7 @@ import { SellerHeaderComponent } from './shared/layout/headers/seller-header/sel
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { AdminHeaderComponent } from './shared/layout/headers/admin-header/admin-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

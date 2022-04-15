@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
 import { AdminService } from 'src/app/modules/admin/services/admin.service';
@@ -17,7 +18,7 @@ export class AdminFormComponent implements OnInit {
   cities: City[] = [];
   filteredCities: City[] = [];
 
-  constructor(private adminService: AdminService, private locationService: LocationService, private route: Router) { }
+  constructor(private adminService: AdminService, private locationService: LocationService, private route: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -66,13 +67,14 @@ export class AdminFormComponent implements OnInit {
     };
     this.adminService.postAdmin(newAdmin).subscribe(
       data => {
+        this.toastr.success("New admin successfully created.", "Success");
         this.registrationForm.reset();
       },
       error => {
         if(error.status == 422){
-          alert("Email already exists");
+          this.toastr.error("Email already exists", "Error");
         } else {
-          alert(error.message);
+          this.toastr.error(error.message, "Error");
         }
       }
     );

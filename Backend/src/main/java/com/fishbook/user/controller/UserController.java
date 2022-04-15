@@ -2,6 +2,7 @@ package com.fishbook.user.controller;
 
 import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
+import com.fishbook.password.renewal.dto.RenewedPassword;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
 import com.fishbook.user.dto.UserDto;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -114,7 +117,47 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity deleteUser(@PathVariable() String username){
         userService.deleteUser(username);
-        return new ResponseEntity<>("Successfully deleted " + username, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{username}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
+    public ResponseEntity<UserDto> getUser(@PathVariable String username, Principal principal){
+        if(!Objects.equals(username, principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        User user = userService.findByEmail(username);
+        UserDto userDto = new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress());
+
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{username}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
+    public ResponseEntity updateUser(@PathVariable String username, Principal principal, @RequestBody UserDto userDto){
+        if(!Objects.equals(username, principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        User user = userService.findByEmail(username);
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setAddress(userDto.getAddress());
+        user.setPhoneNumber(user.getPhoneNumber());
+        userService.save(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{username}/password")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
+    public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @RequestBody RenewedPassword renewedPassword){
+        if(!Objects.equals(username, principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        User user = userService.findByEmail(username);
+        user.setPassword(passwordEncoder.encode(renewedPassword.getPassword()));
+        userService.save(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
