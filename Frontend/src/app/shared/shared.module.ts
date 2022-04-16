@@ -6,6 +6,7 @@ import { SecondaryButtonComponent } from './components/secondary-button/secondar
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { GlassContainerComponent } from './components/glass-container/glass-container.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProfileComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     PrimaryButtonComponent,
