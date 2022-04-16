@@ -11,6 +11,7 @@ import { MaterialModule } from './material/material.module';
 import { EntityCardComponent } from './components/entity-card/entity-card.component';
 import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-fullscreen.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { ProfileComponent } from './components/profile/profile.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     PrimaryButtonComponent,

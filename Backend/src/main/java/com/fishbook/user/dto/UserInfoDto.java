@@ -40,8 +40,7 @@ public class UserInfoDto {
         this.points = points;
     }
 
-    public UserInfoDto(Long id, String firstName, String lastName, String email, String phoneNumber, String country, String city, String address) {
-        this.id = id;
+    public UserInfoDto(String firstName, String lastName, String email, String phoneNumber, String country, String city, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

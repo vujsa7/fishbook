@@ -17,7 +17,7 @@
                 <svg class="down-arrow"></svg>
             </div>
             <div class="settings d-flex flex-column" [ngClass]="{'settings-visible': isSettingsVisible}">
-                <span class="settings-item">Settings</span>
+                <span class="settings-item" [routerLink]="['/my-profile']" (click)="selectButton('profile')">Settings</span>
                 <span class="settings-item" (click)="logout()">Log out</span>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <span class="nav-item-menu" [routerLink]="['/admin/reports']">Reports</span>
             <span class="nav-item-menu" [routerLink]="['/admin/services']">Services</span>
             <span class="nav-item-menu" [routerLink]="['/admin/users']">Users</span>
-            <span class="nav-item-mobile">Profile settings</span>
+            <span class="nav-item-mobile" [routerLink]="['/my-profile']">Profile settings</span>
         </div>
     </div>
 </div>

@@ -2,15 +2,16 @@ package com.fishbook.user.controller;
 
 import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
-import com.fishbook.password.renewal.dto.RenewedPassword;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
+import com.fishbook.user.dto.PasswordUpdateDto;
 import com.fishbook.user.dto.UserDto;
 import com.fishbook.user.dto.UserInfoDto;
 import com.fishbook.user.dto.UserRegistrationDto;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.RoleService;
 import com.fishbook.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,17 +34,17 @@ public class UserController {
     private final UserService userService;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
-    private final VerificationCodeService verficationCodeService;
+    private final VerificationCodeService verificationCodeService;
     private final RoleService roleService;
 
-    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verficationCodeService, RoleService roleService) {
+    @Autowired
+    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verificationCodeService, RoleService roleService) {
         this.userService = userService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
-        this.verficationCodeService = verficationCodeService;
+        this.verificationCodeService = verificationCodeService;
         this.roleService = roleService;
     }
-
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity registerNewClient(@RequestBody UserRegistrationDto userRegistrationDto, HttpServletRequest request){
@@ -67,7 +68,7 @@ public class UserController {
     public ResponseEntity verifyEmailAddress(@PathVariable() String code){
 
         // TODO: Move into service method this logic
-        VerificationCode verificationCode = verficationCodeService.findByVerificationCode(code);
+        VerificationCode verificationCode = verificationCodeService.findByVerificationCode(code);
         if(verificationCode == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try{
@@ -122,12 +123,13 @@ public class UserController {
 
     @GetMapping(value = "/{username}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
-    public ResponseEntity<UserDto> getUser(@PathVariable String username, Principal principal){
+    public ResponseEntity<UserInfoDto> getUser(@PathVariable String username, Principal principal){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userService.findByEmail(username);
-        UserDto userDto = new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress());
+        UserInfoDto userDto = new UserInfoDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress().getCity().getCountry().getName(),
+                user.getAddress().getCity().getName(), user.getAddress().getAddress());
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
@@ -150,12 +152,16 @@ public class UserController {
 
     @PutMapping(value = "/{username}/password")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
-    public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @RequestBody RenewedPassword renewedPassword){
+    public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @RequestBody PasswordUpdateDto passwordUpdateDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userService.findByEmail(username);
-        user.setPassword(passwordEncoder.encode(renewedPassword.getPassword()));
+        if(!passwordEncoder.matches(passwordUpdateDto.getCurrentPassword(), user.getPassword())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordUpdateDto.getNewPassword()));
         userService.save(user);
 
         return new ResponseEntity<>(HttpStatus.OK);

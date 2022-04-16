@@ -1,0 +1,36 @@
+@import 'src/styles/main.scss';
+
+#content{
+    margin-left: $grid-margin-width;
+    margin-right: $grid-margin-width;
+    margin-top: $grid-margin-height + 70px;
+    margin-bottom: $grid-margin-height;
+}
+
+    #user-img{
+        width: 200px;
+        object-fit: cover;
+    }
+
+    .left-margin{
+        margin-left: 40px;
+    }
+
+    .content-top-margin{
+        margin-top: $grid-margin-height;
+    }
+
+    .title{
+        color: color(darkgrey);
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: $h5-size;
+    }
+
+    .form-fields{
+        margin-bottom: 20px;
+    }
+
+    .disabled{
+        background-color: color(lightgrey);
+    }
