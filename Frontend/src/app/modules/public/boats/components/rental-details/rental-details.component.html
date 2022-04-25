@@ -1,0 +1,17 @@
+<div class="fb-container">
+    <h5>Provide rental details</h5>
+    <div class="input-container">
+        <input id="location" type="text" name="location" required>
+        <label for="location" class="input-label">Location</label>
+    </div>
+    <app-date-picker></app-date-picker>
+    <app-primary-button [text]="'Search'"></app-primary-button>
+    <div class="d-flex align-items-center mt-2 mb-2">
+        <hr/><span class="grey-text or">Or</span><hr/>
+    </div>
+    <div class="input-container">
+        <input id="search" type="text" name="search" required>
+        <label for="search" class="input-label">Search by name</label>
+    </div>
+    <app-primary-button [text]="'Search'"></app-primary-button>
+</div>

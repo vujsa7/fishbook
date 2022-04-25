@@ -6,12 +6,12 @@
             <h5 class="fw-bold brand">Fishbook</h5>
         </div>
         <div class="nav-items d-flex flex-row align-items-center">
-            <span class="nav-item">Boats</span>
+            <span class="nav-item" routerLink="boats">Boats</span>
             <span class="nav-item">Houses</span>
             <span class="nav-item">Adventures</span>
             <img class="profile-img" src="assets/images/user.jpg">
-            <div style="cursor: pointer" (click)="toggleSettings()">
-                <span class="nav-item full-name">Aleksa Vujisic</span>
+            <div class="d-flex align-items-center" style="cursor: pointer" (click)="toggleSettings()">
+                <span class="full-name">Aleksa Vujisic</span>
                 <svg class="down-arrow"></svg>
             </div>
             <div class="settings d-flex flex-column" [ngClass]="{'settings-visible': isSettingsVisible}">
@@ -24,10 +24,11 @@
     <div class="mobile-nav">
         <div class="overlay" [ngClass]="{'overlay-visible' : dropdownMenuVisible}" (click)="toggleDropdownMenu()"></div>
         <div class="nav-items-mobile d-flex flex-column" [ngClass]="{'nav-items-mobile-visible' : dropdownMenuVisible}">
-            <span class="nav-item-mobile mt-2">Boats</span>
+            <span class="nav-item-mobile mt-2" routerLink="boats">Boats</span>
             <span class="nav-item-mobile">Houses</span>
             <span class="nav-item-mobile">Adventures</span>
             <span class="nav-item-mobile">Profile settings</span>
+            <span class="nav-item-mobile" (click)="logout()">Log out</span>
         </div>
     </div>
 </div>

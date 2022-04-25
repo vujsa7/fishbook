@@ -1,4 +1,3 @@
-<app-message-dialog [hidden]="!isMessageDialogVisible" [title]="messageDialogTitle" [message]="messageDialogMessage" [buttonText]="messageDialogButtonText" (notify)="onMessageDialogNotify($event)"></app-message-dialog>
 <div class="register-page d-flex flex-row">
     <img src="assets/images/register.jpg" alt="Join us today!" class="register-image">
     <app-glass-container [class.glass-container-expanded]="registrationForSeller" class="glass-container"></app-glass-container>
@@ -12,63 +11,63 @@
                         <div class="client-info">
                             <div class="form-fields d-flex flex-row">
                                 <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.firstName.touched && registrationForm.controls.firstName.errors?.['required'])}">
+                                    <input id="firstName" type="text" formControlName="firstName" name="firstName" (focus)="registrationForm.controls.firstName.markAsUntouched()" required>
                                     <label for="firstName" class="input-label">First name</label>
-                                    <input id="firstName" type="text" formControlName="firstName" name="firstName">
                                     <span class="error-message" *ngIf="registrationForm.controls.firstName.touched && registrationForm.controls.firstName.errors?.['required']">First name cannot be empty.</span>
                                 </div>
                                 <div class="input-container second" [ngClass]="{'input-container-error' : (registrationForm.controls.lastName.touched && registrationForm.controls.lastName.errors?.['required'])}">
+                                    <input id="lastName" type="text" formControlName="lastName" name="lastName" (focus)="registrationForm.controls.lastName.markAsUntouched()" required>
                                     <label for="lastName" class="input-label">Last name</label>
-                                    <input id="lastName" type="text" formControlName="lastName" name="lastName">
                                     <span class="error-message" *ngIf="registrationForm.controls.lastName.touched && registrationForm.controls.lastName.errors?.['required']">Last name cannot be empty.</span>
                                 </div>
                             </div>
                             <div class="form-fields w-100 d-flex flex-row">
                                 <div class="w-50 first">
                                     <div class="input-container" [ngClass]="{'input-container-error' : (registrationForm.controls.address.touched && registrationForm.controls.address.errors?.['required'])}"> 
+                                        <input id="streetNumber" type="text" formControlName="address" name="address" (focus)="registrationForm.controls.address.markAsUntouched()" required>
                                         <label for="streetNumber" class="input-label">Address</label>
-                                        <input id="streetNumber" type="text" formControlName="address" name="address">
                                         <span class="error-message" *ngIf="registrationForm.controls.address.touched && registrationForm.controls.address.errors?.['required']">Address cannot be empty.</span>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row w-50 second">
                                     <div class="input-container me-2 w-50" [ngClass]="{'input-container-error' : (registrationForm.controls.country.touched && registrationForm.controls.country.errors?.['required'])}">
-                                        <label for="country" class="input-label">Country</label>
-                                        <select id="country" name='country' formControlName="country" (change)="onCountryChanged()">
+                                        <select id="country" name='country' formControlName="country" (focus)="registrationForm.controls.country.markAsUntouched()" (change)="onCountryChanged()" required>
                                             <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                                         </select>
+                                        <label for="country" class="input-label">Country</label>
                                         <span class="error-message" *ngIf="registrationForm.controls.country.touched && registrationForm.controls.country.errors?.['required']">Select country.</span>
                                     </div>
                                     <div class="input-container ms-2 w-50" [ngClass]="{'input-container-error' : (registrationForm.controls.city.touched && registrationForm.controls.city.errors?.['required'])}">
-                                        <label for="city" class="input-label">City</label>
-                                        <select id="city" name='city' formControlName="city">
+                                        <select id="city" name='city' formControlName="city" (focus)="registrationForm.controls.city.markAsUntouched()" required>
                                             <option *ngFor="let city of filteredCities" [value]="city.name">{{city.name}}</option>
                                         </select>
+                                        <label for="city" class="input-label">City</label>
                                         <span class="error-message" *ngIf="registrationForm.controls.city.touched && registrationForm.controls.city.errors?.['required']">Select city.</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-fields d-flex flex-row">
                                 <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.email.touched && registrationForm.controls.email.errors)}">
+                                    <input id="email" type="text" formControlName="email" name="email" (focus)="registrationForm.controls.email.markAsUntouched()" required>
                                     <label for="email" class="input-label">Email address</label>
-                                    <input id="email" type="text" formControlName="email" name="email">
                                     <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['required']">Email address cannot be empty.</span>
                                     <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['email']">You must enter valid email address.</span>
                                 </div>
                                 <div class="input-container second" [ngClass]="{'input-container-error' : (registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required'])}">
+                                    <input id="phone" type="text" formControlName="phoneNumber" name="phoneNumber" (focus)="registrationForm.controls.phone.markAsUntouched()" required>
                                     <label for="phone" class="input-label">Phone number</label>
-                                    <input id="phone" type="text" formControlName="phoneNumber" name="phoneNumber">
                                     <span class="error-message" *ngIf="registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required']">Phone number cannot be empty.</span>
                                 </div>
                             </div>
                             <div class="form-fields d-flex flex-row" formGroupName="passwords">
                                 <div class="input-container first" [ngClass]="{'input-container-error' : (getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required'])}">
+                                    <input id="password" type="password" formControlName="password" name="password" (focus)="registrationForm.controls.password.markAsUntouched()" required>
                                     <label for="password" class="input-label">Password</label>
-                                    <input id="password" type="password" formControlName="password" name="password">
                                     <span class="error-message" *ngIf="getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required']">Password cannot be empty.</span>
                                 </div>
                                 <div class="input-container second" [ngClass]="{'input-container-error' : getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || registrationForm.controls.passwords.errors?.noMatch)}">
+                                    <input id="confirm-password" type="password" formControlName="confirmPassword" name="confirm-password" (focus)="registrationForm.controls.confirmPassword.markAsUntouched()" required>
                                     <label for="confirm-password" class="input-label">Confirm password</label>
-                                    <input id="confirm-password" type="password" formControlName="confirmPassword" name="confirm-password">
                                     <span class="error-message" *ngIf="getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || registrationForm.controls.passwords.errors?.noMatch)">{{confirmPasswordErrorMessage()}}</span>
                                 </div>
                             </div>
@@ -77,18 +76,18 @@
                             <div *ngIf="registrationForSeller" class="d-flex flex-column align-items-flex-start">
                                 <div class="form-fields">    
                                     <div class="input-container first" [ngClass]="{'input-container-error' : (registrationForm.controls.registrationType.touched && registrationForm.controls.registrationType.errors?.['required'])}">
-                                        <label for="clientType" class="input-label">What service do you provide?</label>
-                                        <select id="clientType" name='registrationType' formControlName="registrationType">
+                                        <select id="clientType" name='registrationType' formControlName="registrationType" (focus)="registrationForm.controls.registrationType.markAsUntouched()" required>
                                             <option [ngValue]="'ROLE_BOAT_OWNER'">Boat owner</option>
                                             <option [ngValue]="'ROLE_INSTRUCTOR'">Instructor</option>
                                             <option [ngValue]="'ROLE_HOUSE_OWNER'">House owner</option>
                                         </select>
+                                        <label for="clientType" class="input-label">What service do you provide?</label>
                                         <span class="error-message" *ngIf="registrationForm.controls.registrationType.touched && registrationForm.controls.registrationType.errors?.['required']">This field cannot be empty.</span>
                                     </div>
                                 </div>
                                 <div class="input-container why-work-with-us" [ngClass]="{'input-container-error' : (registrationForm.controls.registrationMessage.touched && registrationForm.controls.registrationMessage.errors?.['required'])}">
+                                    <textarea id="registrationMessage" maxLength="376" formControlName="registrationMessage" (focus)="registrationForm.controls.registrationMessage.markAsUntouched()" required></textarea>
                                     <label for="registrationMessage" class="input-label">Why do you want to work with us?</label>
-                                    <textarea id="registrationMessage" maxLength="376" formControlName="registrationMessage"></textarea>
                                     <span class="error-message" *ngIf="registrationForm.controls.registrationMessage.touched && registrationForm.controls.registrationMessage.errors?.['required']">This field cannot be empty.</span>
                                 </div>
                             </div>

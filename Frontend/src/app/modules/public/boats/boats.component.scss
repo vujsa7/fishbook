@@ -1,0 +1,26 @@
+@import "src/styles/main.scss";
+
+.boats-wrapper{
+    padding: 100px $grid-margin-width 50px;
+}
+
+    .filters{
+        min-width: 350px;
+        margin-right: 50px;
+
+        @include media("<desktop-small"){
+            min-width: 300px;
+        }
+
+        @include media("<tablet-large"){
+            display: none !important;
+        }
+    }
+
+        .rental-details{
+            margin-bottom: 30px;
+        }
+
+    .boats-cards{
+        width: 100%;
+    }

@@ -1,4 +1,3 @@
-<app-message-dialog [hidden]="!isMessageDialogVisible" [title]="messageDialogTitle" [message]="messageDialogMessage" [buttonText]="messageDialogButtonText" (notify)="onMessageDialogNotify($event)"></app-message-dialog>
 <div class="login-page d-flex flex-row">
     <img src="assets/images/login.jpg" alt="Welcome back!" class="login-image">
     <app-glass-container class="glass-container"></app-glass-container>
@@ -9,14 +8,14 @@
                 <span class="subtitle">Please sign in to continue.</span>
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="input-container" [ngClass]="{'input-container-error' : (loginForm.controls.username.touched && loginForm.controls.username.errors)}">
+                        <input id="email" type="text" formControlName="username" (keyup.enter)="onSubmit()" (focus)="loginForm.controls.username.markAsUntouched()" required>
                         <label for="email" class="input-label">Email address</label>
-                        <input id="email" type="text" formControlName="username" name="email" (keyup.enter)="onSubmit()">
                         <span class="error-message" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.['required']">Email address cannot be empty.</span>
                         <span class="error-message" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.['email']">You must enter valid email address.</span>
                     </div>
                     <div class="input-container" [ngClass]="{'input-container-error' : (loginForm.controls.password.touched && loginForm.controls.password.errors?.['required'])}">
+                        <input id="password" type="password" formControlName="password" name="password" (keyup.enter)="onSubmit()" (focus)="loginForm.controls.password.markAsUntouched()" required>
                         <label for="password" class="input-label">Password</label>
-                        <input id="password" type="password" formControlName="password" name="password" (keyup.enter)="onSubmit()">
                         <span class="error-message" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']">Password cannot be empty.</span>
                     </div>
                     <span class="subtitle">Not a member?<a routerLink="/register"> Register today.</a></span>
@@ -25,5 +24,4 @@
             </div>
         </div>
     </div>
-    
 </div>

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
+import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { RegistrationService } from 'src/app/shared/services/registration.service';
 
@@ -17,12 +20,8 @@ export class RegisterComponent implements OnInit {
   countries: Country[] = [];
   cities: City[] = [];
   filteredCities: City[] = [];
-  messageDialogTitle: string = "";
-  messageDialogMessage: string = "";
-  messageDialogButtonText: string = "";
-  isMessageDialogVisible: boolean = false;
   
-  constructor(private registrationService: RegistrationService, private locationService: LocationService, private route: Router) { }
+  constructor(private registrationService: RegistrationService, private locationService: LocationService, private router: Router,  private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -93,6 +92,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() : void{
     if(this.registrationForm.valid){
+      const dialogConfig = new MatDialogConfig();
       if(this.registrationForSeller){
         const seller = {
           firstName: this.registrationForm.get("firstName")?.value,
@@ -108,7 +108,12 @@ export class RegisterComponent implements OnInit {
         };
         this.registrationService.postRegistrationRequest(seller).subscribe(
           data => {
-            this.showMessageDialog("Waiting for admin approval", "Admin must first approve your request. Once your account is approved you will be notified by email.", "Okay");
+            dialogConfig.data = {
+              title: "Waiting for admin approval",
+              message: "Admin must first approve your request. Once your account is approved you will be notified by email",
+              buttonText: "Okay"
+            };
+            this.dialog.open(InfoDialogComponent, dialogConfig);
           },
           error => {
             // Implement error
@@ -127,11 +132,20 @@ export class RegisterComponent implements OnInit {
         };
         this.registrationService.postClient(user).subscribe(
           data => {
-            this.showMessageDialog("Check your email", "Thanks for signing up. To active your account, please verify your email address by following the link in the email.", "Okay");
+            dialogConfig.data = {
+              title: "Check your email",
+              message: "Thanks for signing up. To active your account, please verify your email address by following the link in the email",
+              buttonText: "Okay"
+            };
+            this.dialog.open(InfoDialogComponent, dialogConfig);
           },
           error => {
-            // Implement error
-            this.showMessageDialog("Email already exists", "Looks like there already is an account with that email. Try again with a different email.", "Okay");
+            dialogConfig.data = {
+              title: "Email already exists",
+              message: "Looks like there already is an account with that email. Try again with a different email",
+              buttonText: "Okay"
+            };
+            const dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig);
           }
         );
       }
@@ -143,19 +157,6 @@ export class RegisterComponent implements OnInit {
     this.registrationForm.controls.city.setValue('');
   }
 
-  showMessageDialog(title: string, message: string, buttonText: string) {
-    this.messageDialogTitle = title;
-    this.messageDialogMessage = message;
-    this.messageDialogButtonText = buttonText;
-    this.isMessageDialogVisible = true;
-  }
 
-  onMessageDialogNotify(message: string): void{
-    if(message == "close"){
-      this.isMessageDialogVisible = false;
-      this.route.navigate([""]);
-    }
-      
-  }
 
 }

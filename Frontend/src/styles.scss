@@ -91,11 +91,21 @@ span{
 
 .input-container {
     text-align: center;
-    border: solid 1px color(darkgrey);
+    border: 1px solid color(darkgrey);
     border-radius: 7px;
     position: relative;
     background-color: white;
     padding: 25px 14px 8px 14px;
+    transition: 0.3s all ease-in;
+
+    .input-label {
+        color: color(darkgrey);
+        font-size: 14px;
+        position: absolute;
+        left: 14px;
+        top: 18px;
+        transition: 0.15s all ease-in-out;
+    }
 
     input {
         color: color(blue);
@@ -104,6 +114,29 @@ span{
         font-size: 14px;
         width: 100%;
         background-color: transparent;
+        
+        // &:not(:placeholder-shown) + .input-label{
+        //     font-size: 12px;
+        //     top: 6px;
+        //     left: 14px;
+        //     color: color(darkgrey);
+        // }
+
+        &:valid + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(darkgrey);
+        }
+
+        &:focus + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(lightblue);
+        }
+
+        
     }
 
     textarea{
@@ -124,6 +157,20 @@ span{
             -webkit-box-shadow: none;
             -moz-box-shadow: none;
         }
+
+        &:valid + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(darkgrey);
+        }
+
+        &:focus + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(lightblue);
+        }
     }
 
     select{
@@ -141,6 +188,20 @@ span{
             -webkit-box-shadow: none;
             -moz-box-shadow: none;
         }
+
+        &:valid + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(darkgrey);
+        }
+
+        &:focus + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(lightblue);
+        }
     }
 
     .error-message{
@@ -155,14 +216,6 @@ span{
 .input-container-error{
     background-color: rgb(255, 208, 208);
     border-color: color(red);
-}
-
-.input-label {
-    color: color(darkgrey);
-    font-size: 14px;
-    position: absolute;
-    top: 6px;
-    left: 14px;
 }
 
 a{
@@ -235,6 +288,19 @@ input:checked + .slider:before {
 }
 
 .fb-container{
+    border-radius: 7px;
     padding: 30px;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
+}
+
+.grey-text{
+    color: color(darkgrey);
+}
+
+.blue-text{
+    color: color(blue);
+}
+
+.lightblue-text{
+    color: color(lightblue);
 }

@@ -6,7 +6,7 @@
             <h5 class="fw-bold brand">Fishbook</h5>
         </div>
         <div class="nav-items d-flex flex-row align-items-center">
-            <span class="nav-item">Boats</span>
+            <span class="nav-item" routerLink="boats">Boats</span>
             <span class="nav-item">Houses</span>
             <span class="nav-item">Adventures</span>
             <span class="nav-item" routerLink="/login">Sign in</span>
@@ -17,7 +17,7 @@
     <div class="mobile-nav">
         <div class="overlay" [ngClass]="{'overlay-visible' : dropdownMenuVisible}" (click)="toggleDropdownMenu()"></div>
         <div class="nav-items-mobile d-flex flex-column" [ngClass]="{'nav-items-mobile-visible' : dropdownMenuVisible}">
-            <span class="nav-item-mobile mt-2">Boats</span>
+            <span class="nav-item-mobile mt-2" routerLink="boats">Boats</span>
             <span class="nav-item-mobile">Houses</span>
             <span class="nav-item-mobile">Adventures</span>
             <span class="nav-item-mobile">Sign in</span>

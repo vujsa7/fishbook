@@ -25,9 +25,4 @@ export class AppComponent implements OnInit {
       this.role = this.authService.getTokenRole();
   }
 
-  flushToken() {
-    this.authService.setToken('');
-  }
-
-
 }

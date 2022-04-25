@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { PasswordRenewalService } from 'src/app/modules/admin/services/password-renewal.service';
+import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -12,53 +14,49 @@ import { PasswordRenewalService } from 'src/app/modules/admin/services/password-
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  messageDialogTitle: string = "";
-  messageDialogMessage: string = "";
-  messageDialogButtonText: string = "";
-  isMessageDialogVisible: boolean = false;
 
-  constructor(private authService: AuthService, private passwordRenewalService: PasswordRenewalService, private route: Router) { }
+  constructor(private authService: AuthService, private passwordRenewalService: PasswordRenewalService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
-  private initializeForm(): void{
+  private initializeForm(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
     });
   }
 
-  onSubmit() : void{
-    if(this.loginForm.valid){
+  onSubmit(): void {
+    if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         data => {
           this.authService.setToken(data.accessToken);
-          if(this.authService.getTokenRole() == 'ROLE_ADMIN'){
+          let tokenRole = this.authService.getTokenRole();
+          if (tokenRole == 'ROLE_ADMIN') {
             this.navigateToAdminModule();
-          }else{
-            this.route.navigate(["/homepage"]);
+          } else if(tokenRole == 'ROLE_CLIENT'){
+            this.router.navigate(["/client/homepage"]);
+          } 
+          else {
+            this.router.navigate(["/homepage"]);
           }
         },
         error => {
-          if(error.status == 401)
-            this.showMessageDialog("Incorrect credentials", "The email and password you entered didn't match our records. Please try again.", "Okay");
+          if (error.status == 401) {
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.data = {
+              title: "Incorrect credentials",
+              message: "The email and password you entered didn't match our records. Please try again",
+              buttonText: "Okay"
+            };
+            this.dialog.open(InfoDialogComponent, dialogConfig);
+          }
+
         }
       );
     }
-  }
-
-  showMessageDialog(title: string, message: string, buttonText: string) {
-    this.messageDialogTitle = title;
-    this.messageDialogMessage = message;
-    this.messageDialogButtonText = buttonText;
-    this.isMessageDialogVisible = true;
-  }
-
-  onMessageDialogNotify(message: string): void{
-    if(message == "close")
-      this.isMessageDialogVisible = false;
   }
 
   navigateToAdminModule(): void {
@@ -66,11 +64,11 @@ export class LoginComponent implements OnInit {
 
     this.passwordRenewalService.getPasswordRenewalMark(username).subscribe(
       data => {
-        this.route.navigate(["/admin/password-renewal"]);
+        this.router.navigate(["/admin/password-renewal"]);
       },
       error => {
-        if(error.status == 404){
-          this.route.navigate(["/admin/business"]);
+        if (error.status == 404) {
+          this.router.navigate(["/admin/business"]);
         }
       }
     );

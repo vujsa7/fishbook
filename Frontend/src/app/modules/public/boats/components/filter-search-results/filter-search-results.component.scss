@@ -1,0 +1,22 @@
+@import "src/styles/main.scss";
+
+.fb-container{
+    width: 100%;
+}
+
+    h5{
+        margin-bottom: 20px !important;
+    }
+
+    .price{
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .price-slider{
+        margin-bottom: 20px;
+    }
+
+    .stars, .location{
+        margin-bottom: 10px;
+    }

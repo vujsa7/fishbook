@@ -1,0 +1,60 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$theme-primary: mat.define-palette(mat.$blue-palette);
+$theme-accent: mat.define-palette(mat.$light-blue-palette);
+$theme-warn: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
+  color: (
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
+  )
+));
+
+@include mat.all-component-themes($theme);
+@import 'src/styles/main.scss';
+
+.mat-form-field-flex{
+    border-radius:  7px !important;
+    background-color: transparent !important;
+    border: 1px solid color(darkgrey);
+}
+
+.mat-form-field-underline{
+    display: none !important;
+}
+
+.mat-form-field{
+    width: 100%;
+    font-size: 14px;
+    font-family: $base-font-family;
+}
+
+.mat-input-element{
+  color: color(blue);
+}
+
+.mat-form-field-label{
+  color: color(darkgrey);
+  font-size: 14px !important;
+}
+
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+  transform: translateY(-0.59375em) scale(0.85) !important;
+}
+
+.mat-slider-horizontal .mat-slider-ticks {
+  background-image: repeating-linear-gradient(to right, color(lightblue), color(lightblue), 2px,transparent 0, transparent);
+}
+
+.mat-checkbox-label{
+  color: color(darkgrey);
+  font-family: $base-font-family;
+}
+
+.mat-checkbox-inner-container{
+  margin-right: 10px;
+}
