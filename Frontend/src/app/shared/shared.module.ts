@@ -7,7 +7,8 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
 import { GlassContainerComponent } from './components/glass-container/glass-container.component';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './material/material.module';
+import { EntityCardComponent } from './components/entity-card/entity-card.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MaterialModule } from './material.module';
     MessageDialogComponent,
     GlassContainerComponent,
     InfoDialogComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    EntityCardComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { MaterialModule } from './material.module';
     GlassContainerComponent,
     InfoDialogComponent,
     DatePickerComponent,
+    EntityCardComponent,
     MaterialModule
   ]
 })

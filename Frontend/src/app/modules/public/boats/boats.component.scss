@@ -2,6 +2,7 @@
 
 .boats-wrapper{
     padding: 100px $grid-margin-width 50px;
+    width: 100%;
 }
 
     .filters{
@@ -23,4 +24,8 @@
 
     .boats-cards{
         width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        grid-column-gap: 30px;
+        grid-row-gap: 30px;
     }
