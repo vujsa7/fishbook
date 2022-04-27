@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'boats-filter-search-results',
+  selector: 'entities-filter-search-results',
   templateUrl: './filter-search-results.component.html',
   styleUrls: ['./filter-search-results.component.scss']
 })

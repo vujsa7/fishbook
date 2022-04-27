@@ -9,6 +9,7 @@ import { InfoDialogComponent } from './components/info-dialog/info-dialog.compon
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { MaterialModule } from './material/material.module';
 import { EntityCardComponent } from './components/entity-card/entity-card.component';
+import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-fullscreen.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { EntityCardComponent } from './components/entity-card/entity-card.compon
     GlassContainerComponent,
     InfoDialogComponent,
     DatePickerComponent,
-    EntityCardComponent
+    EntityCardComponent,
+    SpinnerFullscreenComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +36,7 @@ import { EntityCardComponent } from './components/entity-card/entity-card.compon
     InfoDialogComponent,
     DatePickerComponent,
     EntityCardComponent,
+    SpinnerFullscreenComponent,
     MaterialModule
   ]
 })
