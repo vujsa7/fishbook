@@ -1,0 +1,24 @@
+<div class="fb-container d-flex flex-column">
+    <div class="square-container">
+        <img class="entity-image"
+            [src]="entityBasicInfo.imageUrl">
+    </div>
+    <h5>{{entityBasicInfo.name}}</h5>
+    <span class="grey-text">{{entityBasicInfo.seller}}</span>
+    <div class="description">
+        {{entityBasicInfo.description}}
+    </div>
+    <span class="grey-text">
+        {{entityBasicInfo.location}}
+    </span>
+    <div class="d-flex rating-price justify-content-between align-items-center">
+        <div class="d-flex rating align-items-center">
+            <svg class="star-icon"></svg>
+            <span>{{entityBasicInfo.rating}}</span>
+        </div>
+        <span class="price">
+            {{entityBasicInfo.price}}$/day
+        </span>
+    </div>
+    <app-primary-button [text]="'See more'"></app-primary-button>
+</div>

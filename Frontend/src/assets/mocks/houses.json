@@ -1,0 +1,47 @@
+[
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=600",
+        "name": "Godzilla 3.1",
+        "seller": "James Franco",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.8,
+        "price": 300
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=600",
+        "name": "Pirates Dream",
+        "seller": "Lawrence Joy",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.8,
+        "price": 300
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=600",
+        "name": "Diamond",
+        "seller": "Luke Rockhold",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.8,
+        "price": 300
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=600",
+        "name": "Godoni",
+        "seller": "Johhny Depp",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.8,
+        "price": 300
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=600",
+        "name": "Sealess",
+        "seller": "Rock Law",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.8,
+        "price": 300
+    }
+]

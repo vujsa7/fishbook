@@ -1,0 +1,38 @@
+[
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWR2ZW50dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+        "name": "Adventure Luke's",
+        "seller": "James Franco",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.7,
+        "price": 400
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWR2ZW50dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+        "name": "Canyon’s Escape",
+        "seller": "Lawrence Joy",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 4.8,
+        "price": 300
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWR2ZW50dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+        "name": "Cobalt Runes",
+        "seller": "Luke Diamond",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 3.3,
+        "price": 300
+    },
+    {
+        "imageUrl": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWR2ZW50dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+        "name": "Godoni",
+        "seller": "Johhny Depp",
+        "description": "Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.",
+        "location": "San Francisco Bay, California",
+        "rating": 1.8,
+        "price": 300
+    }
+]

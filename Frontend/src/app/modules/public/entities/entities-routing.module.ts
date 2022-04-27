@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoatsComponent } from './boats.component';
+import { EntitiesComponent } from './entities.component';
 
 const routes: Routes = [
-  { path: '', component: BoatsComponent },
+  { path: '', component: EntitiesComponent },
   { path: '**', redirectTo: '' }
 ];
 
