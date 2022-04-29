@@ -4,8 +4,9 @@ import { NewBoatComponent } from './pages/new-boat/new-boat.component';
 import { SellerComponent } from './seller.component';
 
 const routes: Routes = [
-  { path: '', component: SellerComponent },
   { path: 'new-boat', component: NewBoatComponent },
+  { path: '', component: SellerComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

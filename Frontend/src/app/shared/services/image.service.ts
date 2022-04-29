@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
-import { EntityImage } from 'src/app/modules/seller/models/entity-image.model';
+import { EntityImage } from 'src/app/shared/models/entity-image.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

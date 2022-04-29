@@ -1,7 +1,7 @@
 import { AdditionalService } from "../../../shared/models/additional-service";
 import { AppliedRule } from "../../../shared/models/applied-rule";
 import { Equipment } from "../../../shared/models/equipment";
-import { EntityImage } from "./entity-image.model";
+import { EntityImage } from "../../../shared/models/entity-image.model";
 
 export class BoatRegistrationRequest{
     public name: string;

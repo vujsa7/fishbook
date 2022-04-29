@@ -7,7 +7,7 @@
         </div>
         <div class="nav-items d-flex flex-row align-items-center">
             <span class="nav-item">Statistics</span>
-            <span class="nav-item" *ngIf="role=='ROLE_BOAT_OWNER'">My Boats</span>
+            <span class="nav-item" *ngIf="role=='ROLE_BOAT_OWNER'" (click)="myBoats()">My Boats</span>
             <span class="nav-item" *ngIf="role=='ROLE_INSTRUCTOR'">My Adventures</span>
             <span class="nav-item" *ngIf="role=='ROLE_HOUSE_OWNER'">My Houses</span>
             <span class="nav-item">Boats</span>

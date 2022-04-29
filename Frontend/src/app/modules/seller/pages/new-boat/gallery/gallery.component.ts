@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BoatService } from 'src/app/shared/services/boat.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
-import { EntityImage } from '../../../models/entity-image.model';
+import { EntityImage } from '../../../../../shared/models/entity-image.model';
 
 @Component({
   selector: 'app-gallery',
@@ -38,7 +38,7 @@ export class GalleryComponent implements OnInit {
 
   private postImages(boatId: any){
     for(let img of this.imageFiles){
-      let entityImage = new EntityImage('', img.pri, boatId);
+      let entityImage = new EntityImage(img.pri, "boat", boatId);
       const image = new FormData();
       image.append('file', img.content);
       image.append('image', new Blob([JSON.stringify(entityImage)], { type: 'application/json' }));

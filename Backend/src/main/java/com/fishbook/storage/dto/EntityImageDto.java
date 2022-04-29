@@ -2,13 +2,15 @@ package com.fishbook.storage.dto;
 
 public class EntityImageDto {
     private Integer priority;
+    private String type;
     private Long entityId;
 
     public EntityImageDto() {
     }
 
-    public EntityImageDto(Integer priority, Long entityId) {
+    public EntityImageDto(Integer priority, String type, Long entityId) {
         this.priority = priority;
+        this.type = type;
         this.entityId = entityId;
     }
 
@@ -18,6 +20,14 @@ public class EntityImageDto {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Long getEntityId() {

@@ -56,4 +56,8 @@ export class SellerHeaderComponent {
     window.location.reload();
   }
 
+  myBoats(): void{
+    this.router.navigate(["/seller/new-boat"]);
+  }
+
 }
