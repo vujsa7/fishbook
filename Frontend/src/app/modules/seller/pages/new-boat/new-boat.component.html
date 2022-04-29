@@ -1,14 +1,14 @@
 <div class="d-flex flex-column">
     <div class="d-flex flex-row wrapper">
         <div class="container">
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'general' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('general')">General</button>
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'specifications' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('specifications')">Boat specifications</button>
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'pricing' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('pricing')">Pricing</button>
-            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'gallery' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('gallery')">Gallery</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'general' ? 'toolbar-btn' : 'btn-unselected'">General</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'specifications' ? 'toolbar-btn' : 'btn-unselected'">Boat specifications</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'pricing' ? 'toolbar-btn' : 'btn-unselected'">Pricing</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'gallery' ? 'toolbar-btn' : 'btn-unselected'">Gallery</button>
         </div>
     </div>
-    <app-general [style.display]=" selectedButton=='general' ? 'block' : 'none'"></app-general>
-    <app-boat-spec [style.display]=" selectedButton=='specifications' ? 'block' : 'none'"></app-boat-spec>
-    <app-pricing [style.display]=" selectedButton=='pricing' ? 'block' : 'none'"></app-pricing>
-    <app-gallery [style.display]=" selectedButton=='gallery' ? 'block' : 'none'"></app-gallery>
+    <app-general [style.display]=" selectedButton=='general' ? 'block' : 'none'" [boatRegistrationRequest]="boatRegistrationRequest" (addGeneralInfoEvent)="addGeneralInfo()"></app-general>
+    <app-boat-spec [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [boatRegistrationRequest]="boatRegistrationRequest" (addBoatSpecificationEvent)="addBoatSpecification()"></app-boat-spec>
+    <app-pricing [style.display]=" selectedButton=='pricing' ? 'block' : 'none'" [boatRegistrationRequest]="boatRegistrationRequest" (addPricingEvent)="addPricing()"></app-pricing>
+    <app-gallery [style.display]=" selectedButton=='gallery' ? 'block' : 'none'" [boatRegistrationRequest]="boatRegistrationRequest"></app-gallery>
 </div>

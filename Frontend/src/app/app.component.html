@@ -1,8 +1,6 @@
 <app-public-header *ngIf="role=='ROLE_UNSIGNED'"></app-public-header>
 <app-client-header *ngIf="role=='ROLE_CLIENT'"></app-client-header>
 <app-admin-header *ngIf="role=='ROLE_ADMIN'"></app-admin-header>
-<app-seller-header *ngIf="role=='ROLE_BOAT_OWNER'" [role]="role"></app-seller-header>
-<app-seller-header *ngIf="role=='ROLE_INSTRUCTOR'" [role]="role"></app-seller-header>
-<app-seller-header *ngIf="role=='ROLE_HOUSE_OWNER'" [role]="role"></app-seller-header>
+<app-seller-header *ngIf="role=='ROLE_BOAT_OWNER' || role=='ROLE_INSTRUCTOR' || role=='ROLE_HOUSE_OWNER'" [role]="role" ></app-seller-header>
 <router-outlet></router-outlet>
 <app-footer></app-footer>

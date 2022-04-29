@@ -5,9 +5,17 @@
                 <label for="boatType" class="input-label">Boat type</label>
                 <select id="boatType" formControlName="boatType" name='boatType'>
                     <option style="display:none"></option>
-                    <option [ngValue]="5">Fast</option>
-                    <option [ngValue]="10">Very fast</option>
-                    <option [ngValue]="150">I am speed</option>
+                    <option [ngValue]="'JET_SKI'">Jet Ski</option>
+                    <option [ngValue]="'INFLATABLE_BOAT'">Inflatable boat</option>
+                    <option [ngValue]="'AIRBOAT'">Airboat</option>
+                    <option [ngValue]="'SPEEDBOAT'">Speedboat</option>
+                    <option [ngValue]="'FERRY'">Ferry</option>
+                    <option [ngValue]="'SMALL_YACHT'">Small yacht</option>
+                    <option [ngValue]="'BIG_YACHT'">Big yacht</option>
+                    <option [ngValue]="'SAILBOAT'">Sailboat</option>
+                    <option [ngValue]="'BRIG'">Brig</option>
+                    <option [ngValue]="'CABIN_CRUISER'">Cabin cruiser</option>
+                    <option [ngValue]="'CRUISE'">Cruise</option>
                 </select>
                 <span class="error-message" *ngIf="newBoatForm.controls.boatType.touched && newBoatForm.controls.boatType.errors?.['required']">Must choose a boat type.</span>
             </div>
@@ -86,57 +94,27 @@
             </div>
         </div>
         <span class="checkbox-text">Choose navigational equipment</span>
-        <div class="form-fields checkbox-title d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="gps" type="checkbox" name="gps">
-                <label for="gps" class="checkbox-label">GPS System</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="vhf" type="checkbox" name="vhf">
-                <label for="vhf" class="checkbox-label">VHF</label>
-            </div>
-        </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="radar" type="checkbox" name="radar">
-                <label for="radar" class="checkbox-label">Marine Radar</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="fishfinder" type="checkbox" name="fishfinder">
-                <label for="fishfinder" class="checkbox-label">Fishfinder</label>
+        <div class="equipment-grid">
+            <div *ngFor="let equipmentItem of navigationEquipment">
+                <label><input type="checkbox" formArrayName="equipment"
+                        [checked]="newBoatForm.controls['equipment'].value.includes(equipmentItem)"
+                        (value)="equipmentItem"
+                        (change)="equipmentChanged($event, equipmentItem)"/>
+                    <span class="checkbox-label">{{equipmentItem.name}}</span>
+                </label>
             </div>
         </div>
         <span class="checkbox-text">Choose fishing equipment</span>
-        <div class="form-fields checkbox-title d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="rod" type="checkbox" name="rod">
-                <label for="rod" class="checkbox-label">Fishing Rod</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="net" type="checkbox" name="net">
-                <label for="net" class="checkbox-label">Fishing net</label>
-            </div>
-        </div>
-        <div class="form-fields checkbox-title d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="lures" type="checkbox" name="lures">
-                <label for="lures" class="checkbox-label">Lures</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="gloves" type="checkbox" name="gloves">
-                <label for="gloves" class="checkbox-label">Gloves</label>
-            </div>
-        </div>
-        <div class="form-fields checkbox-title d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="fridge" type="checkbox" name="fridge">
-                <label for="fridge" class="checkbox-label">Fridge</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="knifes" type="checkbox" name="knifes">
-                <label for="knifes" class="checkbox-label">Knifes</label>
+        <div class="equipment-grid">
+            <div *ngFor="let equipmentItem of fishingEquipment">
+                <label><input type="checkbox" formArrayName="equipment"
+                        [checked]="newBoatForm.controls['equipment'].value.includes(equipmentItem)"
+                        (value)="equipmentItem"
+                        (change)="equipmentChanged($event, equipmentItem)"/>
+                    <span class="checkbox-label">{{equipmentItem.name}}</span>
+                </label>
             </div>
         </div>
     </form>
-    <app-primary-button [text]="'Next'" class="next-btn"></app-primary-button>
+    <app-primary-button [text]="'Next'" class="next-btn" (click)="addBoatSpecification()"></app-primary-button>
 </div>

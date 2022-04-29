@@ -40,42 +40,18 @@
             </div>
         </div>
         <span class="checkbox-text">Choose which rules are applied when renting</span>
-        <div class="form-fields checkbox-title d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="smoking" type="checkbox" name="smoking">
-                <label for="smoking" class="checkbox-label">No smoking</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="trash" type="checkbox" name="trash">
-                <label for="trash" class="checkbox-label">No trash in water</label>
-            </div>
-        </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="otherBoats" type="checkbox" name="otherBoats">
-                <label for="otherBoats" class="checkbox-label">Be cautious of other boaters</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="restrictedAreas" type="checkbox" name="restrictedAreas">
-                <label for="restrictedAreas" class="checkbox-label">Avoid restricted areas</label>
+        
+        <div class="applied-rules-grid">
+            <div *ngFor="let appliedRule of appliedRules">
+                <label><input type="checkbox" formArrayName="appliedRules"
+                        [checked]="newBoatForm.controls['appliedRules'].value.includes(appliedRule)"
+                        (value)="appliedRule.description"
+                        (change)="appliedRulesChanged($event, appliedRule)"/>
+                    <span class="checkbox-label">{{appliedRule.description}}</span>
+                </label>
             </div>
         </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="lookout" type="checkbox" name="lookout">
-                <label for="lookout" class="checkbox-label">Always have a lookout</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="waterShallow" type="checkbox" name="waterShallow">
-                <label for="waterShallow" class="checkbox-label">Don’t go into shallow waters</label>
-            </div>
-        </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="speedLimit" type="checkbox" name="speedLimit">
-                <label for="speedLimit" class="checkbox-label">Don’t go too fast</label>
-            </div>
-        </div>
+
     </form>
-    <app-primary-button [text]="'Next'" class="next-btn"></app-primary-button>
+    <app-primary-button [text]="'Next'" class="next-btn" (click)="addGeneralInfo()"></app-primary-button>
 </div>

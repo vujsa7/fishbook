@@ -2,7 +2,6 @@
     margin-top: 47px;
     padding-left: 113px;
     padding-right: 149px;
-    height: 100vh;
     width: 100vw;
 }
 
@@ -17,6 +16,7 @@
         border: 1px solid darkgrey;
         border-radius: 7px;
         justify-content: space-between;
+        cursor: pointer;
     }
 
         .photo-description{
@@ -43,6 +43,7 @@
         border: 1px solid darkgrey;
         border-radius: 7px;
         justify-content: space-between;
+        cursor: pointer;
     }
 
         .cover-description{
@@ -57,4 +58,5 @@
         height: 10.72vh;
         border: 1px solid darkgrey;
         border-radius: 7px;
+        cursor: pointer;
     }

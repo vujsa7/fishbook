@@ -3,17 +3,25 @@
 .form-wrapper{
     margin-top: 47px;
     margin-bottom: 90px;
-    height: 100vh;
     width: 100vw;
 }
 
     .next-btn{
         width: 33.12vw;
         padding-bottom: 10px;
+        margin-top: 12px;
     }
 
     .checkbox-text{
         color: color(darkgrey);
+    }
+
+    .equipment-grid{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        row-gap: 10px;
+        margin-bottom: 8px;
     }
 
     .form-fields{
@@ -42,6 +50,7 @@
         .checkbox-label{
             color: color(blue);
             margin-left: 5px;
+            @include noselect;
         }
 
         .checkbox-title{

@@ -31,6 +31,15 @@ export class AuthService {
         return header;
     }
 
+    getFormHeader() : HttpHeaders{
+        let token = localStorage.getItem('jwtToken');
+        let header = new HttpHeaders();
+        if(token != null){
+            header = new HttpHeaders().set('Authorization',  'Bearer ' + localStorage.getItem('jwtToken'));
+        }
+        return header;
+    }
+
     getToken(): any {
         return localStorage.getItem('jwtToken');
     }
