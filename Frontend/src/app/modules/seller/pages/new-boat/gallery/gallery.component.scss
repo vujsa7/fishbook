@@ -1,0 +1,62 @@
+.form-wrapper{
+    margin-top: 47px;
+    padding-left: 113px;
+    padding-right: 149px;
+    width: 100vw;
+}
+
+    .save-btn{
+        width: 33.12vw;
+        padding-bottom: 10px; 
+    }
+
+    .main-photo{
+        width: 22vw;
+        height: 38.6vh;
+        border: 1px solid darkgrey;
+        border-radius: 7px;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+        .photo-description{
+            background: darkgrey;
+            border-radius: 0px 7px 0px 0px;
+            text-align: center;
+        }
+
+            .photo-text{
+                color: white;
+            }
+
+        .upload-photos{
+            align-items: center;
+        }
+
+            .upload-text{
+                color: darkgrey;
+            }
+
+    .cover-photo{
+        width: 83vw;
+        height: 38.6vh;
+        border: 1px solid darkgrey;
+        border-radius: 7px;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+        .cover-description{
+            background: darkgrey;
+            border-radius: 0px 7px 0px 0px;
+            text-align: center;
+            width: 26.6vh;
+        }
+
+    .small-photo{
+        width: 7.66vw;
+        height: 10.72vh;
+        border: 1px solid darkgrey;
+        border-radius: 7px;
+        cursor: pointer;
+    }

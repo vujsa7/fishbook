@@ -1,72 +1,57 @@
 <div class="form-wrapper d-flex flex-column align-items-center">
-    <form>
+    <form [formGroup]="newBoatForm">
         <div class="form-fields">
-            <div class="input-container">
+            <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.boatName.touched && newBoatForm.controls.boatName.errors?.['required'])}">
                 <label for="boatName" class="input-label">Boat name</label>
-                <input id="boatName" type="text" name="boatName">
+                <input id="boatName" type="text" formControlName="boatName" name="boatName">
+                <span class="error-message" *ngIf="newBoatForm.controls.boatName.touched && newBoatForm.controls.boatName.errors?.['required']">Boat name cannot be empty.</span>
             </div>
             <span class="maxchar">0/40max</span>
         </div>
         <div class="form-fields">
-            <div class="input-container description">
+            <div class="input-container description" [ngClass]="{'input-container-error' : (newBoatForm.controls.description.touched && newBoatForm.controls.description.errors?.['required'])}">
                 <label for="description" class="input-label">Description</label>
-                <textarea id="description" maxLength="200"></textarea>
+                <textarea id="description" formControlName="description" maxLength="200"></textarea>
+                <span class="error-message error-textarea" *ngIf="newBoatForm.controls.description.touched && newBoatForm.controls.description.errors?.['required']">Description cannot be empty.</span>
             </div>
             <span class="maxchar">0/200max</span>
         </div>
         <div class="form-fields">
-            <div class="input-container">
+            <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.street.touched && newBoatForm.controls.street.errors?.['required'])}">
                 <label for="street" class="input-label">Street and number</label>
-                <input id="street" type="text" name="street">
+                <input id="street" type="text" formControlName="street" name="street">
+                <span class="error-message" *ngIf="newBoatForm.controls.street.touched && newBoatForm.controls.street.errors?.['required']">Address cannot be empty.</span>
             </div>
         </div>
         <div class="form-fields d-flex flex-row">
-            <div class="input-container w-50 me-2">
-                <label for="city" class="input-label">City</label>
-                <input id="city" type="text" name="city">
-            </div>
-            <div class="input-container w-50 ms-2">
+            <div class="input-container w-50 me-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.state.touched && newBoatForm.controls.state.errors?.['required'])}">
                 <label for="state" class="input-label">State</label>
-                <input id="state" type="text" name="country">
+                <select id="state" name='state' formControlName="state" (change)="onStateChanged()">
+                    <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+                </select>
+                <span class="error-message" *ngIf="newBoatForm.controls.state.touched && newBoatForm.controls.state.errors?.['required']">You must choose a state.</span>
+            </div>
+            <div class="input-container w-50 ms-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.city.touched && newBoatForm.controls.city.errors?.['required'])}">
+                <label for="city" class="input-label">City</label>
+                <select id="city" name='city' formControlName="city">
+                    <option *ngFor="let city of filteredCities" [value]="city.name">{{city.name}}</option>
+                </select>
+                <span class="error-message" *ngIf="newBoatForm.controls.city.touched && newBoatForm.controls.city.errors?.['required']">You must choose a city.</span>
             </div>
         </div>
         <span class="checkbox-text">Choose which rules are applied when renting</span>
-        <div class="form-fields checkbox-title d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="smoking" type="checkbox" name="smoking">
-                <label for="smoking" class="checkbox-label">No smoking</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="trash" type="checkbox" name="trash">
-                <label for="trash" class="checkbox-label">No trash in water</label>
-            </div>
-        </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="otherBoats" type="checkbox" name="otherBoats">
-                <label for="otherBoats" class="checkbox-label">Be cautious of other boaters</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="restrictedAreas" type="checkbox" name="restrictedAreas">
-                <label for="restrictedAreas" class="checkbox-label">Avoid restricted areas</label>
+        
+        <div class="applied-rules-grid">
+            <div *ngFor="let appliedRule of appliedRules">
+                <label><input type="checkbox" formArrayName="appliedRules"
+                        [checked]="newBoatForm.controls['appliedRules'].value.includes(appliedRule)"
+                        (value)="appliedRule.description"
+                        (change)="appliedRulesChanged($event, appliedRule)"/>
+                    <span class="checkbox-label">{{appliedRule.description}}</span>
+                </label>
             </div>
         </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="lookout" type="checkbox" name="lookout">
-                <label for="lookout" class="checkbox-label">Always have a lookout</label>
-            </div>
-            <div class="w-50 ms-2">
-                <input id="waterShallow" type="checkbox" name="waterShallow">
-                <label for="waterShallow" class="checkbox-label">Don’t go into shallow waters</label>
-            </div>
-        </div>
-        <div class="form-fields d-flex flex-row">
-            <div class="w-50 me-2">
-                <input id="speedLimit" type="checkbox" name="speedLimit">
-                <label for="speedLimit" class="checkbox-label">Don’t go too fast</label>
-            </div>
-        </div>
+
     </form>
-    <app-primary-button [text]="'Next'" class="next-btn"></app-primary-button>
+    <app-primary-button [text]="'Next'" class="next-btn" (click)="addGeneralInfo()"></app-primary-button>
 </div>
