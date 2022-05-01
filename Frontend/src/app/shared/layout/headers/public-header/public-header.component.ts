@@ -40,8 +40,6 @@ export class PublicHeaderComponent{
       this.isGlassEffect = false;
     else
       this.isGlassEffect = true;
-
-    console.log(this.isGlassEffect)
   }
   
 

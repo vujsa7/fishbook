@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { EntityBasicInfo } from 'src/app/shared/models/entity-basic-info.model';
+import { EntityBasicInfo } from 'src/app/modules/public/entities/models/entity-basic-info.model';
 import { EntityService } from './services/entity.service';
 
 @Component({

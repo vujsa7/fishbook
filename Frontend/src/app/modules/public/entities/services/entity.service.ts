@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityBasicInfo } from 'src/app/shared/models/entity-basic-info.model';
+import { EntityBasicInfo } from 'src/app/modules/public/entities/models/entity-basic-info.model';
 import { environment } from 'src/environments/environment';
 import boats from 'src/assets/mocks/boats.json';
 import houses from 'src/assets/mocks/houses.json';

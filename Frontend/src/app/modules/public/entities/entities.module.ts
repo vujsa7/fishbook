@@ -1,25 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BoatsRoutingModule } from './entities-routing.module';
+import { EntitiesRoutingModule } from './entities-routing.module';
 import { EntitiesComponent } from './entities.component';
 import { RentalDetailsComponent } from './components/rental-details/rental-details.component';
 import { FilterSearchResultsComponent } from './components/filter-search-results/filter-search-results.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PriceSliderComponent } from './components/price-slider/price-slider.component';
-
+import { EntityDetailsComponent } from './components/entity-details/entity-details.component';
+import { HouseModule } from './house/house.module';
+import { ImagesViewerComponent } from './components/images-viewer/images-viewer.component';
+import { AdventureModule } from './adventure/adventure.module';
+import { BoatModule } from './boat/boat.module';
+import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
     EntitiesComponent,
     RentalDetailsComponent,
     FilterSearchResultsComponent,
-    PriceSliderComponent
+    PriceSliderComponent,
+    EntityDetailsComponent,
+    ImagesViewerComponent,
+    SpecialOffersComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    BoatsRoutingModule,
+    EntitiesRoutingModule,
+    HouseModule,
+    BoatModule,
+    AdventureModule,
+    CarouselModule 
   ]
 })
-export class BoatsModule { }
+export class EntitiesModule { }

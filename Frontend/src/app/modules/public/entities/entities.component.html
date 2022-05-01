@@ -1,7 +1,8 @@
 <div>
     <app-spinner-fullscreen *ngIf="isLoadingEntities"></app-spinner-fullscreen>
     <div *ngIf="!isLoadingEntities" class="entities-wrapper d-flex flex-column">
-        <span class="grey-text mb-4">Renting a boat</span>
+        <span class="grey-text mb-4">{{(entityType == 'boats' || entityType == 'houses') ? 'Renting a ' +
+            entityType.substring(0, entityType.length-1) : 'Book an adventure'}}</span>
         <div class="d-flex">
             <div class="d-flex flex-column filters">
                 <entities-rental-details class="rental-details"></entities-rental-details>
@@ -9,10 +10,9 @@
             </div>
             <div class="entities-cards" *ngIf="entitiesBasicInfo">
                 <div *ngFor="let entityBasicInfo of entitiesBasicInfo">
-                    <app-entity-card [entityBasicInfo]="entityBasicInfo"></app-entity-card>
+                    <app-entity-card [entityBasicInfo]="entityBasicInfo" [entityType]="entityType"></app-entity-card>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

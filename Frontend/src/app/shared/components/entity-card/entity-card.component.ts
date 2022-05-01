@@ -9,8 +9,10 @@ import { EntityBasicInfo } from '../../models/entity-basic-info.model';
 })
 export class EntityCardComponent implements OnInit {
 
+  @Input() entityType!: string;
   @Input() entityBasicInfo!: EntityBasicInfo;
   @Output() deleteEvent = new EventEmitter<number>();
+  
   role: string = 'ROLE_UNSIGNED';
 
   constructor(private authService: AuthService){}
@@ -22,5 +24,6 @@ export class EntityCardComponent implements OnInit {
   deleteEntity(value: number){
     this.deleteEvent.emit(value);
   }
+
   
 }

@@ -69,6 +69,10 @@
             cursor: pointer;
         }
 
+        .active{
+            font-weight: bold;
+        }
+
     .navbar-menu{
         @include background-svg($navbar-menu);
         @include icon;
@@ -79,7 +83,6 @@
     }
 
 .mobile-nav{
-
     @include media(">=tablet-large"){
         display: none !important;
     }

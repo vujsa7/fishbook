@@ -1,0 +1,23 @@
+@import "src/styles/main.scss";
+
+.specs{
+    color: color(blue);
+}
+
+    .location-icon{
+        @include background-svg($location);
+    }
+
+    .people-icon{
+        @include background-svg($people);
+    }
+    
+    .money-icon{
+        @include background-svg($money);
+    }
+
+    .location-icon, .people-icon, .money-icon{
+        @include icon;
+        cursor: initial;
+        margin-right: 10px;
+    }

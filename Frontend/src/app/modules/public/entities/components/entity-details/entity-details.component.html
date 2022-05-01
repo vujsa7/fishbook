@@ -1,0 +1,29 @@
+<div>
+    <app-spinner-fullscreen *ngIf="isLoadingEntity"></app-spinner-fullscreen>
+    <div *ngIf="!isLoadingEntity" class="page-wrapper d-flex flex-column">
+        <div class="d-flex images-info-wrapper">
+           <entity-images-viewer class="w-100"></entity-images-viewer>
+            <div class="info d-flex flex-column w-100">
+                <div class="title d-flex w-100 justify-content-between">
+                    <h3>Nature's Bliss</h3>
+                    <div class="d-flex rating align-items-center">
+                        <svg class="star-icon"></svg>
+                        <span>4.5</span>
+                    </div>
+                </div>
+                <span class="grey-text owner">Owner: James Franco</span>
+                <span class="grey-text description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </span>
+                <span class="grey-text rules">Rules: No smoking, no throwing trash in the ocean</span>
+                <house-rental-details *ngIf="entityType == 'house'"></house-rental-details>
+                <boat-rental-details *ngIf="entityType == 'boat'"></boat-rental-details>
+                <adventure-rental-details *ngIf="entityType == 'adventure'"></adventure-rental-details>
+                <div class="d-flex flex-column align-items-center">
+                    <app-primary-button class="w-100 mb-2" text="Rent now"></app-primary-button>
+                    <span class="grey-text fee">{{entityType.charAt(0).toUpperCase()+entityType.slice(1)}} owner keeps 15% of every cancelled reservation</span>
+                </div>
+                
+            </div>
+        </div>
+        <entity-special-offers></entity-special-offers>
+    </div>
+</div>

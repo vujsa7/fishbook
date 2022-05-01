@@ -1,4 +1,6 @@
 @import 'src/styles/main.scss';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 * {
     padding: 0;
@@ -323,3 +325,21 @@ input:checked + .slider:before {
     .c-toast--error{
       background-color: color(red) !important;
     }
+    
+.page-wrapper{
+    width: 100%;
+    padding: 100px $grid-margin-width 30px $grid-margin-width;
+}
+
+.owl-stage{
+    padding: 10px 0;
+}
+
+.owl-dot span{
+    background-color: color(darkgrey) !important;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.owl-dot.active span{
+    background-color: color(lightblue) !important;
+}

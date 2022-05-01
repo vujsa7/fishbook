@@ -1,0 +1,28 @@
+@import "src/styles/main.scss";
+
+.specs{
+    color: color(blue);
+}
+
+    .location-icon{
+        @include background-svg($location);
+    }
+
+    .house-icon{
+        @include background-svg($house);
+    }
+
+    .bed-icon{
+        @include background-svg($bed);
+    }
+    
+    .money-icon{
+        @include background-svg($money);
+        
+    }
+
+    .location-icon, .house-icon, .bed-icon, .money-icon{
+        @include icon;
+        cursor: initial;
+        margin-right: 10px;
+    }

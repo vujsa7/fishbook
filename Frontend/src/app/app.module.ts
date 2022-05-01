@@ -13,7 +13,14 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { AdminHeaderComponent } from './shared/layout/headers/admin-header/admin-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -32,7 +39,8 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     SharedModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FullCalendarModule
   ],
   bootstrap: [AppComponent]
 })

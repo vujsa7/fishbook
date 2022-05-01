@@ -6,22 +6,22 @@
             <h5 class="fw-bold brand">Fishbook</h5>
         </div>
         <div class="nav-items d-flex flex-row align-items-center">
-            <span class="nav-item" routerLink="boats">Boats</span>
-            <span class="nav-item" routerLink="houses" >Houses</span>
-            <span class="nav-item" routerLink="adventures" >Adventures</span>
-            <span class="nav-item" routerLink="/login">Sign in</span>
-            <app-primary-button routerLink="/register" [text]="'Sign up'"></app-primary-button>
+            <span class="nav-item" routerLink="boats" routerLinkActive="active">Boats</span>
+            <span class="nav-item" routerLink="houses" routerLinkActive="active">Houses</span>
+            <span class="nav-item" routerLink="adventures" routerLinkActive="active">Adventures</span>
+            <span class="nav-item" routerLink="login">Sign in</span>
+            <app-primary-button routerLink="register" [text]="'Sign up'"></app-primary-button>
         </div>
         <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
     </nav>
-    <div class="mobile-nav">
+    <div *ngIf="isVisible" class="mobile-nav">
         <div class="overlay" [ngClass]="{'overlay-visible' : dropdownMenuVisible}" (click)="toggleDropdownMenu()"></div>
         <div class="nav-items-mobile d-flex flex-column" [ngClass]="{'nav-items-mobile-visible' : dropdownMenuVisible}">
-            <span class="nav-item-mobile mt-2" routerLink="boats">Boats</span>
-            <span class="nav-item-mobile">Houses</span>
-            <span class="nav-item-mobile">Adventures</span>
-            <span class="nav-item-mobile">Sign in</span>
-            <span class="nav-item-mobile">Sign up</span>
+            <span class="nav-item-mobile mt-2" routerLink="boats" routerLinkActive="active">Boats</span>
+            <span class="nav-item-mobile" routerLink="houses" routerLinkActive="active">Houses</span>
+            <span class="nav-item-mobile" routerLink="adventures" routerLinkActive="active">Adventures</span>
+            <span class="nav-item-mobile" routerLink="login">Sign in</span>
+            <span class="nav-item-mobile" routerLink="register">Sign up</span>
         </div>
     </div>
 </div>

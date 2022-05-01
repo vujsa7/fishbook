@@ -1,0 +1,33 @@
+<div class="d-flex flex-column align-items-center special-offers">
+    <h3>Special offers</h3>
+    <owl-carousel-o class="custom-carousel" [options]="customOptions">
+
+        <ng-container *ngFor="let i of [].constructor(10)">
+          <ng-template carouselSlide>
+            <div class="fb-container d-flex flex-column">
+                <div class="d-flex dates align-items-center">
+                    <div class="d-flex border-right flex-column w-50 h-100 justify-content-center align-items-center">
+                        <span class="grey-text small">From</span>
+                        <div class="lightblue-text">26. July 2022, 14-30</div>
+                    </div>
+                    <div class="d-flex flex-column w-50 h-100 justify-content-center align-items-center">
+                        <span class="grey-text small">To</span>
+                        <div class="lightblue-text">28. July 2022, 14-30</div>
+                    </div>
+                </div>
+                <div class="d-flex prices align-items-center">
+                    <div class="d-flex flex-column w-50 h-100 justify-content-center align-items-center">
+                        <span class="grey-text small">Old price</span>
+                        <div class="grey-text old-price">$500</div>
+                    </div>
+                    <div class="d-flex flex-column w-50 h-100 justify-content-center align-items-center">
+                        <span class="grey-text small">New price</span>
+                        <div class="lightblue-text">$300</div>
+                    </div>
+                </div>
+            </div>
+          </ng-template>
+        </ng-container>
+    
+      </owl-carousel-o>
+</div>

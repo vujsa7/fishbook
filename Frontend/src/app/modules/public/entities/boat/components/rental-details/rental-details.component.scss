@@ -1,0 +1,28 @@
+@import "src/styles/main.scss";
+
+.specs{
+    color: color(blue);
+}
+
+    .location-icon{
+        @include background-svg($location);
+    }
+
+    .boat-icon{
+        @include background-svg($boat);
+    }
+
+    .seat-icon{
+        @include background-svg($seat);
+    }
+    
+    .money-icon{
+        @include background-svg($money);
+        
+    }
+
+    .location-icon, .boat-icon, .seat-icon, .money-icon{
+        @include icon;
+        cursor: initial;
+        margin-right: 10px;
+    }

@@ -1,0 +1,49 @@
+@import "src/styles/main.scss";
+
+.images-info-wrapper{
+    @include media("<phone-large"){
+        flex-direction: column !important;
+    }
+}
+
+    .title{
+        margin-bottom: 10px;
+    }
+
+        .rating{
+            color: color(lightblue);
+            font-weight: bold;
+        }
+
+            .star-icon{
+                @include background-svg($star);
+                @include icon;
+                cursor: initial;
+                margin-right: 5px;
+            }
+
+    .owner, .description{
+        margin-bottom: 20px;
+    }
+
+    .rules{
+        margin-bottom: 60px;
+
+        @include media("<tablet-large"){
+            margin-bottom: 40px;
+        }
+
+        @include media("<phone-large"){
+            margin-bottom: 20px;
+        }
+    }
+
+    .fee{
+        font-size: 14px;
+    }
+
+.map{
+    margin: 30px 0;
+    margin-left: -$grid-margin-width;
+    margin-right: -$grid-margin-width;
+}

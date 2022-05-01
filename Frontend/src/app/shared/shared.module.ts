@@ -12,6 +12,7 @@ import { EntityCardComponent } from './components/entity-card/entity-card.compon
 import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-fullscreen.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
+    MaterialModule
   ],
   exports: [
     PrimaryButtonComponent,

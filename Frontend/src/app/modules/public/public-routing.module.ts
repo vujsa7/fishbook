@@ -9,9 +9,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
-  { path: 'boats', loadChildren: () => import('./entities/entities.module').then(m => m.BoatsModule)},
-  { path: 'houses', loadChildren: () => import('./entities/entities.module').then(m => m.BoatsModule)},
-  { path: 'adventures', loadChildren: () => import('./entities/entities.module').then(m => m.BoatsModule)},
+  { path: 'boats', loadChildren: () => import('./entities/entities.module').then(m => m.EntitiesModule)},
+  { path: 'houses', loadChildren: () => import('./entities/entities.module').then(m => m.EntitiesModule)},
+  { path: 'adventures', loadChildren: () => import('./entities/entities.module').then(m => m.EntitiesModule)},
   { path: '**', redirectTo: '' }
 ];
 
