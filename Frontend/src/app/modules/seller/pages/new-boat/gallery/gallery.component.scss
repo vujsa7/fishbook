@@ -11,6 +11,8 @@
     }
 
     .main-photo{
+        position: relative;
+        overflow: hidden;
         width: 22vw;
         height: 38.6vh;
         border: 1px solid darkgrey;
@@ -38,6 +40,8 @@
             }
 
     .cover-photo{
+        position: relative;
+        overflow: hidden;
         width: 83vw;
         height: 38.6vh;
         border: 1px solid darkgrey;
@@ -54,9 +58,20 @@
         }
 
     .small-photo{
+        position: relative;
+        overflow: hidden;
         width: 7.66vw;
         height: 10.72vh;
         border: 1px solid darkgrey;
         border-radius: 7px;
         cursor: pointer;
     }
+
+img{
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    right: -9999px;
+    bottom: -9999px;
+    margin: auto;
+}

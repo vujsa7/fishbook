@@ -2,8 +2,7 @@
     <form [formGroup]="newBoatForm">
         <div class="form-fields">
             <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.boatType.touched && newBoatForm.controls.boatType.errors?.['required'])}">
-                <label for="boatType" class="input-label">Boat type</label>
-                <select id="boatType" formControlName="boatType" name='boatType'>
+                <select id="boatType" formControlName="boatType" name='boatType' (focus)="newBoatForm.controls.boatType.markAsUntouched()" required>
                     <option style="display:none"></option>
                     <option [ngValue]="'JET_SKI'">Jet Ski</option>
                     <option [ngValue]="'INFLATABLE_BOAT'">Inflatable boat</option>
@@ -17,79 +16,68 @@
                     <option [ngValue]="'CABIN_CRUISER'">Cabin cruiser</option>
                     <option [ngValue]="'CRUISE'">Cruise</option>
                 </select>
+                <label for="boatType" class="input-label">Boat type</label>
                 <span class="error-message" *ngIf="newBoatForm.controls.boatType.touched && newBoatForm.controls.boatType.errors?.['required']">Must choose a boat type.</span>
             </div>
         </div>
         <div class="form-fields">
             <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.maxPeople.touched && newBoatForm.controls.maxPeople.errors?.['required'])}">
+                <input id="maxPeople" type="number" formControlName="maxPeople" name="maxPeople" (focus)="newBoatForm.controls.maxPeople.markAsUntouched()" required>
                 <label for="maxPeople" class="input-label">Maximum people</label>
-                <input id="maxPeople" type="number" formControlName="maxPeople" name="maxPeople">
                 <span class="error-message" *ngIf="newBoatForm.controls.maxPeople.touched && newBoatForm.controls.maxPeople.errors?.['required']">Maximum people must be specified.</span>
             </div>
         </div>
         <div class="form-fields d-flex flex-row">
             <div class="input-container w-50 me-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.length.touched && newBoatForm.controls.length.errors?.['required'])}">
+                <input id="length" type="number" formControlName="length" name="length" (focus)="newBoatForm.controls.length.markAsUntouched()" required>
                 <label for="length" class="input-label">Length</label>
-                <div class="d-flex flex-row">
-                    <input id="length" type="number" formControlName="length" name="length">
-                    <span class="measurment">m</span>
-                </div>
+                <span class="measurment">m</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.length.touched && newBoatForm.controls.length.errors?.['required']">Length must be specified.</span>
             </div>
             <div class="input-container w-50 ms-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.loadCapacity.touched && newBoatForm.controls.loadCapacity.errors?.['required'])}">
+                <input id="loadCapacity" type="number" formControlName="loadCapacity" name="loadCapacity" (focus)="newBoatForm.controls.loadCapacity.markAsUntouched()" required>
                 <label for="loadCapacity" class="input-label">Load capacity</label>
-                <div class="d-flex flex-row">
-                    <input id="loadCapacity" type="number" formControlName="loadCapacity" name="loadCapacity">
-                    <span class="measurment">kg</span>
-                </div>
+                <span class="measurment">kg</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.loadCapacity.touched && newBoatForm.controls.loadCapacity.errors?.['required']">Load capacity must be specified.</span>
             </div>
         </div>
         <div class="form-fields d-flex flex-row">
             <div class="input-container w-50 me-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.maxSpeed.touched && newBoatForm.controls.maxSpeed.errors?.['required'])}">
+                <input id="maxSpeed" type="number" formControlName="maxSpeed" name="maxSpeed" (focus)="newBoatForm.controls.maxSpeed.markAsUntouched()" required>
                 <label for="maxSpeed" class="input-label">Maximum speed</label>
-                <div class="d-flex flex-row">
-                    <input id="maxSpeed" type="number" formControlName="maxSpeed" name="maxSpeed">
-                    <span class="measurment">km/h</span>
-                </div>
+                <span class="measurment">km/h</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.maxSpeed.touched && newBoatForm.controls.maxSpeed.errors?.['required']">Maximum speed must be specified.</span>
             </div>
             <div class="input-container w-50 ms-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.horsepower.touched && newBoatForm.controls.horsepower.errors?.['required'])}">
+                <input id="horsepower" type="number" formControlName="horsepower" name="horsepower" (focus)="newBoatForm.controls.horsepower.markAsUntouched()" required>
                 <label for="horsepower" class="input-label">Horsepower</label>
-                <input id="horsepower" type="number" formControlName="horsepower" name="horsepower">
                 <span class="error-message" *ngIf="newBoatForm.controls.horsepower.touched && newBoatForm.controls.horsepower.errors?.['required']">Horsepower must be specified.</span>
             </div>
         </div>
         <div class="form-fields d-flex flex-row">
             <div class="input-container w-50 me-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.motorsOnBoat.touched && newBoatForm.controls.motorsOnBoat.errors?.['required'])}">
+                <input id="motorsOnBoat" type="number" formControlName="motorsOnBoat" name="motorsOnBoat" (focus)="newBoatForm.controls.motorsOnBoat.markAsUntouched()" required>
                 <label for="motorsOnBoat" class="input-label">Motors on boat</label>
-                <input id="motorsOnBoat" type="number" formControlName="motorsOnBoat" name="motorsOnBoat">
                 <span class="error-message" *ngIf="newBoatForm.controls.motorsOnBoat.touched && newBoatForm.controls.motorsOnBoat.errors?.['required']">Motors on boat must be specified.</span>
             </div>
             <div class="input-container w-50 ms-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.fuelConsumption.touched && newBoatForm.controls.fuelConsumption.errors?.['required'])}">
+                <input id="fuelConsumption" type="number" formControlName="fuelConsumption" name="fuelConsumption" (focus)="newBoatForm.controls.fuelConsumption.markAsUntouched()" required>
                 <label for="fuelConsumption" class="input-label">Fuel consumption</label>
-                <div class="d-flex flex-row">
-                    <input id="fuelConsumption" type="number" formControlName="fuelConsumption" name="fuelConsumption">
-                    <span class="measurment">l/h</span>
-                </div>
+                <span class="measurment">l/h</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.fuelConsumption.touched && newBoatForm.controls.fuelConsumption.errors?.['required']">Fuel consumption must be specified.</span>
             </div>
         </div>
         <div class="form-fields d-flex flex-row">
             <div class="input-container w-50 me-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.maxDistance.touched && newBoatForm.controls.maxDistance.errors?.['required'])}">
+                <input id="maxDistance" type="number" formControlName="maxDistance" name="maxDistance" (focus)="newBoatForm.controls.maxDistance.markAsUntouched()" required>
                 <label for="maxDistance" class="input-label">Max distance on tank</label>
-                <div class="d-flex flex-row">
-                    <input id="maxDistance" type="number" formControlName="maxDistance" name="maxDistance">
-                    <span class="measurment">km</span>
-                </div>
+                <span class="measurment">km</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.maxDistance.touched && newBoatForm.controls.maxDistance.errors?.['required']">Maximum distance must be specified.</span>
             </div>
             <div class="input-container w-50 ms-2" [ngClass]="{'input-container-error' : (newBoatForm.controls.energyConsumption.touched && newBoatForm.controls.energyConsumption.errors?.['required'])}">
-                <label for="en  ergyConsumption" class="input-label">Energy consumption</label>
-                <div class="d-flex flex-row">
-                    <input id="energyConsumption" type="number" formControlName="energyConsumption" name="energyConsumption">
-                    <span class="measurment">W/h</span>
-                </div>
+                <input id="energyConsumption" type="number" formControlName="energyConsumption" name="energyConsumption" (focus)="newBoatForm.controls.energyConsumption.markAsUntouched()" required>
+                <label for="energyConsumption" class="input-label">Energy consumption</label>
+                <span class="measurment">W/h</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.energyConsumption.touched && newBoatForm.controls.energyConsumption.errors?.['required']">Energy consumption must be specified.</span>
             </div>
         </div>
