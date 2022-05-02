@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class GlassContainerComponent implements OnInit {
 
   @Input() borderRadius: number = 0;
+  @Input() opacity: number = 1;
 
   constructor() { }
 

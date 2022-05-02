@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RentalDetailsComponent } from './components/rental-details/rental-details.component';
+import { SpecificationsComponent } from './components/specifications/specifications.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
-    RentalDetailsComponent
+    RentalDetailsComponent,
+    SpecificationsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   exports: [
-    RentalDetailsComponent
+    RentalDetailsComponent,
+    SpecificationsComponent
   ]
 })
 export class BoatModule { }

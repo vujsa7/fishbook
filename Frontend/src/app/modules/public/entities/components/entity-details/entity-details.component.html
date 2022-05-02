@@ -24,6 +24,9 @@
                 
             </div>
         </div>
+        <boat-specifications class="boat-specifications" *ngIf="entityType == 'boat'"></boat-specifications>
+        <adventure-about class="adventure-about" *ngIf="entityType == 'adventure'"></adventure-about>
         <entity-special-offers></entity-special-offers>
+        <adventure-gallery class="adventure-gallery"></adventure-gallery>
     </div>
 </div>

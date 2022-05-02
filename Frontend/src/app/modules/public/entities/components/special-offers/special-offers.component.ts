@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -6,7 +6,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   templateUrl: './special-offers.component.html',
   styleUrls: ['./special-offers.component.scss']
 })
-export class SpecialOffersComponent implements OnInit {
+export class SpecialOffersComponent {
 
   customOptions: OwlOptions = {
     loop: true,
@@ -15,22 +15,26 @@ export class SpecialOffersComponent implements OnInit {
     pullDrag: true,
     dots: true,
     responsive: {
-      400: {
+      0: {
         items: 1
       },
-      740: {
+      400: {
+        items: 1.3
+      },
+      500: {
+        items: 1.5
+      },
+      840: {
         items: 2
       },
-      940: {
+      1100: {
         items: 3
+      },
+      1600: {
+        items: 4
       }
     },
     margin: 50,
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
 }

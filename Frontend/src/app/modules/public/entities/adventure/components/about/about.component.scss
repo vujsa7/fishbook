@@ -1,0 +1,60 @@
+@import "src/styles/main.scss";
+
+.about-wrapper{
+    position: relative;
+    width: 100%;
+
+    .title{
+        margin-bottom: 10px;
+    }
+}
+
+    .instructor-cover-image{
+        position: absolute;
+        width: 100%;
+        height: 600px;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        object-fit: cover;
+    }
+
+    .specs{
+        width: 100%;
+        height: 100%;
+        padding: 60px $grid-margin-width;
+    }
+
+        .glass-container{
+            padding: 30px;
+            border-radius: 7px;
+            background-image: linear-gradient(to right top, rgba(185, 185, 185, 0.5), rgba(141, 141, 141, 0.3));
+            width: 550px;
+
+            @include media("<tablet"){
+                width: 100%;
+            }
+        }
+
+        .about{
+            height: 226px;
+            margin-bottom: 30px;
+        }
+
+            .description, .equipment-wrapper{
+                text-align: center;
+            }
+
+        .equipment{
+            height: 221px;
+        }
+
+            .equipment-wrapper{
+                height: 110px;
+                flex-wrap: wrap;
+                padding: 0 20px;
+            }
+
+                .eq{
+                    margin-bottom: 5px;
+                }

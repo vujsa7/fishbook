@@ -42,8 +42,12 @@
         font-size: 14px;
     }
 
-.map{
+.boat-specifications, .adventure-about, .map{
     margin: 30px 0;
     margin-left: -$grid-margin-width;
     margin-right: -$grid-margin-width;
+}
+
+.adventure-gallery{
+    margin: 30px 0;
 }
