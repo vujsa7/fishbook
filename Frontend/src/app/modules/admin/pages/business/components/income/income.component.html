@@ -2,8 +2,8 @@
     <div class="title">Business income</div>
     <form class="d-flex flex-column">
         <div class="input-container form-fields">
+            <input id="systemFee" type="number" name="systemFee" [(ngModel)]="globalConfig.systemFee" (ngModelChange)="dataChanged($event)" required>
             <label for="systemFee" class="input-label">System fee</label>
-            <input id="systemFee" type="number" name="systemFee" [(ngModel)]="globalConfig.systemFee" (ngModelChange)="dataChanged($event)">
         </div>
     </form>
     <app-primary-button text="Save system fee" class="form-fields" [isBtnDisabled]=isBtnDisabled (click)="updateGlobalConfig()"></app-primary-button>

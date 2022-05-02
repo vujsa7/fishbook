@@ -4,47 +4,47 @@
             <div class="title">Customer settings</div>
             <form class="d-flex flex-column" *ngIf="globalConfig && loyaltyConfig">
                 <div class="input-container form-fields">
+                    <input required id="customerNumOfPointsForReservation" type="number" name="customerNumOfPointsForReservation" [(ngModel)]="globalConfig.buyerPointsPerReservation" (ngModelChange)="globalConfigDataChanged($event)">
                     <label for="customerNumOfPointsForReservation" class="input-label">Number of points customers gain with each reservation</label>
-                    <input id="customerNumOfPointsForReservation" type="number" name="customerNumOfPointsForReservation" [(ngModel)]="globalConfig.buyerPointsPerReservation" (ngModelChange)="globalConfigDataChanged($event)">
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="customerBabySeahorsePoints" type="number" name="customerBabySeahorsePoints" [(ngModel)]="loyaltyConfig[0].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(0)">
                         <label for="customerBabySeahorsePoints" class="input-label">Baby Seahorse Points</label>
-                        <input id="customerBabySeahorsePoints" type="number" name="customerBabySeahorsePoints" [(ngModel)]="loyaltyConfig[0].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(0)">
                     </div>
                     <div class="input-container second">
+                        <input required id="customerBabySeahorseBenefit" type="number" name="customerBabySeahorseBenefit" [(ngModel)]="loyaltyConfig[0].discount" (ngModelChange)="loyaltyConfigDataChanged(0)">
                         <label for="customerBabySeahorseBenefit" class="input-label">% of discount</label>
-                        <input id="customerBabySeahorseBenefit" type="number" name="customerBabySeahorseBenefit" [(ngModel)]="loyaltyConfig[0].discount" (ngModelChange)="loyaltyConfigDataChanged(0)">
                     </div>
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="customerWildSwordfishPoints" type="number" name="customerWildSwordfishPoints" [(ngModel)]="loyaltyConfig[1].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(1)">
                         <label for="customerWildSwordfishPoints" class="input-label">Wild Swordfish Points</label>
-                        <input id="customerWildSwordfishPoints" type="number" name="customerWildSwordfishPoints" [(ngModel)]="loyaltyConfig[1].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(1)">
                     </div>
                     <div class="input-container second">
+                        <input required id="customerWildSwordfishBenefit" type="number" name="customerWildSwordfishBenefit" [(ngModel)]="loyaltyConfig[1].discount" (ngModelChange)="loyaltyConfigDataChanged(1)">
                         <label for="wildSwordfishBenefit" class="input-label">% of discount</label>
-                        <input id="customerWildSwordfishBenefit" type="number" name="customerWildSwordfishBenefit" [(ngModel)]="loyaltyConfig[1].discount" (ngModelChange)="loyaltyConfigDataChanged(1)">
                     </div>
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="customerExperiencedSharkPoints" type="number" name="customerExperiencedSharkPoints" [(ngModel)]="loyaltyConfig[2].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(2)">
                         <label for="experiencedSharkPoints" class="input-label">Experienced Shark Points</label>
-                        <input id="customerExperiencedSharkPoints" type="number" name="customerExperiencedSharkPoints" [(ngModel)]="loyaltyConfig[2].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(2)">
                     </div>
                     <div class="input-container second">
+                        <input required id="customerExperiencedSharkBenefit" type="number" name="customerExperiencedSharkBenefit" [(ngModel)]="loyaltyConfig[2].discount" (ngModelChange)="loyaltyConfigDataChanged(2)">
                         <label for="customerExperiencedSharkBenefit" class="input-label">% of discount</label>
-                        <input id="customerExperiencedSharkBenefit" type="number" name="customerExperiencedSharkBenefit" [(ngModel)]="loyaltyConfig[2].discount" (ngModelChange)="loyaltyConfigDataChanged(2)">
                     </div>
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="customerMightyWhalePoints" type="number" name="customerMightyWhalePoints" [(ngModel)]="loyaltyConfig[3].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(3)">
                         <label for="customerMightyWhalePoints" class="input-label">Mighty Whale Points</label>
-                        <input id="customerMightyWhalePoints" type="number" name="customerMightyWhalePoints" [(ngModel)]="loyaltyConfig[3].buyerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(3)">
                     </div>
                     <div class="input-container second">
+                        <input required id="customerMightyWhaleBenefit" type="number" name="customerMightyWhaleBenefit" [(ngModel)]="loyaltyConfig[3].discount" (ngModelChange)="loyaltyConfigDataChanged(3)">
                         <label for="customerMightyWhaleBenefit" class="input-label">% of discount</label>
-                        <input id="customerMightyWhaleBenefit" type="number" name="customerMightyWhaleBenefit" [(ngModel)]="loyaltyConfig[3].discount" (ngModelChange)="loyaltyConfigDataChanged(3)">
                     </div>
                 </div>  
             </form>
@@ -54,47 +54,47 @@
             <div class="title">Seller settings</div>
             <form class="d-flex flex-column" *ngIf="globalConfig && loyaltyConfig">
                 <div class="input-container form-fields">
+                    <input required id="sellerNumOfPointsForReservation" type="number" name="sellerNumOfPointsForReservation" [(ngModel)]="globalConfig.sellerPointsPerReservation" (ngModelChange)="globalConfigDataChanged($event)">
                     <label for="sellerNumOfPointsForReservation" class="input-label">Number of points sellers gain with each reservation</label>
-                    <input id="sellerNumOfPointsForReservation" type="number" name="sellerNumOfPointsForReservation" [(ngModel)]="globalConfig.sellerPointsPerReservation" (ngModelChange)="globalConfigDataChanged($event)">
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="sellerBabySeahorsePoints" type="number" name="sellerBabySeahorsePoints" [(ngModel)]="loyaltyConfig[0].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(0)">
                         <label for="sellerBabySeahorsePoints" class="input-label">Baby Seahorse Points</label>
-                        <input id="sellerBabySeahorsePoints" type="number" name="sellerBabySeahorsePoints" [(ngModel)]="loyaltyConfig[0].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(0)">
                     </div>
                     <div class="input-container second">
+                        <input required id="sellerBabySeahorseBenefit" type="number" name="sellerBabySeahorseBenefit" [(ngModel)]="loyaltyConfig[0].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(0)">
                         <label for="sellerBabySeahorseBenefit" class="input-label">Extra revenue</label>
-                        <input id="sellerBabySeahorseBenefit" type="number" name="sellerBabySeahorseBenefit" [(ngModel)]="loyaltyConfig[0].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(0)">
                     </div>
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="sellerWildSwordfishPoints" type="number" name="sellerWildSwordfishPoints" [(ngModel)]="loyaltyConfig[1].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(1)">
                         <label for="sellerWildSwordfishPoints" class="input-label">Wild Swordfish Points</label>
-                        <input id="sellerWildSwordfishPoints" type="number" name="sellerWildSwordfishPoints" [(ngModel)]="loyaltyConfig[1].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(1)">
                     </div>
                     <div class="input-container second">
+                        <input required id="sellerWildSwordfishBenefit" type="number" name="sellerWildSwordfishBenefit" [(ngModel)]="loyaltyConfig[1].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(1)">
                         <label for="wildSwordfishBenefit" class="input-label">Extra revenue</label>
-                        <input id="sellerWildSwordfishBenefit" type="number" name="sellerWildSwordfishBenefit" [(ngModel)]="loyaltyConfig[1].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(1)">
                     </div>
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="sellerExperiencedSharkPoints" type="number" name="sellerExperiencedSharkPoints" [(ngModel)]="loyaltyConfig[2].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(2)">
                         <label for="experiencedSharkPoints" class="input-label">Experienced Shark Points</label>
-                        <input id="sellerExperiencedSharkPoints" type="number" name="sellerExperiencedSharkPoints" [(ngModel)]="loyaltyConfig[2].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(2)">
                     </div>
                     <div class="input-container second">
+                        <input required id="sellerExperiencedSharkBenefit" type="number" name="sellerExperiencedSharkBenefit" [(ngModel)]="loyaltyConfig[2].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(2)">
                         <label for="sellerExperiencedSharkBenefit" class="input-label">Extra revenue</label>
-                        <input id="sellerExperiencedSharkBenefit" type="number" name="sellerExperiencedSharkBenefit" [(ngModel)]="loyaltyConfig[2].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(2)">
                     </div>
                 </div>
                 <div class="d-flex flex-row form-fields">
                     <div class="input-container first">
+                        <input required id="sellerMightyWhalePoints" type="number" name="sellerMightyWhalePoints" [(ngModel)]="loyaltyConfig[3].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(3)">
                         <label for="sellerMightyWhalePoints" class="input-label">Mighty Whale Points</label>
-                        <input id="sellerMightyWhalePoints" type="number" name="sellerMightyWhalePoints" [(ngModel)]="loyaltyConfig[3].sellerMinPoints" (ngModelChange)="loyaltyConfigDataChanged(3)">
                     </div>
                     <div class="input-container second">
+                        <input required id="sellerMightyWhaleBenefit" type="number" name="sellerMightyWhaleBenefit" [(ngModel)]="loyaltyConfig[3].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(3)">
                         <label for="sellerMightyWhaleBenefit" class="input-label">Extra revenue</label>
-                        <input id="sellerMightyWhaleBenefit" type="number" name="sellerMightyWhaleBenefit" [(ngModel)]="loyaltyConfig[3].extraRevenue" (ngModelChange)="loyaltyConfigDataChanged(3)">
                     </div>
                 </div>  
             </form>
