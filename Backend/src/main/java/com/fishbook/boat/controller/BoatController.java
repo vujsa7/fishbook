@@ -1,10 +1,9 @@
 package com.fishbook.boat.controller;
 
 import com.fishbook.boat.dto.BoatRegistrationDto;
-import com.fishbook.additional.entity.information.model.AppliedRule;
-import com.fishbook.boat.model.Boat;
+import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.model.Equipment;
-import com.fishbook.additional.entity.information.service.AppliedRuleService;
+import com.fishbook.additional.entity.information.service.RuleService;
 import com.fishbook.boat.service.BoatService;
 import com.fishbook.additional.entity.information.service.EquipmentService;
 import com.fishbook.util.TokenUtils;
@@ -21,14 +20,14 @@ import java.util.List;
 @RequestMapping("/api/boats")
 public class BoatController {
     private final BoatService boatService;
-    private final AppliedRuleService appliedRuleService;
+    private final RuleService ruleService;
     private final EquipmentService equipmentService;
     private TokenUtils tokenUtils;
 
     @Autowired
-    public BoatController(BoatService boatService, AppliedRuleService appliedRuleService, EquipmentService equipmentService, TokenUtils tokenUtils) {
+    public BoatController(BoatService boatService, RuleService ruleService, EquipmentService equipmentService, TokenUtils tokenUtils) {
         this.boatService = boatService;
-        this.appliedRuleService = appliedRuleService;
+        this.ruleService = ruleService;
         this.equipmentService = equipmentService;
         this.tokenUtils = tokenUtils;
     }
@@ -47,8 +46,8 @@ public class BoatController {
 
     @GetMapping(value = "/rules", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
-    public List<AppliedRule> getBoatRules(){
-        return appliedRuleService.getBoatRules();
+    public List<Rule> getBoatRules(){
+        return ruleService.getBoatRules();
     }
 
     @GetMapping(value = "/equipment", produces = MediaType.APPLICATION_JSON_VALUE)

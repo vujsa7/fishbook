@@ -1,9 +1,9 @@
 package com.fishbook.storage.model;
 
 import javax.persistence.*;
+import com.fishbook.entity.model.Entity;
 
-@Table(name = "Images")
-@Entity
+@javax.persistence.Entity
 public class EntityImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,12 +15,22 @@ public class EntityImage {
     @Column
     private Integer priority;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "entity_id")
+    private Entity entity;
+
     public EntityImage() {
     }
 
     public EntityImage(String name, Integer priority) {
         this.name = name;
         this.priority = priority;
+    }
+
+    public EntityImage(String name, Integer priority, Entity entity) {
+        this.name = name;
+        this.priority = priority;
+        this.entity = entity;
     }
 
     public Long getId() {
@@ -45,5 +55,13 @@ public class EntityImage {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 }

@@ -1,7 +1,7 @@
 package com.fishbook.boat.model;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
-import com.fishbook.additional.entity.information.model.AppliedRule;
+import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.location.model.Address;
 import com.fishbook.storage.model.EntityImage;
@@ -76,7 +76,7 @@ public class Boat {
 
     @ManyToMany
     @JoinTable(name = "boatRules", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rule_id", referencedColumnName = "id"))
-    private Set<AppliedRule> appliedRules = new HashSet<>();
+    private Set<Rule> appliedRules = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "boatEquipment", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
@@ -257,11 +257,11 @@ public class Boat {
         this.boatType = boatType;
     }
 
-    public Set<AppliedRule> getAppliedRules() {
+    public Set<Rule> getAppliedRules() {
         return appliedRules;
     }
 
-    public void setAppliedRules(Set<AppliedRule> appliedRules) {
+    public void setAppliedRules(Set<Rule> appliedRules) {
         this.appliedRules = appliedRules;
     }
 

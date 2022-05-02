@@ -1,7 +1,7 @@
 package com.fishbook.boat.dto;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
-import com.fishbook.additional.entity.information.model.AppliedRule;
+import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.storage.model.EntityImage;
 import com.fishbook.additional.entity.information.model.Equipment;
 
@@ -27,7 +27,7 @@ public class BoatRegistrationDto {
     private Integer advancePayment;
     private Integer price;
     private String boatType;
-    private Set<AppliedRule> appliedRules = new HashSet<>();
+    private Set<Rule> appliedRules = new HashSet<>();
     private Set<Equipment> equipment = new HashSet<>();
     private Set<AdditionalService> additionalServices = new HashSet<>();
     private List<EntityImage> images = new ArrayList<>();
@@ -181,11 +181,11 @@ public class BoatRegistrationDto {
         this.boatType = boatType;
     }
 
-    public Set<AppliedRule> getAppliedRules() {
+    public Set<Rule> getAppliedRules() {
         return appliedRules;
     }
 
-    public void setAppliedRules(Set<AppliedRule> appliedRules) {
+    public void setAppliedRules(Set<Rule> appliedRules) {
         this.appliedRules = appliedRules;
     }
 

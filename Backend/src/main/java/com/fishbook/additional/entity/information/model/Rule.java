@@ -3,8 +3,7 @@ package com.fishbook.additional.entity.information.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "AppliedRules")
-public class AppliedRule {
+public class Rule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,10 +14,10 @@ public class AppliedRule {
     @Column(nullable = false)
     private String description;
 
-    public AppliedRule() {
+    public Rule() {
     }
 
-    public AppliedRule(Long id, String type, String description) {
+    public Rule(Long id, String type, String description) {
         this.id = id;
         this.type = type;
         this.description = description;

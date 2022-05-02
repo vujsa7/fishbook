@@ -2,7 +2,6 @@ package com.fishbook.additional.entity.information.model;
 
 import javax.persistence.*;
 
-@Table(name = "AdditionalServices")
 @Entity
 public class AdditionalService {
     @Id

@@ -23,7 +23,6 @@ public class BoatServiceImpl implements BoatService {
     private final BoatRepository boatRepository;
     private final AdditionalServiceRepository additionalServiceRepository;
     private final UserRepository userRepository;
-
     private final LocationService locationService;
 
     @Autowired
