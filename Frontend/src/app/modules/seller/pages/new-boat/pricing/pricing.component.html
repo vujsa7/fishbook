@@ -2,23 +2,21 @@
     <form [formGroup]="newBoatForm">
         <div class="form-fields">
             <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.price.touched && newBoatForm.controls.price.errors?.['required'])}">
+                <input id="price" type="number" formControlName="price" name="price" (focus)="newBoatForm.controls.price.markAsUntouched()" required>
                 <label for="price" class="input-label">Price</label>
-                <div class="d-flex flex-row">
-                    <input id="price" type="number" formControlName="price" name="price">
-                    <span class="measurment">$/day</span>
-                </div>
+                <span class="measurment">$/day</span>
                 <span class="error-message" *ngIf="newBoatForm.controls.price.touched && newBoatForm.controls.price.errors?.['required']">Price must be specified.</span>
             </div>
         </div>
         <div class="form-fields">
             <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.advancePayment.touched && newBoatForm.controls.advancePayment.errors?.['required'])}">
-                <label for="advancePayment" class="input-label">How much % do you keep if someone cancels?</label>
-                <select id="advancePayment" formControlName="advancePayment" name="advancePayment">
+                <select id="advancePayment" formControlName="advancePayment" name="advancePayment" (focus)="newBoatForm.controls.advancePayment.markAsUntouched()" required>
                     <option style="display:none"></option>
                     <option [ngValue]="15">15%</option>
                     <option [ngValue]="25">25%</option>
                     <option [ngValue]="35">35%</option>
                 </select>
+                <label for="advancePayment" class="input-label">How much % do you keep if someone cancels?</label>
                 <span class="error-message" *ngIf="newBoatForm.controls.advancePayment.touched && newBoatForm.controls.advancePayment.errors?.['required']">Advance payment must be specified.</span>
             </div>
         </div>
@@ -26,15 +24,13 @@
         <div formArrayName="additionalServices">
             <div *ngFor="let additionalService of additionalServices().controls; let i=index" [formGroupName]="i" class="form-fields d-flex flex-row mt-2">
                 <div class="input-container w-75 me-2">
+                    <input (input)="onAdditionalServiceChanged(i)" id="serviceName" type="text" formControlName="name" name="serviceName" (focus)="newBoatForm.controls.name.markAsUntouched()" required>
                     <label for="serviceName" class="input-label">Additional service name</label>
-                    <input (input)="onAdditionalServiceChanged(i)" id="serviceName" type="text" formControlName="name" name="serviceName">
                 </div>
                 <div class="input-container w-25 ms-2">
+                    <input (input)="onAdditionalServiceChanged(i)" id="servicePrice" type="number" formControlName="price" name="servicePrice" (focus)="newBoatForm.controls.price.markAsUntouched()" required>
                     <label for="servicePrice" class="input-label">Price</label>
-                    <div class="d-flex flex-row">
-                        <input (input)="onAdditionalServiceChanged(i)" id="servicePrice" type="number" formControlName="price" name="servicePrice">
-                        <span class="measurment">$</span>
-                    </div>
+                    <span class="measurment">$</span>
                 </div>
             </div>
         </div>

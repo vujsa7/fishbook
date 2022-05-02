@@ -1,7 +1,7 @@
 <div class="form-wrapper d-flex flex-column">
     <div class="d-flex flex-row">
-        <div class="main-photo d-flex flex-column" (click)="mainImageInput.click()">
-            <input style="display: none" type="file" (change)="onFileChanged($event, 0)" #mainImageInput>
+        <div class="main-photo d-flex flex-column" (click)="mainImageInput.click()" *ngIf="!mainPhotoUrl">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 0, false)" #mainImageInput>
             <div class="d-flex flex-row-reverse">
                 <div class="w-50 photo-description">
                     <span class="photo-text">Main photo</span>
@@ -11,63 +11,108 @@
                 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M37.5003 41.6668H8.33366V12.5002H27.0837V8.3335H8.33366C6.04199 8.3335 4.16699 10.2085 4.16699 12.5002V41.6668C4.16699 43.9585 6.04199 45.8335 8.33366 45.8335H37.5003C39.792 45.8335 41.667 43.9585 41.667 41.6668V22.9168H37.5003V41.6668ZM21.2712 35.0627L17.1878 30.146L11.4587 37.5002H34.3753L27.0003 27.6877L21.2712 35.0627ZM41.667 8.3335V2.0835H37.5003V8.3335H31.2503C31.2712 8.35433 31.2503 12.5002 31.2503 12.5002H37.5003V18.7293C37.5212 18.7502 41.667 18.7293 41.667 18.7293V12.5002H47.917V8.3335H41.667Z" fill="#A2A2A2"/>
                     </svg>
-                <span class="upload-text">Upload photo</span>                    
+                <span class="upload-text">Upload photo</span>
             </div>
             <div></div>
         </div>
-        <input style="display: none" type="file" (change)="onFileChanged($event, 2)" #smallImageInput>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="main-photo" *ngIf="mainPhotoUrl" (click)="newMainImageInput.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 0, true)" #newMainImageInput>
+            <img src={{mainPhotoUrl}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput1.click()" *ngIf="!smallPhotoUrls[0]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 2, false)" #smallImageInput1>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">1</span>
                 </div>
             </div>
         </div>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[0]" (click)="newSmallImageInput1.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 2, true)" #newSmallImageInput1>
+            <img src={{smallPhotoUrls[0]}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput2.click()" *ngIf="!smallPhotoUrls[1]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 3, false)" #smallImageInput2>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">2</span>
                 </div>
             </div>
         </div>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[1]" (click)="newSmallImageInput2.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 3, true)" #newSmallImageInput2>
+            <img src={{smallPhotoUrls[1]}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput3.click()" *ngIf="!smallPhotoUrls[2]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 4, false)" #smallImageInput3>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">3</span>
                 </div>
             </div>
         </div>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[2]" (click)="newSmallImageInput3.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 4, true)" #newSmallImageInput3>
+            <img src={{smallPhotoUrls[2]}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput4.click()" *ngIf="!smallPhotoUrls[3]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 5, false)" #smallImageInput4>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">4</span>
                 </div>
             </div>
         </div>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[3]" (click)="newSmallImageInput4.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 5, true)" #newSmallImageInput4>
+            <img src={{smallPhotoUrls[3]}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput5.click()" *ngIf="!smallPhotoUrls[4]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 6, false)" #smallImageInput5>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">5</span>
                 </div>
             </div>
         </div>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[4]" (click)="newSmallImageInput5.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 6, true)" #newSmallImageInput5>
+            <img src={{smallPhotoUrls[4]}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput6.click()" *ngIf="!smallPhotoUrls[5]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 7, false)" #smallImageInput6>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">6</span>
                 </div>
             </div>
         </div>
-        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput.click()">
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[5]" (click)="newSmallImageInput6.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 7, true)" #newSmallImageInput6>
+            <img src={{smallPhotoUrls[5]}}>
+        </div>
+
+        <div class="small-photo d-flex flex-column ms-3" (click)="smallImageInput7.click()" *ngIf="!smallPhotoUrls[6]">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 8, false)" #smallImageInput7>
             <div class="d-flex flex-row-reverse">
                 <div class="w-25 photo-description">
                     <span class="photo-text">7</span>
                 </div>
             </div>
         </div>
+        <div class="small-photo ms-3" *ngIf="smallPhotoUrls[6]" (click)="newSmallImageInput7.click()">
+            <input style="display: none" type="file" (change)="onFileChanged($event, 8, true)" #newSmallImageInput7>
+            <img src={{smallPhotoUrls[6]}}>
+        </div>
     </div>
-    <div class="cover-photo d-flex flex-column mt-4" (click)="coverImageInput.click()">
-        <input style="display: none" type="file" (change)="onFileChanged($event, 1)" #coverImageInput>
+    <div class="cover-photo d-flex flex-column mt-4" (click)="coverImageInput.click()" *ngIf="!coverPhotoUrl">
+        <input style="display: none" type="file" (change)="onFileChanged($event, 1, false)" #coverImageInput>
         <div class="d-flex flex-row-reverse">
             <div class="cover-description">
                 <span class="photo-text">Boat cover photo</span>
@@ -80,6 +125,10 @@
             <span class="upload-text">Upload photo</span>                    
         </div>
         <div></div>
+    </div>
+    <div class="cover-photo mt-4" *ngIf="coverPhotoUrl" (click)="newCoverImageInput.click()">
+        <input style="display: none" type="file" (change)="onFileChanged($event, 1, true)" #newCoverImageInput>
+        <img src={{coverPhotoUrl}}>
     </div>
     <div class="mt-4 d-flex flex-row-reverse">
         <app-primary-button [text]="'Save and publish'" class="save-btn" (click)="onSubmit()"></app-primary-button>
