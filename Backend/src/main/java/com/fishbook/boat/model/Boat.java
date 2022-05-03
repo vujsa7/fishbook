@@ -6,28 +6,15 @@ import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.location.model.Address;
 import com.fishbook.storage.model.EntityImage;
 import com.fishbook.user.model.User;
+import com.fishbook.entity.model.Entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "Boats")
-public class Boat {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
-    @JoinColumn(name = "addressId")
-    private Address address;
-
+public class Boat extends Entity {
     @Column(nullable = false)
     private Double length;
 
@@ -56,13 +43,7 @@ public class Boat {
     private Integer energyConsumption;
 
     @Column(nullable = false)
-    private Integer advancePayment;
-
-    @Column(nullable = false)
     private Integer price;
-
-    @Column(nullable = false)
-    private Boolean isDeleted;
 
     @Column(nullable = false)
     private Integer stars;
@@ -71,31 +52,17 @@ public class Boat {
     private BoatType boatType;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name="owner_id", nullable = false)
-    private User user;
-
-    @ManyToMany
-    @JoinTable(name = "boatRules", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rule_id", referencedColumnName = "id"))
-    private Set<Rule> appliedRules = new HashSet<>();
+    @JoinColumn(name="userId", nullable = false)
+    private User owner;
 
     @ManyToMany
     @JoinTable(name = "boatEquipment", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
     private Set<Equipment> equipment = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "boatServices", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"))
-    private Set<AdditionalService> additionalServices = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "boatImages", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
-    private Set<EntityImage> images = new HashSet<>();
-
     public Boat() {}
 
-    public Boat(String name, String description, Address address, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Integer advancePayment, Integer price, BoatType boatType, User user) {
-        this.name = name;
-        this.description = description;
-        this.address = address;
+    public Boat(String name, String description, Double cancellationFee, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Integer price, Integer stars, BoatType boatType, User owner, Set<Equipment> equipment) {
+        super(name, description, cancellationFee, isDeleted, address, rules, additionalServices);
         this.length = length;
         this.motors = motors;
         this.power = power;
@@ -105,44 +72,11 @@ public class Boat {
         this.fuelConsumption = fuelConsumption;
         this.maxDistance = maxDistance;
         this.energyConsumption = energyConsumption;
-        this.advancePayment = advancePayment;
         this.price = price;
-        this.isDeleted = false;
-        this.stars = 0;
+        this.stars = stars;
         this.boatType = boatType;
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
+        this.owner = owner;
+        this.equipment = equipment;
     }
 
     public Double getLength() {
@@ -217,28 +151,12 @@ public class Boat {
         this.energyConsumption = energyConsumption;
     }
 
-    public Integer getAdvancePayment() {
-        return advancePayment;
-    }
-
-    public void setAdvancePayment(Integer advancePayment) {
-        this.advancePayment = advancePayment;
-    }
-
     public Integer getPrice() {
         return price;
     }
 
     public void setPrice(Integer price) {
         this.price = price;
-    }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
     }
 
     public Integer getStars() {
@@ -257,12 +175,12 @@ public class Boat {
         this.boatType = boatType;
     }
 
-    public Set<Rule> getAppliedRules() {
-        return appliedRules;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setAppliedRules(Set<Rule> appliedRules) {
-        this.appliedRules = appliedRules;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Set<Equipment> getEquipment() {
@@ -271,37 +189,5 @@ public class Boat {
 
     public void setEquipment(Set<Equipment> equipment) {
         this.equipment = equipment;
-    }
-
-    public Set<AdditionalService> getAdditionalServices() {
-        return additionalServices;
-    }
-
-    public void setAdditionalServices(Set<AdditionalService> additionalServices) {
-        this.additionalServices = additionalServices;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<EntityImage> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<EntityImage> images) {
-        this.images = images;
-    }
-
-    public void addImage(EntityImage image) {
-        images.add(image);
-    }
-
-    public void removeImage(EntityImage image) {
-        images.remove(image);
     }
 }

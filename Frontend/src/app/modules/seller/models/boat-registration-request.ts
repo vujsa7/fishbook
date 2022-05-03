@@ -1,7 +1,6 @@
-import { AdditionalService } from "../../../shared/models/additional-service";
-import { AppliedRule } from "../../../shared/models/applied-rule";
-import { Equipment } from "../../../shared/models/equipment";
-import { EntityImage } from "../../../shared/models/entity-image.model";
+import { AdditionalService } from "../../../shared/models/additional-service.model";
+import { Rule } from "../../../shared/models/rule.model";
+import { Equipment } from "../../../shared/models/equipment.model";
 
 export class BoatRegistrationRequest{
     public name: string;
@@ -20,10 +19,9 @@ export class BoatRegistrationRequest{
     public advancePayment: number;
     public price: number;
     public boatType: string;
-    public appliedRules: Array<AppliedRule> = new Array();
+    public appliedRules: Array<Rule> = new Array();
     public equipment: Array<Equipment> = new Array();
     public additionalServices: Array<AdditionalService> = new Array();
-    public images: Array<EntityImage> = new Array();
 
     public constructor(name: string, description: string, address: string, city: string, length: number, motors: number, power: number, maxSpeed: number, maxPeople: number, loadCapacity: number, 
         fuelConsumption: number, maxDistance: number, energyConsumption: number, advancePayment: number, price: number, boatType: string) {

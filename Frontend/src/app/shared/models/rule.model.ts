@@ -1,4 +1,4 @@
-export class AppliedRule {
+export class Rule {
     public id: number;
     public type: string;
     public description: string;

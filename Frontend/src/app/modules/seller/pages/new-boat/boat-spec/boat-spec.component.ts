@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Equipment } from 'src/app/shared/models/equipment';
+import { Equipment } from 'src/app/shared/models/equipment.model';
 import { BoatService } from 'src/app/shared/services/boat.service';
 import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
 

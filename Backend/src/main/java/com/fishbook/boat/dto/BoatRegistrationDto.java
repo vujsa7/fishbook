@@ -24,17 +24,16 @@ public class BoatRegistrationDto {
     private Integer fuelConsumption;
     private Integer maxDistance;
     private Integer energyConsumption;
-    private Integer advancePayment;
+    private Double advancePayment;
     private Integer price;
     private String boatType;
     private Set<Rule> appliedRules = new HashSet<>();
     private Set<Equipment> equipment = new HashSet<>();
     private Set<AdditionalService> additionalServices = new HashSet<>();
-    private List<EntityImage> images = new ArrayList<>();
 
     public BoatRegistrationDto() {}
 
-    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Integer advancePayment, Integer price, String boatType) {
+    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double advancePayment, Integer price, String boatType) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -157,11 +156,11 @@ public class BoatRegistrationDto {
         this.energyConsumption = energyConsumption;
     }
 
-    public Integer getAdvancePayment() {
+    public Double getAdvancePayment() {
         return advancePayment;
     }
 
-    public void setAdvancePayment(Integer advancePayment) {
+    public void setAdvancePayment(Double advancePayment) {
         this.advancePayment = advancePayment;
     }
 
@@ -203,13 +202,5 @@ public class BoatRegistrationDto {
 
     public void setAdditionalServices(Set<AdditionalService> additionalServices) {
         this.additionalServices = additionalServices;
-    }
-
-    public List<EntityImage> getImages() {
-        return images;
-    }
-
-    public void setImages(List<EntityImage> images) {
-        this.images = images;
     }
 }

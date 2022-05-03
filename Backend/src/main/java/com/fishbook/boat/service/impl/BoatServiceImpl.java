@@ -34,22 +34,7 @@ public class BoatServiceImpl implements BoatService {
     }
 
     @Override
-    public Long saveNewBoat(BoatRegistrationDto boatRegistrationDto, String username) {
-        City city = locationService.findCityByName(boatRegistrationDto.getCity());
-        Address address = new Address(boatRegistrationDto.getAddress(), city, 0.0, 0.0);
-        User user = userRepository.findByEmail(username);
-
-        Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), address,
-                boatRegistrationDto.getLength(), boatRegistrationDto.getMotors(), boatRegistrationDto.getPower(),
-                boatRegistrationDto.getMaxSpeed(), boatRegistrationDto.getMaxPeople(), boatRegistrationDto.getLoadCapacity(),
-                boatRegistrationDto.getFuelConsumption(), boatRegistrationDto.getMaxDistance(), boatRegistrationDto.getEnergyConsumption(),
-                boatRegistrationDto.getAdvancePayment(), boatRegistrationDto.getPrice(), BoatType.valueOf(boatRegistrationDto.getBoatType()), user);
-        boat.setAppliedRules(boatRegistrationDto.getAppliedRules());
-        boat.setEquipment(boatRegistrationDto.getEquipment());
-        List<AdditionalService> additionalServices = additionalServiceRepository.saveAll(boatRegistrationDto.getAdditionalServices());
-        HashSet<AdditionalService> additionalServiceSet = new HashSet<>(additionalServices);
-        boat.setAdditionalServices(additionalServiceSet);
-
+    public Long saveNewBoat(Boat boat) {
         return boatRepository.save(boat).getId();
     }
 

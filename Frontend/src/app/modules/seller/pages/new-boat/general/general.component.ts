@@ -4,7 +4,7 @@ import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
 import { BoatService } from 'src/app/shared/services/boat.service';
 import { LocationService } from 'src/app/shared/services/location.service';
-import { AppliedRule } from '../../../../../shared/models/applied-rule';
+import { Rule } from '../../../../../shared/models/rule.model';
 import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
 
 
@@ -20,7 +20,7 @@ export class GeneralComponent implements OnInit {
   cities: City[] = [];
   states: Country[] = [];
   filteredCities: City[] = [];
-  appliedRules: Array<AppliedRule> = new Array();
+  appliedRules: Array<Rule> = new Array();
 
   constructor(private locationService: LocationService, private boatService: BoatService) { }
 
@@ -60,7 +60,7 @@ export class GeneralComponent implements OnInit {
     this.newBoatForm.controls.city.setValue('');
   }
 
-  appliedRulesChanged(event: any, value: AppliedRule) {
+  appliedRulesChanged(event: any, value: Rule) {
     const selectedAppliedRules = (this.newBoatForm.controls.appliedRules as FormArray);
     if (event.target.checked) {
       selectedAppliedRules.push(new FormControl(value));

@@ -90,7 +90,7 @@ export class GalleryComponent implements OnInit {
 
   private postImages(boatId: any){
     for(let img of this.imageFiles){
-      let entityImage = new EntityImage(img.priority, "boat", boatId);
+      let entityImage = new EntityImage(img.priority, boatId);
       const image = new FormData();
       image.append('file', img.content);
       image.append('image', new Blob([JSON.stringify(entityImage)], { type: 'application/json' }));

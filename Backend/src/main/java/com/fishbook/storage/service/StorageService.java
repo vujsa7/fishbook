@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 
 public interface StorageService {
-    EntityImage uploadImage(MultipartFile file, EntityImageDto imageDto);
+    void uploadImage(MultipartFile file, EntityImage image);
 
     Path load(String filename);
 

@@ -60,13 +60,13 @@ insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, d
 
 insert into global_config (system_fee, buyer_points_per_reservation, seller_points_per_reservation) values (1000.0, 20, 20)
 
-insert into applied_rules (description, type) values ('No smoking', 'boat')
-insert into applied_rules (description, type) values ('No trash in water', 'boat')
-insert into applied_rules (description, type) values ('Be cautious of other boaters', 'boat')
-insert into applied_rules (description, type) values ('Avoid restricted areas', 'boat')
-insert into applied_rules (description, type) values ('Always have a lookout', 'boat')
-insert into applied_rules (description, type) values ('Don’t go into shallow waters', 'boat')
-insert into applied_rules (description, type) values ('Don’t go too fast', 'boat')
+insert into rule (description, type) values ('No smoking', 'boat')
+insert into rule (description, type) values ('No trash in water', 'boat')
+insert into rule (description, type) values ('Be cautious of other boaters', 'boat')
+insert into rule (description, type) values ('Avoid restricted areas', 'boat')
+insert into rule (description, type) values ('Always have a lookout', 'boat')
+insert into rule (description, type) values ('Don’t go into shallow waters', 'boat')
+insert into rule (description, type) values ('Don’t go too fast', 'boat')
 
 insert into equipment (type, name) values ('navigation', 'GPS System')
 insert into equipment (type, name) values ('navigation', 'VHF')

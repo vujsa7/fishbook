@@ -1,9 +1,6 @@
 package com.fishbook.storage.service.impl;
 
-import com.fishbook.boat.dao.BoatRepository;
-import com.fishbook.boat.model.Boat;
 import com.fishbook.storage.dao.EntityImageRepository;
-import com.fishbook.storage.dto.EntityImageDto;
 import com.fishbook.storage.model.EntityImage;
 import com.fishbook.storage.model.StorageException;
 import com.fishbook.storage.model.StorageFileNotFoundException;
@@ -29,21 +26,17 @@ public class StorageServiceImpl implements StorageService {
 
     private final EntityImageRepository entityImageRepository;
     private final Path rootLocation;
-    private final BoatRepository boatRepository;
 
     @Autowired
-    public StorageServiceImpl(EntityImageRepository entityImageRepository, StorageProperties properties, BoatRepository boatRepository) {
+    public StorageServiceImpl(EntityImageRepository entityImageRepository, StorageProperties properties) {
         this.entityImageRepository = entityImageRepository;
         this.rootLocation = Paths.get(properties.getLocation());
-        this.boatRepository = boatRepository;
     }
 
     @Override
-    public EntityImage uploadImage(MultipartFile file, EntityImageDto imageDto) {
-
+    public void uploadImage(MultipartFile file, EntityImage image) {
         String imageName = RandomStringUtils.random(15, true, true)
                 + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
-
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
@@ -64,14 +57,8 @@ public class StorageServiceImpl implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to store file.", e);
         }
-
-        EntityImage image = entityImageRepository.save(new EntityImage(imageName, imageDto.getPriority()));
-        Boat boat = boatRepository.getById(imageDto.getEntityId());
-        boat.addImage(image);
-        boatRepository.save(boat);
-
-        return image;
-
+        image.setName(imageName);
+        entityImageRepository.save(image);
     }
 
     @Override
@@ -88,9 +75,7 @@ public class StorageServiceImpl implements StorageService {
                 return resource;
             }
             else {
-                throw new StorageFileNotFoundException(
-                        "Could not read file: " + filename);
-
+                throw new StorageFileNotFoundException("Could not read file: " + filename);
             }
         }
         catch (MalformedURLException e) {

@@ -10,7 +10,6 @@ public class EntityImageDto {
 
     public EntityImageDto(Integer priority, String type, Long entityId) {
         this.priority = priority;
-        this.type = type;
         this.entityId = entityId;
     }
 

@@ -15,7 +15,7 @@ public class EntityImage {
     @Column
     private Integer priority;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "entity_id")
     private Entity entity;
 
