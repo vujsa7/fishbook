@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
 
 @Component({
   selector: 'app-pricing',
@@ -8,8 +7,9 @@ import { BoatRegistrationRequest } from '../../../models/boat-registration-reque
   styleUrls: ['./pricing.component.scss']
 })
 export class PricingComponent implements OnInit {
-  newBoatForm!: FormGroup;
-  @Input() boatRegistrationRequest!: BoatRegistrationRequest;
+  newEntityForm!: FormGroup;
+  @Input() entityRegistrationRequest!: any;
+  @Input() entityType!: string;
   @Output() addPricingEvent = new EventEmitter();
 
   constructor() { }
@@ -19,7 +19,7 @@ export class PricingComponent implements OnInit {
   }
   
   private initializeForm() {
-    this.newBoatForm = new FormGroup({
+    this.newEntityForm = new FormGroup({
       price: new FormControl('', [Validators.required]),
       advancePayment: new FormControl('', [Validators.required]),
       additionalServices: new FormArray([])
@@ -27,7 +27,7 @@ export class PricingComponent implements OnInit {
   }
 
   additionalServices() : FormArray { 
-    return this.newBoatForm.get("additionalServices") as FormArray
+    return this.newEntityForm.get("additionalServices") as FormArray
   }
 
   newAdditionalService() : FormGroup {
@@ -38,7 +38,7 @@ export class PricingComponent implements OnInit {
   }
 
   addAdditionalService() {
-    if(this.newBoatForm.valid){
+    if(this.newEntityForm.valid){
       this.additionalServices().push(this.newAdditionalService()); 
     }
   }
@@ -54,12 +54,18 @@ export class PricingComponent implements OnInit {
   }
 
   addPricing() {
-    if(this.newBoatForm.valid){
-      this.boatRegistrationRequest.price = this.newBoatForm.controls.price.value;
-      this.boatRegistrationRequest.advancePayment = this.newBoatForm.controls.advancePayment.value;
-      this.boatRegistrationRequest.additionalServices = this.newBoatForm.controls.additionalServices.value;
+    if(this.newEntityForm.valid){
+      if(this.entityType == "boat") {
+        this.addBoatPricing();
+      }
       this.addPricingEvent.emit();
     }
+  }
+
+  addBoatPricing() {
+    this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
+    this.entityRegistrationRequest.advancePayment = this.newEntityForm.controls.advancePayment.value;
+    this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
   }
 
 }

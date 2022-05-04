@@ -5,7 +5,6 @@ import { Country } from 'src/app/models/location/country.model';
 import { BoatService } from 'src/app/shared/services/boat.service';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { Rule } from '../../../../../shared/models/rule.model';
-import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
 
 
 @Component({
@@ -14,8 +13,9 @@ import { BoatRegistrationRequest } from '../../../models/boat-registration-reque
   styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
-  newBoatForm!: FormGroup;
-  @Input() boatRegistrationRequest!: BoatRegistrationRequest;
+  newEntityForm!: FormGroup;
+  @Input() entityRegistrationRequest!: any;
+  @Input() entityType!: string;
   @Output() addGeneralInfoEvent = new EventEmitter();
   cities: City[] = [];
   states: Country[] = [];
@@ -37,16 +37,18 @@ export class GeneralComponent implements OnInit {
         this.filteredCities = data;
       }
     )
-    this.boatService.getBoatRules().subscribe(
-      data => {
-        this.appliedRules = data;
-      }
-    )
+    if (this.entityType == "boat") {
+      this.boatService.getBoatRules().subscribe(
+        data => {
+          this.appliedRules = data;
+        }
+      )
+    }
   }
 
   private initializeForm(): void{
-    this.newBoatForm = new FormGroup({
-      boatName: new FormControl('', [Validators.required]),
+    this.newEntityForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       street : new FormControl('', [Validators.required]),
       city : new FormControl('', [Validators.required]),
@@ -56,12 +58,12 @@ export class GeneralComponent implements OnInit {
   }
 
   onStateChanged() {
-    this.filteredCities = this.cities.filter(c => c.country.name == this.newBoatForm.get('state')?.value);
-    this.newBoatForm.controls.city.setValue('');
+    this.filteredCities = this.cities.filter(c => c.country.name == this.newEntityForm.get('state')?.value);
+    this.newEntityForm.controls.city.setValue('');
   }
 
   appliedRulesChanged(event: any, value: Rule) {
-    const selectedAppliedRules = (this.newBoatForm.controls.appliedRules as FormArray);
+    const selectedAppliedRules = (this.newEntityForm.controls.appliedRules as FormArray);
     if (event.target.checked) {
       selectedAppliedRules.push(new FormControl(value));
     } else {
@@ -72,13 +74,19 @@ export class GeneralComponent implements OnInit {
   }
 
   addGeneralInfo() {
-    if(this.newBoatForm.valid){
-      this.boatRegistrationRequest.name = this.newBoatForm.controls.boatName.value;
-      this.boatRegistrationRequest.description = this.newBoatForm.controls.description.value;
-      this.boatRegistrationRequest.address = this.newBoatForm.controls.street.value;
-      this.boatRegistrationRequest.city = this.newBoatForm.controls.city.value;
-      this.boatRegistrationRequest.appliedRules = this.newBoatForm.controls.appliedRules?.value;
+    if(this.newEntityForm.valid){
+      if(this.entityType == "boat") {
+        this.addBoatInfo();
+      }
       this.addGeneralInfoEvent.emit();
     }
+  }
+
+  addBoatInfo(){
+    this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
+    this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
+    this.entityRegistrationRequest.address = this.newEntityForm.controls.street.value;
+    this.entityRegistrationRequest.city = this.newEntityForm.controls.city.value;
+    this.entityRegistrationRequest.appliedRules = this.newEntityForm.controls.appliedRules?.value;
   }
 }

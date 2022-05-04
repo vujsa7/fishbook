@@ -1,34 +1,34 @@
 <div class="form-wrapper d-flex flex-column align-items-center">
-    <form [formGroup]="newBoatForm">
+    <form [formGroup]="newEntityForm">
         <div class="form-fields">
-            <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.price.touched && newBoatForm.controls.price.errors?.['required'])}">
-                <input id="price" type="number" formControlName="price" name="price" (focus)="newBoatForm.controls.price.markAsUntouched()" required>
+            <div class="input-container" [ngClass]="{'input-container-error' : (newEntityForm.controls.price.touched && newEntityForm.controls.price.errors?.['required'])}">
+                <input id="price" type="number" formControlName="price" name="price" (focus)="newEntityForm.controls.price.markAsUntouched()" required>
                 <label for="price" class="input-label">Price</label>
                 <span class="measurment">$/day</span>
-                <span class="error-message" *ngIf="newBoatForm.controls.price.touched && newBoatForm.controls.price.errors?.['required']">Price must be specified.</span>
+                <span class="error-message" *ngIf="newEntityForm.controls.price.touched && newEntityForm.controls.price.errors?.['required']">Price must be specified.</span>
             </div>
         </div>
         <div class="form-fields">
-            <div class="input-container" [ngClass]="{'input-container-error' : (newBoatForm.controls.advancePayment.touched && newBoatForm.controls.advancePayment.errors?.['required'])}">
-                <select id="advancePayment" formControlName="advancePayment" name="advancePayment" (focus)="newBoatForm.controls.advancePayment.markAsUntouched()" required>
+            <div class="input-container" [ngClass]="{'input-container-error' : (newEntityForm.controls.advancePayment.touched && newEntityForm.controls.advancePayment.errors?.['required'])}">
+                <select id="advancePayment" formControlName="advancePayment" name="advancePayment" (focus)="newEntityForm.controls.advancePayment.markAsUntouched()" required>
                     <option style="display:none"></option>
                     <option [ngValue]="15">15%</option>
                     <option [ngValue]="25">25%</option>
                     <option [ngValue]="35">35%</option>
                 </select>
                 <label for="advancePayment" class="input-label">How much % do you keep if someone cancels?</label>
-                <span class="error-message" *ngIf="newBoatForm.controls.advancePayment.touched && newBoatForm.controls.advancePayment.errors?.['required']">Advance payment must be specified.</span>
+                <span class="error-message" *ngIf="newEntityForm.controls.advancePayment.touched && newEntityForm.controls.advancePayment.errors?.['required']">Advance payment must be specified.</span>
             </div>
         </div>
         <span class="add-service-text">Chose additional services you provide</span>
         <div formArrayName="additionalServices">
             <div *ngFor="let additionalService of additionalServices().controls; let i=index" [formGroupName]="i" class="form-fields d-flex flex-row mt-2">
                 <div class="input-container w-75 me-2">
-                    <input (input)="onAdditionalServiceChanged(i)" id="serviceName" type="text" formControlName="name" name="serviceName" (focus)="newBoatForm.controls.name.markAsUntouched()" required>
+                    <input (input)="onAdditionalServiceChanged(i)" id="serviceName" type="text" formControlName="name" name="serviceName" (focus)="newEntityForm.controls.name.markAsUntouched()" required>
                     <label for="serviceName" class="input-label">Additional service name</label>
                 </div>
                 <div class="input-container w-25 ms-2">
-                    <input (input)="onAdditionalServiceChanged(i)" id="servicePrice" type="number" formControlName="price" name="servicePrice" (focus)="newBoatForm.controls.price.markAsUntouched()" required>
+                    <input (input)="onAdditionalServiceChanged(i)" id="servicePrice" type="number" formControlName="price" name="servicePrice" (focus)="newEntityForm.controls.price.markAsUntouched()" required>
                     <label for="servicePrice" class="input-label">Price</label>
                     <span class="measurment">$</span>
                 </div>

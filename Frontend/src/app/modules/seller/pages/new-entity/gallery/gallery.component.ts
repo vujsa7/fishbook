@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BoatService } from 'src/app/shared/services/boat.service';
 import { ImageService } from 'src/app/shared/services/image.service';
-import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
 import { EntityImage } from '../../../../../shared/models/entity-image.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
@@ -14,7 +13,8 @@ import { ImageFile } from '../../../models/image-file';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
-  @Input() boatRegistrationRequest!: BoatRegistrationRequest;
+  @Input() entityRegistrationRequest!: any;
+  @Input() entityType!: string;
   imageFiles: Array<ImageFile> = new Array();
   mainPhotoUploaded: boolean = false;
   coverPhotoUploaded: boolean = false;
@@ -72,11 +72,13 @@ export class GalleryComponent implements OnInit {
 
   onSubmit(){
     if(this.mainPhotoUploaded && this.coverPhotoUploaded) {
-      this.boatService.postRegistrationRequest(this.boatRegistrationRequest).subscribe(
-        data => {
-          this.postImages(data);
-        }
-      )
+      if(this.entityType == "boat") {
+        this.boatService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(
+          data => {
+            this.postImages(data);
+          }
+        )
+      }
     } else {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = {

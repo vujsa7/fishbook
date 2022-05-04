@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Equipment } from 'src/app/shared/models/equipment.model';
 import { BoatService } from 'src/app/shared/services/boat.service';
-import { BoatRegistrationRequest } from '../../../models/boat-registration-request';
 
 @Component({
   selector: 'app-boat-spec',
@@ -10,8 +9,9 @@ import { BoatRegistrationRequest } from '../../../models/boat-registration-reque
   styleUrls: ['./boat-spec.component.scss']
 })
 export class BoatSpecComponent implements OnInit {
-  newBoatForm!: FormGroup;
-  @Input() boatRegistrationRequest!: BoatRegistrationRequest;
+  newEntityForm!: FormGroup;
+  @Input() entityRegistrationRequest!: any;
+  @Input() entityType!: string;
   @Output() addBoatSpecificationEvent = new EventEmitter();
   navigationEquipment: Array<Equipment> = new Array();
   fishingEquipment: Array<Equipment> = new Array();
@@ -28,7 +28,7 @@ export class BoatSpecComponent implements OnInit {
   }
   
   private initializeForm() {
-    this.newBoatForm = new FormGroup({
+    this.newEntityForm = new FormGroup({
       boatType: new FormControl('', [Validators.required]),
       maxPeople : new FormControl('', [Validators.required]),
       length : new FormControl('', [Validators.required]),
@@ -54,7 +54,7 @@ export class BoatSpecComponent implements OnInit {
   }
 
   equipmentChanged(event: any, value: Equipment) {
-    const selectedEquipment = (this.newBoatForm.controls.equipment as FormArray);
+    const selectedEquipment = (this.newEntityForm.controls.equipment as FormArray);
     if (event.target.checked) {
       selectedEquipment.push(new FormControl(value));
     } else {
@@ -65,18 +65,20 @@ export class BoatSpecComponent implements OnInit {
   }
 
   addBoatSpecification() {
-    if(this.newBoatForm.valid){
-      this.boatRegistrationRequest.boatType = this.newBoatForm.controls.boatType.value;
-      this.boatRegistrationRequest.maxPeople = this.newBoatForm.controls.maxPeople.value;
-      this.boatRegistrationRequest.length = this.newBoatForm.controls.length.value;
-      this.boatRegistrationRequest.loadCapacity = this.newBoatForm.controls.loadCapacity.value;
-      this.boatRegistrationRequest.maxSpeed = this.newBoatForm.controls.maxSpeed.value;
-      this.boatRegistrationRequest.power = this.newBoatForm.controls.horsepower.value;
-      this.boatRegistrationRequest.motors = this.newBoatForm.controls.motorsOnBoat.value;
-      this.boatRegistrationRequest.fuelConsumption = this.newBoatForm.controls.fuelConsumption.value;
-      this.boatRegistrationRequest.maxDistance = this.newBoatForm.controls.maxDistance.value;
-      this.boatRegistrationRequest.energyConsumption = this.newBoatForm.controls.energyConsumption.value;
-      this.boatRegistrationRequest.equipment = this.newBoatForm.controls.equipment?.value;
+    if(this.newEntityForm.valid){
+      if(this.entityType == "boat") {
+        this.entityRegistrationRequest.boatType = this.newEntityForm.controls.boatType.value;
+        this.entityRegistrationRequest.maxPeople = this.newEntityForm.controls.maxPeople.value;
+        this.entityRegistrationRequest.length = this.newEntityForm.controls.length.value;
+        this.entityRegistrationRequest.loadCapacity = this.newEntityForm.controls.loadCapacity.value;
+        this.entityRegistrationRequest.maxSpeed = this.newEntityForm.controls.maxSpeed.value;
+        this.entityRegistrationRequest.power = this.newEntityForm.controls.horsepower.value;
+        this.entityRegistrationRequest.motors = this.newEntityForm.controls.motorsOnBoat.value;
+        this.entityRegistrationRequest.fuelConsumption = this.newEntityForm.controls.fuelConsumption.value;
+        this.entityRegistrationRequest.maxDistance = this.newEntityForm.controls.maxDistance.value;
+        this.entityRegistrationRequest.energyConsumption = this.newEntityForm.controls.energyConsumption.value;
+        this.entityRegistrationRequest.equipment = this.newEntityForm.controls.equipment?.value;
+      }
       this.addBoatSpecificationEvent.emit();
     }
   }
