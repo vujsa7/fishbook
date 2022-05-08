@@ -10,7 +10,8 @@
         </div>
     </div>
     <app-general [style.display]=" selectedButton=='general' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addGeneralInfoEvent)="addGeneralInfo()"></app-general>
-    <app-boat-spec *ngIf="entityType == 'boat'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addBoatSpecificationEvent)="addBoatSpecification()"></app-boat-spec>
+    <app-boat-spec *ngIf="entityType == 'boat'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addBoatSpecificationEvent)="addSpecification()"></app-boat-spec>
+    <app-adventure-details *ngIf="entityType == 'adventure'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" (addAdventureDetailsEvent)="addSpecification()"></app-adventure-details>
     <app-pricing [style.display]=" selectedButton=='pricing' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addPricingEvent)="addPricing()"></app-pricing>
     <app-gallery [style.display]=" selectedButton=='gallery' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType"></app-gallery>
 </div>

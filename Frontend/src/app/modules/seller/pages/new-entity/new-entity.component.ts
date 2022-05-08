@@ -45,7 +45,7 @@ export class NewEntityComponent implements OnInit {
     });
   }
 
-  addBoatSpecification(){
+  addSpecification(){
     this.selectedButton = "pricing";
     window.scroll({ 
       top: 0, 
