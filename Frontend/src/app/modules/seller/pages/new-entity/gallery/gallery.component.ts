@@ -83,7 +83,7 @@ export class GalleryComponent implements OnInit {
       if(this.entityType == "adventure") {
         this.adventureService.postAdventure(this.entityRegistrationRequest).subscribe(
           data => {
-            this.postImages(data);
+            this.postImages(data.id);
           }
         )
       }
