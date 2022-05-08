@@ -43,9 +43,6 @@ public class Boat extends Entity {
     private Integer energyConsumption;
 
     @Column(nullable = false)
-    private Integer price;
-
-    @Column(nullable = false)
     private Integer stars;
 
     @Enumerated(EnumType.STRING)
@@ -61,8 +58,8 @@ public class Boat extends Entity {
 
     public Boat() {}
 
-    public Boat(String name, String description, Double cancellationFee, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Integer price, Integer stars, BoatType boatType, User owner, Set<Equipment> equipment) {
-        super(name, description, cancellationFee, isDeleted, address, rules, additionalServices);
+    public Boat(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Integer stars, BoatType boatType, User owner, Set<Equipment> equipment) {
+        super(name, description, cancellationFee, pricePerDay, isDeleted, address, rules, additionalServices);
         this.length = length;
         this.motors = motors;
         this.power = power;
@@ -72,7 +69,6 @@ public class Boat extends Entity {
         this.fuelConsumption = fuelConsumption;
         this.maxDistance = maxDistance;
         this.energyConsumption = energyConsumption;
-        this.price = price;
         this.stars = stars;
         this.boatType = boatType;
         this.owner = owner;
@@ -149,14 +145,6 @@ public class Boat extends Entity {
 
     public void setEnergyConsumption(Integer energyConsumption) {
         this.energyConsumption = energyConsumption;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
     }
 
     public Integer getStars() {

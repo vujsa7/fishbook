@@ -30,8 +30,8 @@ public class FishingLesson extends Entity {
     public FishingLesson() {
     }
 
-    public FishingLesson(String name, String description, Double cancellationFee, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, User instructor, String instructorBiography, Integer maxNumberOfPeople, Set<Equipment> fishingEquipment) {
-        super(name, description, cancellationFee, isDeleted, address, rules, additionalServices);
+    public FishingLesson(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, User instructor, String instructorBiography, Integer maxNumberOfPeople, Set<Equipment> fishingEquipment) {
+        super(name, description, cancellationFee, pricePerDay, isDeleted, address, rules, additionalServices);
         this.instructor = instructor;
         this.instructorBiography = instructorBiography;
         this.maxNumberOfPeople = maxNumberOfPeople;

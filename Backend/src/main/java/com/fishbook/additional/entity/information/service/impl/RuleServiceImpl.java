@@ -18,7 +18,7 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
-    public List<Rule> getBoatRules() {
-        return ruleRepository.findAllByType("boat");
+    public List<Rule> getRules(String type) {
+        return ruleRepository.findAllByType(type);
     }
 }

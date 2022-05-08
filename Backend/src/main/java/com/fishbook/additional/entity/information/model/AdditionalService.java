@@ -12,12 +12,12 @@ public class AdditionalService {
     private String name;
 
     @Column(nullable = false)
-    private Integer price;
+    private Double price;
 
     public AdditionalService() {
     }
 
-    public AdditionalService(Long id, String name, Integer price) {
+    public AdditionalService(Long id, String name, Double price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -39,11 +39,11 @@ public class AdditionalService {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

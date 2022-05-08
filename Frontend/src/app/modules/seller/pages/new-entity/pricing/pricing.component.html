@@ -12,12 +12,13 @@
             <div class="input-container" [ngClass]="{'input-container-error' : (newEntityForm.controls.advancePayment.touched && newEntityForm.controls.advancePayment.errors?.['required'])}">
                 <select id="advancePayment" formControlName="advancePayment" name="advancePayment" (focus)="newEntityForm.controls.advancePayment.markAsUntouched()" required>
                     <option style="display:none"></option>
+                    <option [ngValue]="0">Free cancellation</option>
                     <option [ngValue]="15">15%</option>
                     <option [ngValue]="25">25%</option>
                     <option [ngValue]="35">35%</option>
                 </select>
                 <label for="advancePayment" class="input-label">How much % do you keep if someone cancels?</label>
-                <span class="error-message" *ngIf="newEntityForm.controls.advancePayment.touched && newEntityForm.controls.advancePayment.errors?.['required']">Advance payment must be specified.</span>
+                <span class="error-message" *ngIf="newEntityForm.controls.advancePayment.touched && newEntityForm.controls.advancePayment.errors?.['required']">Cancellation fee must be specified.</span>
             </div>
         </div>
         <span class="add-service-text">Chose additional services you provide</span>

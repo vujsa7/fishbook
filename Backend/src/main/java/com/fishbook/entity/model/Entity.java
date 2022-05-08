@@ -25,6 +25,9 @@ public abstract class Entity {
     private Double cancellationFee;
 
     @Column(nullable = false)
+    private Double pricePerDay;
+
+    @Column(nullable = false)
     private Boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
@@ -44,10 +47,11 @@ public abstract class Entity {
 
     public Entity() {}
 
-    public Entity(String name, String description, Double cancellationFee, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices) {
+    public Entity(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices) {
         this.name = name;
         this.description = description;
         this.cancellationFee = cancellationFee;
+        this.pricePerDay = pricePerDay;
         this.isDeleted = isDeleted;
         this.address = address;
         this.rules = rules;
@@ -84,6 +88,14 @@ public abstract class Entity {
 
     public void setCancellationFee(Double cancellationFee) {
         this.cancellationFee = cancellationFee;
+    }
+
+    public Double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(Double pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 
     public Boolean getDeleted() {

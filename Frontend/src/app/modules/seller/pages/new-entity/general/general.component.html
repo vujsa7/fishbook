@@ -4,7 +4,7 @@
             <div class="input-container" [ngClass]="{'input-container-error' : (newEntityForm.controls.name.touched && newEntityForm.controls.name.errors?.['required'])}">
                 <input id="name" type="text" formControlName="name" name="name" (focus)="newEntityForm.controls.name.markAsUntouched()" required>
                 <label for="name" class="input-label">Name</label>
-                <span class="error-message" *ngIf="newEntityForm.controls.name.touched && newEntityForm.controls.name.errors?.['required']">Boat name cannot be empty.</span>
+                <span class="error-message" *ngIf="newEntityForm.controls.name.touched && newEntityForm.controls.name.errors?.['required']">Entity name cannot be empty.</span>
             </div>
             <span class="maxchar">0/40max</span>
         </div>

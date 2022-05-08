@@ -10,6 +10,7 @@ import { PricingComponent } from './pages/new-entity/pricing/pricing.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GalleryComponent } from './pages/new-entity/gallery/gallery.component';
+import { AdventureDetailsComponent } from './pages/new-entity/adventure-details/adventure-details.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GalleryComponent } from './pages/new-entity/gallery/gallery.component';
     GeneralComponent,
     BoatSpecComponent,
     PricingComponent,
-    GalleryComponent
+    GalleryComponent,
+    AdventureDetailsComponent
   ],
   imports: [
     CommonModule,

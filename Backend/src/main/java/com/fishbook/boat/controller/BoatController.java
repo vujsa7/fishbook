@@ -58,12 +58,12 @@ public class BoatController {
             User user = userService.findByEmail(username);
             HashSet<AdditionalService> additionalServices = additionalServiceService.saveAll(boatRegistrationDto.getAdditionalServices());
 
-            Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getAdvancePayment(),
+            Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getCancellationFee(), boatRegistrationDto.getPrice(),
                     false, address, boatRegistrationDto.getAppliedRules(), additionalServices,
                     boatRegistrationDto.getLength(), boatRegistrationDto.getMotors(), boatRegistrationDto.getPower(),
                     boatRegistrationDto.getMaxSpeed(), boatRegistrationDto.getMaxPeople(), boatRegistrationDto.getLoadCapacity(),
                     boatRegistrationDto.getFuelConsumption(), boatRegistrationDto.getMaxDistance(), boatRegistrationDto.getEnergyConsumption(),
-                    boatRegistrationDto.getPrice(), 0, BoatType.valueOf(boatRegistrationDto.getBoatType()), user, boatRegistrationDto.getEquipment());
+                    0, BoatType.valueOf(boatRegistrationDto.getBoatType()), user, boatRegistrationDto.getEquipment());
             Long boatId = boatService.saveNewBoat(boat);
             return new ResponseEntity<>(boatId, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class BoatController {
     @GetMapping(value = "/rules", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
     public List<Rule> getBoatRules(){
-        return ruleService.getBoatRules();
+        return ruleService.getRules("boat");
     }
 
     @GetMapping(value = "/equipment", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -2,12 +2,9 @@ package com.fishbook.boat.dto;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.model.Rule;
-import com.fishbook.storage.model.EntityImage;
 import com.fishbook.additional.entity.information.model.Equipment;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class BoatRegistrationDto {
@@ -24,8 +21,8 @@ public class BoatRegistrationDto {
     private Integer fuelConsumption;
     private Integer maxDistance;
     private Integer energyConsumption;
-    private Double advancePayment;
-    private Integer price;
+    private Double cancellationFee;
+    private Double price;
     private String boatType;
     private Set<Rule> appliedRules = new HashSet<>();
     private Set<Equipment> equipment = new HashSet<>();
@@ -33,7 +30,7 @@ public class BoatRegistrationDto {
 
     public BoatRegistrationDto() {}
 
-    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double advancePayment, Integer price, String boatType) {
+    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double cancellationFee, Double price, String boatType) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -47,7 +44,7 @@ public class BoatRegistrationDto {
         this.fuelConsumption = fuelConsumption;
         this.maxDistance = maxDistance;
         this.energyConsumption = energyConsumption;
-        this.advancePayment = advancePayment;
+        this.cancellationFee = cancellationFee;
         this.price = price;
         this.boatType = boatType;
     }
@@ -156,19 +153,19 @@ public class BoatRegistrationDto {
         this.energyConsumption = energyConsumption;
     }
 
-    public Double getAdvancePayment() {
-        return advancePayment;
+    public Double getCancellationFee() {
+        return cancellationFee;
     }
 
-    public void setAdvancePayment(Double advancePayment) {
-        this.advancePayment = advancePayment;
+    public void setCancellationFee(Double cancellationFee) {
+        this.cancellationFee = cancellationFee;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
