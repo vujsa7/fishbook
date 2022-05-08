@@ -5,26 +5,36 @@
     margin-top: 70px;
 }
 
-    .btn{
-        margin-right: 10px;
+    .toolbar{
+        margin-left: $grid-margin-width;
     }
 
-        .btn-unselected{
-            color: color(darkgrey);
+        .btn{
+            margin-right: 10px;
+            cursor: default;
         }
 
-        .toolbar-btn{
-            color: color(lightblue);
-            font-weight: bold;
-            padding-bottom: 0;
-            border-bottom: 0;
-        }
-
-            .toolbar-btn:after{
-                content: "";
-                display: block;
-                margin: 0 auto;
-                width: 25%; 
-                padding-top: 5px;
-                border-bottom: 2px solid color(lightblue);
+            .btn-unselected{
+                color: color(darkgrey);
             }
+
+            .toolbar-btn{
+                color: color(lightblue);
+                font-weight: bold;
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+
+                .toolbar-btn:after{
+                    content: "";
+                    display: block;
+                    margin: 0 auto;
+                    width: 25%; 
+                    padding-top: 5px;
+                    border-bottom: 2px solid color(lightblue);
+                }
+
+.content{
+    margin-top: 30px;
+    margin-bottom: $grid-margin-height;
+}

@@ -22,4 +22,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         boatEquipment.addAll(fishingEquipment);
         return boatEquipment;
     }
+
+    @Override
+    public List<Equipment> getFishingEquipment() {
+        return equipmentRepository.findAllByType("fishing");
+    }
 }

@@ -1,0 +1,19 @@
+@import 'src/styles/main.scss';
+
+.form-fields{
+    margin-bottom: 20px;
+    width: 33.12vw;
+}
+
+.equipment-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    row-gap: 10px;
+    margin-bottom: 8px;
+    color: color(blue);
+}
+
+    .checkbox-text{
+        margin-bottom: 12px;
+    }

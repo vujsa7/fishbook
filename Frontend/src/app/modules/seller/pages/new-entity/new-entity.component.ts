@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, Event } from '@angular/router';
+import { Address } from 'src/app/models/location/address.model';
+import { City } from 'src/app/models/location/city.model';
+import { AdventureRegistrationRequest } from '../../models/adventure-registration-request.model';
 import { BoatRegistrationRequest } from '../../models/boat-registration-request';
 
 @Component({
@@ -24,6 +27,7 @@ export class NewEntityComponent implements OnInit {
         }
         if(this.router.url.includes('new-adventure')){
           this.entityType = "adventure";
+          this.entityRegistrationRequest = new AdventureRegistrationRequest("", "", new Address("", new City()), -1, -1, -1, [], [], [], "");
         }
       }
     });

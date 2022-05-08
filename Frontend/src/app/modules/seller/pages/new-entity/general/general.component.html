@@ -39,7 +39,7 @@
                 <span class="error-message" *ngIf="newEntityForm.controls.city.touched && newEntityForm.controls.city.errors?.['required']">You must choose a city.</span>
             </div>
         </div>
-        <span class="checkbox-text">Choose which rules are applied when renting</span>
+        <div class="checkbox-text grey-text">Choose which rules are applied when renting</div>
         
         <div class="applied-rules-grid">
             <div *ngFor="let appliedRule of appliedRules">
@@ -53,5 +53,5 @@
         </div>
 
     </form>
-    <app-primary-button [text]="'Next'" class="next-btn" (click)="addGeneralInfo()"></app-primary-button>
+    <app-primary-button [text]="'Next'" class="next-btn" (click)="addGeneralInfo()" [isBtnDisabled]="!newEntityForm.valid"></app-primary-button>
 </div>

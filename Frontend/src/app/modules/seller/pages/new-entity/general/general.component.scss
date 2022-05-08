@@ -1,8 +1,6 @@
 @import 'src/styles/main.scss';
 
 .form-wrapper{
-    margin-top: 47px;
-    margin-bottom: 36px;
     width: 100vw;
 }
 
@@ -12,7 +10,7 @@
     }
 
     .checkbox-text{
-        color: color(darkgrey);
+        margin-bottom: 12px;
     }
 
     .applied-rules-grid{

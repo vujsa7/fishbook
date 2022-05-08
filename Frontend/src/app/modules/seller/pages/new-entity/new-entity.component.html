@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
     <div class="d-flex flex-row wrapper">
-        <div class="container">
+        <div class="toolbar">
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'general' ? 'toolbar-btn' : 'btn-unselected'">General</button>
             <button class="btn ps-0 shadow-none" *ngIf="entityType == 'boat'" [ngClass]="selectedButton == 'specifications' ? 'toolbar-btn' : 'btn-unselected'">Boat specifications</button>
             <button class="btn ps-0 shadow-none" *ngIf="entityType == 'house'" [ngClass]="selectedButton == 'specifications' ? 'toolbar-btn' : 'btn-unselected'">House details</button>
@@ -9,9 +9,9 @@
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'gallery' ? 'toolbar-btn' : 'btn-unselected'">Gallery</button>
         </div>
     </div>
-    <app-general [style.display]=" selectedButton=='general' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addGeneralInfoEvent)="addGeneralInfo()"></app-general>
-    <app-boat-spec *ngIf="entityType == 'boat'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addBoatSpecificationEvent)="addSpecification()"></app-boat-spec>
-    <app-adventure-details *ngIf="entityType == 'adventure'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" (addAdventureDetailsEvent)="addSpecification()"></app-adventure-details>
-    <app-pricing [style.display]=" selectedButton=='pricing' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addPricingEvent)="addPricing()"></app-pricing>
-    <app-gallery [style.display]=" selectedButton=='gallery' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType"></app-gallery>
+    <app-general class="content" [style.display]=" selectedButton=='general' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addGeneralInfoEvent)="addGeneralInfo()"></app-general>
+    <app-boat-spec class="content" *ngIf="entityType == 'boat'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addBoatSpecificationEvent)="addSpecification()"></app-boat-spec>
+    <app-adventure-details class="content" *ngIf="entityType == 'adventure'" [style.display]=" selectedButton=='specifications' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" (addAdventureDetailsEvent)="addSpecification()"></app-adventure-details>
+    <app-pricing class="content" [style.display]=" selectedButton=='pricing' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType" (addPricingEvent)="addPricing()"></app-pricing>
+    <app-gallery class="content" [style.display]=" selectedButton=='gallery' ? 'block' : 'none'" [entityRegistrationRequest]="entityRegistrationRequest" [entityType]="entityType"></app-gallery>
 </div>

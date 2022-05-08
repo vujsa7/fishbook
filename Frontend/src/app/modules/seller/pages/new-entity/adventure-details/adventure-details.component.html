@@ -1,2 +1,33 @@
-<p>adventure-details works!</p>
-<app-primary-button [text]="'Next'" class="next-btn" (click)="addAdventureDetails()"></app-primary-button>
+<div class="form-wrapper d-flex flex-column align-items-center">
+    <form [formGroup]="newEntityForm">
+        <div class="d-flex flex-column form-fields justify-content-end">
+            <div class="input-container instructorBiography" [ngClass]="{'input-container-error' : (newEntityForm.controls.instructorBiography.touched && newEntityForm.controls.instructorBiography.errors?.['required'])}">
+                <textarea id="instructorBiography" formControlName="instructorBiography" maxLength="200" (focus)="newEntityForm.controls.instructorBiography.markAsUntouched()" required></textarea>
+                <label for="instructorBiography" class="input-label">Instructor biography</label>
+                <span class="error-message error-textarea" *ngIf="newEntityForm.controls.instructorBiography.touched && newEntityForm.controls.instructorBiography.errors?.['required']">instructorBiography cannot be empty.</span>
+            </div>
+            <span class="text-end grey-text">0/200max</span>
+        </div>
+        <div class="d-flex flex-column form-fields">
+            <div class="input-container" [ngClass]="{'input-container-error' : (newEntityForm.controls.maxNumberOfPeople.touched && newEntityForm.controls.maxNumberOfPeople.errors?.['required'])}">
+                <input id="maxNumberOfPeople" type="number" formControlName="maxNumberOfPeople" name="maxNumberOfPeople" (focus)="newEntityForm.controls.maxNumberOfPeople.markAsUntouched()" required>
+                <label for="maxNumberOfPeople" class="input-label">Maximum people</label>
+                <span class="error-message" *ngIf="newEntityForm.controls.maxNumberOfPeople.touched && newEntityForm.controls.maxNumberOfPeople.errors?.['required']">Maximum people must be specified.</span>
+            </div>
+        </div>
+        <div class="d-flex flex-column form-fields">
+            <div class="checkbox-text grey-text">Choose fishing equipment</div>
+            <div class="equipment-grid">
+                <div *ngFor="let equipmentItem of equipment">
+                    <label><input type="checkbox" formArrayName="equipment"
+                            [checked]="newEntityForm.controls['equipment'].value.includes(equipmentItem)"
+                            (value)="equipmentItem"
+                            (change)="equipmentChanged($event, equipmentItem)"/>
+                        <span>{{equipmentItem.name}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <app-primary-button [text]="'Next'" class="form-fields" (click)="addAdventureDetails()" [isBtnDisabled]="!newEntityForm.valid"></app-primary-button>
+</div>

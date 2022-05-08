@@ -1,7 +1,6 @@
 @import 'src/styles/main.scss';
 
 .form-wrapper{
-    margin-top: 47px;
     width: 100vw;
 }
 
@@ -30,7 +29,7 @@
     }
 
     .add-service-text{
-        color: color(darkgrey);
+        margin-bottom: 12px;
     }
 
     .form-fields{

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface EquipmentService {
     List<Equipment> getBoatEquipment();
+    List<Equipment> getFishingEquipment();
 }
