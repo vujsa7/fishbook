@@ -31,13 +31,7 @@ export class UsersComponent implements OnInit {
 
   deleteUser(username: string){
     this.userService.deleteUser(username).subscribe();
-    this.users.map(user => {
-      if(user.email == username){
-        user.deleted = true;
-        user.enabled = false;
-        return user;
-      }
-    });
+    this.users = this.users.filter(user => user.email != username);
   }
 
 }

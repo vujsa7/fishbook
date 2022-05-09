@@ -2,6 +2,7 @@ package com.fishbook.user.model;
 
 import com.fishbook.location.model.Address;
 import com.fishbook.registration.model.VerificationCode;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +11,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "Users")
+@Where(clause = "is_deleted = false")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
