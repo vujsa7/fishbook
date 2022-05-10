@@ -1,4 +1,5 @@
 export class EntityBasicInfo{
+    public id: number;
     public imageUrl: string;
     public name: string;
     public seller: string;
@@ -7,7 +8,8 @@ export class EntityBasicInfo{
     public rating: number;
     public price: number;
 
-    constructor(imageUrl:string, name:string, seller:string, description:string, location: string, rating:number, price:number){
+    constructor(id: number, imageUrl:string, name:string, seller:string, description:string, location: string, rating:number, price:number){
+        this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
         this.seller = seller;
