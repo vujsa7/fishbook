@@ -4,7 +4,6 @@ import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.location.model.Address;
-import com.fishbook.storage.model.EntityImage;
 import com.fishbook.user.model.User;
 import com.fishbook.entity.model.Entity;
 
@@ -45,18 +44,15 @@ public class Boat extends Entity {
     @Enumerated(EnumType.STRING)
     private BoatType boatType;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name="userId", nullable = false)
-    private User owner;
-
     @ManyToMany
     @JoinTable(name = "boatEquipment", joinColumns = @JoinColumn(name = "boat_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
     private Set<Equipment> equipment = new HashSet<>();
 
     public Boat() {}
 
+
     public Boat(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxNumberOfPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, BoatType boatType, User owner, Set<Equipment> equipment) {
-        super(name, description, cancellationFee, pricePerDay, isDeleted, address, rules, additionalServices);
+        super(name, description, cancellationFee, pricePerDay, isDeleted, owner, address, rules, additionalServices);
         this.length = length;
         this.motors = motors;
         this.power = power;
@@ -67,7 +63,6 @@ public class Boat extends Entity {
         this.maxDistance = maxDistance;
         this.energyConsumption = energyConsumption;
         this.boatType = boatType;
-        this.owner = owner;
         this.equipment = equipment;
     }
 
@@ -149,14 +144,6 @@ public class Boat extends Entity {
 
     public void setBoatType(BoatType boatType) {
         this.boatType = boatType;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public Set<Equipment> getEquipment() {

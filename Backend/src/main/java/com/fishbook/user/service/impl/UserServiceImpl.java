@@ -1,5 +1,6 @@
 package com.fishbook.user.service.impl;
 
+import com.fishbook.entity.dao.EntityRepository;
 import com.fishbook.location.dao.AddressRepository;
 import com.fishbook.location.dao.CityRepository;
 import com.fishbook.location.model.Address;
@@ -37,8 +38,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final VerificationCodeRepository verificationCodeRepository;
     private final LocationService locationService;
     private final PasswordRenewalMarkRepository passwordRenewalMarkRepository;
+    private final EntityRepository entityRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository, CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService, PasswordRenewalMarkRepository passwordRenewalMarkRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository, CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService, PasswordRenewalMarkRepository passwordRenewalMarkRepository, EntityRepository entityRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.addressRepository = addressRepository;
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.verificationCodeRepository = verificationCodeRepository;
         this.locationService = locationService;
         this.passwordRenewalMarkRepository = passwordRenewalMarkRepository;
+        this.entityRepository = entityRepository;
     }
 
 
@@ -140,7 +143,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void deleteUser(String username) {
-        userRepository.deleteUser(username);
+    public void deleteUser(Long id) {
+        userRepository.deleteUser(id);
+        entityRepository.deleteByOwner(id);
     }
 }

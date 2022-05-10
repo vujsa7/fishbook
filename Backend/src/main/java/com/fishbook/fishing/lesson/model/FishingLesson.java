@@ -13,10 +13,6 @@ import java.util.Set;
 @javax.persistence.Entity
 public class FishingLesson extends Entity {
 
-    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private User instructor;
-
     @Column(nullable = false)
     private String instructorBiography;
 
@@ -30,20 +26,11 @@ public class FishingLesson extends Entity {
     public FishingLesson() {
     }
 
-    public FishingLesson(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, User instructor, String instructorBiography, Integer maxNumberOfPeople, Set<Equipment> fishingEquipment) {
-        super(name, description, cancellationFee, pricePerDay, isDeleted, address, rules, additionalServices);
-        this.instructor = instructor;
+    public FishingLesson(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, User owner, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, String instructorBiography, Integer maxNumberOfPeople, Set<Equipment> fishingEquipment) {
+        super(name, description, cancellationFee, pricePerDay, isDeleted, owner, address, rules, additionalServices);
         this.instructorBiography = instructorBiography;
         this.maxNumberOfPeople = maxNumberOfPeople;
         this.fishingEquipment = fishingEquipment;
-    }
-
-    public User getInstructor() {
-        return instructor;
-    }
-
-    public void setInstructor(User instructor) {
-        this.instructor = instructor;
     }
 
     public String getInstructorBiography() {

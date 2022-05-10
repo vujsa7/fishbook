@@ -11,6 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
     List<User> findAllByRoleName(String roleName);
     @Modifying
-    @Query("update User u set u.isDeleted = true, u.isEnabled = false where u.email = :username")
-    void deleteUser(String username);
+    @Query("update User u set u.isDeleted = true, u.isEnabled = false where u.id = :id")
+    void deleteUser(Long id);
 }

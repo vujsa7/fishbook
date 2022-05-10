@@ -56,3 +56,15 @@ h5{
             cursor: initial;
             margin-right: 5px;
         }
+
+#delete-btn{
+    background-color: color(lightgrey);
+    margin-right: 10px;
+    width: 38px;
+    height: 38px;
+}
+
+    svg{
+        min-width: 24px;
+        min-height: 24px;
+    }

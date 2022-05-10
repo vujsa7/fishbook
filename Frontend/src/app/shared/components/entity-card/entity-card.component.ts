@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { EntityBasicInfo } from '../../models/entity-basic-info.model';
 
 @Component({
@@ -6,8 +7,15 @@ import { EntityBasicInfo } from '../../models/entity-basic-info.model';
   templateUrl: './entity-card.component.html',
   styleUrls: ['./entity-card.component.scss']
 })
-export class EntityCardComponent {
+export class EntityCardComponent implements OnInit {
 
   @Input() entityBasicInfo!: EntityBasicInfo;
+  role: string = 'ROLE_UNSIGNED';
+
+  constructor(private authService: AuthService){}
+
+  ngOnInit(): void {
+    this.role = this.authService.getTokenRole();
+  }
   
 }

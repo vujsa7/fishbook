@@ -4,12 +4,15 @@ import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.location.model.Address;
 import com.fishbook.storage.model.EntityImage;
+import com.fishbook.user.model.User;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @javax.persistence.Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Where(clause = "is_deleted = false")
 public abstract class Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +34,10 @@ public abstract class Entity {
     private Boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -47,12 +54,13 @@ public abstract class Entity {
 
     public Entity() {}
 
-    public Entity(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices) {
+    public Entity(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, User owner, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices) {
         this.name = name;
         this.description = description;
         this.cancellationFee = cancellationFee;
         this.pricePerDay = pricePerDay;
         this.isDeleted = isDeleted;
+        this.owner = owner;
         this.address = address;
         this.rules = rules;
         this.additionalServices = additionalServices;
@@ -104,6 +112,14 @@ public abstract class Entity {
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Address getAddress() {

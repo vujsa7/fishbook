@@ -114,10 +114,10 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{username}")
+    @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity deleteUser(@PathVariable() String username){
-        userService.deleteUser(username);
+    public ResponseEntity deleteUser(@PathVariable() Long id){
+        userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

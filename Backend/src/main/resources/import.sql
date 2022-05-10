@@ -40,6 +40,7 @@ insert into address (address, city_id, longitude, latitude) values ('Long St 33'
 insert into address (address, city_id, longitude, latitude) values ('Valley Street 1', 24, 34.06471951699135, -118.27002914663697)
 insert into address (address, city_id, longitude, latitude) values ('13th Street 3', 26, 34.06471951699135, -118.27002914663697)
 insert into address (address, city_id, longitude, latitude) values ('WallStreet 7', 28, 34.06471951699135, -118.27002914663697)
+insert into address (address, city_id, longitude, latitude) values ('Water', 28, 34.06471951699135, -118.27002914663697)
 
 insert into role (name) values ('ROLE_CLIENT')
 insert into role (name) values ('ROLE_BOAT_OWNER')
@@ -95,3 +96,10 @@ insert into equipment (type, name) values ('fishing', 'Lures')
 insert into equipment (type, name) values ('fishing', 'Gloves')
 insert into equipment (type, name) values ('fishing', 'Fridge')
 insert into equipment (type, name) values ('fishing', 'Knives')
+
+insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (1, 'Fishing lesson', 'This is a fishing lesson description', 6, 72.0, 15, false, 4)
+insert into fishing_lesson (id, instructor_biography, max_number_of_people) values (1, 'I am a instructor and trout is my favourite fish', 3)
+insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (2, 'Fishing lesson', 'This is a fishing lesson description', 6, 72.0, 15, false, 4)
+insert into fishing_lesson (id, instructor_biography, max_number_of_people) values (2, 'I am a instructor and trout is my favourite fish', 3)
+insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (3, 'Fishing lesson', 'This is a fishing lesson description', 6, 72.0, 15, false, 3)
+insert into fishing_lesson (id, instructor_biography, max_number_of_people) values (3, 'I am a instructor and trout is my favourite fish', 3)
