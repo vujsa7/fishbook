@@ -7,6 +7,7 @@ import com.fishbook.entity.dao.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,11 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public void deleteById(Long id) {
         entityRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Boat> getAll() {
+        return boatRepository.findAll();
     }
 
 }

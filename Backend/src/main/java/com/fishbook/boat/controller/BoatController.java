@@ -10,12 +10,13 @@ import com.fishbook.boat.model.Boat;
 import com.fishbook.boat.model.BoatType;
 import com.fishbook.boat.service.BoatService;
 import com.fishbook.additional.entity.information.service.EquipmentService;
+import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.location.model.Address;
 import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
+import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
-import com.fishbook.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/boats")
@@ -39,15 +41,17 @@ public class BoatController {
     private final LocationService locationService;
     private final UserService userService;
     private final AdditionalServiceService additionalServiceService;
+    private final StorageService storageService;
 
     @Autowired
-    public BoatController(BoatService boatService, RuleService ruleService, EquipmentService equipmentService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService) {
+    public BoatController(BoatService boatService, RuleService ruleService, EquipmentService equipmentService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
         this.boatService = boatService;
         this.ruleService = ruleService;
         this.equipmentService = equipmentService;
         this.locationService = locationService;
         this.userService = userService;
         this.additionalServiceService = additionalServiceService;
+        this.storageService = storageService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -82,6 +86,17 @@ public class BoatController {
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
     public List<Equipment> getBoatEquipment(){
         return equipmentService.getBoatEquipment();
+    }
+
+    @GetMapping
+    public ResponseEntity getAllBoats(){
+        List<EntityBasicInfoDto> boats = boatService.getAll().stream()
+                .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
+                        boat.getPricePerDay(), boat.getAddress().getCity().getName() + ", " + boat.getAddress().getCity().getCountry().getName(),
+                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(boats, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

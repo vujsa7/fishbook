@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { environment } from 'src/environments/environment';
+import { EntityBasicInfo } from '../models/entity-basic-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class BoatService {
 
   getBoatEquipment(): Observable<any> {
     return this.http.get(this.baseUrl + 'boats/equipment', { headers: this.header });
+  }
+
+  getAllBoats(): Observable<EntityBasicInfo[]> {
+    return this.http.get<EntityBasicInfo[]>(this.baseUrl + 'boats');
   }
   
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
+import { BoatService } from 'src/app/shared/services/boat.service';
+import { HouseService } from 'src/app/shared/services/house.service';
 
 @Component({
   selector: 'app-services',
@@ -11,7 +13,7 @@ export class ServicesComponent implements OnInit {
   selectedButton: string = 'boats';
   entities: any;
 
-  constructor(private adventureService: AdventureService, private toastr: ToastrService) { }
+  constructor(private adventureService: AdventureService, private boatService: BoatService, private houseService: HouseService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -30,10 +32,18 @@ export class ServicesComponent implements OnInit {
       })
     }
     if(type == 'boats'){
-      this.entities = [];
+      this.boatService.getAllBoats().subscribe(data => {
+        this.entities = data;
+      }, error => {
+        this.toastr.error("Error loading entities");
+      })
     }
     if(type == 'houses'){
-      this.entities = [];
+      this.houseService.getAllHouses().subscribe(data => {
+        this.entities = data;
+      }, error => {
+        this.toastr.error("Error loading entities");
+      })
     }
   }
 

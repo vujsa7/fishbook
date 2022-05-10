@@ -75,7 +75,7 @@ public class FishingLessonController {
                     fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName()))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity(lessons, HttpStatus.OK);
+        return new ResponseEntity<>(lessons, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

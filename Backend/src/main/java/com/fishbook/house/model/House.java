@@ -15,10 +15,6 @@ public class House extends Entity {
     @Column(nullable = false)
     private Integer maxNumberOfPeople;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name="userId", nullable = false)
-    private User owner;
-
     @OneToMany(mappedBy = "house")
     private List<Room> rooms;
 
@@ -26,9 +22,8 @@ public class House extends Entity {
     }
 
     public House(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Integer maxNumberOfPeople, User owner, List<Room> rooms) {
-        super(name, description, cancellationFee, pricePerDay, isDeleted, address, rules, additionalServices);
+        super(name, description, cancellationFee, pricePerDay, isDeleted, owner, address, rules, additionalServices);
         this.maxNumberOfPeople = maxNumberOfPeople;
-        this.owner = owner;
         this.rooms = rooms;
     }
 
@@ -38,14 +33,6 @@ public class House extends Entity {
 
     public void setMaxNumberOfPeople(Integer maxNumberOfPeople) {
         this.maxNumberOfPeople = maxNumberOfPeople;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public List<Room> getRooms() {
