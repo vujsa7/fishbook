@@ -3,7 +3,8 @@ import { NavigationEnd, Router, Event } from '@angular/router';
 import { Address } from 'src/app/models/location/address.model';
 import { City } from 'src/app/models/location/city.model';
 import { AdventureRegistrationRequest } from '../../models/adventure-registration-request.model';
-import { BoatRegistrationRequest } from '../../models/boat-registration-request';
+import { BoatRegistrationRequest } from '../../models/boat-registration-request.model';
+import { HouseRegistrationRequest } from '../../models/house-registration-request.model';
 
 @Component({
   selector: 'app-new-entity',
@@ -24,6 +25,7 @@ export class NewEntityComponent implements OnInit {
         }
         if(this.router.url.includes('new-house')){
           this.entityType = "house";
+          this.entityRegistrationRequest = new HouseRegistrationRequest("", "", "", "", -1, -1, -1);
         }
         if(this.router.url.includes('new-adventure')){
           this.entityType = "adventure";

@@ -11,7 +11,6 @@ import { BoatService } from 'src/app/shared/services/boat.service';
 export class BoatSpecComponent implements OnInit {
   newEntityForm!: FormGroup;
   @Input() entityRegistrationRequest!: any;
-  @Input() entityType!: string;
   @Output() addBoatSpecificationEvent = new EventEmitter();
   navigationEquipment: Array<Equipment> = new Array();
   fishingEquipment: Array<Equipment> = new Array();
@@ -66,19 +65,18 @@ export class BoatSpecComponent implements OnInit {
 
   addBoatSpecification() {
     if(this.newEntityForm.valid){
-      if(this.entityType == "boat") {
-        this.entityRegistrationRequest.boatType = this.newEntityForm.controls.boatType.value;
-        this.entityRegistrationRequest.maxPeople = this.newEntityForm.controls.maxPeople.value;
-        this.entityRegistrationRequest.length = this.newEntityForm.controls.length.value;
-        this.entityRegistrationRequest.loadCapacity = this.newEntityForm.controls.loadCapacity.value;
-        this.entityRegistrationRequest.maxSpeed = this.newEntityForm.controls.maxSpeed.value;
-        this.entityRegistrationRequest.power = this.newEntityForm.controls.horsepower.value;
-        this.entityRegistrationRequest.motors = this.newEntityForm.controls.motorsOnBoat.value;
-        this.entityRegistrationRequest.fuelConsumption = this.newEntityForm.controls.fuelConsumption.value;
-        this.entityRegistrationRequest.maxDistance = this.newEntityForm.controls.maxDistance.value;
-        this.entityRegistrationRequest.energyConsumption = this.newEntityForm.controls.energyConsumption.value;
-        this.entityRegistrationRequest.equipment = this.newEntityForm.controls.equipment?.value;
-      }
+      this.entityRegistrationRequest.boatType = this.newEntityForm.controls.boatType.value;
+      this.entityRegistrationRequest.maxPeople = this.newEntityForm.controls.maxPeople.value;
+      this.entityRegistrationRequest.length = this.newEntityForm.controls.length.value;
+      this.entityRegistrationRequest.loadCapacity = this.newEntityForm.controls.loadCapacity.value;
+      this.entityRegistrationRequest.maxSpeed = this.newEntityForm.controls.maxSpeed.value;
+      this.entityRegistrationRequest.power = this.newEntityForm.controls.horsepower.value;
+      this.entityRegistrationRequest.motors = this.newEntityForm.controls.motorsOnBoat.value;
+      this.entityRegistrationRequest.fuelConsumption = this.newEntityForm.controls.fuelConsumption.value;
+      this.entityRegistrationRequest.maxDistance = this.newEntityForm.controls.maxDistance.value;
+      this.entityRegistrationRequest.energyConsumption = this.newEntityForm.controls.energyConsumption.value;
+      this.entityRegistrationRequest.equipment = this.newEntityForm.controls.equipment?.value;
+
       this.addBoatSpecificationEvent.emit();
     }
   }

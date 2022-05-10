@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,35 +36,32 @@ public class BoatController {
     private final LocationService locationService;
     private final UserService userService;
     private final AdditionalServiceService additionalServiceService;
-    private TokenUtils tokenUtils;
 
     @Autowired
-    public BoatController(BoatService boatService, RuleService ruleService, EquipmentService equipmentService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, TokenUtils tokenUtils) {
+    public BoatController(BoatService boatService, RuleService ruleService, EquipmentService equipmentService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService) {
         this.boatService = boatService;
         this.ruleService = ruleService;
         this.equipmentService = equipmentService;
         this.locationService = locationService;
         this.userService = userService;
         this.additionalServiceService = additionalServiceService;
-        this.tokenUtils = tokenUtils;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
-    public ResponseEntity<Long> registerNewBoat(@RequestBody BoatRegistrationDto boatRegistrationDto,  @RequestHeader (name="Authorization") String token){
+    public ResponseEntity<Long> registerNewBoat(@RequestBody BoatRegistrationDto boatRegistrationDto,  Principal principal){
         try {
             City city = locationService.findCityByName(boatRegistrationDto.getCity());
             Address address = new Address(boatRegistrationDto.getAddress(), city, 0.0, 0.0);
-            String username = tokenUtils.getUsernameFromToken(token.substring(7));
-            User user = userService.findByEmail(username);
+            User user = userService.findByEmail(principal.getName());
             HashSet<AdditionalService> additionalServices = additionalServiceService.saveAll(boatRegistrationDto.getAdditionalServices());
 
-            Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getCancellationFee(), boatRegistrationDto.getPrice(),
+            Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getAdvancePayment(), boatRegistrationDto.getPrice(),
                     false, address, boatRegistrationDto.getAppliedRules(), additionalServices,
                     boatRegistrationDto.getLength(), boatRegistrationDto.getMotors(), boatRegistrationDto.getPower(),
                     boatRegistrationDto.getMaxSpeed(), boatRegistrationDto.getMaxPeople(), boatRegistrationDto.getLoadCapacity(),
                     boatRegistrationDto.getFuelConsumption(), boatRegistrationDto.getMaxDistance(), boatRegistrationDto.getEnergyConsumption(),
-                    0, BoatType.valueOf(boatRegistrationDto.getBoatType()), user, boatRegistrationDto.getEquipment());
+                    BoatType.valueOf(boatRegistrationDto.getBoatType()), user, boatRegistrationDto.getEquipment());
             Long boatId = boatService.saveNewBoat(boat);
             return new ResponseEntity<>(boatId, HttpStatus.CREATED);
         } catch (Exception e) {

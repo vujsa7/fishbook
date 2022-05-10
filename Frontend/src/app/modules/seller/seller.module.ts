@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GalleryComponent } from './pages/new-entity/gallery/gallery.component';
 import { AdventureDetailsComponent } from './pages/new-entity/adventure-details/adventure-details.component';
+import { HouseDetailsComponent } from './pages/new-entity/house-details/house-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AdventureDetailsComponent } from './pages/new-entity/adventure-details/
     BoatSpecComponent,
     PricingComponent,
     GalleryComponent,
-    AdventureDetailsComponent
+    AdventureDetailsComponent,
+    HouseDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -21,16 +21,10 @@ import java.util.List;
 @Service
 public class BoatServiceImpl implements BoatService {
     private final BoatRepository boatRepository;
-    private final AdditionalServiceRepository additionalServiceRepository;
-    private final UserRepository userRepository;
-    private final LocationService locationService;
 
     @Autowired
-    public BoatServiceImpl(BoatRepository boatRepository, AdditionalServiceRepository additionalServiceRepository, UserRepository userRepository, LocationService locationService) {
+    public BoatServiceImpl(BoatRepository boatRepository) {
         this.boatRepository = boatRepository;
-        this.additionalServiceRepository = additionalServiceRepository;
-        this.userRepository = userRepository;
-        this.locationService = locationService;
     }
 
     @Override

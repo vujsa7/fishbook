@@ -76,6 +76,15 @@ insert into rule (description, type) values ('No trash in water', 'fishingLesson
 insert into rule (description, type) values ('Must use natural bait', 'fishingLesson')
 insert into rule (description, type) values ('No shouting', 'fishingLesson')
 
+insert into rule (description, type) values ('No smoking allowed', 'house')
+insert into rule (description, type) values ('No parties or events allowed', 'house')
+insert into rule (description, type) values ('No pets allowed', 'house')
+insert into rule (description, type) values ('No unregistered guests allowed', 'house')
+insert into rule (description, type) values ('Please don’t eat or drink in the bedrooms', 'house')
+insert into rule (description, type) values ('Please respect the noise curfew', 'house')
+insert into rule (description, type) values ('Please turn off the AC when you go out', 'house')
+insert into rule (description, type) values ('Please respect check-in and check-out times', 'house')
+
 insert into equipment (type, name) values ('navigation', 'GPS System')
 insert into equipment (type, name) values ('navigation', 'VHF')
 insert into equipment (type, name) values ('navigation', 'Marine Radar')

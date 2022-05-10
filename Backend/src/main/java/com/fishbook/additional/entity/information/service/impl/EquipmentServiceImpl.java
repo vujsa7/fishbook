@@ -3,6 +3,7 @@ package com.fishbook.additional.entity.information.service.impl;
 import com.fishbook.additional.entity.information.dao.EquipmentRepository;
 import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.additional.entity.information.service.EquipmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class EquipmentServiceImpl implements EquipmentService {
     private final EquipmentRepository equipmentRepository;
 
+    @Autowired
     public EquipmentServiceImpl(EquipmentRepository equipmentRepository) {
         this.equipmentRepository = equipmentRepository;
     }

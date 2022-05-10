@@ -28,7 +28,7 @@ public class Boat extends Entity {
     private Integer maxSpeed;
 
     @Column(nullable = false)
-    private Integer maxPeople;
+    private Integer maxNumberOfPeople;
 
     @Column(nullable = false)
     private Integer loadCapacity;
@@ -41,9 +41,6 @@ public class Boat extends Entity {
 
     @Column(nullable = false)
     private Integer energyConsumption;
-
-    @Column(nullable = false)
-    private Integer stars;
 
     @Enumerated(EnumType.STRING)
     private BoatType boatType;
@@ -58,18 +55,17 @@ public class Boat extends Entity {
 
     public Boat() {}
 
-    public Boat(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Integer stars, BoatType boatType, User owner, Set<Equipment> equipment) {
+    public Boat(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxNumberOfPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, BoatType boatType, User owner, Set<Equipment> equipment) {
         super(name, description, cancellationFee, pricePerDay, isDeleted, address, rules, additionalServices);
         this.length = length;
         this.motors = motors;
         this.power = power;
         this.maxSpeed = maxSpeed;
-        this.maxPeople = maxPeople;
+        this.maxNumberOfPeople = maxNumberOfPeople;
         this.loadCapacity = loadCapacity;
         this.fuelConsumption = fuelConsumption;
         this.maxDistance = maxDistance;
         this.energyConsumption = energyConsumption;
-        this.stars = stars;
         this.boatType = boatType;
         this.owner = owner;
         this.equipment = equipment;
@@ -107,12 +103,12 @@ public class Boat extends Entity {
         this.maxSpeed = maxSpeed;
     }
 
-    public Integer getMaxPeople() {
-        return maxPeople;
+    public Integer getMaxNumberOfPeople() {
+        return maxNumberOfPeople;
     }
 
-    public void setMaxPeople(Integer maxPeople) {
-        this.maxPeople = maxPeople;
+    public void setMaxNumberOfPeople(Integer maxNumberOfPeople) {
+        this.maxNumberOfPeople = maxNumberOfPeople;
     }
 
     public Integer getLoadCapacity() {
@@ -145,14 +141,6 @@ public class Boat extends Entity {
 
     public void setEnergyConsumption(Integer energyConsumption) {
         this.energyConsumption = energyConsumption;
-    }
-
-    public Integer getStars() {
-        return stars;
-    }
-
-    public void setStars(Integer stars) {
-        this.stars = stars;
     }
 
     public BoatType getBoatType() {

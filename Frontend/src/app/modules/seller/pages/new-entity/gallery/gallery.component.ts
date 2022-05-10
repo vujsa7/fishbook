@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { ImageFile } from '../../../models/image-file';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
+import { HouseService } from 'src/app/shared/services/house.service';
 
 @Component({
   selector: 'app-gallery',
@@ -23,7 +24,7 @@ export class GalleryComponent implements OnInit {
   coverPhotoUrl: any;
   smallPhotoUrls: Array<any> = new Array(7);
 
-  constructor(private boatService: BoatService, private adventureService: AdventureService, private imageService: ImageService, private route: Router, private dialog: MatDialog) { }
+  constructor(private boatService: BoatService, private adventureService: AdventureService, private houseService: HouseService, private imageService: ImageService, private route: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -82,6 +83,13 @@ export class GalleryComponent implements OnInit {
       }
       if(this.entityType == "adventure") {
         this.adventureService.postAdventure(this.entityRegistrationRequest).subscribe(
+          data => {
+            this.postImages(data);
+          }
+        )
+      }
+      if(this.entityType == "house") {
+        this.houseService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(
           data => {
             this.postImages(data);
           }

@@ -58,6 +58,9 @@ export class PricingComponent implements OnInit {
       if(this.entityType == "boat") {
         this.addBoatPricing();
       }
+      if(this.entityType == "house") {
+        this.addHousePricing();
+      }
       this.addPricingEvent.emit();
     }
   }
@@ -65,6 +68,12 @@ export class PricingComponent implements OnInit {
   addBoatPricing() {
     this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
     this.entityRegistrationRequest.advancePayment = this.newEntityForm.controls.advancePayment.value;
+    this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+  }
+
+  addHousePricing() {
+    this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
+    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.advancePayment.value;
     this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
   }
 

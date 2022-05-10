@@ -4,6 +4,7 @@ import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
 import { BoatService } from 'src/app/shared/services/boat.service';
+import { HouseService } from 'src/app/shared/services/house.service';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { Rule } from '../../../../../shared/models/rule.model';
 
@@ -23,7 +24,7 @@ export class GeneralComponent implements OnInit {
   filteredCities: City[] = [];
   appliedRules: Array<Rule> = new Array();
 
-  constructor(private locationService: LocationService, private boatService: BoatService, private adventureService: AdventureService) { }
+  constructor(private locationService: LocationService, private boatService: BoatService, private adventureService: AdventureService, private houseService: HouseService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -47,6 +48,13 @@ export class GeneralComponent implements OnInit {
     }
     if(this.entityType == "adventure"){
       this.adventureService.getAdventureRules().subscribe(
+        data => {
+          this.appliedRules = data;
+        }
+      )
+    }
+    if(this.entityType == "house"){
+      this.houseService.getHouseRules().subscribe(
         data => {
           this.appliedRules = data;
         }
@@ -89,6 +97,9 @@ export class GeneralComponent implements OnInit {
       if(this.entityType == "adventure") {
         this.addAdventureInfo();
       }
+      if(this.entityType == "house") {
+        this.addHouseInfo();
+      }
       this.addGeneralInfoEvent.emit();
     }
   }
@@ -109,6 +120,14 @@ export class GeneralComponent implements OnInit {
       city: this.cities.filter(c => c.name == this.newEntityForm.get("city")?.value)[0]
     }
     this.entityRegistrationRequest.rules = this.newEntityForm.controls.appliedRules?.value;
+  }
+
+  addHouseInfo(){
+    this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
+    this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
+    this.entityRegistrationRequest.address = this.newEntityForm.controls.street.value;
+    this.entityRegistrationRequest.city = this.newEntityForm.controls.city.value;
+    this.entityRegistrationRequest.appliedRules = this.newEntityForm.controls.appliedRules?.value;
   }
   
 }
