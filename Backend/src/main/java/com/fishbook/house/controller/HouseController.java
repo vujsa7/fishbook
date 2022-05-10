@@ -88,7 +88,7 @@ public class HouseController {
 
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_HOUSE_OWNER')")
-    public ResponseEntity deleteFishingLesson(@PathVariable Long id, Authentication authentication){
+    public ResponseEntity deleteHouse(@PathVariable Long id, Authentication authentication){
         Optional<House> house = houseService.findById(id);
         if(house.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

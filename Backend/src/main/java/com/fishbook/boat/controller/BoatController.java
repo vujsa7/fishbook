@@ -101,7 +101,7 @@ public class BoatController {
 
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOAT_OWNER')")
-    public ResponseEntity deleteFishingLesson(@PathVariable Long id, Authentication authentication){
+    public ResponseEntity deleteBoat(@PathVariable Long id, Authentication authentication){
         Optional<Boat> boat = boatService.findById(id);
         if(boat.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
