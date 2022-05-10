@@ -84,13 +84,9 @@ public class FishingLessonController {
         if(fishingLesson.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        boolean isInstructor = authentication.getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().matches("ROLE_INSTRUCTOR"));
-        if(isInstructor){
-            User userDetails = (User) authentication.getPrincipal();
-            if(!Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            }
+        User userDetails = (User) authentication.getPrincipal();
+        if(Objects.equals(userDetails.getRole().getName(), "ROLE_INSTRUCTOR") && !Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         fishingLessonService.deleteById(id);

@@ -21,11 +21,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/boats")
@@ -79,5 +82,21 @@ public class BoatController {
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
     public List<Equipment> getBoatEquipment(){
         return equipmentService.getBoatEquipment();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOAT_OWNER')")
+    public ResponseEntity deleteFishingLesson(@PathVariable Long id, Authentication authentication){
+        Optional<Boat> boat = boatService.findById(id);
+        if(boat.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User userDetails = (User) authentication.getPrincipal();
+        if(Objects.equals(userDetails.getRole().getName(), "ROLE_BOAT_OWNER") && !Objects.equals(boat.get().getOwner().getId(), userDetails.getId())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        boatService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
