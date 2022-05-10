@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/core/authentication/auth.service';
 export class SellerHeaderComponent {
   isVisible: boolean = true;
   dropdownMenuVisible: boolean = false;
+  sellerName: string = '';
   isSettingsVisible: boolean = false;
   isGlassEffect: boolean = false;
   _ = require('lodash');
@@ -29,6 +30,7 @@ export class SellerHeaderComponent {
   }
 
   ngOnInit(): void {
+    this.sellerName = this.authService.getTokenUsername();
   }
 
   @HostListener('window:scroll', ['$event'])

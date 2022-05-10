@@ -10,16 +10,16 @@
             <span class="nav-item" *ngIf="role=='ROLE_BOAT_OWNER'" (click)="myBoats()">My Boats</span>
             <span class="nav-item" *ngIf="role=='ROLE_INSTRUCTOR'">My Adventures</span>
             <span class="nav-item" *ngIf="role=='ROLE_HOUSE_OWNER'">My Houses</span>
-            <span class="nav-item">Boats</span>
-            <span class="nav-item">Houses</span>
-            <span class="nav-item">Adventures</span>
+            <span class="nav-item" [routerLink]="['/boats']">Boats</span>
+            <span class="nav-item" [routerLink]="['/houses']">Houses</span>
+            <span class="nav-item" [routerLink]="['/adventures']">Adventures</span>
             <img class="profile-img" src="assets/images/user.jpg">
             <div style="cursor: pointer" (click)="toggleSettings()">
-                <span class="nav-item full-name">Srdjan Dragovic</span>
+                <span class="nav-item full-name">{{ sellerName }}</span>
                 <svg class="down-arrow"></svg>
             </div>
             <div class="settings d-flex flex-column" [ngClass]="{'settings-visible': isSettingsVisible}">
-                <span class="settings-item">Settings</span>
+                <span class="settings-item" [routerLink]="['/my-profile']">Settings</span>
                 <span class="settings-item" (click)="logout()">Log out</span>
             </div>
         </div>
@@ -28,10 +28,10 @@
     <div class="mobile-nav">
         <div class="overlay" [ngClass]="{'overlay-visible' : dropdownMenuVisible}" (click)="toggleDropdownMenu()"></div>
         <div class="nav-items-mobile d-flex flex-column" [ngClass]="{'nav-items-mobile-visible' : dropdownMenuVisible}">
-            <span class="nav-item-mobile mt-2">Boats</span>
-            <span class="nav-item-mobile">Houses</span>
-            <span class="nav-item-mobile">Adventures</span>
-            <span class="nav-item-mobile">Profile settings</span>
+            <span class="nav-item-mobile mt-2" [routerLink]="['/boats']">Boats</span>
+            <span class="nav-item-mobile" [routerLink]="['/houses']">Houses</span>
+            <span class="nav-item-mobile" [routerLink]="['/adventures']">Adventures</span>
+            <span class="nav-item-mobile" [routerLink]="['/my-profile']">Profile settings</span>
         </div>
     </div>
 </div>

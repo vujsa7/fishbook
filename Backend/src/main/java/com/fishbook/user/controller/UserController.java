@@ -122,7 +122,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity<UserInfoDto> getUser(@PathVariable String username, Principal principal){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -135,7 +135,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity updateUser(@PathVariable String username, Principal principal, @RequestBody UserDto userDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -151,7 +151,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{username}/password")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @RequestBody PasswordUpdateDto passwordUpdateDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
