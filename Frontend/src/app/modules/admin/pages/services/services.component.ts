@@ -47,4 +47,28 @@ export class ServicesComponent implements OnInit {
     }
   }
 
+  deleteEntity(id: number) {
+    if(this.selectedButton == 'adventures'){
+      this.adventureService.deleteAdventure(id).subscribe(data => {
+        this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
+    if(this.selectedButton == 'boats'){
+      this.boatService.deleteBoat(id).subscribe(data => {
+        this.entities = this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
+    if(this.selectedButton == 'houses'){
+      this.houseService.deleteHouse(id).subscribe(data => {
+        this.entities = this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
+  }
+
 }

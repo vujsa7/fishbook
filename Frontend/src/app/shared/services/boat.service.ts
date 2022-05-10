@@ -9,7 +9,7 @@ import { EntityBasicInfo } from '../models/entity-basic-info.model';
   providedIn: 'root'
 })
 export class BoatService {
-  private baseUrl: string = environment.baseUrl;
+  private baseUrl: string = environment.baseUrl + 'boats';
   private header: HttpHeaders;
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -17,19 +17,22 @@ export class BoatService {
    }
 
   postRegistrationRequest(boatRegistrationRequest: Object): Observable<any>{
-    return this.http.post(this.baseUrl + 'boats', boatRegistrationRequest, { headers: this.header });
+    return this.http.post(this.baseUrl, boatRegistrationRequest, { headers: this.header });
   }
 
   getBoatRules(): Observable<any> {
-    return this.http.get(this.baseUrl + 'boats/rules', { headers: this.header });
+    return this.http.get(this.baseUrl + '/rules', { headers: this.header });
   }
 
   getBoatEquipment(): Observable<any> {
-    return this.http.get(this.baseUrl + 'boats/equipment', { headers: this.header });
+    return this.http.get(this.baseUrl + '/equipment', { headers: this.header });
   }
 
   getAllBoats(): Observable<EntityBasicInfo[]> {
-    return this.http.get<EntityBasicInfo[]>(this.baseUrl + 'boats');
+    return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }
-  
+
+  deleteBoat(id: number): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
+  }
 }

@@ -28,4 +28,8 @@ export class AdventureService {
   getAllAdventures(): Observable<EntityBasicInfo[]> {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }
+
+  deleteAdventure(id: number): Observable<any>{
+    return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
+  }
 }

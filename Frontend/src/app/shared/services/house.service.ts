@@ -9,7 +9,7 @@ import { EntityBasicInfo } from '../models/entity-basic-info.model';
   providedIn: 'root'
 })
 export class HouseService {
-  private baseUrl: string = environment.baseUrl;
+  private baseUrl: string = environment.baseUrl + 'houses';
   private header: HttpHeaders;
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -17,14 +17,18 @@ export class HouseService {
    }
 
   postRegistrationRequest(houseRegistrationRequest: Object): Observable<any>{
-    return this.http.post(this.baseUrl + 'houses', houseRegistrationRequest, { headers: this.header });
+    return this.http.post(this.baseUrl, houseRegistrationRequest, { headers: this.header });
   }
 
   getHouseRules(): Observable<any> {
-    return this.http.get(this.baseUrl + 'houses/rules', { headers: this.header });
+    return this.http.get(this.baseUrl + '/rules', { headers: this.header });
   }
 
   getAllHouses(): Observable<EntityBasicInfo[]> {
-    return this.http.get<EntityBasicInfo[]>(this.baseUrl + 'houses');
+    return this.http.get<EntityBasicInfo[]>(this.baseUrl);
+  }
+
+  deleteHouse(id: number): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
   }
 }
