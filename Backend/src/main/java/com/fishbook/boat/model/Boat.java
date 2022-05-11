@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "Boats")
 public class Boat extends Entity {
     @Column(nullable = false)
-    private Double length;
+    private Double boatLength;
 
     @Column(nullable = false)
     private Integer motors;
@@ -51,9 +51,9 @@ public class Boat extends Entity {
     public Boat() {}
 
 
-    public Boat(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxNumberOfPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, BoatType boatType, User owner, Set<Equipment> equipment) {
+    public Boat(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices, Double boatLength, Integer motors, Integer power, Integer maxSpeed, Integer maxNumberOfPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, BoatType boatType, User owner, Set<Equipment> equipment) {
         super(name, description, cancellationFee, pricePerDay, isDeleted, owner, address, rules, additionalServices);
-        this.length = length;
+        this.boatLength = boatLength;
         this.motors = motors;
         this.power = power;
         this.maxSpeed = maxSpeed;
@@ -67,11 +67,11 @@ public class Boat extends Entity {
     }
 
     public Double getLength() {
-        return length;
+        return boatLength;
     }
 
-    public void setLength(Double length) {
-        this.length = length;
+    public void setLength(Double boatLength) {
+        this.boatLength = boatLength;
     }
 
     public Integer getMotors() {

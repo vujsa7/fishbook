@@ -5,6 +5,7 @@ import boats from 'src/assets/mocks/boats.json';
 import houses from 'src/assets/mocks/houses.json';
 import adventures from 'src/assets/mocks/adventures.json';
 import { EntityBasicInfo } from 'src/app/shared/models/entity-basic-info.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'any'
@@ -15,14 +16,14 @@ export class EntityService {
     
   constructor(private http: HttpClient) {}
 
-  public fetchEntitiesBasicInfo(entityType: string): Array<EntityBasicInfo>{
-    if(entityType == "boats")
-      return boats as Array<EntityBasicInfo>;
+  public fetchEntitiesBasicInfo(entityType: string): Observable<Array<EntityBasicInfo>>{
+    if(entityType == "adventures")
+      return this.http.get<Array<EntityBasicInfo>>(this.baseUrl + "fishingLessons");
     else if(entityType == "houses")
-      return houses as Array<EntityBasicInfo>;
-    else if(entityType == "adventures")
-      return adventures as Array<EntityBasicInfo>;
-    else return new Array<EntityBasicInfo>();
+      return this.http.get<Array<EntityBasicInfo>>(this.baseUrl + "houses");
+    else if(entityType == "boats")
+      return this.http.get<Array<EntityBasicInfo>>(this.baseUrl + "boats");
+    else return new Observable<Array<EntityBasicInfo>>();
   }
 
 }

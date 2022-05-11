@@ -9,13 +9,14 @@
     <div class="description">
         {{entityBasicInfo.description}}
     </div>
-    <span class="grey-text">
+    <span class="entity-location grey-text">
         {{entityBasicInfo.location}}
     </span>
     <div class="d-flex rating-price justify-content-between align-items-center">
         <div class="d-flex rating align-items-center">
-            <svg class="star-icon"></svg>
+            <svg *ngIf="entityBasicInfo.rating" class="star-icon"></svg>
             <span>{{entityBasicInfo.rating}}</span>
+            <span *ngIf="!entityBasicInfo.rating">No rating</span>
         </div>
         <span class="price">
             {{entityBasicInfo.price}}$/day

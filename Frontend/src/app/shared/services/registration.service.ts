@@ -11,13 +11,13 @@ import { AuthService } from 'src/app/core/authentication/auth.service';;
 export class RegistrationService {
   private baseUrl: string = environment.baseUrl;
   private header: HttpHeaders;
-  
+
   constructor(private http: HttpClient, private authService: AuthService) {
     this.header = authService.getHeader();
-   }
+  }
 
-  postClient(client: Object): Observable<any>{
-      return this.http.post<any>(this.baseUrl + 'users', client);
+  postClient(client: Object): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'users', client);
   }
 
   postRegistrationRequest(seller: Object): Observable<RegistrationRequest> {
@@ -25,13 +25,13 @@ export class RegistrationService {
   }
 
   getRegistartionRequests(): Observable<RegistrationRequest[]> {
-    return this.http.get<RegistrationRequest[]>(this.baseUrl + 'registrationRequests', {headers: this.header});
+    return this.http.get<RegistrationRequest[]>(this.baseUrl + 'registrationRequests', { headers: this.header });
   }
 
   deleteRegistrationRequest(id: number, registrationResponse: any): Observable<any> {
     const options = {
       headers: this.header,
-      body: registrationResponse    
+      body: registrationResponse
     };
 
     return this.http.delete<any>(this.baseUrl + 'registrationRequests/' + id, options);

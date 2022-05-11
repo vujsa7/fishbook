@@ -21,7 +21,7 @@ public abstract class Entity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition="TEXT", length = 500)
     private String description;
 
     @Column(nullable = false)

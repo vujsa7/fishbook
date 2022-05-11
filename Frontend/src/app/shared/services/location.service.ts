@@ -23,5 +23,4 @@ export class LocationService {
         return this.http.get<City[]>(this.baseUrl + 'cities');
     }
 
-
 }

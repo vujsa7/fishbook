@@ -23,7 +23,11 @@ export class EntitiesComponent {
   }
 
   fetchEntitiesBasicInfo() {
-    this.entitiesBasicInfo = this.entityService.fetchEntitiesBasicInfo(this.entityType);
+    this.entityService.fetchEntitiesBasicInfo(this.entityType).subscribe(
+      data => {
+        this.entitiesBasicInfo = data;
+      }
+    );
   }
 
 }

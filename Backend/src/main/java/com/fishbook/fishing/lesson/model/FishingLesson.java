@@ -13,7 +13,7 @@ import java.util.Set;
 @javax.persistence.Entity
 public class FishingLesson extends Entity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition="TEXT", length = 300)
     private String instructorBiography;
 
     @Column(nullable = false)
