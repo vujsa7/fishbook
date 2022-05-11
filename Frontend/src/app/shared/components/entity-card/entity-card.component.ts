@@ -12,7 +12,7 @@ export class EntityCardComponent implements OnInit {
   @Input() entityType!: string;
   @Input() entityBasicInfo!: EntityBasicInfo;
   @Output() deleteEvent = new EventEmitter<number>();
-  
+
   role: string = 'ROLE_UNSIGNED';
 
   constructor(private authService: AuthService){}

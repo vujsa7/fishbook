@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'entity-images-viewer',
   templateUrl: './images-viewer.component.html',
   styleUrls: ['./images-viewer.component.scss']
 })
-export class ImagesViewerComponent implements OnInit {
+export class ImagesViewerComponent{
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input() images!: Array<string>;
 
 }

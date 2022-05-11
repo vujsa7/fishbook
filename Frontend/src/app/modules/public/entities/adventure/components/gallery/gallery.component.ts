@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'adventure-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input() previousAdventureImages!: Array<string>;
 
 }

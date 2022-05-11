@@ -1,23 +1,17 @@
 <div class="about-wrapper">
-    <img class="instructor-cover-image" src="https://images.unsplash.com/photo-1463062511209-f7aa591fa72f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+    <img class="instructor-cover-image"
+        [src]="sellerImg">
     <div class="specs d-flex flex-column">
         <div class="glass-container about d-flex flex-column align-items-center">
             <span class="fw-bold white-text title">Marina Fox</span>
             <span class="white-text description">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                {{aboutSeller}}
             </span>
         </div>
         <div class="glass-container equipment d-flex flex-column">
             <span class="fw-bold white-text title align-self-center">Included fishing equipment</span>
             <div class="d-flex flex-column equipment-wrapper">
-                <span class="white-text eq">Fishing Rod</span>
-                <span class="white-text eq">Fishing Net</span>
-                <span class="white-text eq">Lures</span>
-                <span class="white-text eq">Gloves</span>
-                <span class="white-text eq">Map</span>
-                <span class="white-text eq">Goggles</span>
-                <span class="white-text eq">Lures</span>
-                <span class="white-text eq">Gloves</span>
+                <span *ngFor="let equipment of fishingEquipment" class="white-text eq-text">{{equipment}}</span>
             </div>
         </div>
     </div>

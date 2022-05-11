@@ -1,6 +1,6 @@
 <div>
-    <app-spinner-fullscreen *ngIf="isLoadingEntities"></app-spinner-fullscreen>
-    <div *ngIf="!isLoadingEntities" class="entities-wrapper d-flex flex-column">
+    <app-spinner-fullscreen *ngIf="!entitiesBasicInfo"></app-spinner-fullscreen>
+    <div *ngIf="entitiesBasicInfo" class="entities-wrapper d-flex flex-column">
         <span class="grey-text mb-4">{{(entityType == 'boats' || entityType == 'houses') ? 'Renting a ' +
             entityType.substring(0, entityType.length-1) : 'Book an adventure'}}</span>
         <div class="d-flex">

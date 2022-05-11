@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { SpecialOffer } from '../../models/special-offer.model';
 
 @Component({
   selector: 'entity-special-offers',
@@ -36,5 +37,7 @@ export class SpecialOffersComponent {
     },
     margin: 50,
   }
+
+  @Input() specialOffers!: Array<SpecialOffer>;
 
 }

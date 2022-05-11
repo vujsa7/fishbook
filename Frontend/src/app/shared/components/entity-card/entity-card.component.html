@@ -1,9 +1,10 @@
 <div *ngIf="entityType && entityBasicInfo" class="fb-container d-flex flex-column">
     <div class="square-container">
         <img class="entity-image"
+            [routerLink]="['/' + entityType, entityBasicInfo.id]"
             [src]="entityBasicInfo.imageUrl">
     </div>
-    <h5>{{entityBasicInfo.name}}</h5>
+    <h5 [routerLink]="['/' + entityType, entityBasicInfo.id]">{{entityBasicInfo.name}}</h5>
     <span class="grey-text">{{entityBasicInfo.seller}}</span>
     <div class="description">
         {{entityBasicInfo.description}}

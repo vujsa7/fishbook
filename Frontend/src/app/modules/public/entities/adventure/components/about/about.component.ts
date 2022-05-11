@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'adventure-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input() aboutSeller!: string;
+  @Input() fishingEquipment!: Array<string>;
+  @Input() sellerImg!: string;
 
 }

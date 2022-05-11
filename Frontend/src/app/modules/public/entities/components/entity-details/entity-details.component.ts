@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { HouseDetails } from '../../models/house-details.model';
+import { EntityDetailsService } from '../../services/entity-details.service';
 
 @Component({
   selector: 'app-entity-details',
@@ -8,11 +11,12 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 })
 export class EntityDetailsComponent {
 
-  isLoadingEntity: boolean = false;
   entityType: string = "";
+  entityDetails!: any;
+  private routerSub: Subscription;
 
-  constructor(private router: Router) {
-    router.events.subscribe((event: Event) => {
+  constructor(private router: Router, private route: ActivatedRoute, private entityDetailsService: EntityDetailsService) {
+    this.routerSub = router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url.includes('houses')){
           this.entityType = "house";
@@ -21,18 +25,24 @@ export class EntityDetailsComponent {
         } else if(this.router.url.includes('adventures')){
           this.entityType = "adventure";
         }
-        this.isLoadingEntity = true;
         this.fetchEntitiyDetails();
-        
-        setTimeout(() => {
-          this.isLoadingEntity = false;
-        }, 500);
       }
     });
   }
 
   fetchEntitiyDetails() {
-    console.log("Fetching!");
+    let entityId = this.route.snapshot.params['id'];
+    if(this.entityType == 'house')
+      this.entityDetails = this.entityDetailsService.fetchHouseDetails(entityId);
+    else if(this.entityType == 'boat'){
+      this.entityDetails = this.entityDetailsService.fetchBoatDetails(entityId);
+    } else if(this.entityType == 'adventure'){
+      this.entityDetails = this.entityDetailsService.fetchAdventureDetails(entityId);
+    }
+  }
+
+  ngOnDestroy() {
+    this.routerSub.unsubscribe();
   }
 
 }

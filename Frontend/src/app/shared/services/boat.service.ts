@@ -14,7 +14,7 @@ export class BoatService {
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.header = authService.getHeader();
-   }
+  }
 
   postRegistrationRequest(boatRegistrationRequest: Object): Observable<any>{
     return this.http.post(this.baseUrl, boatRegistrationRequest, { headers: this.header });

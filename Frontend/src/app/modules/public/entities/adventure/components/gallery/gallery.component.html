@@ -1,9 +1,8 @@
 <div class="d-flex flex-column align-items-center">
     <h3>Memories from previous adventures</h3>
     <div class="image-gallery">
-        <div *ngFor="let i of [].constructor(10)" class="image-container">
-            <img class="image" src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80">
+        <div *ngFor="let img of previousAdventureImages" class="image-container">
+            <img class="image" [src]="img">
         </div>
     </div>
-    
 </div>
