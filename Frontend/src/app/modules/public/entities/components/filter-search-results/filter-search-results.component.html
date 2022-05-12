@@ -1,15 +1,23 @@
 <div class="fb-container d-flex flex-column">
     <h5>Filter search results</h5>
     <span class="fw-bold blue-text price">Price</span>
-    <filter-price-slider class="price-slider"></filter-price-slider>
+    <filter-price-slider *ngIf="maxPrice" [maxPrice]="maxPrice" (selectedPriceChanged)="OnSelectedPriceChanged($event)" class="price-slider"></filter-price-slider>
     <span class="fw-bold blue-text stars">Stars</span>
-    <mat-checkbox class="mb-2">5</mat-checkbox>
-    <mat-checkbox class="mb-2">4</mat-checkbox>
-    <mat-checkbox class="mb-2">3</mat-checkbox>
-    <mat-checkbox class="mb-2">2</mat-checkbox>
-    <mat-checkbox class="mb-2">1</mat-checkbox>
+    <div [formGroup]="starsForm">
+        <div class="d-flex flex-column" formArrayName="stars">
+            <mat-checkbox (change)="selectedFilterChanged()" [formControlName]="0" class="mb-2">5</mat-checkbox>
+            <mat-checkbox (change)="selectedFilterChanged()" [formControlName]="1" class="mb-2">4</mat-checkbox>
+            <mat-checkbox (change)="selectedFilterChanged()" [formControlName]="2" class="mb-2">3</mat-checkbox>
+            <mat-checkbox (change)="selectedFilterChanged()" [formControlName]="3" class="mb-2">2</mat-checkbox>
+            <mat-checkbox (change)="selectedFilterChanged()" [formControlName]="4" class="mb-2">1</mat-checkbox>
+        </div>
+    </div>
     <span class="fw-bold blue-text location">Location</span>
-    <mat-checkbox class="mb-2">California</mat-checkbox>
-    <mat-checkbox class="mb-2">New York</mat-checkbox>
-    <mat-checkbox class="mb-2">San Francisco</mat-checkbox>
+    <div class="d-flex flex-column" [formGroup]="citiesForm">
+        <div formArrayName="cities" *ngFor="let city of citiesFormArray.controls; let i = index">
+            <mat-checkbox class="mb-2" (change)="selectedFilterChanged()" [formControlName]="i" >
+                {{cities[i]}}
+            </mat-checkbox>
+        </div>
+    </div>
 </div>

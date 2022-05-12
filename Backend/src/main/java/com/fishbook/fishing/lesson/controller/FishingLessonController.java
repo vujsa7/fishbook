@@ -71,7 +71,7 @@ public class FishingLessonController {
     public ResponseEntity getAllFishingLessons(){
         List<EntityBasicInfoDto> lessons = fishingLessonService.getAll().stream()
                 .map(fishingLesson -> new EntityBasicInfoDto(fishingLesson.getId(), storageService.getPriorityImageUrl(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getDescription(),
-                    fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName() + ", " + fishingLesson.getAddress().getCity().getCountry().getName(),
+                    fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName(), fishingLesson.getAddress().getCity().getCountry().getName(),
                     fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName()))
                 .collect(Collectors.toList());
 

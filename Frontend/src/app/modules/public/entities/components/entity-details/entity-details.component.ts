@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { HouseDetails } from '../../models/house-details.model';
 import { EntityDetailsService } from '../../services/entity-details.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { EntityDetailsService } from '../../services/entity-details.service';
   templateUrl: './entity-details.component.html',
   styleUrls: ['./entity-details.component.scss']
 })
-export class EntityDetailsComponent {
+export class EntityDetailsComponent implements OnDestroy{
 
   entityType: string = "";
   entityDetails!: any;

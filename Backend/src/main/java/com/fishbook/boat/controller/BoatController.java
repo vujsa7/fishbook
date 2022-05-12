@@ -92,7 +92,7 @@ public class BoatController {
     public ResponseEntity getAllBoats(){
         List<EntityBasicInfoDto> boats = boatService.getAll().stream()
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
-                        boat.getPricePerDay(), boat.getAddress().getCity().getName() + ", " + boat.getAddress().getCity().getCountry().getName(),
+                        boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
                         boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName()))
                 .collect(Collectors.toList());
 

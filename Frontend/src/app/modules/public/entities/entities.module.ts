@@ -14,6 +14,7 @@ import { AdventureModule } from './adventure/adventure.module';
 import { BoatModule } from './boat/boat.module';
 import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     HouseModule,
     BoatModule,
     AdventureModule,
-    CarouselModule 
+    CarouselModule ,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class EntitiesModule { }

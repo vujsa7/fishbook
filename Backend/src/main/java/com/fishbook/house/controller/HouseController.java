@@ -5,7 +5,6 @@ import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.service.AdditionalServiceService;
 import com.fishbook.additional.entity.information.service.RuleService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
-import com.fishbook.fishing.lesson.model.FishingLesson;
 import com.fishbook.house.dto.HouseRegistrationDto;
 import com.fishbook.house.model.House;
 import com.fishbook.house.service.HouseService;
@@ -79,7 +78,7 @@ public class HouseController {
     public ResponseEntity getAllHouses(){
         List<EntityBasicInfoDto> houses = houseService.getAll().stream()
                 .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
-                        house.getPricePerDay(), house.getAddress().getCity().getName() + ", " + house.getAddress().getCity().getCountry().getName(),
+                        house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
                         house.getOwner().getFirstName() + " " + house.getOwner().getLastName()))
                 .collect(Collectors.toList());
 

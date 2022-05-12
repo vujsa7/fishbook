@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'filter-price-slider',
@@ -7,5 +7,16 @@ import { Component } from '@angular/core';
 })
 export class PriceSliderComponent {
 
+  @Input() maxPrice!: number;
+  @Output() selectedPriceChanged = new EventEmitter<number>();
+  value: number = 0;
+ 
+  
+  selectPrice(){
+    this.selectedPriceChanged.emit(this.value);
+  }
 
+  formatLabel(value: number): string {
+    return "$" + value;
+  }
 }

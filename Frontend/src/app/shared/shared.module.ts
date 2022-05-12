@@ -13,6 +13,7 @@ import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { RangeDatePickerComponent } from './components/range-date-picker/range-date-picker.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RouterModule } from '@angular/router';
     DatePickerComponent,
     EntityCardComponent,
     SpinnerFullscreenComponent,
-    ProfileComponent
+    ProfileComponent,
+    RangeDatePickerComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { RouterModule } from '@angular/router';
     DatePickerComponent,
     EntityCardComponent,
     SpinnerFullscreenComponent,
-    MaterialModule
+    MaterialModule,
+    RangeDatePickerComponent
   ]
 })
 export class SharedModule { }

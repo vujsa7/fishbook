@@ -58,3 +58,15 @@ $theme: mat.define-light-theme((
 .mat-checkbox-inner-container{
   margin-right: 10px;
 }
+
+.mat-slider-thumb{
+  background-color: color(lightblue) !important;
+}
+
+.mat-slider-wrapper::after{
+  border-color: color(lightblue) !important;
+}
+
+.mat-slider-thumb-label-text{
+  font-size: 10px !important;
+}

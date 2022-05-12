@@ -5,14 +5,21 @@
             entityType.substring(0, entityType.length-1) : 'Book an adventure'}}</span>
         <div class="d-flex">
             <div class="d-flex flex-column filters">
-                <entities-rental-details class="rental-details"></entities-rental-details>
-                <entities-filter-search-results></entities-filter-search-results>
+                <entities-rental-details (searchByRentalDetails)="onSearchByRentalDetails($event)" class="rental-details"></entities-rental-details>
+                <entities-filter-search-results *ngIf="cities" [cities]="cities" [maxPrice]="maxPrice" (filterSelectionChanged)="onFilterSelectionChanged($event)"></entities-filter-search-results>
             </div>
-            <div class="entities-cards" *ngIf="entitiesBasicInfo">
-                <div *ngFor="let entityBasicInfo of entitiesBasicInfo">
-                    <app-entity-card [entityBasicInfo]="entityBasicInfo" [entityType]="entityType"></app-entity-card>
+            <div class="d-flex flex-column align-items-end w-100">
+                <div *ngIf="isSearchApplied" class="w-100 mb-3 d-flex justify-content-between">
+                    <span class="grey-text">Displaying search results</span>
+                    <span class="lightblue-text" style="cursor: pointer" (click)="removeSearchResults()">Remove search filter</span>
+                </div>
+                <div class="entities-cards" *ngIf="filteredEntitiesBasicInfo">
+                    <div *ngFor="let entityBasicInfo of filteredEntitiesBasicInfo">
+                        <app-entity-card [entityBasicInfo]="entityBasicInfo" [entityType]="entityType"></app-entity-card>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>

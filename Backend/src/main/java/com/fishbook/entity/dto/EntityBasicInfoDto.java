@@ -6,16 +6,18 @@ public class EntityBasicInfoDto {
     private String name;
     private String description;
     private Double price;
-    private String location;
+    private String city;
+    private String country;
     private String seller;
 
-    public EntityBasicInfoDto(Long id, String imageUrl, String name, String description, Double price, String location, String seller) {
+    public EntityBasicInfoDto(Long id, String imageUrl, String name, String description, Double price, String city, String country, String seller) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.location = location;
+        this.city = city;
+        this.country = country;
         this.seller = seller;
     }
 
@@ -59,13 +61,17 @@ public class EntityBasicInfoDto {
         this.price = price;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCountry() {
+        return country;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCountry(String country) {
+        this.country = country;
     }
+
+    public String getCity() { return city; }
+
+    public void setCity(String city) { this.city = city; }
 
     public String getSeller() {
         return seller;

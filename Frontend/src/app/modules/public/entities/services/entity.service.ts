@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import boats from 'src/assets/mocks/boats.json';
-import houses from 'src/assets/mocks/houses.json';
-import adventures from 'src/assets/mocks/adventures.json';
 import { EntityBasicInfo } from 'src/app/shared/models/entity-basic-info.model';
 import { Observable } from 'rxjs';
 
