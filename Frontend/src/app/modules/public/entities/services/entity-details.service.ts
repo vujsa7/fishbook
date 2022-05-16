@@ -7,6 +7,7 @@ import houseDetails from 'src/assets/mocks/house-details.json';
 import boatDetails from 'src/assets/mocks/boat-details.json';
 import adventureDetails from 'src/assets/mocks/adventure-details.json';
 import { AdventureDetails } from '../models/adventure.details.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'any'
@@ -17,18 +18,15 @@ export class EntityDetailsService {
     
   constructor(private http: HttpClient) {}
 
-  public fetchHouseDetails(id: string): HouseDetails{
-      // TODO: Fetch from backend using id
-      return houseDetails as HouseDetails;
+  public fetchHouseDetails(id: string): Observable<HouseDetails>{
+      return this.http.get<HouseDetails>(this.baseUrl + "houses/" + id);
   }
 
-  public fetchBoatDetails(id: string): BoatDetails{
-    // TODO: Fetch from backend using id
-    return boatDetails as BoatDetails;
+  public fetchBoatDetails(id: string): Observable<BoatDetails>{
+    return this.http.get<BoatDetails>(this.baseUrl + "boats/" + id);
   }
 
-  public fetchAdventureDetails(id:string): AdventureDetails{
-    // TODO: Fetch from backend using id
-    return adventureDetails as AdventureDetails;
+  public fetchAdventureDetails(id:string): Observable<AdventureDetails>{
+    return this.http.get<AdventureDetails>(this.baseUrl + "fishingLessons/" + id);
   }
 }

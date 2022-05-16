@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Set;
 
 public interface StorageService {
@@ -13,4 +14,5 @@ public interface StorageService {
     Path load(String filename);
     Resource loadAsResource(String filename);
     String getPriorityImageUrl(Set<EntityImage> images);
+    List<String> getImageUrls(Set<EntityImage> images);
 }

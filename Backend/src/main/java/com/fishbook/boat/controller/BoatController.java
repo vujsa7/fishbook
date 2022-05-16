@@ -2,15 +2,18 @@ package com.fishbook.boat.controller;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.service.AdditionalServiceService;
+import com.fishbook.boat.dto.BoatDetailsDto;
 import com.fishbook.boat.dto.BoatRegistrationDto;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.additional.entity.information.service.RuleService;
+import com.fishbook.boat.dto.BoatSpecificationsDto;
 import com.fishbook.boat.model.Boat;
 import com.fishbook.boat.model.BoatType;
 import com.fishbook.boat.service.BoatService;
 import com.fishbook.additional.entity.information.service.EquipmentService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
+import com.fishbook.location.dto.LocationDto;
 import com.fishbook.location.model.Address;
 import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
@@ -97,6 +100,22 @@ public class BoatController {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(boats, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getBoatDetails(@PathVariable Long id){
+        Optional<Boat> boatOptional = boatService.findById(id);
+        if(boatOptional.isEmpty()){
+            return new ResponseEntity("Boat with that id doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        Boat boat = boatOptional.get();
+        return new ResponseEntity(new BoatDetailsDto(boat.getId(), storageService.getImageUrls(boat.getImages()), boat.getName(), boat.getOwner().getFullName(),
+                boat.getDescription(), 0.0, boat.getPricePerDay(), boat.getCancellationFee(), new LocationDto(boat.getAddress().getAddress(), boat.getAddress().getCity().getName(),
+                boat.getAddress().getCity().getCountry().getName(), boat.getAddress().getLongitude(), boat.getAddress().getLatitude()), new BoatSpecificationsDto(boat.getBoatType().toString(),
+                boat.getMaxNumberOfPeople(), boat.getLength(), boat.getLoadCapacity(), boat.getMaxSpeed(), boat.getPower(), boat.getMotors(), boat.getFuelConsumption(), boat.getMaxDistance(),
+                boat.getEnergyConsumption()), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
+                boat.getNavigationEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()),
+                boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList())), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -208,4 +208,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return isEnabled;
     }
+
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
 }

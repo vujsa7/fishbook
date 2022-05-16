@@ -8,12 +8,13 @@
                     <h3>{{entityDetails.name}}</h3>
                     <div class="d-flex rating align-items-center">
                         <svg class="star-icon"></svg>
-                        <span>{{entityDetails.rating}}</span>
+                        <span *ngIf="entityDetails.rating != 0">{{entityDetails.rating}}</span>
+                        <span *ngIf="entityDetails.rating == 0">Not rated yet</span>
                     </div>
                 </div>
                 <span class="grey-text owner">Owner: {{entityDetails.seller}}</span>
                 <span class="grey-text description">{{entityDetails.description}}</span>
-                <span class="grey-text rules">Rules: {{entityDetails.rules.join(', ')}}</span>
+                <span class="grey-text rules" *ngIf="entityDetails.rules.length > 0">Rules: {{entityDetails.rules.join(', ')}}</span>
                 <house-rental-details *ngIf="entityType == 'house'" [houseSpecifications]="entityDetails.houseSpecifications" [price]="entityDetails.price" [location]="entityDetails.location"></house-rental-details>
                 <boat-rental-details *ngIf="entityType == 'boat'" [boatSpecifications]="entityDetails.boatSpecifications" [price]="entityDetails.price" [location]="entityDetails.location"></boat-rental-details>
                 <adventure-rental-details *ngIf="entityType == 'adventure'" [price]="entityDetails.price" [location]="entityDetails.location" [maxPeople]="entityDetails.maxPeople"></adventure-rental-details>
@@ -27,6 +28,6 @@
         <boat-specifications class="boat-specifications" *ngIf="entityType == 'boat'" [boatSpecifications]="entityDetails.boatSpecifications" [navigationEquipment]="entityDetails.navigationEquipment" [fishingEquipment]="entityDetails.fishingEquipment"></boat-specifications>
         <adventure-about class="adventure-about" *ngIf="entityType == 'adventure'" [aboutSeller]="entityDetails.aboutSeller" [fishingEquipment]="entityDetails.fishingEquipment" [sellerImg]="entityDetails.sellerImg"></adventure-about>
         <entity-special-offers *ngIf="entityDetails.specialOffers" [specialOffers]="entityDetails.specialOffers"></entity-special-offers>
-        <adventure-gallery class="adventure-gallery" *ngIf="entityType == 'adventure'" [previousAdventureImages]="entityDetails.previousAdventureImages"></adventure-gallery>
+        <adventure-gallery class="adventure-gallery" *ngIf="entityType == 'adventure' && entityDetails.previousAdventureImages.length != 0" [previousAdventureImages]="entityDetails.previousAdventureImages"></adventure-gallery>
     </div>
 </div>

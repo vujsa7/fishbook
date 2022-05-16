@@ -1,15 +1,26 @@
 package com.fishbook.boat.model;
 
 public enum BoatType {
-    JET_SKI,
-    INFLATABLE_BOAT,
-    AIRBOAT,
-    SPEEDBOAT,
-    FERRY,
-    SMALL_YACHT,
-    BIG_YACHT,
-    SAILBOAT,
-    BRIG,
-    CABIN_CRUISER,
-    CRUISE
+    JET_SKI("Jet Ski"),
+    INFLATABLE_BOAT("Inflatable Boat"),
+    AIRBOAT("Air Boat"),
+    SPEEDBOAT("Speed Boat"),
+    FERRY("Ferry"),
+    SMALL_YACHT("Small Yacht"),
+    BIG_YACHT("Bih Yacht"),
+    SAILBOAT("Sail boat"),
+    BRIG("Brig"),
+    CABIN_CRUISER("Cabin Cruiser"),
+    CRUISE("Cruise");
+
+    private final String enumText;
+
+    BoatType(String enumText) {
+        this.enumText = enumText;
+    }
+
+    @Override
+    public String toString() {
+        return enumText;
+    }
 }

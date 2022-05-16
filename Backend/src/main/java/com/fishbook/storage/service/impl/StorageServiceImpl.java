@@ -20,8 +20,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class StorageServiceImpl implements StorageService {
@@ -90,5 +92,10 @@ public class StorageServiceImpl implements StorageService {
         Optional<EntityImage> image = images.stream().filter(i -> i.getPriority().equals(1)).findFirst();
         return image.map(entityImage -> "http://localhost:8080/api/files/" + entityImage.getName())
                 .orElse("");
+    }
+
+    @Override
+    public List<String> getImageUrls(Set<EntityImage> images){
+        return images.stream().map(image -> "http://localhost:8080/api/files/" + image.getName()).collect(Collectors.toList());
     }
 }

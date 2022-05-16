@@ -67,8 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.POST, "/api/auth");
         web.ignoring().antMatchers(HttpMethod.POST, "/api/users");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/fishingLessons");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/fishingLessons/{id}");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/boats");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/boats/{id}");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/houses");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/houses/{id}");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/files/**");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/users/verificationCodes");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/location/**");

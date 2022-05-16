@@ -9,7 +9,9 @@ import com.fishbook.entity.model.Entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @javax.persistence.Entity
 @Table(name = "Boats")
@@ -152,5 +154,13 @@ public class Boat extends Entity {
 
     public void setEquipment(Set<Equipment> equipment) {
         this.equipment = equipment;
+    }
+
+    public List<Equipment> getNavigationEquipment() {
+        return getEquipment().stream().filter(equipment -> equipment.getType().equals("navigation")).collect(Collectors.toList());
+    }
+
+    public List<Equipment> getFishingEquipment() {
+        return getEquipment().stream().filter(equipment -> equipment.getType().equals("fishing")).collect(Collectors.toList());
     }
 }

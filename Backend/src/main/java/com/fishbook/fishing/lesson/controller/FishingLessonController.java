@@ -6,9 +6,14 @@ import com.fishbook.additional.entity.information.service.EquipmentService;
 import com.fishbook.additional.entity.information.service.RuleService;
 import com.fishbook.fishing.lesson.dto.FishingLessonCreatedDto;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
+import com.fishbook.fishing.lesson.dto.FishingLessonDetailsDto;
 import com.fishbook.fishing.lesson.dto.FishingLessonRegistrationDto;
 import com.fishbook.fishing.lesson.model.FishingLesson;
 import com.fishbook.fishing.lesson.service.FishingLessonService;
+import com.fishbook.house.dto.HouseDetailsDto;
+import com.fishbook.house.dto.HouseSpecificationsDto;
+import com.fishbook.house.model.House;
+import com.fishbook.location.dto.LocationDto;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -20,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -76,6 +82,20 @@ public class FishingLessonController {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(lessons, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getFishingLessonDetails(@PathVariable Long id){
+        Optional<FishingLesson> fishingLessonOptional = fishingLessonService.findById(id);
+        if(fishingLessonOptional.isEmpty()){
+            return new ResponseEntity("Adventure with that id doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        FishingLesson fishingLesson = fishingLessonOptional.get();
+        return new ResponseEntity(new FishingLessonDetailsDto(fishingLesson.getId(), storageService.getImageUrls(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getOwner().getFullName(),
+                fishingLesson.getDescription(), 0.0, fishingLesson.getPricePerDay(), fishingLesson.getCancellationFee(), new LocationDto(fishingLesson.getAddress().getAddress(), fishingLesson.getAddress().getCity().getName(),
+                fishingLesson.getAddress().getCity().getCountry().getName(), fishingLesson.getAddress().getLongitude(), fishingLesson.getAddress().getLatitude()), fishingLesson.getMaxNumberOfPeople(), "https://images.unsplash.com/photo-1463062511209-f7aa591fa72f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                fishingLesson.getInstructorBiography(), fishingLesson.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
+                fishingLesson.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>()), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

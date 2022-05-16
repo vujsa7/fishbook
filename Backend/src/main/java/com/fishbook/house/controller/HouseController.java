@@ -4,10 +4,14 @@ import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.service.AdditionalServiceService;
 import com.fishbook.additional.entity.information.service.RuleService;
+import com.fishbook.boat.dto.BoatSpecificationsDto;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
+import com.fishbook.house.dto.HouseDetailsDto;
 import com.fishbook.house.dto.HouseRegistrationDto;
+import com.fishbook.house.dto.HouseSpecificationsDto;
 import com.fishbook.house.model.House;
 import com.fishbook.house.service.HouseService;
+import com.fishbook.location.dto.LocationDto;
 import com.fishbook.location.model.Address;
 import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
@@ -83,6 +87,19 @@ public class HouseController {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getHouseDetails(@PathVariable Long id){
+        Optional<House> houseOptional = houseService.findById(id);
+        if(houseOptional.isEmpty()){
+            return new ResponseEntity("House with that id doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        House house = houseOptional.get();
+        return new ResponseEntity(new HouseDetailsDto(house.getId(), storageService.getImageUrls(house.getImages()), house.getName(), house.getOwner().getFullName(),
+                house.getDescription(), 0.0, house.getPricePerDay(), house.getCancellationFee(), new LocationDto(house.getAddress().getAddress(), house.getAddress().getCity().getName(),
+                house.getAddress().getCity().getCountry().getName(), house.getAddress().getLongitude(), house.getAddress().getLatitude()), new HouseSpecificationsDto(house.getRooms().size(), house.getBedsByRooms(), house.getBedCount()),
+                house.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList())), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

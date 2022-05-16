@@ -42,4 +42,24 @@ public class House extends Entity {
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
+
+    public String getBedsByRooms() {
+        String bedsByRooms = "";
+        for (Room room: getRooms()) {
+            bedsByRooms += room.getNumOfBeds();
+            if(room.getNumOfBeds() > 1)
+                bedsByRooms += " beds | ";
+            else
+                bedsByRooms += " bed | ";
+        }
+        return bedsByRooms.substring(0, bedsByRooms.length()-2);
+    }
+
+    public int getBedCount() {
+        int count = 0;
+        for (Room room: getRooms()) {
+            count += room.getNumOfBeds();
+        }
+        return count;
+    }
 }

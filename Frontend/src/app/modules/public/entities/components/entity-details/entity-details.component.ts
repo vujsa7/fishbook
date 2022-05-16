@@ -32,11 +32,17 @@ export class EntityDetailsComponent implements OnDestroy{
   fetchEntitiyDetails() {
     let entityId = this.route.snapshot.params['id'];
     if(this.entityType == 'house')
-      this.entityDetails = this.entityDetailsService.fetchHouseDetails(entityId);
+      this.entityDetailsService.fetchHouseDetails(entityId).subscribe(data => {
+        this.entityDetails = data;
+      });
     else if(this.entityType == 'boat'){
-      this.entityDetails = this.entityDetailsService.fetchBoatDetails(entityId);
+      this.entityDetailsService.fetchBoatDetails(entityId).subscribe(data => {
+        this.entityDetails = data;
+      });
     } else if(this.entityType == 'adventure'){
-      this.entityDetails = this.entityDetailsService.fetchAdventureDetails(entityId);
+      this.entityDetailsService.fetchAdventureDetails(entityId).subscribe(data => {
+        this.entityDetails = data;
+      });
     }
   }
 

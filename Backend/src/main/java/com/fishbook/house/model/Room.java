@@ -33,7 +33,10 @@ public class Room {
     }
 
     public Integer getNumOfBeds() {
-        return numOfBeds;
+        if(numOfBeds == null)
+            return 0;
+        else
+            return numOfBeds;
     }
 
     public void setNumOfBeds(Integer numOfBeds) {
