@@ -1,0 +1,43 @@
+@import "src/styles/main.scss";
+
+.wrapper{
+    align-items: center;
+    @include media("<tablet-large"){
+        align-items: flex-end;
+        flex-direction: column !important;
+    }
+}
+
+.nav-item{
+    margin-right: 40px;
+    color: color(lightblue);
+    cursor: pointer;
+    transition: color 250ms ease-in;
+
+    &:hover{
+        color: color(blue);
+    }
+
+    @include media("<tablet-large"){
+        margin-right: 0;
+        @include noselect;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+}
+
+.active{
+    font-weight: bold;
+}
+
+.sign-up-btn{
+    @include media("<tablet-large"){
+        display: none;
+    }
+}
+
+.mobile-only{
+    @include media(">=tablet-large"){
+        display: none;
+    }
+}

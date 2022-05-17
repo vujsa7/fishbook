@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Set;
 
 public interface StorageService {
-    void uploadImage(MultipartFile file, EntityImage image);
+    void uploadEntityImage(MultipartFile file, EntityImage image);
+    void uploadProfileImage(MultipartFile file, String email);
+    void uploadImageToFileSystem(MultipartFile file, String imageName);
     Path load(String filename);
     Resource loadAsResource(String filename);
     String getPriorityImageUrl(Set<EntityImage> images);
     List<String> getImageUrls(Set<EntityImage> images);
+    String getImageUrl(String profileImage);
 }

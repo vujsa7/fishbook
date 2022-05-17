@@ -14,6 +14,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RangeDatePickerComponent } from './components/range-date-picker/range-date-picker.component';
+import { LoyaltyPointsComponent } from './components/loyalty-points/loyalty-points.component';
+import { BaseHeaderComponent } from './layout/headers/base-header/base-header.component';
+import { ClientLinksComponent } from './layout/headers/client-links/client-links.component';
+import { AdminLinksComponent } from './layout/headers/admin-links/admin-links.component';
+import { PublicLinksComponent } from './layout/headers/public-links/public-links.component';
+import { SellerLinksComponent } from './layout/headers/seller-links/seller-links.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import { RangeDatePickerComponent } from './components/range-date-picker/range-d
     EntityCardComponent,
     SpinnerFullscreenComponent,
     ProfileComponent,
-    RangeDatePickerComponent
+    RangeDatePickerComponent,
+    LoyaltyPointsComponent,
+    BaseHeaderComponent,
+    ClientLinksComponent,
+    AdminLinksComponent,
+    PublicLinksComponent,
+    SellerLinksComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +60,11 @@ import { RangeDatePickerComponent } from './components/range-date-picker/range-d
     EntityCardComponent,
     SpinnerFullscreenComponent,
     MaterialModule,
-    RangeDatePickerComponent
+    RangeDatePickerComponent,
+    BaseHeaderComponent,
+    ClientLinksComponent,
+    AdminLinksComponent,
+    PublicLinksComponent
   ]
 })
 export class SharedModule { }

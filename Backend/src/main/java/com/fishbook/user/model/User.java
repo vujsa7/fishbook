@@ -50,6 +50,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id")
     private Set<VerificationCode> verificationCodes;
 
+    @Column(nullable = false)
+    private String profileImage;
+
     public User() {}
 
     public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role) {
@@ -211,5 +214,13 @@ public class User implements UserDetails {
 
     public String getFullName() {
         return getFirstName() + " " + getLastName();
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

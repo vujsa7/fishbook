@@ -4,6 +4,7 @@ import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
+import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.dto.PasswordUpdateDto;
 import com.fishbook.user.dto.UserDto;
 import com.fishbook.user.dto.UserInfoDto;
@@ -20,6 +21,8 @@ import org.springframework.mail.MailException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
@@ -36,14 +39,16 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final VerificationCodeService verificationCodeService;
     private final RoleService roleService;
+    private final StorageService storageService;
 
     @Autowired
-    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verificationCodeService, RoleService roleService) {
+    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verificationCodeService, RoleService roleService, StorageService storageService) {
         this.userService = userService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.verificationCodeService = verificationCodeService;
         this.roleService = roleService;
+        this.storageService = storageService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -122,7 +127,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity<UserInfoDto> getUser(@PathVariable String username, Principal principal){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -135,7 +140,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity updateUser(@PathVariable String username, Principal principal, @RequestBody UserDto userDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -151,7 +156,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{username}/password")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @RequestBody PasswordUpdateDto passwordUpdateDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -164,6 +169,27 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(passwordUpdateDto.getNewPassword()));
         userService.save(user);
 
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{username}/profileImage")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    public ResponseEntity getProfileImage(@PathVariable String username, Principal principal){
+        if(!Objects.equals(username, principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        User user = userService.findByEmail(username);
+        String imageUrl = storageService.getImageUrl(user.getProfileImage());
+        return new ResponseEntity<>(imageUrl, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{username}/profileImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    public ResponseEntity updateProfileImage(@PathVariable String username, Principal principal, @RequestPart("file") MultipartFile file){
+        if(!Objects.equals(username, principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        storageService.uploadProfileImage(file, username);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

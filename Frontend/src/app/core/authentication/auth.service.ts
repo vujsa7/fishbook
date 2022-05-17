@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import jwt_decode from 'jwt-decode';
 
@@ -8,6 +8,8 @@ import jwt_decode from 'jwt-decode';
     providedIn: 'root'
 })
 export class AuthService {
+    private userEmail = new BehaviorSubject('');
+    userEmailObservable = this.userEmail.asObservable();
 
     private baseUrl: string = environment.baseUrl;
 
@@ -19,23 +21,29 @@ export class AuthService {
 
     setToken(data: string): void {
         localStorage.setItem('jwtToken', data);
+        this.userEmail.next(this.getTokenUsername());
+    }
+
+    flushToken(): void{
+        localStorage.removeItem('jwtToken');
+        this.userEmail.next("");
     }
 
     getHeader(): HttpHeaders {
-        let token = localStorage.getItem('jwtToken');
+        let token = this.getToken();
         let header = new HttpHeaders().set('Content-Type', 'application/json');
         if (token != null) {
             header = new HttpHeaders().set('Content-Type', 'application/json')
-                .set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
+                .set('Authorization', 'Bearer ' + token);
         }
         return header;
     }
 
-    getFormHeader() : HttpHeaders{
-        let token = localStorage.getItem('jwtToken');
+    getFormHeader(): HttpHeaders {
+        let token = this.getToken();
         let header = new HttpHeaders();
-        if(token != null){
-            header = new HttpHeaders().set('Authorization',  'Bearer ' + localStorage.getItem('jwtToken'));
+        if (token != null) {
+            header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
         }
         return header;
     }
@@ -45,7 +53,7 @@ export class AuthService {
     }
 
     getTokenRole(): any {
-        let decodedToken = this.getDecodedAccessToken(localStorage.getItem('jwtToken') || '');
+        let decodedToken = this.getDecodedAccessToken(this.getToken() || '');
         if (decodedToken == null) {
             return 'ROLE_UNSIGNED';
         }
@@ -53,11 +61,19 @@ export class AuthService {
     }
 
     getTokenUsername(): any {
-        let decodedToken = this.getDecodedAccessToken(localStorage.getItem('jwtToken') || '');
+        let decodedToken = this.getDecodedAccessToken(this.getToken() || '');
         if (decodedToken == null) {
             return null;
         }
         return decodedToken.sub;
+    }
+
+    getTokenFullName(): any {
+        let decodedToken = this.getDecodedAccessToken(this.getToken() || '');
+        if (decodedToken == null) {
+            return null;
+        }
+        return decodedToken.fullName;
     }
 
     getDecodedAccessToken(token: string): any {

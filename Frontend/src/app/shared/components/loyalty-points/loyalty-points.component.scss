@@ -1,0 +1,57 @@
+@import 'src/styles/components/_loyalty-points.scss';
+@import "src/styles/main.scss";
+
+.seahorse-icon, .shark-icon, .swordfish-icon, .whale-icon{
+    @include icon;
+    width: 40px;
+    height: 40px;
+    cursor: initial;
+    margin: 0 5px;
+}
+
+.seahorse-icon{
+    @include background-svg($seahorse);
+}
+
+.shark-icon{
+    @include background-svg($shark);
+}
+
+.swordfish-icon{
+    @include background-svg($swordfish);
+}
+
+.whale-icon{
+    @include background-svg($whale);
+}
+
+
+.loyalty-points{
+    margin: 20px 0 40px 0;
+}
+
+    .slider-wrapper{
+        position: relative;
+    }
+
+        .current-points{
+            white-space: nowrap;
+            top: -10px;
+            position: absolute;
+        }
+
+        .low-points-bound{
+            top: 35px;
+            position: absolute;
+        }
+
+        mat-slider{
+            width: 300px;
+        }
+
+        .high-points-bound{
+            top: 35px;
+            right: 0px;
+            position: absolute;
+        }
+

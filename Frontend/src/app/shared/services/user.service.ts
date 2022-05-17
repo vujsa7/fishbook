@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
+  
   private baseUrl: string = environment.baseUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -22,5 +23,13 @@ export class UserService {
 
   updatePassword(newPassword: any) : Observable<any> {
     return this.http.put<any>(this.baseUrl + 'users/' + this.authService.getTokenUsername() + '/password', newPassword, { headers: this.authService.getHeader()});
+  }
+
+  updateProfilePhoto(image: FormData) : Observable<string> {
+    return this.http.put<any>(this.baseUrl + 'users/' + this.authService.getTokenUsername() + '/profileImage', image, { headers: this.authService.getFormHeader()});
+  }
+
+  getUserProfilePhoto(): Observable<string> {
+    return this.http.get(this.baseUrl + 'users/' + this.authService.getTokenUsername() + '/profileImage', { headers: this.authService.getHeader(), responseType: "text"});
   }
 }

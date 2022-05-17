@@ -1,0 +1,14 @@
+<div class="d-flex flex-column">
+    <span class="grey-text">{{customerLevel}}</span>
+    <div class="d-flex align-items-center loyalty-points">
+        <svg [ngClass]="lowPointsIcon"></svg>
+        <div class="slider-wrapper">
+            <span class="current-points lightblue-text fw-bold" [style]="{'right': previousLevelTarget != nextLevelTarget ? 'calc(' + getRightOffset() + '% - 30px)' : '0px'}">{{points}} pt</span>
+            <span class="low-points-bound lightblue-text fw-bold">{{previousLevelTarget}} pt</span>
+            <mat-slider *ngIf="points != -1" disabled [min]="previousLevelTarget" [max]="nextLevelTarget" tickInterval="1"  step="1" [(ngModel)]="points" aria-label="units"></mat-slider>
+            <span *ngIf="previousLevelTarget != nextLevelTarget" class="high-points-bound lightblue-text fw-bold">{{nextLevelTarget}} pt</span>
+        </div>
+        <svg [ngClass]="highPointsIcon" *ngIf="previousLevelTarget != nextLevelTarget"></svg>
+    </div>
+    <span class="grey-text">Points are gathered by making reservations and are lost by cancelling reservations.</span>
+</div>

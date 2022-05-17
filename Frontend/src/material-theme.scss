@@ -70,3 +70,14 @@ $theme: mat.define-light-theme((
 .mat-slider-thumb-label-text{
   font-size: 10px !important;
 }
+
+.mat-slider-disabled .mat-slider-track-fill{
+  background-color: color(lightblue);
+}
+
+.mat-slider-track-fill,
+.mat-slider-wrapper,
+.mat-slider-track-wrapper,
+.mat-slider-track-background {
+    height: 5px !important;
+}

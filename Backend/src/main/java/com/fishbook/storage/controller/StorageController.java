@@ -32,7 +32,7 @@ public class StorageController {
         try {
             Entity entity = entityRepository.getById(imageDto.getEntityId());
             EntityImage image = new EntityImage("", imageDto.getPriority(), entity);
-            storageService.uploadImage(file, image);
+            storageService.uploadEntityImage(file, image);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

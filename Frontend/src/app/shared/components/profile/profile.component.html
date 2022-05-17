@@ -1,87 +1,94 @@
 <div class="d-flex" id="content">
     <div class="d-flex flex-column w-100">
         <div class="d-flex flex-row fb-container">
-            <img src="../../../assets/images/user.jpg" alt="user-img" id="user-img">
+            <div class="image-container">
+                <img *ngIf="userProfileImg || newProfileImg" [src]="newProfileImg==null ? userProfileImg : newProfileImg" alt="Your profile picture" id="user-img">
+                <input style="display: none" type="file" (change)="onFileChanged($event)" #profileInputImage>
+                <button class="replace-img-button" (click)="profileInputImage.click()">
+                    <svg class="replace-icon"></svg>
+                </button>
+            </div>
             <div class="d-flex flex-column left-margin">
-                <h2>{{user.firstName}} {{user.lastName}}</h2>
+                <h2 class="gradient">{{user.firstName}} {{user.lastName}}</h2>
+                <app-loyalty-points *ngIf="profileType=='ROLE_SELLER' || profileType=='ROLE_CLIENT'" [points]="757"></app-loyalty-points>
             </div>
         </div>
         <div class="d-flex justify-content-between content-top-margin">
-            <div class="d-flex flex-column fb-container w-100 me-2">
+            <div class="d-flex flex-column fb-container w-100 container-one">
                 <div class="title">Personal details</div>
                 <form class="d-flex flex-column" [formGroup]="personalDetailsForm">
                     <div class="d-flex flex-row form-fields">
                         <div class="input-container w-100" [ngClass]="{'input-container-error' : (personalDetailsForm.controls.firstName.touched && personalDetailsForm.controls.firstName.errors?.['required'])}">
+                            <input id="firstName" type="text" name="firstName" formControlName="firstName" required>
                             <label for="firstName" class="input-label">First name</label>
-                            <input id="firstName" type="text" name="firstName" formControlName="firstName">
                             <span class="error-message" *ngIf="personalDetailsForm.controls.firstName.touched && personalDetailsForm.controls.firstName.errors?.['required']">First name cannot be empty.</span>
                         </div>
                     </div>
                     <div class="d-flex flex-row form-fields">
                         <div class="input-container w-100" [ngClass]="{'input-container-error' : (personalDetailsForm.controls.lastName.touched && personalDetailsForm.controls.lastName.errors?.['required'])}">
+                            <input id="lastName" type="text" name="lastName" formControlName="lastName" required>
                             <label for="lastName" class="input-label">Last name</label>
-                            <input id="lastName" type="text" name="lastName" formControlName="lastName">
                             <span class="error-message" *ngIf="personalDetailsForm.controls.lastName.touched && personalDetailsForm.controls.lastName.errors?.['required']">Last name cannot be empty.</span>
                         </div>
                     </div>
                     <div class="d-flex flex-row form-fields">
                         <div class="input-container w-100" [ngClass]="{'input-container-error' : (personalDetailsForm.controls.address.touched && personalDetailsForm.controls.address.errors?.['required'])}">
+                            <input id="address" type="text" name="address" formControlName="address" required>
                             <label for="address" class="input-label">Street and number</label>
-                            <input id="address" type="text" name="address" formControlName="address">
                             <span class="error-message" *ngIf="personalDetailsForm.controls.address.touched && personalDetailsForm.controls.address.errors?.['required']">Street cannot be empty.</span>
                         </div>
                     </div>
                     <div class="d-flex flex-row w-100 form-fields">
                         <div class="input-container me-2 w-50" [ngClass]="{'input-container-error' : (personalDetailsForm.controls.country.touched && personalDetailsForm.controls.country.errors?.['required'])}">
-                            <label for="country" class="input-label">Country</label>
-                            <select id="country" name='country' formControlName="country" (change)="onCountryChanged()">
+                            <select id="country" name='country' formControlName="country" (change)="onCountryChanged()" required>
                                 <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                             </select>
+                            <label for="country" class="input-label">Country</label>
                             <span class="error-message" *ngIf="personalDetailsForm.controls.country.touched && personalDetailsForm.controls.country.errors?.['required']">Select country.</span>
                         </div>
                         <div class="input-container ms-2 w-50" [ngClass]="{'input-container-error' : (personalDetailsForm.controls.city.touched && personalDetailsForm.controls.city.errors?.['required'])}">
-                            <label for="city" class="input-label">City</label>
-                            <select id="city" name='city' formControlName="city">
+                            <select id="city" name='city' formControlName="city" required>
                                 <option *ngFor="let city of filteredCities" [value]="city.name">{{city.name}}</option>
                             </select>
+                            <label for="city" class="input-label">City</label>
                             <span class="error-message" *ngIf="personalDetailsForm.controls.city.touched && personalDetailsForm.controls.city.errors?.['required']">Select city.</span>
                         </div>
                     </div>
                     <div class="d-flex flex-row form-fields">
                         <div class="input-container w-100" [ngClass]="{'input-container-error' : (personalDetailsForm.controls.phoneNumber.touched && personalDetailsForm.controls.phoneNumber.errors?.['required'])}">
+                            <input id="phone" type="text" name="phone" formControlName="phoneNumber" required>
                             <label for="phone" class="input-label">Phone number</label>
-                            <input id="phone" type="text" name="phone" formControlName="phoneNumber">
                             <span class="error-message" *ngIf="personalDetailsForm.controls.phoneNumber.touched && personalDetailsForm.controls.phoneNumber.errors?.['required']">Phone number cannot be empty.</span>
                         </div>
                     </div>
                 </form>
                 <app-primary-button text="Update details" [isBtnDisabled]="!personalDetailsForm.valid" (click)="updateProfile()"></app-primary-button>
             </div>
-            <div class="d-flex flex-column fb-container w-100 ms-2 align-self-start">
+            <div class="d-flex flex-column fb-container w-100 align-self-start container-two">
                 <div class="title">Security details</div>
                 <form class="d-flex flex-column" [formGroup]="securityDetailsForm">
                     <div class="d-flex flex-row form-fields">
                         <div class="input-container w-100 disabled">
+                            <input id="email" type="text" name="email" formControlName="email" required>
                             <label for="email" class="input-label">Email</label>
-                            <input id="email" type="text" name="email" formControlName="email">
                         </div>
                     </div>
                     <div class="d-flex flex-row form-fields">
                         <div class="input-container w-100" [ngClass]="{'input-container-error' : (securityDetailsForm.controls.currentPassword.touched && securityDetailsForm.controls.currentPassword.errors?.['required'])}">
+                            <input id="currentPassword" type="password" name="currentPassword" formControlName="currentPassword" required>
                             <label for="currentPassword" class="input-label">Current password</label>
-                            <input id="currentPassword" type="password" name="currentPassword" formControlName="currentPassword">
                             <span class="error-message" *ngIf="securityDetailsForm.controls.currentPassword.touched && securityDetailsForm.controls.currentPassword.errors?.['required']">Current password cannot be empty.</span>
                         </div>
                     </div>
                     <div class="form-fields d-flex flex-column" formGroupName="passwords">
                         <div class="input-container form-fields" [ngClass]="{'input-container-error' : (getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required'])}">
+                            <input id="password" type="password" formControlName="password" name="password" required>
                             <label for="password" class="input-label">Password</label>
-                            <input id="password" type="password" formControlName="password" name="password">
                             <span class="error-message" *ngIf="getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required']">Password cannot be empty.</span>
                         </div>
                         <div class="input-container" [ngClass]="{'input-container-error' : getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || securityDetailsForm.controls.passwords.errors?.noMatch)}">
+                            <input id="confirm-password" type="password" formControlName="confirmPassword" name="confirm-password" required>
                             <label for="confirm-password" class="input-label">Confirm password</label>
-                            <input id="confirm-password" type="password" formControlName="confirmPassword" name="confirm-password">
                             <span class="error-message" *ngIf="getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || securityDetailsForm.controls.passwords.errors?.noMatch)">{{confirmPasswordErrorMessage()}}</span>
                         </div>
                     </div>

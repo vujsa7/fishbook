@@ -1,6 +1,5 @@
 <div *ngIf="maxPrice">
-    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" [max]="maxPrice" aria-label="units" [(ngModel)]="value" (change)="selectPrice()">
-    </mat-slider>
+    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" [max]="maxPrice" aria-label="units" [(ngModel)]="value" (change)="selectPrice()"></mat-slider>
     <div class="w-100 d-flex justify-content-between">
         <span class="lightblue-text fw-bold">$0</span>
         <span class="grey-text">$0 - <span *ngIf="value!=0">${{value}}</span><span *ngIf="value==0">Enter max price</span></span>

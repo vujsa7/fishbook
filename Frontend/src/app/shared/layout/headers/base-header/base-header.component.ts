@@ -1,23 +1,30 @@
-import { Component, HostListener, Input } from '@angular/core';
-import { NavigationEnd, Event, Router } from '@angular/router';
+
+
+import { Component, HostListener } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
+
 
 @Component({
-  selector: 'app-seller-header',
-  templateUrl: './seller-header.component.html',
-  styleUrls: ['./seller-header.component.scss']
+  selector: 'app-base-header',
+  templateUrl: './base-header.component.html',
+  styleUrls: ['./base-header.component.scss']
 })
-export class SellerHeaderComponent {
+export class BaseHeaderComponent{
+
   isVisible: boolean = true;
   dropdownMenuVisible: boolean = false;
-  sellerName: string = '';
   isSettingsVisible: boolean = false;
   isGlassEffect: boolean = false;
   _ = require('lodash');
   debouncedOnScroll = this._.debounce(() => this.toggleNavigationBackground(), 300, {})
-  @Input() role!: string;
+  userRole: string = "ROLE_UNSIGNED";
+  profileImageUrl!: string;
+  fullName: string = "";
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private userService: UserService) {
+    this.authService.userEmailObservable.subscribe(_ => this.refreshHeaderInfo());
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url.includes("login") || this.router.url.includes("register")){
@@ -29,8 +36,17 @@ export class SellerHeaderComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.sellerName = this.authService.getTokenUsername();
+  refreshHeaderInfo() {
+    this.userService.getUserProfilePhoto().subscribe(
+      data => {
+        this.profileImageUrl = data;
+      },
+      _ => {
+        this.profileImageUrl = "";
+      }
+    )
+    this.fullName = this.authService.getTokenFullName();
+    this.userRole = this.authService.getTokenRole();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -54,12 +70,13 @@ export class SellerHeaderComponent {
   }
 
   logout(): void{
-    this.authService.setToken("");
-    window.location.reload();
+    this.profileImageUrl = "";
+    this.authService.flushToken();
+    this.isSettingsVisible = false;
+    this.router.navigate(['']);
   }
-
-  myBoats(): void{
-    this.router.navigate(["/seller/new-boat"]);
-  }
+  
 
 }
+
+

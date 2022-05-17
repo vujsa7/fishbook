@@ -6,6 +6,8 @@ import com.fishbook.storage.model.StorageException;
 import com.fishbook.storage.model.StorageFileNotFoundException;
 import com.fishbook.storage.model.StorageProperties;
 import com.fishbook.storage.service.StorageService;
+import com.fishbook.user.dao.UserRepository;
+import com.fishbook.user.model.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -29,18 +31,39 @@ import java.util.stream.Collectors;
 public class StorageServiceImpl implements StorageService {
 
     private final EntityImageRepository entityImageRepository;
+    private final UserRepository userRepository;
     private final Path rootLocation;
 
     @Autowired
-    public StorageServiceImpl(EntityImageRepository entityImageRepository, StorageProperties properties) {
+    public StorageServiceImpl(EntityImageRepository entityImageRepository, StorageProperties properties, UserRepository userRepository) {
         this.entityImageRepository = entityImageRepository;
+        this.userRepository = userRepository;
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
     @Override
-    public void uploadImage(MultipartFile file, EntityImage image) {
-        String imageName = RandomStringUtils.random(15, true, true)
-                + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
+    public void uploadEntityImage(MultipartFile file, EntityImage image) {
+        String imageName = generateUniqueImageName(file);
+        uploadImageToFileSystem(file, imageName);
+        image.setName(imageName);
+        entityImageRepository.save(image);
+    }
+
+    @Override
+    public void uploadProfileImage(MultipartFile file, String email) {
+        String imageName = generateUniqueImageName(file);
+        User user = userRepository.findByEmail(email);
+        user.setProfileImage(imageName);
+        userRepository.save(user);
+        uploadImageToFileSystem(file, imageName);
+    }
+
+    private String generateUniqueImageName(MultipartFile file){
+        return RandomStringUtils.random(15, true, true)  + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
+    }
+
+    @Override
+    public void uploadImageToFileSystem(MultipartFile file, String imageName) {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
@@ -61,8 +84,6 @@ public class StorageServiceImpl implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to store file.", e);
         }
-        image.setName(imageName);
-        entityImageRepository.save(image);
     }
 
     @Override
@@ -97,5 +118,10 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public List<String> getImageUrls(Set<EntityImage> images){
         return images.stream().map(image -> "http://localhost:8080/api/files/" + image.getName()).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getImageUrl(String image) {
+        return "http://localhost:8080/api/files/" + image;
     }
 }

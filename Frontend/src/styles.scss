@@ -131,6 +131,13 @@ span{
             color: color(darkgrey);
         }
 
+        &:disabled + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(darkgrey);
+        }
+
         &:focus + .input-label{
             font-size: 12px;
             top: 6px;
@@ -161,6 +168,13 @@ span{
         }
 
         &:valid + .input-label{
+            font-size: 12px;
+            top: 6px;
+            left: 14px;
+            color: color(darkgrey);
+        }
+
+        &:disabled + .input-label{
             font-size: 12px;
             top: 6px;
             left: 14px;

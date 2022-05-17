@@ -30,10 +30,11 @@ public class TokenUtils {
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
 
-    public String generateToken(String username, String role) {
+    public String generateToken(String username, String fullName, String role) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
+                .claim("fullName", fullName)
                 .claim("role", role)
                 .setAudience(generateAudience())
                 .setIssuedAt(new Date())

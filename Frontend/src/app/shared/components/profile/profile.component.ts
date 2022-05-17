@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
 import { LocationService } from '../../services/location.service';
 import { UserService } from '../../services/user.service';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -19,10 +22,14 @@ export class ProfileComponent implements OnInit {
   cities: City[] = [];
   filteredCities: City[] = [];
   user: any = {};
+  newProfileImg: any;
+  userProfileImg!: string;
+  profileType: string = "";
 
-  constructor(private locationService: LocationService, private router: Router, private userService: UserService, private toastr: ToastrService) { }
+  constructor(private authService: AuthService, private locationService: LocationService, private router: Router, private userService: UserService, private toastr: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.profileType = this.authService.getTokenRole();
     this.initializeForms();
     this.locationService.getCountries().subscribe(
       data => {
@@ -43,7 +50,10 @@ export class ProfileComponent implements OnInit {
       error => {
         this.router.navigate(['/login']);
       }
-    )
+    );
+    this.userService.getUserProfilePhoto().subscribe(data => {
+      this.userProfileImg = data;
+    })
   }
 
   onCountryChanged() {
@@ -132,20 +142,55 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword() : void {
-    let passwordUpateRequest = {
-      currentPassword: this.securityDetailsForm.get("currentPassword")?.value,
-      newPassword: this.getPasswordsControl().confirmPassword?.value
-    };
-    this.userService.updatePassword(passwordUpateRequest).subscribe(
+    if(this.securityDetailsForm.valid){
+      let passwordUpateRequest = {
+        currentPassword: this.securityDetailsForm.get("currentPassword")?.value,
+        newPassword: this.getPasswordsControl().confirmPassword?.value
+      };
+      this.userService.updatePassword(passwordUpateRequest).subscribe(
+        data => {
+          this.toastr.success("Security details successfully updated.", "Success");
+          this.initializeSecurityDetailsForm();
+          this.securityDetailsForm.get('email')?.setValue(this.user.email);
+        },
+        error => {
+          this.toastr.error(error.message, "Error");
+        }
+      )
+    }
+  }
+
+  onFileChanged(event: any): void {
+    const file = event.target.files[0]
+    const mimeType = file.type;
+    if (mimeType.match(/image\/*/) == null) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        title: "Only images are supported",
+        message: "Please select an image to upload",
+        buttonText: "Okay"
+      };
+      const dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file); 
+    reader.onload = (_event) => { 
+      this.newProfileImg = reader.result; 
+    }
+    
+    const image = new FormData();
+    image.append('file', file);
+    this.userService.updateProfilePhoto(image).subscribe(
       data => {
-        this.toastr.success("Security details successfully updated.", "Success");
-        this.initializeSecurityDetailsForm();
-        this.securityDetailsForm.get('email')?.setValue(this.user.email);
+        console.log("success");
       },
       error => {
-        this.toastr.error(error.message, "Error");
+        console.log(error);
       }
-    )
+    );
+
   }
 
 }
