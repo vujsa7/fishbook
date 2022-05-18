@@ -11,9 +11,11 @@ import com.fishbook.registration.dao.VerificationCodeRepository;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.password.renewal.model.PasswordRenewalMark;
 import com.fishbook.registration.model.RegistrationRequest;
+import com.fishbook.user.dao.DeleteAccountRequestRepository;
 import com.fishbook.user.dao.RoleRepository;
 import com.fishbook.user.dao.UserRepository;
 import com.fishbook.user.dto.UserRegistrationDto;
+import com.fishbook.user.model.DeleteAccountRequest;
 import com.fishbook.user.model.Role;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -39,8 +41,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final LocationService locationService;
     private final PasswordRenewalMarkRepository passwordRenewalMarkRepository;
     private final EntityRepository entityRepository;
+    private final DeleteAccountRequestRepository deleteAccountRequestRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository, CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService, PasswordRenewalMarkRepository passwordRenewalMarkRepository, EntityRepository entityRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository,
+                           CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService,
+                           PasswordRenewalMarkRepository passwordRenewalMarkRepository, EntityRepository entityRepository,
+                           DeleteAccountRequestRepository deleteAccountRequestRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.addressRepository = addressRepository;
@@ -49,6 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.locationService = locationService;
         this.passwordRenewalMarkRepository = passwordRenewalMarkRepository;
         this.entityRepository = entityRepository;
+        this.deleteAccountRequestRepository = deleteAccountRequestRepository;
     }
 
 
@@ -146,5 +153,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void deleteUser(Long id) {
         userRepository.deleteUser(id);
         entityRepository.deleteByOwner(id);
+    }
+
+    @Override
+    public void createDeleteAccountRequest(String email, String requestMessage) {
+        User user = userRepository.findByEmail(email);
+        user.setEnabled(false);
+        userRepository.save(user);
+        DeleteAccountRequest deleteAccountRequest = new DeleteAccountRequest();
+        deleteAccountRequest.setUser(user);
+        deleteAccountRequest.setRequestMessage(requestMessage);
+        deleteAccountRequestRepository.save(deleteAccountRequest);
     }
 }

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   
+  
   private baseUrl: string = environment.baseUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -31,5 +32,9 @@ export class UserService {
 
   getUserProfilePhoto(): Observable<string> {
     return this.http.get(this.baseUrl + 'users/' + this.authService.getTokenUsername() + '/profileImage', { headers: this.authService.getHeader(), responseType: "text"});
+  }
+
+  postDeleteAccountRequest(requestMessage: string): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'users/' + this.authService.getTokenUsername() + '/deleteAccountRequest', requestMessage, { headers: this.authService.getHeader()});
   }
 }

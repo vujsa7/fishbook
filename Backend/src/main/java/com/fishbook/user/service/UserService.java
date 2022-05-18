@@ -18,4 +18,5 @@ public interface UserService extends UserDetailsService {
     void updateAdminsPassword(User user);
     List<User> getUsers(String role);
     void deleteUser(Long id);
+    void createDeleteAccountRequest(String email, String requestMessage);
 }

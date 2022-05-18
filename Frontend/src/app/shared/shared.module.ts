@@ -20,6 +20,7 @@ import { ClientLinksComponent } from './layout/headers/client-links/client-links
 import { AdminLinksComponent } from './layout/headers/admin-links/admin-links.component';
 import { PublicLinksComponent } from './layout/headers/public-links/public-links.component';
 import { SellerLinksComponent } from './layout/headers/seller-links/seller-links.component';
+import { DeleteAccountDialogComponent } from './components/delete-account-dialog/delete-account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SellerLinksComponent } from './layout/headers/seller-links/seller-links
     ClientLinksComponent,
     AdminLinksComponent,
     PublicLinksComponent,
-    SellerLinksComponent
+    SellerLinksComponent,
+    DeleteAccountDialogComponent
   ],
   imports: [
     CommonModule,

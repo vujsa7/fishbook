@@ -1,0 +1,15 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5>Delete your account</h5>
+    <span class="message">This action is undoable, once you delete your account everything will be removed from our
+        records. You will lose all your points and everything associated with your account will also be removed.</span>
+    <form [formGroup]="deleteAccountForm" class="w-100">
+        <div class="input-container delete-account-message-wrapper">
+            <textarea id="deleteRequestMessage" formControlName="deleteRequestMessage" (focus)="deleteAccountForm.controls.deleteRequestMessage.markAsUntouched()" maxLength="376" cols="30" rows="10" required></textarea>
+            <label for="deleteRequestMessage" class="input-label">Why do you want to delete your account?</label>
+        </div>
+        <div class="d-flex">
+            <app-secondary-button class="w-100 me-2" [text]="'Cancel'" (click)="close()"></app-secondary-button>
+            <app-primary-button [isBtnDisabled]="!deleteAccountForm.valid" class="button w-100 ms-2" [text]="'Delete account'" (click)="onSubmit()"></app-primary-button>
+        </div>
+    </form>
+</div>

@@ -44,16 +44,21 @@ export class LoginComponent implements OnInit {
           }
         },
         error => {
+          const dialogConfig = new MatDialogConfig();
           if (error.status == 401) {
-            const dialogConfig = new MatDialogConfig();
             dialogConfig.data = {
               title: "Incorrect credentials",
               message: "The email and password you entered didn't match our records. Please try again",
               buttonText: "Okay"
             };
-            this.dialog.open(InfoDialogComponent, dialogConfig);
+          } else if(error.status == 422){
+            dialogConfig.data = {
+              title: "Account is currently disabled",
+              message: "This account is currently disabled, you will receive a message on an email associated with your account from our system administrator regarding your account. Thank you for your patience.",
+              buttonText: "Okay"
+            };
           }
-
+          this.dialog.open(InfoDialogComponent, dialogConfig);
         }
       );
     }

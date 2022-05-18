@@ -8,6 +8,7 @@ import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
 import { LocationService } from '../../services/location.service';
 import { UserService } from '../../services/user.service';
+import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
@@ -61,7 +62,7 @@ export class ProfileComponent implements OnInit {
     this.personalDetailsForm.controls.city.setValue('');
   }
 
-  private initializeForms(): void{
+  private initializeForms(): void {
     this.initializePersonalDetailsForm();
     this.initializeSecurityDetailsForm();
   }
@@ -89,7 +90,7 @@ export class ProfileComponent implements OnInit {
     this.securityDetailsForm.controls['email'].disable();
   }
 
-  insertUserData() : void {
+  insertUserData(): void {
     this.personalDetailsForm.get('firstName')?.setValue(this.user.firstName);
     this.personalDetailsForm.get('lastName')?.setValue(this.user.lastName);
     this.personalDetailsForm.get('address')?.setValue(this.user.address);
@@ -101,27 +102,27 @@ export class ProfileComponent implements OnInit {
 
   passwordMatchValidator(c: AbstractControl) {
     if (c.get('password')?.value != c.get('confirmPassword')?.value) {
-      return {noMatch: true};
+      return { noMatch: true };
     }
     return null;
   }
 
-  getPasswordsControl(){
+  getPasswordsControl() {
     return (this.securityDetailsForm.get('passwords') as FormGroup).controls;
   }
 
-  confirmPasswordErrorMessage() : string {
-    if(this.getPasswordsControl().confirmPassword.touched){
+  confirmPasswordErrorMessage(): string {
+    if (this.getPasswordsControl().confirmPassword.touched) {
       if (this.getPasswordsControl().confirmPassword.hasError('required')) {
         return 'You must confirm your password';
       } else if (this.securityDetailsForm.get('passwords')?.hasError('noMatch')) {
         return 'Passwords do not match';
-      } 
+      }
     }
     return "";
   }
 
-  updateProfile() : void {
+  updateProfile(): void {
     let user = {
       firstName: this.personalDetailsForm.get("firstName")?.value,
       lastName: this.personalDetailsForm.get("lastName")?.value,
@@ -141,8 +142,8 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  changePassword() : void {
-    if(this.securityDetailsForm.valid){
+  changePassword(): void {
+    if (this.securityDetailsForm.valid) {
       let passwordUpateRequest = {
         currentPassword: this.securityDetailsForm.get("currentPassword")?.value,
         newPassword: this.getPasswordsControl().confirmPassword?.value
@@ -175,11 +176,11 @@ export class ProfileComponent implements OnInit {
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL(file); 
-    reader.onload = (_event) => { 
-      this.newProfileImg = reader.result; 
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.newProfileImg = reader.result;
     }
-    
+
     const image = new FormData();
     image.append('file', file);
     this.userService.updateProfilePhoto(image).subscribe(
@@ -190,7 +191,11 @@ export class ProfileComponent implements OnInit {
         console.log(error);
       }
     );
+  }
 
+  deleteAccountPrompt() {
+    const dialogConfig = new MatDialogConfig();
+    this.dialog.open(DeleteAccountDialogComponent, dialogConfig);
   }
 
 }

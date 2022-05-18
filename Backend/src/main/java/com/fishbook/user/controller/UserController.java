@@ -192,4 +192,14 @@ public class UserController {
         storageService.uploadProfileImage(file, username);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(value = "/{username}/deleteAccountRequest")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    public ResponseEntity createDeleteAccountRequest(@PathVariable String username, @RequestBody String message, Principal principal){
+        if(!Objects.equals(username, principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        userService.createDeleteAccountRequest(principal.getName(), message);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

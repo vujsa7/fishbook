@@ -41,7 +41,7 @@ export class EntitiesComponent {
   }
 
   findMaxPrice() {
-    this.maxPrice = _.maxBy(this.entitiesBasicInfo, function(o) { return o.price })?.price;
+    this.maxPrice = _.maxBy(this.entitiesBasicInfo, function (o) { return o.price })?.price;
   }
 
   extractCities() {
@@ -65,19 +65,23 @@ export class EntitiesComponent {
   }
 
   onFilterSelectionChanged(selectedFilters: any) {
-    if (selectedFilters.selectedCities.length == 0 && selectedFilters.selectedStars.length == 0 && selectedFilters.selectedPrice == 0) this.filteredEntitiesBasicInfo = this.searchedEntitiesBasicInfo;
+    if (selectedFilters.selectedCities.length == 0 && selectedFilters.selectedStars.length == 0 && (!selectedFilters.selectedPrice || selectedFilters.selectedPrice == 0)) this.filteredEntitiesBasicInfo = this.searchedEntitiesBasicInfo;
     else {
-      if(selectedFilters.selectedPrice && selectedFilters.selectedPrice != 0)
-        this.filteredEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter(item => selectedFilters.selectedPrice >= item.price );
-      if(selectedFilters.selectedCities.length != 0)
-        this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter(item => _.includes(selectedFilters.selectedCities, item.city));
-      if(selectedFilters.selectedStars.length != 0)
-        this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter(item => {
+      let filteredByCities;
+      let filteredByPrice;
+      let filteredByStars;
+      if (selectedFilters.selectedPrice && selectedFilters.selectedPrice != 0)
+        filteredByPrice = this.searchedEntitiesBasicInfo.filter(item => selectedFilters.selectedPrice >= item.price);
+      if (selectedFilters.selectedCities.length != 0)
+        filteredByCities = this.searchedEntitiesBasicInfo.filter(item => _.includes(selectedFilters.selectedCities, item.city));
+      if (selectedFilters.selectedStars.length != 0)
+        filteredByStars = this.searchedEntitiesBasicInfo.filter(item => {
           if (!item.rating)
             return true;
           else
             return _.includes(selectedFilters.selectedStars, item.rating)
         });
+      this.filteredEntitiesBasicInfo = _.unionBy(filteredByCities, filteredByStars, filteredByPrice, _.property('id'));
     }
   }
 
