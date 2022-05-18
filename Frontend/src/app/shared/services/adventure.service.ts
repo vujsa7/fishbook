@@ -17,14 +17,6 @@ export class AdventureService {
     return this.http.post(this.baseUrl, adventure, { headers: this.authService.getHeader() });
   }
 
-  getAdventureRules(): Observable<any> {
-    return this.http.get(this.baseUrl + "/rules", { headers: this.authService.getHeader() });
-  }
-
-  getAdventureFishingEquipemnt(): Observable<any> {
-    return this.http.get(this.baseUrl + "/equipment", { headers: this.authService.getHeader() });
-  }
-
   getAllAdventures(): Observable<EntityBasicInfo[]> {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }

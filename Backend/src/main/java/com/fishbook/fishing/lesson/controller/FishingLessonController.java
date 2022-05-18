@@ -1,23 +1,18 @@
 package com.fishbook.fishing.lesson.controller;
 
-import com.fishbook.additional.entity.information.model.Equipment;
-import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.service.EquipmentService;
-import com.fishbook.additional.entity.information.service.RuleService;
 import com.fishbook.fishing.lesson.dto.FishingLessonCreatedDto;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.fishing.lesson.dto.FishingLessonDetailsDto;
 import com.fishbook.fishing.lesson.dto.FishingLessonRegistrationDto;
+import com.fishbook.fishing.lesson.dto.FishingLessonUpdateDto;
 import com.fishbook.fishing.lesson.model.FishingLesson;
 import com.fishbook.fishing.lesson.service.FishingLessonService;
-import com.fishbook.house.dto.HouseDetailsDto;
-import com.fishbook.house.dto.HouseSpecificationsDto;
-import com.fishbook.house.model.House;
 import com.fishbook.location.dto.LocationDto;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,24 +28,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/fishingLessons")
+@RequiredArgsConstructor
 public class FishingLessonController {
-    private final RuleService ruleService;
     private final UserService userService;
-    private final EquipmentService equipmentService;
     private final FishingLessonService fishingLessonService;
     private final StorageService storageService;
 
-    @Autowired
-    public FishingLessonController(RuleService ruleService, UserService userService, EquipmentService equipmentService, FishingLessonService fishingLessonService, StorageService storageService) {
-        this.ruleService = ruleService;
-        this.userService = userService;
-        this.equipmentService = equipmentService;
-        this.fishingLessonService = fishingLessonService;
-        this.storageService = storageService;
-    }
-
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_INSTRUCTOR')")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity createFishingLesson(@RequestBody FishingLessonRegistrationDto dto, Principal principal){
         User instructor = userService.findByEmail(principal.getName());
         FishingLesson fishingLesson = new FishingLesson(dto.getName(), dto.getDescription(), dto.getCancellationFee(), dto.getPricePerDay(),
@@ -59,18 +44,6 @@ public class FishingLessonController {
         FishingLesson createdFishingLesson = fishingLessonService.save(fishingLesson);
 
         return new ResponseEntity<>(new FishingLessonCreatedDto(createdFishingLesson.getId()), HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "/rules")
-    @PreAuthorize("hasRole('ROLE_INSTRUCTOR')")
-    public List<Rule> getRules(){
-        return ruleService.getRules("fishingLesson");
-    }
-
-    @GetMapping(value = "/equipment")
-    @PreAuthorize("hasRole('ROLE_INSTRUCTOR')")
-    public List<Equipment> getBoatEquipment(){
-        return equipmentService.getFishingEquipment();
     }
 
     @GetMapping
@@ -99,7 +72,7 @@ public class FishingLessonController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'INSTRUCTOR')")
     public ResponseEntity deleteFishingLesson(@PathVariable Long id, Authentication authentication){
         Optional<FishingLesson> fishingLesson = fishingLessonService.findById(id);
         if(fishingLesson.isEmpty()){
@@ -112,5 +85,38 @@ public class FishingLessonController {
 
         fishingLessonService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    @PreAuthorize("hasRole('INSTRUCTOR')")
+    public ResponseEntity updateFishingLesson(@PathVariable Long id, @RequestBody FishingLessonUpdateDto dto, Authentication authentication){
+        Optional<FishingLesson> fishingLesson = fishingLessonService.findById(id);
+        if(fishingLesson.isEmpty() || Objects.equals(fishingLesson.get().getId(), dto.getId())){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User userDetails = (User) authentication.getPrincipal();
+        if(Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        FishingLesson updatedFishingLesson = update(fishingLesson.get(), dto);
+
+        fishingLessonService.save(updatedFishingLesson);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private FishingLesson update(FishingLesson fishingLesson, FishingLessonUpdateDto dto){
+        fishingLesson.setName(dto.getName());
+        fishingLesson.setDescription(dto.getDescription());
+        fishingLesson.setCancellationFee(dto.getCancellationFee());
+        fishingLesson.setPricePerDay(dto.getPricePerDay());
+        fishingLesson.setAddress(dto.getAddress());
+        fishingLesson.setRules(dto.getRules());
+        fishingLesson.setAdditionalServices(dto.getAdditionalServices());
+        fishingLesson.setInstructorBiography(dto.getInstructorBiography());
+        fishingLesson.setMaxNumberOfPeople(dto.getMaxNumberOfPeople());
+        fishingLesson.setFishingEquipment(dto.getEquipment());
+
+        return fishingLesson;
     }
 }

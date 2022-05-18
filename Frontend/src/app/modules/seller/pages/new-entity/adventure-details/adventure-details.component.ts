@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Equipment } from 'src/app/shared/models/equipment.model';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
+import { EquipmentService } from '../../../services/equipment.service';
 
 @Component({
   selector: 'app-adventure-details',
@@ -14,11 +15,11 @@ export class AdventureDetailsComponent implements OnInit {
   @Output() addAdventureDetailsEvent = new EventEmitter();
   equipment: Array<Equipment> = new Array();
   
-  constructor(private adventureService: AdventureService) { }
+  constructor(private equipmentService: EquipmentService) { }
 
   ngOnInit(): void {
     this.initializeForm();
-    this.adventureService.getAdventureFishingEquipemnt().subscribe(
+    this.equipmentService.getEquipment("fishingLesson").subscribe(
       data => {
         this.equipment = data;
       }

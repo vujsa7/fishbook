@@ -20,10 +20,6 @@ export class HouseService {
     return this.http.post(this.baseUrl, houseRegistrationRequest, { headers: this.header });
   }
 
-  getHouseRules(): Observable<any> {
-    return this.http.get(this.baseUrl + '/rules', { headers: this.header });
-  }
-
   getAllHouses(): Observable<EntityBasicInfo[]> {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }

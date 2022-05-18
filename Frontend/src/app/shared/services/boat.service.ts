@@ -20,14 +20,6 @@ export class BoatService {
     return this.http.post(this.baseUrl, boatRegistrationRequest, { headers: this.header });
   }
 
-  getBoatRules(): Observable<any> {
-    return this.http.get(this.baseUrl + '/rules', { headers: this.header });
-  }
-
-  getBoatEquipment(): Observable<any> {
-    return this.http.get(this.baseUrl + '/equipment', { headers: this.header });
-  }
-
   getAllBoats(): Observable<EntityBasicInfo[]> {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }

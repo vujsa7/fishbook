@@ -23,7 +23,7 @@
         </div>
         <div class="entities-cards" *ngIf="entities">
             <div *ngFor="let entity of entities">
-                <app-entity-card [entityBasicInfo]="entity" (deleteEvent)="deleteEntity($event)"></app-entity-card>
+                <app-entity-card [entityBasicInfo]="entity" [entityType]="selectedButton" (deleteEvent)="deleteEntity($event)"></app-entity-card>
             </div>
         </div>
     </div>

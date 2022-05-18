@@ -7,6 +7,7 @@ import { BoatService } from 'src/app/shared/services/boat.service';
 import { HouseService } from 'src/app/shared/services/house.service';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { Rule } from '../../../../../shared/models/rule.model';
+import { RuleService } from '../../../services/rule.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class GeneralComponent implements OnInit {
   filteredCities: City[] = [];
   appliedRules: Array<Rule> = new Array();
 
-  constructor(private locationService: LocationService, private boatService: BoatService, private adventureService: AdventureService, private houseService: HouseService) { }
+  constructor(private locationService: LocationService, private boatService: BoatService, private adventureService: AdventureService, private houseService: HouseService, private ruleService: RuleService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -40,21 +41,21 @@ export class GeneralComponent implements OnInit {
       }
     )
     if (this.entityType == "boat") {
-      this.boatService.getBoatRules().subscribe(
+      this.ruleService.getRules("boat").subscribe(
         data => {
           this.appliedRules = data;
         }
       )
     }
     if(this.entityType == "adventure"){
-      this.adventureService.getAdventureRules().subscribe(
+      this.ruleService.getRules("fishingLesson").subscribe(
         data => {
           this.appliedRules = data;
         }
       )
     }
     if(this.entityType == "house"){
-      this.houseService.getHouseRules().subscribe(
+      this.ruleService.getRules("house").subscribe(
         data => {
           this.appliedRules = data;
         }

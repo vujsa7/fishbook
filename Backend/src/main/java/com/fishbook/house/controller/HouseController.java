@@ -1,10 +1,7 @@
 package com.fishbook.house.controller;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
-import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.service.AdditionalServiceService;
-import com.fishbook.additional.entity.information.service.RuleService;
-import com.fishbook.boat.dto.BoatSpecificationsDto;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.house.dto.HouseDetailsDto;
 import com.fishbook.house.dto.HouseRegistrationDto;
@@ -37,16 +34,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/houses")
 public class HouseController {
     private final HouseService houseService;
-    private final RuleService ruleService;
     private final LocationService locationService;
     private final UserService userService;
     private final AdditionalServiceService additionalServiceService;
     private final StorageService storageService;
 
     @Autowired
-    public HouseController(HouseService houseService, RuleService ruleService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
+    public HouseController(HouseService houseService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
         this.houseService = houseService;
-        this.ruleService = ruleService;
         this.locationService = locationService;
         this.userService = userService;
         this.additionalServiceService = additionalServiceService;
@@ -70,12 +65,6 @@ public class HouseController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }
-
-    @GetMapping(value = "/rules", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_HOUSE_OWNER')")
-    public List<Rule> getHouseRules(){
-        return ruleService.getRules("house");
     }
 
     @GetMapping

@@ -13,9 +13,10 @@ export class ServicesComponent implements OnInit {
   selectedButton: string = 'boats';
   entities: any;
 
-  constructor(private adventureService: AdventureService, private boatService: BoatService, private houseService: HouseService, private toastr: ToastrService) { }
+  constructor(private adventureService: AdventureService, private boatService: BoatService, private houseService: HouseService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
+    this.selectButton(this.selectedButton);
   }
   
   selectButton(selectedButton: string): void {

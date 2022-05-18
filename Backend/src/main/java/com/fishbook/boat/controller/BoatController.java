@@ -39,18 +39,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/boats")
 public class BoatController {
     private final BoatService boatService;
-    private final RuleService ruleService;
-    private final EquipmentService equipmentService;
     private final LocationService locationService;
     private final UserService userService;
     private final AdditionalServiceService additionalServiceService;
     private final StorageService storageService;
 
     @Autowired
-    public BoatController(BoatService boatService, RuleService ruleService, EquipmentService equipmentService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
+    public BoatController(BoatService boatService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
         this.boatService = boatService;
-        this.ruleService = ruleService;
-        this.equipmentService = equipmentService;
         this.locationService = locationService;
         this.userService = userService;
         this.additionalServiceService = additionalServiceService;
@@ -77,18 +73,6 @@ public class BoatController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }
-
-    @GetMapping(value = "/rules", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
-    public List<Rule> getBoatRules(){
-        return ruleService.getRules("boat");
-    }
-
-    @GetMapping(value = "/equipment", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
-    public List<Equipment> getBoatEquipment(){
-        return equipmentService.getBoatEquipment();
     }
 
     @GetMapping

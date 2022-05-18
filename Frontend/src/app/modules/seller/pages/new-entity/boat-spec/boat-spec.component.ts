@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Equipment } from 'src/app/shared/models/equipment.model';
 import { BoatService } from 'src/app/shared/services/boat.service';
+import { EquipmentService } from '../../../services/equipment.service';
 
 @Component({
   selector: 'app-boat-spec',
@@ -15,11 +16,11 @@ export class BoatSpecComponent implements OnInit {
   navigationEquipment: Array<Equipment> = new Array();
   fishingEquipment: Array<Equipment> = new Array();
 
-  constructor(private boatService: BoatService) { }
+  constructor(private equipmentService: EquipmentService) { }
 
   ngOnInit(): void {
     this.initializeForm();
-    this.boatService.getBoatEquipment().subscribe(
+    this.equipmentService.getEquipment("boat").subscribe(
       data => {
         this.sortEquipment(data);
       }
