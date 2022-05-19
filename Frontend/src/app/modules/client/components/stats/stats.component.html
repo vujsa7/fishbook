@@ -1,0 +1,33 @@
+<div>
+    <h3>Stats</h3>
+    <div class="fb-container d-flex">
+        <div class="points d-flex flex-column w-100">
+            <span class="lightblue-text fw-bold">
+                Points
+            </span>
+            <div class="chart-wrapper">
+                <div class="chart">
+                    <canvas id="pointsChart">Your browser does not support the canvas element.</canvas>
+                    <div *ngIf="statsInfo" class="d-flex flex-column align-items-center justify-content-between text-wrapper">
+                        <span class="grey-text label">{{statsInfo.currentPoints | loyaltyType }} Customer</span>
+                        <span class="lightblue-text fw-bold">{{statsInfo.currentPoints}}<span class="grey-text">/{{statsInfo.pointsForNextLevel}}</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="penalties d-flex flex-column w-100">
+            <span class="lightblue-text fw-bold">
+                Penalties
+            </span>
+            <div class="chart-wrapper">
+                <div class="chart">
+                    <canvas id="penaltiesChart">Your browser does not support the canvas element.</canvas>
+                    <div *ngIf="statsInfo" class="d-flex flex-column align-items-center justify-content-between text-wrapper">
+                        <span class="grey-text label">Number Of Penalties</span>
+                        <span class="red-text fw-bold">{{statsInfo.currentPenalties}}<span class="grey-text">/{{statsInfo.penaltiesForBan}}</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

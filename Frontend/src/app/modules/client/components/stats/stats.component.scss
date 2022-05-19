@@ -1,0 +1,50 @@
+@import "src/styles/main.scss";
+
+h3{
+    margin-bottom: 20px !important;
+}
+
+.fb-container{
+    width: 100%;
+    height: 420px;
+    margin-bottom: 30px;
+    padding: 0;
+}
+
+    .points{
+        padding: 30px 60px;
+        border-right: 1px solid color(lightgrey);
+        border-right-width: 120%;
+    }
+
+
+    .penalties{
+        padding: 30px 60px;
+    }
+
+
+    .chart-wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 372px;
+    }
+
+    .chart{
+        position: relative;
+        width: 300px !important;
+        height: 300px !important;
+    }
+
+        .text-wrapper{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .label{
+            font-size: 14px;
+            text-align: center;
+        }

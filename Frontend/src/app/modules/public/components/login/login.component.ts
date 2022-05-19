@@ -36,11 +36,8 @@ export class LoginComponent implements OnInit {
           let tokenRole = this.authService.getTokenRole();
           if (tokenRole == 'ROLE_ADMIN') {
             this.navigateToAdminModule();
-          } else if(tokenRole == 'ROLE_CLIENT'){
-            this.router.navigate(["/client/homepage"]);
-          } 
-          else {
-            this.router.navigate(["/homepage"]);
+          } else {
+            this.router.navigate([""]);
           }
         },
         error => {
