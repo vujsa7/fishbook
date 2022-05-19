@@ -317,15 +317,23 @@ input:checked + .slider:before {
 }
 
 .grey-text{
-    color: color(darkgrey);
+    color: color(darkgrey) !important;
 }
 
 .blue-text{
-    color: color(blue);
+    color: color(blue) !important;
 }
 
 .lightblue-text{
-    color: color(lightblue);
+    color: color(lightblue) !important;
+}
+
+.red-text{
+    color: color(red) !important;
+}
+
+.green-text{
+    color: color(green) !important;
 }
 
 .c-toast-container{

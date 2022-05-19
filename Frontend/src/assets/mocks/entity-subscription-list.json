@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "activeSpecialOffers": 8
+    },
+    {
+        "id": 2,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "activeSpecialOffers": 0
+    },
+    {
+        "id": 3,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "activeSpecialOffers": 14
+    },
+    {
+        "id": 4,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "activeSpecialOffers": 11
+    },
+    {
+        "id": 5,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "activeSpecialOffers": 2
+    },
+    {
+        "id": 6,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "activeSpecialOffers": 0
+    }
+]

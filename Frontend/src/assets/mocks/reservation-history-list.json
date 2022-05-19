@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Godzilla 3.1",
+        "type": "Boat",
+        "started": "2012-04-23T18:25:43.511Z",
+        "ended": "2012-05-01T18:25:43.511Z",
+        "price": 300,
+        "status": "Upcoming"
+    },
+    {
+        "id": 2,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "started": "2012-05-23T18:25:43.511Z",
+        "ended": "2012-07-01T18:25:43.511Z",
+        "price": 1200,
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "started": "2012-05-23T18:25:43.511Z",
+        "ended": "2012-07-01T18:25:43.511Z",
+        "price": 1200,
+        "status": "Completed"
+    },
+    {
+        "id": 4,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "started": "2012-05-23T18:25:43.511Z",
+        "ended": "2012-07-01T18:25:43.511Z",
+        "price": 1200,
+        "status": "Canceled"
+    },
+    {
+        "id": 5,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "started": "2012-05-23T18:25:43.511Z",
+        "ended": "2012-07-01T18:25:43.511Z",
+        "price": 1200,
+        "status": "Completed"
+    },
+    {
+        "id": 6,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "started": "2012-05-23T18:25:43.511Z",
+        "ended": "2012-07-01T18:25:43.511Z",
+        "price": 1200,
+        "status": "Completed"
+    },
+    {
+        "id": 7,
+        "imageUrl": "https://images.unsplash.com/photo-1544189360-0c4ef5ccd5f1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ym9hdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60",
+        "name": "Vacant boat",
+        "type": "Boat",
+        "started": "2012-05-23T18:25:43.511Z",
+        "ended": "2012-07-01T18:25:43.511Z",
+        "price": 1200,
+        "status": "Cancelled"
+    }
+]
