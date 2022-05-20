@@ -42,8 +42,23 @@
                         <svg class="down-icon"></svg>
                     </div>
                     <div #optionBox class="fb-container options-box" [ngClass]="{'options-box-visible': isOptionsBoxVisible(reservation.id)}">
-                        <div *ngIf="selectedOptionsBoxId == reservation.id">
-                            
+                        <div class="d-flex flex-column" *ngIf="selectedOptionBoxId == reservation.id">
+                            <div class="d-flex ob-row align-items-center" [routerLink]="['/' + reservation.type.toLowerCase() + 's', reservation.entityId]">
+                                <svg class="eye-icon"></svg>
+                                <span class="lightblue-text">Preview</span>
+                            </div>
+                            <div *ngIf="reservation.status=='Unrated'" class="d-flex ob-row align-items-center" (click)="rateExperience(reservation)">
+                                <svg class="star-icon"></svg>
+                                <span class="lightblue-text">Rate experience</span>
+                            </div>
+                            <div class="d-flex ob-row align-items-center" (click)="reportSeller(reservation)">
+                                <svg class="report-icon"></svg>
+                                <span class="lightblue-text">Report</span>
+                            </div>
+                            <div *ngIf="reservation.status=='Upcoming' && canCancelReservation(reservation.id)" class="d-flex ob-row align-items-center" (click)="cancelReservation(reservation.id)">
+                                <svg class="cancel-icon"></svg>
+                                <span class="red-text">Cancel reservation</span>
+                            </div>
                         </div>
                     </div>
                 </td>

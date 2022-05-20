@@ -1,0 +1,8 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5>{{title}}</h5>
+    <span class="message">{{message}}</span>
+    <div class="d-flex w-100">
+        <app-secondary-button class="noButton" [text]="buttonNoText" (click)="close()"></app-secondary-button>
+        <app-primary-button class="yesButton" [text]="buttonYesText" (click)="handleAccept()"></app-primary-button>
+    </div>
+</div>

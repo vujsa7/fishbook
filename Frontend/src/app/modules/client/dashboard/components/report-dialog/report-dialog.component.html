@@ -1,0 +1,13 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5>Report seller</h5>
+    <form [formGroup]="reportSellerForm" class="w-100">
+        <div class="input-container delete-account-message-wrapper">
+            <textarea id="reportSellerMessage" formControlName="reportSellerMessage" (focus)="reportSellerForm.controls.reportSellerMessage.markAsUntouched()" maxLength="376" cols="30" rows="10" required></textarea>
+            <label for="reportSellerMessage" class="input-label">Please describe what went wrong</label>
+        </div>
+        <div class="d-flex">
+            <app-secondary-button class="w-100 me-2" [text]="'Cancel'" (click)="close()"></app-secondary-button>
+            <app-primary-button [isBtnDisabled]="!reportSellerForm.valid" class="button w-100 ms-2" [text]="'Send'" (click)="onSubmit()"></app-primary-button>
+        </div>
+    </form>
+</div>
