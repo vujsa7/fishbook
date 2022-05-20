@@ -22,6 +22,7 @@ import { PublicLinksComponent } from './layout/headers/public-links/public-links
 import { SellerLinksComponent } from './layout/headers/seller-links/seller-links.component';
 import { DeleteAccountDialogComponent } from './components/delete-account-dialog/delete-account-dialog.component';
 import { LoyaltyTypePipe } from './pipes/loyalty-type.pipe';
+import { OptionsDialogComponent } from './components/options-dialog/options-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LoyaltyTypePipe } from './pipes/loyalty-type.pipe';
     AdminLinksComponent,
     PublicLinksComponent,
     SellerLinksComponent,
-    DeleteAccountDialogComponent
+    DeleteAccountDialogComponent,
+    OptionsDialogComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +71,8 @@ import { LoyaltyTypePipe } from './pipes/loyalty-type.pipe';
     BaseHeaderComponent,
     ClientLinksComponent,
     AdminLinksComponent,
-    PublicLinksComponent
+    PublicLinksComponent,
+    OptionsDialogComponent
   ]
 })
 export class SharedModule { }

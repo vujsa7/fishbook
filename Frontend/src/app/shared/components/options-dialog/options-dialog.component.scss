@@ -1,0 +1,30 @@
+@import "src/styles/main.scss";
+
+.dialog-container{
+    background-color: white;
+    border-radius: 7px;
+    width: 34.72vw;
+    padding: 30px 30px;
+}
+
+    h5{
+        color: color(blue);
+        margin-bottom: 10px !important;
+    }
+
+    .message{
+        color: color(darkgrey);
+        display: inline-block;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .yesButton{
+        width: 100%;
+        margin-left: 10px;
+    }
+
+    .noButton{
+        width: 100%;
+        margin-right: 10px;
+    }

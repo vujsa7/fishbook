@@ -22,13 +22,20 @@
             </ng-container>
             <ng-container matColumnDef="options">
                 <th class="options" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                <td mat-cell *matCellDef="let reservation" class="options-wrapper">
-                    <div #optionBtn (click)="selectOptionBox(reservation.id)" class="options-btn d-flex align-items-center justify-content-center">
+                <td mat-cell *matCellDef="let subscription" class="options-wrapper">
+                    <div #optionBtn (click)="selectOptionBox(subscription.id)" class="options-btn d-flex align-items-center justify-content-center">
                         <svg class="down-icon"></svg>
                     </div>
-                    <div #optionBox class="fb-container options-box" [ngClass]="{'options-box-visible': isOptionsBoxVisible(reservation.id)}">
-                        <div *ngIf="selectedOptionsBoxId == reservation.id">
-                            
+                    <div #optionBox class="fb-container options-box" [ngClass]="{'options-box-visible': isOptionsBoxVisible(subscription.id)}">
+                        <div class="d-flex flex-column" *ngIf="selectedOptionBoxId == subscription.id">
+                            <div class="d-flex ob-row align-items-center" [routerLink]="['/' + subscription.type.toLowerCase() + 's', subscription.entityId]">
+                                <svg class="eye-icon"></svg>
+                                <span class="lightblue-text">Preview</span>
+                            </div>
+                            <div class="d-flex ob-row align-items-center" (click)="unsubscribe(subscription.id)">
+                                <svg class="unsubscribe-icon"></svg>
+                                <span class="red-text">Unsubscribe</span>
+                            </div>
                         </div>
                     </div>
                 </td>

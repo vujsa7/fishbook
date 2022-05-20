@@ -4,7 +4,7 @@ import { StatsInfo } from '../../models/stats-info.model';
 import { StatsService } from '../../services/stats.service';
 
 @Component({
-  selector: 'cl-stats',
+  selector: 'db-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
@@ -36,13 +36,15 @@ export class StatsComponent implements AfterViewInit {
   }
 
   fetchStatsInfoForChart() {
-    this.statsInfo = this.statsService.fetchStatsInfo();
-    this.pointsChart.data.datasets[0].data[0] = this.statsInfo.currentPoints;
-    this.pointsChart.data.datasets[0].data[1] = this.statsInfo.pointsForNextLevel;
-    this.pointsChart.update('active');
-    this.penaltiesChart.data.datasets[0].data[0] = this.statsInfo.currentPenalties;
-    this.penaltiesChart.data.datasets[0].data[1] = this.statsInfo.penaltiesForBan;
-    this.penaltiesChart.update();
+    setTimeout(() => {
+      this.statsInfo = this.statsService.fetchStatsInfo();
+      this.pointsChart.data.datasets[0].data[0] = this.statsInfo.currentPoints;
+      this.pointsChart.data.datasets[0].data[1] = this.statsInfo.pointsForNextLevel;
+      this.pointsChart.update();
+      this.penaltiesChart.data.datasets[0].data[0] = this.statsInfo.currentPenalties;
+      this.penaltiesChart.data.datasets[0].data[1] = this.statsInfo.penaltiesForBan;
+      this.penaltiesChart.update();
+    }, 0)
   }
 
   private pointsData = {

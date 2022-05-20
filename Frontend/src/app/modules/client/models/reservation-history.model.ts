@@ -8,6 +8,7 @@ export class ReservationHistory {
     ended: string;
     price: number;
     status: string;
+    entityId: number;
 
     constructor(
         id: number,
@@ -17,7 +18,8 @@ export class ReservationHistory {
         started: string,
         ended: string,
         price: number,
-        status: string
+        status: string,
+        entityId: number
     ) {
         this.id = id
         this.imageUrl = imageUrl
@@ -27,6 +29,7 @@ export class ReservationHistory {
         this.ended = ended
         this.price = price
         this.status = status
+        this.entityId = entityId
     }
-
+    
 }

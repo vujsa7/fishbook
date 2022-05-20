@@ -1,0 +1,19 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5>Rate your experience</h5>
+    <div class="w-100 d-flex justify-content-between stars align-items-center">
+        <span class="grey-text">Rate from 1 to 5</span>
+        <div class="d-flex" >
+            <svg *ngFor="let _ of [].constructor(5); let i = index" class="star-icon-empty" [ngClass]="{'star-icon': isStarSelected(i+1)}" (click)="selectStar(i+1)"></svg>
+        </div>
+    </div>
+    <form [formGroup]="rateForm" class="w-100">
+        <div class="input-container delete-account-message-wrapper">
+            <textarea id="review" formControlName="review" (focus)="rateForm.controls.review.markAsUntouched()" maxLength="376" cols="30" rows="10" required></textarea>
+            <label for="review" class="input-label">How was your experience?</label>
+        </div>
+        <div class="d-flex">
+            <app-secondary-button class="w-100 me-2" [text]="'Cancel'" (click)="close()"></app-secondary-button>
+            <app-primary-button [isBtnDisabled]="!rateForm.valid" class="button w-100 ms-2" [text]="'Send'" (click)="onSubmit()"></app-primary-button>
+        </div>
+    </form>
+</div>

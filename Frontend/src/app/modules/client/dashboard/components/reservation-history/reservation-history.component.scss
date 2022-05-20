@@ -1,4 +1,5 @@
 @import "src/styles/main.scss";
+@import 'src/styles/components/client-dashboard.scss';
 
 h3 {
     margin-bottom: 20px !important;
@@ -101,14 +102,14 @@ h3 {
             display: flex;
             flex-direction: column;
             z-index: 50;
-            bottom: -245px;
-            right: 50px;
-            padding: 20px 30px;
+            top: 45px;
+            right: 40px;
+            padding: 10px 0;
             opacity: 0;
             visibility: hidden;
             background-color: white;
             width: 208px !important;
-            height: 218px !important;
+            height: unset;
             @include noselect;
             transition: all 200ms ease-in;
         }
@@ -117,3 +118,44 @@ h3 {
             opacity: 1;
             visibility: visible;
         }
+
+            .ob-row{
+                border-bottom: 1px solid color(lightgrey);
+                padding: 0 20px;
+                height: 50px;
+                transition: all 0.2s ease-in-out;
+                cursor: pointer;
+                &:hover{
+                    background-color: color(lightgrey);
+                }
+                &:last-child{
+                    border-bottom: 0;
+                }
+            }
+
+                .star-icon, .eye-icon, .report-icon, .cancel-icon, .unsubscribe-icon{
+                    @include icon;
+                    margin-right: 10px;
+                }
+
+                .eye-icon{
+                    @include background-svg($eye);
+                }
+
+                .star-icon{
+                    @include background-svg($star);
+                }
+
+                .report-icon{
+                    @include background-svg($report);
+                }
+
+                .cancel-icon{
+                    @include background-svg($cancel);
+                }
+
+                .unsubscribe-icon{
+                    @include background-svg($unsubscribe);
+                }
+
+                
