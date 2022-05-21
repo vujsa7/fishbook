@@ -1,0 +1,75 @@
+<div>
+    <h3>Reservations</h3>
+    <div class="fb-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="image">
+                <th class="image" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let reservation">
+                    <img class="cell-image" [src]="reservation.imageUrl"/>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th class="name" mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <th class="type" mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.type}} </td>
+            </ng-container>
+            <ng-container matColumnDef="start">
+                <th class="start" mat-header-cell *matHeaderCellDef mat-sort-header> Start </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.start | date:'longDate'}} {{reservation.start | date:'shortTime'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="end">
+                <th class="end" mat-header-cell *matHeaderCellDef mat-sort-header> End </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.end | date:'longDate'}} {{reservation.end | date:'shortTime'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th class="price" mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let reservation"> ${{reservation.price}} </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <th class="status" mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let reservation" [ngClass]="getTextClass(reservation.status)"> 
+                    <div class="round-square" [ngClass]="getClass(reservation.status)"></div>
+                    {{reservation.status}} 
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="options">
+                <th class="options" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let reservation" class="options-wrapper">
+                    <div #optionBtn (click)="selectOptionBox(reservation.id)" class="options-btn d-flex align-items-center justify-content-center">
+                        <svg class="down-icon"></svg>
+                    </div>
+                    <div #optionBox class="fb-container options-box" [ngClass]="{'options-box-visible': isOptionsBoxVisible(reservation.id)}">
+                        <div class="d-flex flex-column" *ngIf="selectedOptionBoxId == reservation.id">
+                            <div class="d-flex ob-row align-items-center" [routerLink]="['/' + reservation.type.toLowerCase() + 's', reservation.entityId]">
+                                <svg class="eye-icon"></svg>
+                                <span class="lightblue-text">Preview</span>
+                            </div>
+                            <div *ngIf="reservation.status=='Unrated'" class="d-flex ob-row align-items-center" (click)="rateExperience(reservation)">
+                                <svg class="star-icon"></svg>
+                                <span class="lightblue-text">Rate experience</span>
+                            </div>
+                            <div class="d-flex ob-row align-items-center" (click)="reportSeller(reservation)">
+                                <svg class="report-icon"></svg>
+                                <span class="lightblue-text">Report</span>
+                            </div>
+                            <div *ngIf="reservation.status=='Upcoming' && canCancelReservation(reservation.id)" class="d-flex ob-row align-items-center" (click)="cancelReservation(reservation.id)">
+                                <svg class="cancel-icon"></svg>
+                                <span class="red-text">Cancel reservation</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSize]="5" aria-label="Select page of users"></mat-paginator>
+    </div>
+</div>

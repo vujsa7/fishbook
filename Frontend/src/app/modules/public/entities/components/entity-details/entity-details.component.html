@@ -19,7 +19,7 @@
                 <boat-rental-details *ngIf="entityType == 'boat'" [boatSpecifications]="entityDetails.boatSpecifications" [price]="entityDetails.price" [location]="entityDetails.location"></boat-rental-details>
                 <adventure-rental-details *ngIf="entityType == 'adventure'" [price]="entityDetails.price" [location]="entityDetails.location" [maxPeople]="entityDetails.maxPeople"></adventure-rental-details>
                 <div class="d-flex flex-column align-items-center">
-                    <app-primary-button class="w-100 mb-2" text="Rent now"></app-primary-button>
+                    <app-primary-button class="w-100 mb-2" text="Rent now" [routerLink]="['/client/reservation/', entityDetails.id]"></app-primary-button>
                     <span class="grey-text fee" *ngIf="entityDetails.cancellationFee != undefined && entityDetails.cancelationFee != 0">{{entityType.charAt(0).toUpperCase()+entityType.slice(1)}} owner keeps {{entityDetails.cancellationFee}}% of every cancelled reservation</span>
                 </div>
                 

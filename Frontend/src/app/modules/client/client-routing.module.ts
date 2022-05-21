@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientComponent } from './client.component';
 
 const routes: Routes = [
-  { path: '', component: ClientComponent }
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
+  { path: 'reservation', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)},
+  { path: '**', redirectTo: 'dashboard' }
 ];
 
 @NgModule({

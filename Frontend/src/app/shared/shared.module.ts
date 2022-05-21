@@ -21,11 +21,14 @@ import { AdminLinksComponent } from './layout/headers/admin-links/admin-links.co
 import { PublicLinksComponent } from './layout/headers/public-links/public-links.component';
 import { SellerLinksComponent } from './layout/headers/seller-links/seller-links.component';
 import { DeleteAccountDialogComponent } from './components/delete-account-dialog/delete-account-dialog.component';
+import { LoyaltyTypePipe } from './pipes/loyalty-type.pipe';
+import { OptionsDialogComponent } from './components/options-dialog/options-dialog.component';
 
 @NgModule({
   declarations: [
     PrimaryButtonComponent,
     UserTypePipe,
+    LoyaltyTypePipe,
     SecondaryButtonComponent,
     MessageDialogComponent,
     GlassContainerComponent,
@@ -41,7 +44,8 @@ import { DeleteAccountDialogComponent } from './components/delete-account-dialog
     AdminLinksComponent,
     PublicLinksComponent,
     SellerLinksComponent,
-    DeleteAccountDialogComponent
+    DeleteAccountDialogComponent,
+    OptionsDialogComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +58,7 @@ import { DeleteAccountDialogComponent } from './components/delete-account-dialog
   exports: [
     PrimaryButtonComponent,
     UserTypePipe,
+    LoyaltyTypePipe,
     SecondaryButtonComponent,
     MessageDialogComponent,
     GlassContainerComponent,
@@ -66,7 +71,8 @@ import { DeleteAccountDialogComponent } from './components/delete-account-dialog
     BaseHeaderComponent,
     ClientLinksComponent,
     AdminLinksComponent,
-    PublicLinksComponent
+    PublicLinksComponent,
+    OptionsDialogComponent
   ]
 })
 export class SharedModule { }

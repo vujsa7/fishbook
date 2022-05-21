@@ -1,0 +1,168 @@
+@import "src/styles/main.scss";
+@import 'src/styles/components/client-dashboard.scss';
+
+h3 {
+    margin-bottom: 20px !important;
+}
+
+.fb-container {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    margin-bottom: 30px;
+}
+
+    table{
+        margin-left: -30px;
+        margin-right: -30px;
+        width: calc(100% + 60px);
+        border-collapse: collapse;
+    }
+
+    th.image{
+        width: 95px;
+    }
+
+    th.name{
+        width: 285px;
+    }
+
+    th.type{
+        width: 146px;
+    }
+
+    th.options{
+        width: 68px;
+    }
+
+    .round-square{
+        height: 10px;
+        width: 10px;
+        min-height: 10px;
+        min-width: 10px;
+        display: inline-block;
+        border-radius: 50%;
+        margin-right: 3px;
+    }
+
+    .darkgrey{
+        background-color: color(darkgrey);
+    }
+
+    .lightblue{
+        background-color: color(lightblue);
+    }
+
+    .green{
+        background-color: color(green);
+    }
+
+    .red{
+        background-color: color(red);
+    }
+
+    .cell-image {
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        min-height: 35px;
+        border-radius: 3px;
+        object-fit: cover;
+    }
+
+
+    mat-paginator{
+        position: absolute;
+        bottom: 0;
+        right: 40px;
+      }
+      
+        .mat-paginator-container{
+          padding: 0;
+        }
+
+    .options-wrapper{
+        position: relative;
+    }
+
+        .options-btn{
+            width: 28px;
+            height: 28px;
+            @include shadow;
+            cursor: pointer;
+            border-radius: 3px;
+            background-color: white;
+            transition: all 0.2s ease-in-out;
+
+            &:hover{
+                box-shadow: 0px 0px 8px rgba(38, 38, 38, 0.2);
+            }
+        }
+
+            .down-icon{
+                @include background-svg($down-arrow-grey);
+                @include icon;
+            }
+
+        .options-box{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
+            top: 45px;
+            right: 40px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            background-color: white;
+            width: 208px !important;
+            height: unset;
+            @include noselect;
+            transition: all 200ms ease-in;
+        }
+
+        .options-box.options-box-visible{
+            opacity: 1;
+            visibility: visible;
+        }
+
+            .ob-row{
+                border-bottom: 1px solid color(lightgrey);
+                padding: 0 20px;
+                height: 50px;
+                transition: all 0.2s ease-in-out;
+                cursor: pointer;
+                &:hover{
+                    background-color: color(lightgrey);
+                }
+                &:last-child{
+                    border-bottom: 0;
+                }
+            }
+
+                .star-icon, .eye-icon, .report-icon, .cancel-icon, .unsubscribe-icon{
+                    @include icon;
+                    margin-right: 10px;
+                }
+
+                .eye-icon{
+                    @include background-svg($eye);
+                }
+
+                .star-icon{
+                    @include background-svg($star);
+                }
+
+                .report-icon{
+                    @include background-svg($report);
+                }
+
+                .cancel-icon{
+                    @include background-svg($cancel);
+                }
+
+                .unsubscribe-icon{
+                    @include background-svg($unsubscribe);
+                }
+
+                

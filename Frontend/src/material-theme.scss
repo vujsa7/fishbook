@@ -6,72 +6,69 @@ $theme-primary: mat.define-palette(mat.$blue-palette);
 $theme-accent: mat.define-palette(mat.$light-blue-palette);
 $theme-warn: mat.define-palette(mat.$red-palette);
 
-$theme: mat.define-light-theme((
-  color: (
-    primary: $theme-primary,
-    accent: $theme-accent,
-    warn: $theme-warn,
-  )
-));
+$theme: mat.define-light-theme((color: (primary: $theme-primary,
+        accent: $theme-accent,
+        warn: $theme-warn,
+      )));
 
 @include mat.all-component-themes($theme);
 @import 'src/styles/main.scss';
 
-.mat-form-field-flex{
-    border-radius:  7px !important;
-    background-color: transparent !important;
-    border: 1px solid color(darkgrey);
+.mat-form-field-flex {
+  border-radius: 7px !important;
+  background-color: transparent !important;
+  border: 1px solid color(darkgrey);
 }
 
-.mat-form-field-underline{
-    display: none !important;
+.mat-form-field-underline {
+  display: none !important;
 }
 
-.mat-form-field{
-    width: 100%;
-    font-size: 14px;
-    font-family: $base-font-family;
+.mat-form-field {
+  width: 100%;
+  font-size: 14px;
+  font-family: $base-font-family;
 }
 
-.mat-input-element{
+.mat-input-element {
   color: color(blue);
 }
 
-.mat-form-field-label{
+.mat-form-field-label {
   color: color(darkgrey);
   font-size: 14px !important;
 }
 
-.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
   transform: translateY(-0.59375em) scale(0.85) !important;
 }
 
 .mat-slider-horizontal .mat-slider-ticks {
-  background-image: repeating-linear-gradient(to right, color(lightblue), color(lightblue), 2px,transparent 0, transparent);
+  background-image: repeating-linear-gradient(to right, color(lightblue), color(lightblue), 2px, transparent 0, transparent);
 }
 
-.mat-checkbox-label{
+.mat-checkbox-label {
   color: color(darkgrey);
   font-family: $base-font-family;
 }
 
-.mat-checkbox-inner-container{
+.mat-checkbox-inner-container {
   margin-right: 10px;
 }
 
-.mat-slider-thumb{
+.mat-slider-thumb {
   background-color: color(lightblue) !important;
 }
 
-.mat-slider-wrapper::after{
+.mat-slider-wrapper::after {
   border-color: color(lightblue) !important;
 }
 
-.mat-slider-thumb-label-text{
+.mat-slider-thumb-label-text {
   font-size: 10px !important;
 }
 
-.mat-slider-disabled .mat-slider-track-fill{
+.mat-slider-disabled .mat-slider-track-fill {
   background-color: color(lightblue);
 }
 
@@ -79,9 +76,80 @@ $theme: mat.define-light-theme((
 .mat-slider-wrapper,
 .mat-slider-track-wrapper,
 .mat-slider-track-background {
-    height: 5px !important;
+  height: 5px !important;
 }
 
-.mat-dialog-container{
+.mat-dialog-container {
   padding: 0 !important;
+}
+
+table {
+  font-family: $base-font-family  !important;
+}
+
+.mat-header-cell {
+  color: color(lightblue);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+tr.mat-row {
+  height: 55px;
+  padding: 10px 40px !important;
+  border: 0.5px solid color(lightgrey);
+  transition: 0.15s ease-in-out all;
+
+  &:hover {
+    background-color: color(lightgrey);
+  }
+}
+
+th {
+  border-bottom: 0.5px solid color(lightgrey);
+}
+
+.mat-cell {
+  font-size: 14px;
+  color: color(darkgrey);
+  border: none;
+}
+
+mat-paginator {
+  font-family: $base-font-family  !important;
+}
+
+.mat-chip.mat-standard-chip{
+  background-color: color(lightgrey);
+  @include noselect;
+  cursor: pointer;
+}
+
+.mat-standard-chip {
+  height: 50px !important;
+  border-radius: 7px !important;
+}
+
+.mat-chip-list-wrapper .mat-standard-chip{
+  margin: 0 0 !important;
+  padding: 0 30px !important;
+  margin-right: 10px !important;
+
+  &:last-child{
+    margin-right: 0 !important;
+  }
+}
+
+.mat-chip {
+  font-size: $h5-size;
+  font-weight: lighter;
+  color: color(darkgrey) !important;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{
+  color: white !important;
+}
+
+.mat-chip:active {
+  background-color: unset !important;
+  filter: unset !important;
 }
