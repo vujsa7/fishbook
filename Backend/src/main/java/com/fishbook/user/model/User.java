@@ -49,8 +49,7 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Set<VerificationCode> verificationCodes;
-
-    @Column(nullable = false)
+    
     private String profileImage;
 
     public User() {}

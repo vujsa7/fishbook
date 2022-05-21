@@ -16,6 +16,6 @@ export class AdminService {
   }
 
   postAdmin(admin: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'users/admins', admin, {headers: this.header});
+    return this.http.post<any>(this.baseUrl + 'users/admins', admin, {headers: this.authService.getHeader()});
   }
 }
