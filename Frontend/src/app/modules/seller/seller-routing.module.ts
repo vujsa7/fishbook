@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'new-boat', component: NewEntityComponent },
   { path: 'new-house', component: NewEntityComponent },
   { path: 'new-adventure', component: NewEntityComponent},
+  { path: 'edit-adventure/:id', component: NewEntityComponent},
   { path: '', component: SellerComponent },
   { path: '**', redirectTo: '' }
 ];

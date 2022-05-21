@@ -23,6 +23,7 @@ public class FishingLessonDetailsDto {
     private Integer maxPeople;
     private String sellerImg;
     private String aboutSeller;
+    private String sellerEmail;
     private List<String> rules;
     private List<String> fishingEquipment;
     private List<String> previousAdventureImages;

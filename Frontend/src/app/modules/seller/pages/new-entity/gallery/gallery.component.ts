@@ -17,6 +17,8 @@ import { HouseService } from 'src/app/shared/services/house.service';
 export class GalleryComponent implements OnInit {
   @Input() entityRegistrationRequest!: any;
   @Input() entityType!: string;
+  @Input() edit!: boolean;
+  @Input() entityUpdateRequest!: any;
   imageFiles: Array<ImageFile> = new Array();
   mainPhotoUploaded: boolean = false;
   coverPhotoUploaded: boolean = false;

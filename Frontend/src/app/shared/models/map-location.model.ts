@@ -1,14 +1,14 @@
 export class MapLocation {
     address: string;
     city: string;
-    country: String;
+    country: string;
     lon: number;
     lat: number;
 
     constructor(
         address: string,
         city: string,
-        country: String,
+        country: string,
         lon: number,
         lat: number
     ) {

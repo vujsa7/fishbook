@@ -25,5 +25,4 @@ export class EntityCardComponent implements OnInit {
     this.deleteEvent.emit(value);
   }
 
-  
 }

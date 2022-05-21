@@ -10,6 +10,8 @@ export class PricingComponent implements OnInit {
   newEntityForm!: FormGroup;
   @Input() entityRegistrationRequest!: any;
   @Input() entityType!: string;
+  @Input() edit!: boolean;
+  @Input() entityUpdateRequest!: any;
   @Output() addPricingEvent = new EventEmitter();
 
   constructor() { }
