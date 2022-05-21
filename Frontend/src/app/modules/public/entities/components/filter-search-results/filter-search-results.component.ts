@@ -40,7 +40,7 @@ export class FilterSearchResultsComponent {
     return this.starsForm.controls.stars as FormArray;
   }
 
-  OnSelectedPriceChanged(price: number){
+  onSelectedPriceChanged(price: number){
     this.selectedPrice = price;
     this.selectedFilterChanged();
   }

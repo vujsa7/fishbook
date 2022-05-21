@@ -10,11 +10,12 @@ import { StatsInfo } from '../models/stats-info.model';
 })
 export class StatsService {
 
-  private baseUrl: string = environment.baseUrl + "reservationHistory";
+  private baseUrl: string = environment.baseUrl + "stats";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   fetchStatsInfo(): StatsInfo {
+    // TODO: Fetch stats from backend
     return stats as StatsInfo;
   }
 

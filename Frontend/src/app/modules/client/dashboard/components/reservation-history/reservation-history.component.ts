@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import _ from 'lodash';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { OptionsDialogComponent } from 'src/app/shared/components/options-dialog/options-dialog.component';
-import { ReservationHistory } from '../../../models/reservation-history.model';
+import { Reservation } from '../../../models/reservation.model';
 import { ReservationService } from '../../../services/reservation.service';
 import { RateExperienceDialogComponent } from '../rate-experience-dialog/rate-experience-dialog.component';
 import { ReportDialogComponent } from '../report-dialog/report-dialog.component';
@@ -18,8 +18,8 @@ import { ReportDialogComponent } from '../report-dialog/report-dialog.component'
 })
 export class ReservationHistoryComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['image', 'name', 'type', 'started', 'ended', 'price', 'status', 'options'];
-  dataSource!: MatTableDataSource<ReservationHistory>;
+  displayedColumns: string[] = ['image', 'name', 'type', 'start', 'end', 'price', 'status', 'options'];
+  dataSource!: MatTableDataSource<Reservation>;
   selectedOptionBoxId: number = -1;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -93,7 +93,6 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
       message: "Once you cancel this reservation there is no going back. You will lose your points if you proceed.",
       buttonNoText: "No",
       buttonYesText: "Yes",
-      yesBtnCallback: this.cancelReservationCallback
     };
     const dialogRef = this.dialog.open(OptionsDialogComponent, dialogConfig);
     dialogRef.componentInstance.accept.subscribe(_ => {
@@ -118,7 +117,7 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
   canCancelReservation(id: number): boolean{
     let reservation = _.find(this.dataSource.data, function(res){return res.id == id});
     if(reservation){
-      let start = new Date(reservation!.started)
+      let start = new Date(reservation!.start)
       let today = new Date()
       if(this.getDifferenceInDays(start, today) < 3 || start < today)
         return false;
@@ -132,7 +131,7 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
     return diffInMs / (1000 * 60 * 60 * 24);
   }
 
-  reportSeller(reservation: ReservationHistory){
+  reportSeller(reservation: Reservation){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       reservation: reservation,
@@ -140,7 +139,7 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
     this.dialog.open(ReportDialogComponent, dialogConfig);
   }
 
-  rateExperience(reservation: ReservationHistory){
+  rateExperience(reservation: Reservation){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       reservation: reservation,

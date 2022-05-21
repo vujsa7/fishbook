@@ -1,28 +1,26 @@
-import { MapLocation } from "./map-location.model";
-
 export class EntityBasicInfo {
-    public id: number;
-    public imageUrl: string;
-    public name: string;
-    public seller: string;
-    public description: string;
-    public city: string;
-    public country: string;
-    public rating: number;
-    public price: number;
+  public id: number;
+  public imageUrl: string;
+  public name: string;
+  public seller: string;
+  public description: string;
+  public city: string;
+  public country: string;
+  public rating: number;
+  public price: number;
 
 
   constructor(
-    id: number, 
-    imageUrl: string, 
-    name: string, 
-    seller: string, 
-    description: string, 
-    city: string, 
-    country: string, 
-    rating: number, 
+    id: number,
+    imageUrl: string,
+    name: string,
+    seller: string,
+    description: string,
+    city: string,
+    country: string,
+    rating: number,
     price: number
-) {
+  ) {
     this.id = id
     this.imageUrl = imageUrl
     this.name = name

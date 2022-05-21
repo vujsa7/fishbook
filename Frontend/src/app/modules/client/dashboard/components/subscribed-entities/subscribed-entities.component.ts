@@ -69,8 +69,7 @@ export class SubscribedEntitiesComponent implements OnInit {
       title: "Unsubscribe?",
       message: "Do you really want to unsubscribe from receiving special offers notifications?",
       buttonNoText: "No",
-      buttonYesText: "Yes",
-      yesBtnCallback: this.unsubscribeCallback
+      buttonYesText: "Yes"
     };
     const dialogRef = this.dialog.open(OptionsDialogComponent, dialogConfig);
     dialogRef.componentInstance.accept.subscribe(_ => {

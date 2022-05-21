@@ -8,4 +8,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SecondaryButtonComponent {
   @Input() text: string = "Button";
   @Input() isBtnDisabled: boolean = false;
+  @Input() inputStyle?: any;
 }

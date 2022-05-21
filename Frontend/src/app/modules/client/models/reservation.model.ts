@@ -1,11 +1,11 @@
-export class ReservationHistory {
+export class Reservation {
 
     id: number;
     imageUrl: string;
     name: string;
     type: string;
-    started: string;
-    ended: string;
+    start: string;
+    end: string;
     price: number;
     status: string;
     entityId: number;
@@ -15,8 +15,8 @@ export class ReservationHistory {
         imageUrl: string,
         name: string,
         type: string,
-        started: string,
-        ended: string,
+        start: string,
+        end: string,
         price: number,
         status: string,
         entityId: number
@@ -25,8 +25,8 @@ export class ReservationHistory {
         this.imageUrl = imageUrl
         this.name = name
         this.type = type
-        this.started = started
-        this.ended = ended
+        this.start = start
+        this.end = end
         this.price = price
         this.status = status
         this.entityId = entityId

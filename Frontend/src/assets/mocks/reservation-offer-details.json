@@ -1,0 +1,66 @@
+{
+    "entityId": 7,
+    "entityName": "Canyon's Escape",
+    "pricePerDay": 200,
+    "additionalServices": [
+        {
+            "id": 1,
+            "name": "WiFi",
+            "price": 5
+        },
+        {
+            "id": 2,
+            "name": "Doplhin riding",
+            "price": 35
+        },
+        {
+            "id": 3,
+            "name": "Dinner",
+            "price": 25
+        },
+        {
+            "id": 4,
+            "name": "WiFi",
+            "price": 5
+        },
+        {
+            "id": 5,
+            "name": "Doplhin riding",
+            "price": 35
+        },
+        {
+            "id": 6,
+            "name": "Dinner",
+            "price": 25
+        },
+        {
+            "id": 7,
+            "name": "WiFi",
+            "price": 5
+        },
+        {
+            "id": 8,
+            "name": "Doplhin riding",
+            "price": 35
+        },
+        {
+            "id": 9,
+            "name": "Dinner",
+            "price": 25
+        }
+    ],
+    "availableDates": [
+        {
+            "start": "2022-05-23T00:00:00.511Z",
+            "end": "2022-05-24T00:00:00.511Z"
+        },
+        {
+            "start": "2022-05-28T00:00:00.511Z",
+            "end": "2022-05-29T00:00:00.511Z"
+        },
+        {
+            "start": "2022-06-01T00:00:00.511Z",
+            "end": "2022-06-20T00:00:00.511Z"
+        }
+    ]
+}

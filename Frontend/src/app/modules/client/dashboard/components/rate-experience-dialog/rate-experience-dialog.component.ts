@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
-import { ReservationHistory } from '../../../models/reservation-history.model';
+import { Reservation } from '../../../models/reservation.model';
 import { ReservationService } from '../../../services/reservation.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ReservationService } from '../../../services/reservation.service';
 export class RateExperienceDialogComponent implements OnInit {
 
   rateForm!: FormGroup;
-  reservation!: ReservationHistory;
+  reservation!: Reservation;
   starsSelected: number = 0;
 
   constructor(private dialogRef: MatDialogRef<RateExperienceDialogComponent>, private dialog: MatDialog, private reservationService: ReservationService, 

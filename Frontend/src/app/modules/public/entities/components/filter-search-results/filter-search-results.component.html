@@ -1,7 +1,7 @@
 <div class="fb-container d-flex flex-column">
     <h5>Filter search results</h5>
     <span class="fw-bold blue-text price">Price</span>
-    <filter-price-slider *ngIf="maxPrice" [maxPrice]="maxPrice" (selectedPriceChanged)="OnSelectedPriceChanged($event)" class="price-slider"></filter-price-slider>
+    <filter-price-slider *ngIf="maxPrice" [maxPrice]="maxPrice" (selectedPriceChanged)="onSelectedPriceChanged($event)" class="price-slider"></filter-price-slider>
     <span class="fw-bold blue-text stars">Stars</span>
     <div [formGroup]="starsForm">
         <div class="d-flex flex-column" formArrayName="stars">
