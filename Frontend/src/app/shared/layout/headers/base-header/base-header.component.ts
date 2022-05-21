@@ -27,7 +27,7 @@ export class BaseHeaderComponent{
     this.authService.userEmailObservable.subscribe(_ => this.refreshHeaderInfo());
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        if(this.router.url.includes("password-renewal") || this.router.url.includes("login") || this.router.url.includes("register")){
+        if(this.router.url.includes("login") || this.router.url.includes("register") || this.router.url.includes("password-renewal")){
           this.isVisible = false;
         } else {
           this.isVisible = true;
