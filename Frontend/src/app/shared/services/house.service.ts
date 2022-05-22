@@ -24,6 +24,10 @@ export class HouseService {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }
 
+  getHousesForOwner(): Observable<EntityBasicInfo[]> {
+    return this.http.get<EntityBasicInfo[]>(this.baseUrl + "?ownerUsername=" + this.authService.getTokenUsername());
+  }
+
   deleteHouse(id: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
   }

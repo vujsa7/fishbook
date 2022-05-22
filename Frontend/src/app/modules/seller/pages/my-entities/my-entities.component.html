@@ -1,0 +1,34 @@
+<div class="d-flex flex-column main-wrapper">
+    <div class="d-flex flex-row-reverse button-wrapper">
+        <app-primary-button [text]="'Add new ' + entityType" class="add-entity-btn" (click)="addEntity()"></app-primary-button>
+    </div>
+    <div class="d-flex content-wrapper">
+        <div class="d-flex flex-column filters">
+            <form [formGroup]="entitySearchForm" (ngSubmit)="onSubmit()">
+                <div class="fb-container">
+                    <h5>Search {{ entityType }}s</h5>
+                    <div class="input-container">
+                        <input formControlName="name" id="search" type="text" name="search" required>
+                        <label for="search" class="input-label">Name</label>
+                    </div>
+                    <div class="input-container">
+                        <input formControlName="location" id="location" type="text" name="location" required>
+                        <label for="location" class="input-label">Location</label>
+                    </div>
+                    <app-primary-button [text]="'Search'" (click)="onSubmit()"></app-primary-button>
+                </div>
+            </form>
+        </div>
+        <div class="d-flex flex-column align-items-end w-100">
+            <div *ngIf="isSearchApplied" class="w-100 mb-3 d-flex justify-content-between">
+                <span class="grey-text">Displaying search results</span>
+                <span class="lightblue-text" style="cursor: pointer" (click)="removeSearchResults()">Remove search filter</span>
+            </div>
+            <div class="entities-cards" *ngIf="searchedEntitiesBasicInfo">
+                <div *ngFor="let entity of searchedEntitiesBasicInfo">
+                    <app-entity-card [entityBasicInfo]="entity" [entityType]="entityType + 's'" (deleteEvent)="deleteEntity($event)"></app-entity-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

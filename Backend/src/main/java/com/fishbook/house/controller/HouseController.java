@@ -78,6 +78,17 @@ public class HouseController {
         return new ResponseEntity<>(houses, HttpStatus.OK);
     }
 
+    @GetMapping(params = "ownerUsername")
+    public ResponseEntity getHousesForOwner(@RequestParam String ownerUsername){
+        List<EntityBasicInfoDto> houses = houseService.getAllByOwnerUsername(ownerUsername).stream()
+                .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
+                        house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
+                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity getHouseDetails(@PathVariable Long id){
         Optional<House> houseOptional = houseService.findById(id);

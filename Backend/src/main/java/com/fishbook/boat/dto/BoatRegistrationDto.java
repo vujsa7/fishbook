@@ -21,7 +21,7 @@ public class BoatRegistrationDto {
     private Integer fuelConsumption;
     private Integer maxDistance;
     private Integer energyConsumption;
-    private Double advancePayment;
+    private Double cancellationFee;
     private Double price;
     private String boatType;
     private Set<Rule> appliedRules = new HashSet<>();
@@ -30,7 +30,7 @@ public class BoatRegistrationDto {
 
     public BoatRegistrationDto() {}
 
-    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double advancePayment, Double price, String boatType) {
+    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double cancellationFee, Double price, String boatType) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -44,7 +44,7 @@ public class BoatRegistrationDto {
         this.fuelConsumption = fuelConsumption;
         this.maxDistance = maxDistance;
         this.energyConsumption = energyConsumption;
-        this.advancePayment = advancePayment;
+        this.cancellationFee = cancellationFee;
         this.price = price;
         this.boatType = boatType;
     }
@@ -153,12 +153,12 @@ public class BoatRegistrationDto {
         this.energyConsumption = energyConsumption;
     }
 
-    public Double getAdvancePayment() {
-        return advancePayment;
+    public Double getCancellationFee() {
+        return cancellationFee;
     }
 
-    public void setAdvancePayment(Double advancePayment) {
-        this.advancePayment = advancePayment;
+    public void setCancellationFee(Double cancellationFee) {
+        this.cancellationFee = cancellationFee;
     }
 
     public Double getPrice() {

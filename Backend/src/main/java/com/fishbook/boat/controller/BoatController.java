@@ -62,7 +62,7 @@ public class BoatController {
             User user = userService.findByEmail(principal.getName());
             HashSet<AdditionalService> additionalServices = additionalServiceService.saveAll(boatRegistrationDto.getAdditionalServices());
 
-            Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getAdvancePayment(), boatRegistrationDto.getPrice(),
+            Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getCancellationFee(), boatRegistrationDto.getPrice(),
                     false, address, boatRegistrationDto.getAppliedRules(), additionalServices,
                     boatRegistrationDto.getLength(), boatRegistrationDto.getMotors(), boatRegistrationDto.getPower(),
                     boatRegistrationDto.getMaxSpeed(), boatRegistrationDto.getMaxPeople(), boatRegistrationDto.getLoadCapacity(),
@@ -78,6 +78,17 @@ public class BoatController {
     @GetMapping
     public ResponseEntity getAllBoats(){
         List<EntityBasicInfoDto> boats = boatService.getAll().stream()
+                .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
+                        boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
+                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(boats, HttpStatus.OK);
+    }
+
+    @GetMapping(params = "ownerUsername")
+    public ResponseEntity getBoatsForOwner(@RequestParam String ownerUsername){
+        List<EntityBasicInfoDto> boats = boatService.getAllByOwnerUsername(ownerUsername).stream()
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
                         boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
                         boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName()))

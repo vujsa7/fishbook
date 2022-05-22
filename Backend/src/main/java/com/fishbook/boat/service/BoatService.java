@@ -10,4 +10,5 @@ public interface BoatService {
     Long saveNewBoat(Boat boat);
     void deleteById(Long id);
     List<Boat> getAll();
+    List<Boat> getAllByOwnerUsername(String username);
 }

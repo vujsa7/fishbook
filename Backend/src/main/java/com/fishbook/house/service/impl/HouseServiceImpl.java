@@ -6,6 +6,8 @@ import com.fishbook.house.dao.RoomRepository;
 import com.fishbook.house.model.House;
 import com.fishbook.house.model.Room;
 import com.fishbook.house.service.HouseService;
+import com.fishbook.user.dao.UserRepository;
+import com.fishbook.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,14 @@ public class HouseServiceImpl implements HouseService {
     private final HouseRepository houseRepository;
     private final RoomRepository roomRepository;
     private final EntityRepository entityRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public HouseServiceImpl(HouseRepository houseRepository, RoomRepository roomRepository, EntityRepository entityRepository) {
+    public HouseServiceImpl(HouseRepository houseRepository, RoomRepository roomRepository, EntityRepository entityRepository, UserRepository userRepository) {
         this.houseRepository = houseRepository;
         this.roomRepository = roomRepository;
         this.entityRepository = entityRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -44,6 +48,12 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<House> getAll() {
         return houseRepository.findAll();
+    }
+
+    @Override
+    public List<House> getAllByOwnerUsername(String username) {
+        User owner = userRepository.findByEmail(username);
+        return houseRepository.findAllByOwner(owner);
     }
 
     @Override

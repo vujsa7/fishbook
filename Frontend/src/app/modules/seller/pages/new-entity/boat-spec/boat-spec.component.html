@@ -99,7 +99,7 @@
                         [checked]="newEntityForm.controls['equipment'].value.includes(equipmentItem)"
                         (value)="equipmentItem"
                         (change)="equipmentChanged($event, equipmentItem)"/>
-                    <span>{{equipmentItem.name}}</span>
+                    <span class="checkbox-label">{{equipmentItem.name}}</span>
                 </label>
             </div>
         </div>

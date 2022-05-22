@@ -1,0 +1,54 @@
+@import 'src/styles/main.scss';
+
+.main-wrapper{
+    margin-top: 70px;
+}
+
+    .button-wrapper{
+        padding-right: 149px;
+        padding-top: 13px;
+    }
+
+        .add-entity-button{
+            width: 14.16vw;
+        }
+
+.content-wrapper{
+    margin-left: $grid-margin-width;
+    margin-right: $grid-margin-width;
+    margin-top: $grid-margin-height;
+    margin-bottom: $grid-margin-height;
+}
+
+    .filters{
+        min-width: 350px;
+        margin-right: 50px;
+
+        @include media("<desktop-small"){
+            min-width: 300px;
+        }
+
+        @include media("<tablet-large"){
+            display: none !important;
+        }
+    }
+
+        .fb-container{
+            width: 100%;
+        }
+
+            h5{
+                margin-bottom: 20px !important;
+            }
+
+            .input-container{
+                margin-bottom: 20px;
+            }
+    
+    .entities-cards{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        grid-column-gap: 30px;
+        grid-row-gap: 30px;
+    }

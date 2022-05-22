@@ -24,6 +24,10 @@ export class BoatService {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }
 
+  getBoatsForOwner(): Observable<EntityBasicInfo[]> {
+    return this.http.get<EntityBasicInfo[]>(this.baseUrl + "?ownerUsername=" + this.authService.getTokenUsername());
+  }
+
   deleteBoat(id: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
   }
