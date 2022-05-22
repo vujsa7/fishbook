@@ -9,5 +9,6 @@ public interface FishingLessonService {
     Optional<FishingLesson> findById(Long id);
     FishingLesson save(FishingLesson fishingLesson);
     List<FishingLesson> getAll();
+    List<FishingLesson> getAll(String ownerUsername);
     void deleteById(Long id);
 }

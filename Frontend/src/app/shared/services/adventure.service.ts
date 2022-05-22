@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
@@ -20,6 +20,11 @@ export class AdventureService {
 
   getAllAdventures(): Observable<EntityBasicInfo[]> {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
+  }
+
+  getAdventuresForOwner(): Observable<EntityBasicInfo[]> {
+    let params = new HttpParams().set('ownerUsername', this.authService.getTokenUsername());
+    return this.http.get<EntityBasicInfo[]>(this.baseUrl, { params: params });
   }
 
   public fetchAdventureDetails(id: number): Observable<AdventureDetails>{

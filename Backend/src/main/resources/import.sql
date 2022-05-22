@@ -128,7 +128,7 @@ insert into room (num_of_beds, house_id) values (2, 5)
 insert into room (num_of_beds, house_id) values (1, 5)
 insert into entity_image (name, priority, entity_id) values ('5.jpg', 1, 5)
 
-insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (nextval('entity_id_seq'), 'Hawaii Paradise', 'Somewhere in Hawaii, these is a magical house Hawaii Paradise that features amazing scenery and jungle vibes. Ocean is nearby if you want to take a swim and there are free surf boards in the house.', 6, 150.0, 10, false, 4)
+insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (nextval('entity_id_seq'), 'Hawaii Paradise', 'Somewhere in Hawaii, these is a magical house Hawaii Paradise that features amazing scenery and jungle vibes. Ocean is nearby if you want to take a swim and there are free surf boards in the house.', 6, 150.0, 10, false, 3)
 insert into house (id, max_number_of_people) values (6, 3)
 insert into room (num_of_beds, house_id) values (2, 6)
 insert into room (num_of_beds, house_id) values (2, 6)

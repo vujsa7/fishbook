@@ -43,6 +43,11 @@ public class FishingLessonServiceImpl implements FishingLessonService {
     }
 
     @Override
+    public List<FishingLesson> getAll(String ownerUsername) {
+        return fishingLessonRepository.findAll(ownerUsername);
+    }
+
+    @Override
     public void deleteById(Long id) {
         entityRepository.deleteById(id);
     }

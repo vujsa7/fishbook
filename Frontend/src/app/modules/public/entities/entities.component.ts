@@ -3,6 +3,10 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 import { EntityBasicInfo } from 'src/app/shared/models/entity-basic-info.model';
 import { EntityService } from './services/entity.service';
 import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
+import { AdventureService } from 'src/app/shared/services/adventure.service';
+import { BoatService } from 'src/app/shared/services/boat.service';
+import { HouseService } from 'src/app/shared/services/house.service';
 
 @Component({
   selector: 'app-entities',
@@ -19,7 +23,7 @@ export class EntitiesComponent {
   isSearchApplied: boolean = false;
   maxPrice?: number;
 
-  constructor(private entityService: EntityService, private router: Router) {
+  constructor(private entityService: EntityService, private router: Router, private adventureService: AdventureService, private boatService: BoatService, private houseService: HouseService, private toastr: ToastrService) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.entityType = this.router.url.substring(1);
@@ -89,5 +93,35 @@ export class EntitiesComponent {
     this.filteredEntitiesBasicInfo = this.entitiesBasicInfo;
     this.searchedEntitiesBasicInfo = this.entitiesBasicInfo;
     this.isSearchApplied = false;
+  }
+
+  deleteEntity(id: number) {
+    if(this.entityType == 'adventures'){
+      this.adventureService.deleteAdventure(id).subscribe(data => {
+        this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
+    if(this.entityType == 'boats'){
+      this.boatService.deleteBoat(id).subscribe(data => {
+        this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
+    if(this.entityType == 'houses'){
+      this.houseService.deleteHouse(id).subscribe(data => {
+        this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
   }
 }

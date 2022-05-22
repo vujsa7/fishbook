@@ -40,6 +40,15 @@ export class MyEntitiesComponent implements OnInit {
             this.toastr.error("Error loading entities");
           })
         }
+        if(this.router.url.includes('my-adventures')){
+          this.entityType = "adventure";
+          this.adventureService.getAdventuresForOwner().subscribe(data => {
+            this.entitiesBasicInfo = data;
+            this.searchedEntitiesBasicInfo = data;
+          }, error => {
+            this.toastr.error("Error loading entities");
+          })
+        }
       }
     });    
   }
@@ -59,7 +68,7 @@ export class MyEntitiesComponent implements OnInit {
     if(this.entityType == 'boat'){
       this.boatService.deleteBoat(id).subscribe(data => {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
-        this.searchedEntitiesBasicInfo = this.entitiesBasicInfo;
+        this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
         this.toastr.error("Error deleting entity");
       })
@@ -67,7 +76,15 @@ export class MyEntitiesComponent implements OnInit {
     if(this.entityType == 'house'){
       this.houseService.deleteHouse(id).subscribe(data => {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
-        this.searchedEntitiesBasicInfo = this.entitiesBasicInfo;
+        this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+      }, error => {
+        this.toastr.error("Error deleting entity");
+      })
+    }
+    if(this.entityType == 'adventure'){
+      this.adventureService.deleteAdventure(id).subscribe(data => {
+        this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
+        this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
         this.toastr.error("Error deleting entity");
       })
@@ -80,6 +97,9 @@ export class MyEntitiesComponent implements OnInit {
     }
     if(this.entityType == 'house'){
       this.router.navigate(["/seller/new-house"]);
+    }
+    if(this.entityType == 'adventure'){
+      this.router.navigate(["/seller/new-adventure"]);
     }
   }
 

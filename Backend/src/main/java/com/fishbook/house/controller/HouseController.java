@@ -72,7 +72,7 @@ public class HouseController {
         List<EntityBasicInfoDto> houses = houseService.getAll().stream()
                 .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
                         house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
-                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName()))
+                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(houses, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class HouseController {
         List<EntityBasicInfoDto> houses = houseService.getAllByOwnerUsername(ownerUsername).stream()
                 .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
                         house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
-                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName()))
+                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(houses, HttpStatus.OK);
