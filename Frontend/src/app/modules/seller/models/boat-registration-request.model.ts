@@ -16,7 +16,7 @@ export class BoatRegistrationRequest{
     public fuelConsumption: number;
     public maxDistance: number;
     public energyConsumption: number;
-    public advancePayment: number;
+    public cancellationFee: number;
     public price: number;
     public boatType: string;
     public appliedRules: Array<Rule> = new Array();
@@ -24,7 +24,7 @@ export class BoatRegistrationRequest{
     public additionalServices: Array<AdditionalService> = new Array();
 
     public constructor(name: string, description: string, address: string, city: string, length: number, motors: number, power: number, maxSpeed: number, maxPeople: number, loadCapacity: number, 
-        fuelConsumption: number, maxDistance: number, energyConsumption: number, advancePayment: number, price: number, boatType: string) {
+        fuelConsumption: number, maxDistance: number, energyConsumption: number, cancellationFee: number, price: number, boatType: string) {
             this.name = name;
             this.description = description;
             this.address = address;
@@ -38,7 +38,7 @@ export class BoatRegistrationRequest{
             this.fuelConsumption = fuelConsumption;
             this.maxDistance = maxDistance;
             this.energyConsumption = energyConsumption;
-            this.advancePayment = advancePayment;
+            this.cancellationFee = cancellationFee;
             this.price = price;
             this.boatType = boatType;
     }

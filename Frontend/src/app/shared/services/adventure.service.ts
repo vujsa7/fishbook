@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { AdventureDetails } from 'src/app/modules/public/entities/models/adventure.details.model';
 import { environment } from 'src/environments/environment';
 import { EntityBasicInfo } from '../models/entity-basic-info.model';
 
@@ -21,7 +22,15 @@ export class AdventureService {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl);
   }
 
+  public fetchAdventureDetails(id: number): Observable<AdventureDetails>{
+    return this.http.get<AdventureDetails>(this.baseUrl + "/" + id);
+  }
+
   deleteAdventure(id: number): Observable<any>{
     return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
+  }
+
+  updateAdventure(adventure: any): Observable<any>{
+    return this.http.put<any>(this.baseUrl + "/" + adventure.id, adventure, { headers: this.authService.getHeader() });
   }
 }

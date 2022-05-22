@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Equipment } from 'src/app/shared/models/equipment.model';
-import { AdventureService } from 'src/app/shared/services/adventure.service';
 import { EquipmentService } from '../../../services/equipment.service';
 
 @Component({
@@ -12,6 +11,8 @@ import { EquipmentService } from '../../../services/equipment.service';
 export class AdventureDetailsComponent implements OnInit {
   newEntityForm!: FormGroup;
   @Input() entityRegistrationRequest!: any;
+  @Input() edit!: boolean;
+  @Input() entityUpdateRequest!: any;
   @Output() addAdventureDetailsEvent = new EventEmitter();
   equipment: Array<Equipment> = new Array();
   
@@ -22,14 +23,23 @@ export class AdventureDetailsComponent implements OnInit {
     this.equipmentService.getEquipment("fishingLesson").subscribe(
       data => {
         this.equipment = data;
+        if(this.edit){
+          this.initializeUpdateForm();
+        }
       }
     );
   }
 
   addAdventureDetails(){
-    this.entityRegistrationRequest.instructorBiography = this.newEntityForm.controls.instructorBiography.value;
-    this.entityRegistrationRequest.maxNumberOfPeople = this.newEntityForm.controls.maxNumberOfPeople.value;
-    this.entityRegistrationRequest.equipment = this.newEntityForm.controls.equipment?.value;
+    if(this.edit){
+      this.entityUpdateRequest.instructorBiography = this.newEntityForm.controls.instructorBiography.value;
+      this.entityUpdateRequest.maxNumberOfPeople = this.newEntityForm.controls.maxNumberOfPeople.value;
+      this.entityUpdateRequest.equipment = this.newEntityForm.controls.equipment?.value;
+    } else {
+      this.entityRegistrationRequest.instructorBiography = this.newEntityForm.controls.instructorBiography.value;
+      this.entityRegistrationRequest.maxNumberOfPeople = this.newEntityForm.controls.maxNumberOfPeople.value;
+      this.entityRegistrationRequest.equipment = this.newEntityForm.controls.equipment?.value;
+    }
     
     this.addAdventureDetailsEvent.emit();
   }
@@ -51,6 +61,15 @@ export class AdventureDetailsComponent implements OnInit {
       maxNumberOfPeople: new FormControl('', [Validators.required]),
       equipment : new FormArray([])
     });
+  }
+
+  private initializeUpdateForm(): void {
+    this.newEntityForm.get('instructorBiography')?.setValue(this.entityUpdateRequest.instructorBiography);
+    this.newEntityForm.get('maxNumberOfPeople')?.setValue(this.entityUpdateRequest.maxNumberOfPeople);
+    const selectedEquipment = (this.newEntityForm.controls.equipment as FormArray);
+    for(let e of this.entityUpdateRequest.equipment) {
+      selectedEquipment.push(new FormControl(this.equipment.filter(eq => eq.name == e)[0]));
+    }
   }
 
 }

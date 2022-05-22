@@ -1,5 +1,15 @@
 @import "src/styles/main.scss";
 
+.toolbar{
+    border: 1px solid color(lightgrey);
+    margin-top: 70px;
+}
+
+    .edit{
+        color: color(lightblue);
+        margin-right: $grid-margin-width;
+    }
+
 .images-info-wrapper{
     @include media("<phone-large"){
         flex-direction: column !important;

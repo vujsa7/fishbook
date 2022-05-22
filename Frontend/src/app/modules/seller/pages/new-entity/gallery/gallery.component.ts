@@ -17,6 +17,8 @@ import { HouseService } from 'src/app/shared/services/house.service';
 export class GalleryComponent implements OnInit {
   @Input() entityRegistrationRequest!: any;
   @Input() entityType!: string;
+  @Input() edit!: boolean;
+  @Input() entityUpdateRequest!: any;
   imageFiles: Array<ImageFile> = new Array();
   mainPhotoUploaded: boolean = false;
   coverPhotoUploaded: boolean = false;
@@ -82,11 +84,20 @@ export class GalleryComponent implements OnInit {
         )
       }
       if(this.entityType == "adventure") {
-        this.adventureService.postAdventure(this.entityRegistrationRequest).subscribe(
-          data => {
-            this.postImages(data.id);
-          }
-        )
+        if(this.edit) {
+          this.adventureService.updateAdventure(this.entityUpdateRequest).subscribe(
+            data => {
+              //update images
+              this.route.navigate(['/adventures'])
+            }
+          )
+        } else {
+          this.adventureService.postAdventure(this.entityRegistrationRequest).subscribe(
+            data => {
+              this.postImages(data.id);
+            }
+          )
+        }
       }
       if(this.entityType == "house") {
         this.houseService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(

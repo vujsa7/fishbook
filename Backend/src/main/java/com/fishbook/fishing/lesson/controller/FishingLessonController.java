@@ -67,7 +67,7 @@ public class FishingLessonController {
         return new ResponseEntity(new FishingLessonDetailsDto(fishingLesson.getId(), storageService.getImageUrls(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getOwner().getFullName(),
                 fishingLesson.getDescription(), 0.0, fishingLesson.getPricePerDay(), fishingLesson.getCancellationFee(), new LocationDto(fishingLesson.getAddress().getAddress(), fishingLesson.getAddress().getCity().getName(),
                 fishingLesson.getAddress().getCity().getCountry().getName(), fishingLesson.getAddress().getLongitude(), fishingLesson.getAddress().getLatitude()), fishingLesson.getMaxNumberOfPeople(), "https://images.unsplash.com/photo-1463062511209-f7aa591fa72f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-                fishingLesson.getInstructorBiography(), fishingLesson.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
+                fishingLesson.getInstructorBiography(), fishingLesson.getOwner().getEmail(), fishingLesson.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
                 fishingLesson.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>()), HttpStatus.OK);
     }
 
@@ -91,11 +91,11 @@ public class FishingLessonController {
     @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity updateFishingLesson(@PathVariable Long id, @RequestBody FishingLessonUpdateDto dto, Authentication authentication){
         Optional<FishingLesson> fishingLesson = fishingLessonService.findById(id);
-        if(fishingLesson.isEmpty() || Objects.equals(fishingLesson.get().getId(), dto.getId())){
+        if(fishingLesson.isEmpty() || !Objects.equals(fishingLesson.get().getId(), dto.getId())){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         User userDetails = (User) authentication.getPrincipal();
-        if(Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
+        if(!Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 

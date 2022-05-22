@@ -58,14 +58,14 @@ export class ServicesComponent implements OnInit {
     }
     if(this.selectedButton == 'boats'){
       this.boatService.deleteBoat(id).subscribe(data => {
-        this.entities = this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
+        this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
         this.toastr.error("Error deleting entity");
       })
     }
     if(this.selectedButton == 'houses'){
       this.houseService.deleteHouse(id).subscribe(data => {
-        this.entities = this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
+        this.entities = this.entities.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
         this.toastr.error("Error deleting entity");
       })

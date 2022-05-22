@@ -10,20 +10,31 @@ export class PricingComponent implements OnInit {
   newEntityForm!: FormGroup;
   @Input() entityRegistrationRequest!: any;
   @Input() entityType!: string;
+  @Input() edit!: boolean;
+  @Input() entityUpdateRequest!: any;
   @Output() addPricingEvent = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
     this.initializeForm();
+
+    if(this.edit){
+      this.initializeUpdateForm();
+    }
   }
   
   private initializeForm() {
     this.newEntityForm = new FormGroup({
       price: new FormControl('', [Validators.required]),
-      advancePayment: new FormControl('', [Validators.required]),
+      cancellationFee: new FormControl('', [Validators.required]),
       additionalServices: new FormArray([])
     })
+  }
+
+  private initializeUpdateForm(): void {
+    this.newEntityForm.get('price')?.setValue(this.entityUpdateRequest.pricePerDay);
+    this.newEntityForm.get('cancellationFee')?.setValue(this.entityUpdateRequest.cancellationFee);
   }
 
   additionalServices() : FormArray { 
@@ -70,20 +81,26 @@ export class PricingComponent implements OnInit {
 
   addBoatPricing() {
     this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
-    this.entityRegistrationRequest.advancePayment = this.newEntityForm.controls.advancePayment.value;
+    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
     this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
   }
 
   addHousePricing() {
     this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
-    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.advancePayment.value;
+    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
     this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
   }
 
   addAdventurePricing(){
-    this.entityRegistrationRequest.pricePerDay = this.newEntityForm.controls.price.value;
-    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.advancePayment.value;
-    this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+    if(this.edit){
+      this.entityUpdateRequest.pricePerDay = this.newEntityForm.controls.price.value;
+      this.entityUpdateRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
+      this.entityUpdateRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+    } else{
+      this.entityRegistrationRequest.pricePerDay = this.newEntityForm.controls.price.value;
+      this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
+      this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+    }
   }
 
 }
