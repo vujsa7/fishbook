@@ -84,11 +84,20 @@ export class GalleryComponent implements OnInit {
         )
       }
       if(this.entityType == "adventure") {
-        this.adventureService.postAdventure(this.entityRegistrationRequest).subscribe(
-          data => {
-            this.postImages(data.id);
-          }
-        )
+        if(this.edit) {
+          this.adventureService.updateAdventure(this.entityUpdateRequest).subscribe(
+            data => {
+              //update images
+              this.route.navigate(['/adventures'])
+            }
+          )
+        } else {
+          this.adventureService.postAdventure(this.entityRegistrationRequest).subscribe(
+            data => {
+              this.postImages(data.id);
+            }
+          )
+        }
       }
       if(this.entityType == "house") {
         this.houseService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(

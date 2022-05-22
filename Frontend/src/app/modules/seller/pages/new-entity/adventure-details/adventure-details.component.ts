@@ -25,10 +25,6 @@ export class AdventureDetailsComponent implements OnInit {
         this.equipment = data;
         if(this.edit){
           this.initializeUpdateForm();
-          const selectedEquipment = (this.newEntityForm.controls.equipment as FormArray);
-          for(let e of this.entityUpdateRequest.equipment) {
-            selectedEquipment.push(new FormControl(this.equipment.filter(eq => eq.name == e)[0]));
-          }
         }
       }
     );
@@ -70,6 +66,10 @@ export class AdventureDetailsComponent implements OnInit {
   private initializeUpdateForm(): void {
     this.newEntityForm.get('instructorBiography')?.setValue(this.entityUpdateRequest.instructorBiography);
     this.newEntityForm.get('maxNumberOfPeople')?.setValue(this.entityUpdateRequest.maxNumberOfPeople);
+    const selectedEquipment = (this.newEntityForm.controls.equipment as FormArray);
+    for(let e of this.entityUpdateRequest.equipment) {
+      selectedEquipment.push(new FormControl(this.equipment.filter(eq => eq.name == e)[0]));
+    }
   }
 
 }

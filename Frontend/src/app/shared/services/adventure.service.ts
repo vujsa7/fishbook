@@ -29,4 +29,8 @@ export class AdventureService {
   deleteAdventure(id: number): Observable<any>{
     return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
   }
+
+  updateAdventure(adventure: any): Observable<any>{
+    return this.http.put<any>(this.baseUrl + "/" + adventure.id, adventure, { headers: this.authService.getHeader() });
+  }
 }

@@ -91,11 +91,11 @@ public class FishingLessonController {
     @PreAuthorize("hasRole('INSTRUCTOR')")
     public ResponseEntity updateFishingLesson(@PathVariable Long id, @RequestBody FishingLessonUpdateDto dto, Authentication authentication){
         Optional<FishingLesson> fishingLesson = fishingLessonService.findById(id);
-        if(fishingLesson.isEmpty() || Objects.equals(fishingLesson.get().getId(), dto.getId())){
+        if(fishingLesson.isEmpty() || !Objects.equals(fishingLesson.get().getId(), dto.getId())){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         User userDetails = (User) authentication.getPrincipal();
-        if(Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
+        if(!Objects.equals(fishingLesson.get().getOwner().getId(), userDetails.getId())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 

@@ -134,7 +134,7 @@ insert into room (num_of_beds, house_id) values (2, 6)
 insert into room (num_of_beds, house_id) values (2, 6)
 insert into entity_image (name, priority, entity_id) values ('6.jpg', 1, 6)
 
-insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (nextval('entity_id_seq'), 'Godzilla 3.1', 'Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.', 7, 120.0, 3, false, 2)
+insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (nextval('entity_id_seq'), 'Godzilla 3.1', 'Great fast boat with barbecue grill and three fridges. Good for long sailing across the sea.', 7, 120.0, 5, false, 2)
 insert into boats (id, boat_type, max_number_of_people, energy_consumption, fuel_consumption, boat_length, load_capacity, max_distance, max_speed, motors, power) values (7, 'SMALL_YACHT', 4, 10, 32, 11.0, 2000, 30, 210, 3, 1200)
 insert into entity_image (name, priority, entity_id) values ('7.jpg', 1, 7)
 

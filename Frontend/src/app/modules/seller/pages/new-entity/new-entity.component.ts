@@ -19,6 +19,7 @@ export class NewEntityComponent implements OnInit {
   entityUpdateRequest: any;
   entityType: string = "";
   edit: boolean = false;
+  entityLoaded: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private adventureService: AdventureService) {
     router.events.subscribe((event: Event) => {
@@ -38,7 +39,8 @@ export class NewEntityComponent implements OnInit {
             this.edit = true;
             let id = +this.route.snapshot.params['id'];
             this.adventureService.fetchAdventureDetails(id).subscribe(data => {
-              this.entityUpdateRequest = new AdventureUpdateRequest(id, data.name, data.description, data.location.address, data.location.city, data.location.country, data.maxPeople, data.cancellationFee, data.price, data.rules, data.fishingEquipment, data.aboutSeller);
+              this.entityUpdateRequest = new AdventureUpdateRequest(id, data.name, data.description, data.location.address, data.location.city, data.location.country, data.maxPeople, data.cancellationFee, data.price, data.rules, data.fishingEquipment, new Array(), data.aboutSeller);
+              this.entityLoaded = true;
             })
           }
         }
@@ -47,6 +49,9 @@ export class NewEntityComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(!this.edit){
+      this.entityLoaded = true;
+    }
   }
 
   selectButton(selectedButton: string): void {

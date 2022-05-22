@@ -1,7 +1,4 @@
 import { AdditionalService } from "../../../shared/models/additional-service.model";
-import { Rule } from "../../../shared/models/rule.model";
-import { Equipment } from "../../../shared/models/equipment.model";
-import { Address } from "src/app/models/location/address.model";
 
 export class AdventureUpdateRequest{
     public id: number;
@@ -15,9 +12,10 @@ export class AdventureUpdateRequest{
     public pricePerDay: number;
     public rules: Array<string> = new Array();
     public equipment: Array<string> = new Array();
-    public instructorBiography: string;
+    public additionalServices: Array<AdditionalService> = new Array();
+    public instructorBiography: string; 
 
-    constructor(id: number, name: string, description: string, address: string, city: string, country: string, maxNumberOfPeople: number, cancellationFee: number, pricePerDay: number, rules: Array<string>, equipment: Array<string>, instructorBiography: string) {
+    constructor(id: number, name: string, description: string, address: string, city: string, country: string, maxNumberOfPeople: number, cancellationFee: number, pricePerDay: number, rules: Array<string>, equipment: Array<string>, additionalServices: Array<AdditionalService>, instructorBiography: string) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -29,6 +27,7 @@ export class AdventureUpdateRequest{
         this.pricePerDay = pricePerDay;
         this.rules = rules;
         this.equipment = equipment;
+        this.additionalServices = additionalServices;
         this.instructorBiography = instructorBiography;
     }
 }

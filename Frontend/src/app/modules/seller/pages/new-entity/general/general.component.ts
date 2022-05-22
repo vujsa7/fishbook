@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { City } from 'src/app/models/location/city.model';
 import { Country } from 'src/app/models/location/country.model';
 import { LocationService } from 'src/app/shared/services/location.service';
@@ -35,10 +35,6 @@ export class GeneralComponent implements OnInit {
           this.appliedRules = data;
           if(this.edit){
             this.initializeUpdateForm();
-            const selectedAppliedRules = (this.newEntityForm.controls.appliedRules as FormArray);
-            for(let rule of this.entityUpdateRequest.rules) {
-              selectedAppliedRules.push(new FormControl(this.appliedRules.filter(r => r.description == rule)[0]));
-            }
           }
         }
       )
@@ -90,6 +86,10 @@ export class GeneralComponent implements OnInit {
     this.newEntityForm.get('street')?.setValue(this.entityUpdateRequest.address);
     this.newEntityForm.get('city')?.setValue(this.entityUpdateRequest.city);
     this.newEntityForm.get('state')?.setValue(this.entityUpdateRequest.country);
+    const selectedAppliedRules = (this.newEntityForm.controls.appliedRules as FormArray);
+    for(let rule of this.entityUpdateRequest.rules) {
+      selectedAppliedRules.push(new FormControl(this.appliedRules.filter(r => r.description == rule)[0]));
+    }
   }
 
   onStateChanged() {
@@ -131,26 +131,6 @@ export class GeneralComponent implements OnInit {
     this.entityRegistrationRequest.appliedRules = this.newEntityForm.controls.appliedRules?.value;
   }
 
-  addAdventureInfo(){
-    if(this.edit){
-      this.entityUpdateRequest.name = this.newEntityForm.controls.name.value;
-      this.entityUpdateRequest.description = this.newEntityForm.controls.description.value;
-      this.entityUpdateRequest.address = {
-        address: this.newEntityForm.get("street")?.value,
-        city: this.cities.filter(c => c.name == this.newEntityForm.get("city")?.value)[0]
-      }
-      this.entityUpdateRequest.rules = this.newEntityForm.controls.appliedRules?.value;
-    } else {
-      this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
-      this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
-      this.entityRegistrationRequest.address = {
-        address: this.newEntityForm.get("street")?.value,
-        city: this.cities.filter(c => c.name == this.newEntityForm.get("city")?.value)[0]
-      }
-      this.entityRegistrationRequest.rules = this.newEntityForm.controls.appliedRules?.value;
-    } 
-  }
-
   addHouseInfo(){
     this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
     this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
@@ -159,4 +139,32 @@ export class GeneralComponent implements OnInit {
     this.entityRegistrationRequest.appliedRules = this.newEntityForm.controls.appliedRules?.value;
   }
   
+  addAdventureInfo(){
+    if(this.edit){
+      this.fillUpdateRequest();
+    } else {
+      this.fillRegistrationRequest();
+    } 
+  }
+
+  private fillUpdateRequest(): void {
+    this.entityUpdateRequest.name = this.newEntityForm.controls.name.value;
+    this.entityUpdateRequest.description = this.newEntityForm.controls.description.value;
+    this.entityUpdateRequest.address = {
+      address: this.newEntityForm.get("street")?.value,
+      city: this.cities.filter(c => c.name == this.newEntityForm.get("city")?.value)[0]
+    }
+    this.entityUpdateRequest.rules = this.newEntityForm.controls.appliedRules?.value;
+  }
+
+  private fillRegistrationRequest(): void {
+    this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
+    this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
+    this.entityRegistrationRequest.address = {
+      address: this.newEntityForm.get("street")?.value,
+      city: this.cities.filter(c => c.name == this.newEntityForm.get("city")?.value)[0]
+    }
+    this.entityRegistrationRequest.rules = this.newEntityForm.controls.appliedRules?.value;
+  }
+
 }
