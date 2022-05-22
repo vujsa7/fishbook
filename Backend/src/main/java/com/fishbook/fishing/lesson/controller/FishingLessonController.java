@@ -1,6 +1,5 @@
 package com.fishbook.fishing.lesson.controller;
 
-import com.fishbook.additional.entity.information.service.EquipmentService;
 import com.fishbook.fishing.lesson.dto.FishingLessonCreatedDto;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.fishing.lesson.dto.FishingLessonDetailsDto;
@@ -51,7 +50,18 @@ public class FishingLessonController {
         List<EntityBasicInfoDto> lessons = fishingLessonService.getAll().stream()
                 .map(fishingLesson -> new EntityBasicInfoDto(fishingLesson.getId(), storageService.getPriorityImageUrl(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getDescription(),
                     fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName(), fishingLesson.getAddress().getCity().getCountry().getName(),
-                    fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName()))
+                    fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(lessons, HttpStatus.OK);
+    }
+
+    @GetMapping(params = "ownerUsername")
+    public ResponseEntity getHousesForOwner(@RequestParam String ownerUsername){
+        List<EntityBasicInfoDto> lessons = fishingLessonService.getAll(ownerUsername).stream()
+                .map(fishingLesson -> new EntityBasicInfoDto(fishingLesson.getId(), storageService.getPriorityImageUrl(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getDescription(),
+                        fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName(), fishingLesson.getAddress().getCity().getCountry().getName(),
+                        fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(lessons, HttpStatus.OK);

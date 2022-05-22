@@ -3,6 +3,7 @@ export class EntityBasicInfo {
   public imageUrl: string;
   public name: string;
   public seller: string;
+  public sellerUsername: string;
   public description: string;
   public city: string;
   public country: string;
@@ -15,6 +16,7 @@ export class EntityBasicInfo {
     imageUrl: string,
     name: string,
     seller: string,
+    sellerUsername: string,
     description: string,
     city: string,
     country: string,
@@ -25,6 +27,7 @@ export class EntityBasicInfo {
     this.imageUrl = imageUrl
     this.name = name
     this.seller = seller
+    this.sellerUsername = sellerUsername
     this.description = description
     this.city = city
     this.country = country

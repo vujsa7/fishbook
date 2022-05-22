@@ -4,6 +4,6 @@
     <span class="nav-item" routerLink="adventures" routerLinkActive="active">Adventures</span>
     <span class="nav-item" routerLinkActive="active">Statistics</span>
     <span *ngIf="role=='ROLE_BOAT_OWNER'" class="nav-item" routerLink="/seller/my-boats" routerLinkActive="active">My Boats</span>
-    <span *ngIf="role=='ROLE_INSTRUCTOR'" class="nav-item" routerLinkActive="active">My Adventures</span>
+    <span *ngIf="role=='ROLE_INSTRUCTOR'" class="nav-item" routerLink="/seller/my-adventures"  routerLinkActive="active">My Adventures</span>
     <span *ngIf="role=='ROLE_HOUSE_OWNER'" class="nav-item" routerLink="/seller/my-houses" routerLinkActive="active">My Houses</span>
 </div>

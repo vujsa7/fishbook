@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'new-adventure', component: NewEntityComponent},
   { path: 'my-boats', component: MyEntitiesComponent },
   { path: 'my-houses', component: MyEntitiesComponent },
+  { path: 'my-adventures', component: MyEntitiesComponent },
   { path: 'edit-adventure/:id', component: NewEntityComponent},
   { path: '', component: SellerComponent },
   { path: '**', redirectTo: '' }

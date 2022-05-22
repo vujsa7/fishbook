@@ -15,7 +15,7 @@
                 </div>
                 <div class="entities-cards" *ngIf="filteredEntitiesBasicInfo">
                     <div *ngFor="let entityBasicInfo of filteredEntitiesBasicInfo">
-                        <app-entity-card [entityBasicInfo]="entityBasicInfo" [entityType]="entityType"></app-entity-card>
+                        <app-entity-card [entityBasicInfo]="entityBasicInfo" [entityType]="entityType" (deleteEvent)="deleteEntity($event)"></app-entity-card>
                     </div>
                 </div>
             </div>

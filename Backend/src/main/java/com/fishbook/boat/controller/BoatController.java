@@ -80,7 +80,7 @@ public class BoatController {
         List<EntityBasicInfoDto> boats = boatService.getAll().stream()
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
                         boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
-                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName()))
+                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(boats, HttpStatus.OK);
@@ -91,7 +91,7 @@ public class BoatController {
         List<EntityBasicInfoDto> boats = boatService.getAllByOwnerUsername(ownerUsername).stream()
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
                         boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
-                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName()))
+                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(boats, HttpStatus.OK);

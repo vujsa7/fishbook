@@ -9,8 +9,9 @@ public class EntityBasicInfoDto {
     private String city;
     private String country;
     private String seller;
+    private String sellerUsername;
 
-    public EntityBasicInfoDto(Long id, String imageUrl, String name, String description, Double price, String city, String country, String seller) {
+    public EntityBasicInfoDto(Long id, String imageUrl, String name, String description, Double price, String city, String country, String seller, String sellerUsername) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
@@ -19,6 +20,7 @@ public class EntityBasicInfoDto {
         this.city = city;
         this.country = country;
         this.seller = seller;
+        this.sellerUsername = sellerUsername;
     }
 
     public Long getId() {
@@ -79,5 +81,13 @@ public class EntityBasicInfoDto {
 
     public void setSeller(String seller) {
         this.seller = seller;
+    }
+
+    public String getSellerUsername() {
+        return sellerUsername;
+    }
+
+    public void setSellerUsername(String sellerUsername) {
+        this.sellerUsername = sellerUsername;
     }
 }

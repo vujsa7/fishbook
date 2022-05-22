@@ -14,11 +14,13 @@ export class EntityCardComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter<number>();
 
   role: string = 'ROLE_UNSIGNED';
+  loggedInUserUsername: string = '';
 
   constructor(private authService: AuthService){}
 
   ngOnInit(): void {
     this.role = this.authService.getTokenRole();
+    this.loggedInUserUsername = this.authService.getTokenUsername();
   }
 
   deleteEntity(value: number){
