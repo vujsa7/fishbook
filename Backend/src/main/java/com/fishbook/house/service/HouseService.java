@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface HouseService {
     Optional<House> findById(Long id);
-    Long saveNewHouse(House house);
+    Long save(House house);
     List<House> getAll();
     List<House> getAllByOwnerUsername(String username);
     void deleteById(Long id);

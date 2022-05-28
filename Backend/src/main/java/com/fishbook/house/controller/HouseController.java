@@ -6,6 +6,7 @@ import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.house.dto.HouseDetailsDto;
 import com.fishbook.house.dto.HouseRegistrationDto;
 import com.fishbook.house.dto.HouseSpecificationsDto;
+import com.fishbook.house.dto.HouseUpdateDto;
 import com.fishbook.house.model.House;
 import com.fishbook.house.service.HouseService;
 import com.fishbook.location.dto.LocationDto;
@@ -52,15 +53,12 @@ public class HouseController {
     @PreAuthorize("hasRole('ROLE_HOUSE_OWNER')")
     public ResponseEntity registerNewHouse(@RequestBody HouseRegistrationDto houseRegistrationDto, Principal principal){
         try {
-            City city = locationService.findCityByName(houseRegistrationDto.getCity());
-            Address address = new Address(houseRegistrationDto.getAddress(), city, 0.0, 0.0);
             User user = userService.findByEmail(principal.getName());
-            HashSet<AdditionalService> additionalServices = additionalServiceService.saveAll(houseRegistrationDto.getAdditionalServices());
 
             House house = new House(houseRegistrationDto.getName(), houseRegistrationDto.getDescription(), houseRegistrationDto.getCancellationFee(),
-                    houseRegistrationDto.getPrice(), false, address, houseRegistrationDto.getAppliedRules(), additionalServices,
+                    houseRegistrationDto.getPrice(), false, houseRegistrationDto.getAddress(), houseRegistrationDto.getAppliedRules(), houseRegistrationDto.getAdditionalServices(),
                     houseRegistrationDto.getMaxPeople(), user, houseRegistrationDto.getRooms());
-            Long houseId = houseService.saveNewHouse(house);
+            Long houseId = houseService.save(house);
             return new ResponseEntity<>(houseId, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -116,5 +114,37 @@ public class HouseController {
 
         houseService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    @PreAuthorize("hasRole('HOUSE_OWNER')")
+    public ResponseEntity updateHouse(@PathVariable Long id, @RequestBody HouseUpdateDto dto, Authentication authentication){
+        Optional<House> house = houseService.findById(id);
+        if(house.isEmpty() || !Objects.equals(house.get().getId(), dto.getId())){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User userDetails = (User) authentication.getPrincipal();
+        if(!Objects.equals(house.get().getOwner().getId(), userDetails.getId())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        House updatedHouse = update(house.get(), dto);
+
+        houseService.save(updatedHouse);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private House update(House house, HouseUpdateDto dto) {
+        house.setName(dto.getName());
+        house.setDescription(dto.getDescription());
+        house.setAddress(dto.getAddress());
+        house.setMaxNumberOfPeople(dto.getMaxPeople());
+        house.setRooms(dto.getRooms());
+        house.setPricePerDay(dto.getPrice());
+        house.setCancellationFee(dto.getCancellationFee());
+        house.setAdditionalServices(dto.getAdditionalServices());
+        house.setImages(dto.getImages());
+
+        return house;
     }
 }

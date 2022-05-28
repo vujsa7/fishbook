@@ -108,11 +108,19 @@ export class GalleryComponent implements OnInit {
         }
       }
       if(this.entityType == "house") {
-        this.houseService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(
-          data => {
-            this.postImages(data);
-          }
-        )
+        if(this.edit) {
+          this.houseService.updateHouse(this.entityUpdateRequest).subscribe(
+            data => {
+              this.route.navigate(['/houses'])
+            }
+          )
+        } else {
+          this.houseService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(
+            data => {
+              this.postImages(data);
+            }
+          )
+        }
       }
     } else {
       const dialogConfig = new MatDialogConfig();

@@ -4,11 +4,13 @@ import { Address } from 'src/app/models/location/address.model';
 import { City } from 'src/app/models/location/city.model';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
 import { BoatService } from 'src/app/shared/services/boat.service';
+import { HouseService } from 'src/app/shared/services/house.service';
 import { AdventureRegistrationRequest } from '../../models/adventure-registration-request.model';
 import { AdventureUpdateRequest } from '../../models/adventure-update-request.model';
 import { BoatRegistrationRequest } from '../../models/boat-registration-request.model';
 import { BoatUpdateRequest } from '../../models/boat-update-request.model';
 import { HouseRegistrationRequest } from '../../models/house-registration-request.model';
+import { HouseUpdateRequest } from '../../models/house-update-request.model';
 
 @Component({
   selector: 'app-new-entity',
@@ -23,7 +25,7 @@ export class NewEntityComponent implements OnInit {
   edit: boolean = false;
   entityLoaded: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private adventureService: AdventureService, private boatService: BoatService) {
+  constructor(private router: Router, private route: ActivatedRoute, private adventureService: AdventureService, private boatService: BoatService, private houseService: HouseService) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url.includes('boat')){
@@ -41,6 +43,14 @@ export class NewEntityComponent implements OnInit {
         if(this.router.url.includes('house')){
           this.entityType = "house";
           this.entityRegistrationRequest = new HouseRegistrationRequest("", "", "", "", -1, -1, -1);
+          if(this.router.url.includes('edit')){
+            this.edit = true;
+            let id = +this.route.snapshot.params['id'];
+            this.houseService.fetchHouseDetails(id).subscribe(data => {
+              this.entityUpdateRequest = new HouseUpdateRequest(id, data.name, data.description, data.location.address, data.location.city, data.location.country, data.houseSpecifications.totalBeds, data.cancellationFee, data.price, data.rules);
+              this.entityLoaded = true;
+            })
+          }
         }
         if(this.router.url.includes('adventure')){
           this.entityType = "adventure";
