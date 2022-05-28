@@ -12,6 +12,8 @@ const routes: Routes = [
   { path: 'my-houses', component: MyEntitiesComponent },
   { path: 'my-adventures', component: MyEntitiesComponent },
   { path: 'edit-adventure/:id', component: NewEntityComponent},
+  { path: 'edit-boat/:id', component: NewEntityComponent},
+  { path: 'edit-house/:id', component: NewEntityComponent},
   { path: '', component: SellerComponent },
   { path: '**', redirectTo: '' }
 ];

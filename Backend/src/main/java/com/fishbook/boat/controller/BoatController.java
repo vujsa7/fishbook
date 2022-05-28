@@ -1,21 +1,14 @@
 package com.fishbook.boat.controller;
 
-import com.fishbook.additional.entity.information.model.AdditionalService;
-import com.fishbook.additional.entity.information.service.AdditionalServiceService;
 import com.fishbook.boat.dto.BoatDetailsDto;
 import com.fishbook.boat.dto.BoatRegistrationDto;
-import com.fishbook.additional.entity.information.model.Rule;
-import com.fishbook.additional.entity.information.model.Equipment;
-import com.fishbook.additional.entity.information.service.RuleService;
 import com.fishbook.boat.dto.BoatSpecificationsDto;
+import com.fishbook.boat.dto.BoatUpdateDto;
 import com.fishbook.boat.model.Boat;
 import com.fishbook.boat.model.BoatType;
 import com.fishbook.boat.service.BoatService;
-import com.fishbook.additional.entity.information.service.EquipmentService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.location.dto.LocationDto;
-import com.fishbook.location.model.Address;
-import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
@@ -29,7 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,15 +33,13 @@ public class BoatController {
     private final BoatService boatService;
     private final LocationService locationService;
     private final UserService userService;
-    private final AdditionalServiceService additionalServiceService;
     private final StorageService storageService;
 
     @Autowired
-    public BoatController(BoatService boatService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
+    public BoatController(BoatService boatService, LocationService locationService, UserService userService, StorageService storageService) {
         this.boatService = boatService;
         this.locationService = locationService;
         this.userService = userService;
-        this.additionalServiceService = additionalServiceService;
         this.storageService = storageService;
     }
 
@@ -57,18 +47,15 @@ public class BoatController {
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
     public ResponseEntity<Long> registerNewBoat(@RequestBody BoatRegistrationDto boatRegistrationDto,  Principal principal){
         try {
-            City city = locationService.findCityByName(boatRegistrationDto.getCity());
-            Address address = new Address(boatRegistrationDto.getAddress(), city, 0.0, 0.0);
             User user = userService.findByEmail(principal.getName());
-            HashSet<AdditionalService> additionalServices = additionalServiceService.saveAll(boatRegistrationDto.getAdditionalServices());
 
             Boat boat = new Boat(boatRegistrationDto.getName(), boatRegistrationDto.getDescription(), boatRegistrationDto.getCancellationFee(), boatRegistrationDto.getPrice(),
-                    false, address, boatRegistrationDto.getAppliedRules(), additionalServices,
+                    false, boatRegistrationDto.getAddress(), boatRegistrationDto.getAppliedRules(), boatRegistrationDto.getAdditionalServices(),
                     boatRegistrationDto.getLength(), boatRegistrationDto.getMotors(), boatRegistrationDto.getPower(),
                     boatRegistrationDto.getMaxSpeed(), boatRegistrationDto.getMaxPeople(), boatRegistrationDto.getLoadCapacity(),
                     boatRegistrationDto.getFuelConsumption(), boatRegistrationDto.getMaxDistance(), boatRegistrationDto.getEnergyConsumption(),
                     BoatType.valueOf(boatRegistrationDto.getBoatType()), user, boatRegistrationDto.getEquipment());
-            Long boatId = boatService.saveNewBoat(boat);
+            Long boatId = boatService.save(boat);
             return new ResponseEntity<>(boatId, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -108,7 +95,7 @@ public class BoatController {
                 boat.getDescription(), 0.0, boat.getPricePerDay(), boat.getCancellationFee(), new LocationDto(boat.getAddress().getAddress(), boat.getAddress().getCity().getName(),
                 boat.getAddress().getCity().getCountry().getName(), boat.getAddress().getLongitude(), boat.getAddress().getLatitude()), new BoatSpecificationsDto(boat.getBoatType().toString(),
                 boat.getMaxNumberOfPeople(), boat.getLength(), boat.getLoadCapacity(), boat.getMaxSpeed(), boat.getPower(), boat.getMotors(), boat.getFuelConsumption(), boat.getMaxDistance(),
-                boat.getEnergyConsumption()), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
+                boat.getEnergyConsumption()), boat.getOwner().getEmail(), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
                 boat.getNavigationEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()),
                 boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList())), HttpStatus.OK);
     }
@@ -127,5 +114,46 @@ public class BoatController {
 
         boatService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    @PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity updateBoat(@PathVariable Long id, @RequestBody BoatUpdateDto dto, Authentication authentication){
+        Optional<Boat> boat = boatService.findById(id);
+        if(boat.isEmpty() || !Objects.equals(boat.get().getId(), dto.getId())){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User userDetails = (User) authentication.getPrincipal();
+        if(!Objects.equals(boat.get().getOwner().getId(), userDetails.getId())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        Boat updatedBoat = update(boat.get(), dto);
+
+        boatService.save(updatedBoat);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private Boat update(Boat boat, BoatUpdateDto dto){
+        boat.setName(dto.getName());
+        boat.setDescription(dto.getDescription());
+        boat.setAddress(dto.getAddress());
+        boat.setBoatType(BoatType.valueOf(dto.getBoatType()));
+        boat.setMaxNumberOfPeople(dto.getMaxPeople());
+        boat.setLength(dto.getLength());
+        boat.setLoadCapacity(dto.getLoadCapacity());
+        boat.setMaxSpeed(dto.getMaxSpeed());
+        boat.setPower(dto.getPower());
+        boat.setMotors(dto.getMotors());
+        boat.setFuelConsumption(dto.getFuelConsumption());
+        boat.setMaxDistance(dto.getMaxDistance());
+        boat.setEnergyConsumption(dto.getEnergyConsumption());
+        boat.setEquipment(dto.getEquipment());
+        boat.setPricePerDay(dto.getPrice());
+        boat.setCancellationFee(dto.getCancellationFee());
+        boat.setAdditionalServices(dto.getAdditionalServices());
+        boat.setImages(dto.getImages());
+
+        return boat;
     }
 }

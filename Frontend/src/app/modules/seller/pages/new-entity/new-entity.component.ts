@@ -3,9 +3,11 @@ import { NavigationEnd, Router, Event, ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/models/location/address.model';
 import { City } from 'src/app/models/location/city.model';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
+import { BoatService } from 'src/app/shared/services/boat.service';
 import { AdventureRegistrationRequest } from '../../models/adventure-registration-request.model';
 import { AdventureUpdateRequest } from '../../models/adventure-update-request.model';
 import { BoatRegistrationRequest } from '../../models/boat-registration-request.model';
+import { BoatUpdateRequest } from '../../models/boat-update-request.model';
 import { HouseRegistrationRequest } from '../../models/house-registration-request.model';
 
 @Component({
@@ -21,12 +23,20 @@ export class NewEntityComponent implements OnInit {
   edit: boolean = false;
   entityLoaded: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private adventureService: AdventureService) {
+  constructor(private router: Router, private route: ActivatedRoute, private adventureService: AdventureService, private boatService: BoatService) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url.includes('boat')){
           this.entityType = "boat";
           this.entityRegistrationRequest = new BoatRegistrationRequest("", "", "", "", -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, "");
+          if(this.router.url.includes('edit')){
+            this.edit = true;
+            let id = +this.route.snapshot.params['id'];
+            this.boatService.fetchBoatDetails(id).subscribe(data => {
+              this.entityUpdateRequest = new BoatUpdateRequest(id, data.name, data.description, data.location.address, data.location.city, data.location.country, data.boatSpecifications.length, data.boatSpecifications.motorsOnBoat, data.boatSpecifications.horsepower, data.boatSpecifications.maximumSpeed, data.boatSpecifications.maxPeople, data.boatSpecifications.loadCapacity, data.boatSpecifications.fuelConsumption, data.boatSpecifications.maxDistanceOnTank, data.boatSpecifications.energyConsumption, data.cancellationFee, data.price, data.boatSpecifications.boatType, data.rules, data.fishingEquipment, data.navigationEquipment);
+              this.entityLoaded = true;
+            })
+          }
         }
         if(this.router.url.includes('house')){
           this.entityType = "house";

@@ -77,11 +77,19 @@ export class GalleryComponent implements OnInit {
   onSubmit(){
     if(this.mainPhotoUploaded && this.coverPhotoUploaded) {
       if(this.entityType == "boat") {
-        this.boatService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(
-          data => {
-            this.postImages(data);
-          }
-        )
+        if(this.edit){
+          this.boatService.updateBoat(this.entityUpdateRequest).subscribe(
+            data => {
+              this.route.navigate(['/boats'])
+            }
+          )
+        } else {
+          this.boatService.postRegistrationRequest(this.entityRegistrationRequest).subscribe(
+            data => {
+              this.postImages(data);
+            }
+          )
+        }
       }
       if(this.entityType == "adventure") {
         if(this.edit) {

@@ -21,5 +21,6 @@ public class HouseDetailsDto {
     private Double cancellationFee;
     private LocationDto location;
     private HouseSpecificationsDto houseSpecifications;
+    private String sellerEmail;
     private List<String> rules;
 }

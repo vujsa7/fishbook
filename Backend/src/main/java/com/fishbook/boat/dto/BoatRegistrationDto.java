@@ -3,6 +3,7 @@ package com.fishbook.boat.dto;
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.model.Equipment;
+import com.fishbook.location.model.Address;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.Set;
 public class BoatRegistrationDto {
     private String name;
     private String description;
-    private String address;
+    private Address address;
     private String city;
     private Double length;
     private Integer motors;
@@ -30,7 +31,7 @@ public class BoatRegistrationDto {
 
     public BoatRegistrationDto() {}
 
-    public BoatRegistrationDto(String name, String description, String address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double cancellationFee, Double price, String boatType) {
+    public BoatRegistrationDto(String name, String description, Address address, String city, Double length, Integer motors, Integer power, Integer maxSpeed, Integer maxPeople, Integer loadCapacity, Integer fuelConsumption, Integer maxDistance, Integer energyConsumption, Double cancellationFee, Double price, String boatType) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -65,11 +66,11 @@ public class BoatRegistrationDto {
         this.description = description;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { BoatDetails } from 'src/app/modules/public/entities/models/boat-details.model';
 import { environment } from 'src/environments/environment';
 import { EntityBasicInfo } from '../models/entity-basic-info.model';
 
@@ -28,7 +29,15 @@ export class BoatService {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl + "?ownerUsername=" + this.authService.getTokenUsername());
   }
 
+  public fetchBoatDetails(id: number): Observable<BoatDetails> {
+    return this.http.get<BoatDetails>(this.baseUrl + "/" + id);
+  }
+
   deleteBoat(id: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
+  }
+
+  updateBoat(boat: any): Observable<any>{
+    return this.http.put<any>(this.baseUrl + "/" + boat.id, boat, { headers: this.authService.getHeader() });
   }
 }
