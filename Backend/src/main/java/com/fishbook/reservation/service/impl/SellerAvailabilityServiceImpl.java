@@ -17,7 +17,7 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
 
     @Override
     public void save(SellerAvailability sellerAvailability) {
-        List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findAll();
+        List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findAllBySellerId(sellerAvailability.getSeller().getId());
         if (sellerAvailabilities.stream().anyMatch(s -> s.isOverlapping(sellerAvailability))) {
             throw new DateTimeRangeOverlappingException();
         }
