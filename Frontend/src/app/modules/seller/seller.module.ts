@@ -13,6 +13,7 @@ import { GalleryComponent } from './pages/new-entity/gallery/gallery.component';
 import { AdventureDetailsComponent } from './pages/new-entity/adventure-details/adventure-details.component';
 import { HouseDetailsComponent } from './pages/new-entity/house-details/house-details.component';
 import { MyEntitiesComponent } from './pages/my-entities/my-entities.component';
+import { AvailabilityDialogComponent } from './components/availability-dialog/availability-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MyEntitiesComponent } from './pages/my-entities/my-entities.component';
     GalleryComponent,
     AdventureDetailsComponent,
     HouseDetailsComponent,
-    MyEntitiesComponent
+    MyEntitiesComponent,
+    AvailabilityDialogComponent
   ],
   imports: [
     CommonModule,

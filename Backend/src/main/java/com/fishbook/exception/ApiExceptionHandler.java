@@ -20,4 +20,16 @@ public class ApiExceptionHandler {
         // Return response entity
         return new ResponseEntity<>(apiException, badRequest);
     }
+
+    @ExceptionHandler(DateTimeRangeException.class)
+    public ResponseEntity<Object> handleBadRequest(DateTimeRangeException ex) {
+        ApiException apiException = new ApiException(ex.getMessage(), ex, HttpStatus.BAD_REQUEST, ZonedDateTime.now(ZoneId.of("Z")));
+        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DateTimeRangeOverlappingException.class)
+    public ResponseEntity<Object> handleConflict(DateTimeRangeOverlappingException ex) {
+        ApiException apiException = new ApiException(ex.getMessage(), ex, HttpStatus.CONFLICT, ZonedDateTime.now(ZoneId.of("Z")));
+        return new ResponseEntity<>(apiException, HttpStatus.CONFLICT);
+    }
 }

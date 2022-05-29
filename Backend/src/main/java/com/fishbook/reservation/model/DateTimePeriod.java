@@ -1,9 +1,10 @@
 package com.fishbook.reservation.model;
 
+import com.fishbook.exception.DateTimeRangeException;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
@@ -18,11 +19,23 @@ public class DateTimePeriod {
     private Long id;
 
     @Column(nullable = false)
-    private Date fromDateTime;
+    private LocalDateTime fromDateTime;
 
     @Column(nullable = false)
-    private Date toDateTime;
+    private LocalDateTime toDateTime;
 
     @Version
     private Long version;
+
+    public DateTimePeriod(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        if (fromDateTime.isAfter(toDateTime)) {
+            throw new DateTimeRangeException();
+        }
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
+    }
+
+    public Boolean isOverlapping(DateTimePeriod period) {
+        return this.getFromDateTime().isBefore(period.getToDateTime()) && period.getFromDateTime().isBefore(this.getToDateTime());
+    }
 }
