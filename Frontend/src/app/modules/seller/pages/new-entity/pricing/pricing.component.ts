@@ -66,11 +66,8 @@ export class PricingComponent implements OnInit {
 
   addPricing() {
     if(this.newEntityForm.valid){
-      if(this.entityType == "boat") {
-        this.addBoatPricing();
-      }
-      if(this.entityType == "house") {
-        this.addHousePricing();
+      if(this.entityType == "boat" || this.entityType == "house") {
+        this.addEntityPricing();
       }
       if(this.entityType == "adventure"){
         this.addAdventurePricing();
@@ -79,16 +76,16 @@ export class PricingComponent implements OnInit {
     }
   }
 
-  addBoatPricing() {
-    this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
-    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
-    this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
-  }
-
-  addHousePricing() {
-    this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
-    this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
-    this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+  addEntityPricing() {
+    if(this.edit){
+      this.entityUpdateRequest.price = this.newEntityForm.controls.price.value;
+      this.entityUpdateRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
+      this.entityUpdateRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+    } else{
+      this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
+      this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
+      this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+    }
   }
 
   addAdventurePricing(){

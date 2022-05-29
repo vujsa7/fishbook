@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { HouseDetails } from 'src/app/modules/public/entities/models/house-details.model';
 import { environment } from 'src/environments/environment';
 import { EntityBasicInfo } from '../models/entity-basic-info.model';
 
@@ -28,7 +29,15 @@ export class HouseService {
     return this.http.get<EntityBasicInfo[]>(this.baseUrl + "?ownerUsername=" + this.authService.getTokenUsername());
   }
 
+  public fetchHouseDetails(id: number): Observable<HouseDetails> {
+    return this.http.get<HouseDetails>(this.baseUrl + "/" + id);
+  }
+
   deleteHouse(id: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + "/" + id, { headers: this.authService.getHeader() });
+  }
+
+  updateHouse(house: any): Observable<any>{
+    return this.http.put<any>(this.baseUrl + "/" + house.id, house, { headers: this.authService.getHeader() });
   }
 }

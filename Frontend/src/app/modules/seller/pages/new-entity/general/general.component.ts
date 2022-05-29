@@ -56,6 +56,9 @@ export class GeneralComponent implements OnInit {
       this.ruleService.getRules("boat").subscribe(
         data => {
           this.appliedRules = data;
+          if(this.edit){
+            this.initializeUpdateForm();
+          }
         }
       )
     }
@@ -64,6 +67,9 @@ export class GeneralComponent implements OnInit {
       this.ruleService.getRules("house").subscribe(
         data => {
           this.appliedRules = data;
+          if(this.edit){
+            this.initializeUpdateForm();
+          }
         }
       )
     }
@@ -110,36 +116,12 @@ export class GeneralComponent implements OnInit {
 
   addGeneralInfo() {
     if(this.newEntityForm.valid){
-      if(this.entityType == "boat") {
-        this.addBoatInfo();
-      }
-      if(this.entityType == "adventure") {
-        this.addAdventureInfo();
-      }
-      if(this.entityType == "house") {
-        this.addHouseInfo();
-      }
+      this.addEntityInfo();
       this.addGeneralInfoEvent.emit();
     }
   }
-
-  addBoatInfo(){
-    this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
-    this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
-    this.entityRegistrationRequest.address = this.newEntityForm.controls.street.value;
-    this.entityRegistrationRequest.city = this.newEntityForm.controls.city.value;
-    this.entityRegistrationRequest.appliedRules = this.newEntityForm.controls.appliedRules?.value;
-  }
-
-  addHouseInfo(){
-    this.entityRegistrationRequest.name = this.newEntityForm.controls.name.value;
-    this.entityRegistrationRequest.description = this.newEntityForm.controls.description.value;
-    this.entityRegistrationRequest.address = this.newEntityForm.controls.street.value;
-    this.entityRegistrationRequest.city = this.newEntityForm.controls.city.value;
-    this.entityRegistrationRequest.appliedRules = this.newEntityForm.controls.appliedRules?.value;
-  }
   
-  addAdventureInfo(){
+  addEntityInfo(){
     if(this.edit){
       this.fillUpdateRequest();
     } else {

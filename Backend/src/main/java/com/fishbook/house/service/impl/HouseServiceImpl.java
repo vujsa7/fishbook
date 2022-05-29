@@ -1,5 +1,6 @@
 package com.fishbook.house.service.impl;
 
+import com.fishbook.additional.entity.information.dao.AdditionalServiceRepository;
 import com.fishbook.entity.dao.EntityRepository;
 import com.fishbook.house.dao.HouseRepository;
 import com.fishbook.house.dao.RoomRepository;
@@ -21,13 +22,15 @@ public class HouseServiceImpl implements HouseService {
     private final RoomRepository roomRepository;
     private final EntityRepository entityRepository;
     private final UserRepository userRepository;
+    private final AdditionalServiceRepository additionalServiceRepository;
 
     @Autowired
-    public HouseServiceImpl(HouseRepository houseRepository, RoomRepository roomRepository, EntityRepository entityRepository, UserRepository userRepository) {
+    public HouseServiceImpl(HouseRepository houseRepository, RoomRepository roomRepository, EntityRepository entityRepository, UserRepository userRepository, AdditionalServiceRepository additionalServiceRepository) {
         this.houseRepository = houseRepository;
         this.roomRepository = roomRepository;
         this.entityRepository = entityRepository;
         this.userRepository = userRepository;
+        this.additionalServiceRepository = additionalServiceRepository;
     }
 
     @Override
@@ -36,13 +39,10 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Long saveNewHouse(House newHouse) {
-        House house = houseRepository.save(newHouse);
-        for(Room room : house.getRooms()){
-            room.setHouse(house);
-            roomRepository.save(room);
-        }
-        return house.getId();
+    public Long save(House house) {
+        additionalServiceRepository.saveAll(house.getAdditionalServices());
+        roomRepository.saveAll(house.getRooms());
+        return houseRepository.save(house).getId();
     }
 
     @Override

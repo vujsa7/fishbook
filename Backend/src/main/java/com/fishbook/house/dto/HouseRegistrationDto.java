@@ -3,6 +3,7 @@ package com.fishbook.house.dto;
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.house.model.Room;
+import com.fishbook.location.model.Address;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.Set;
 public class HouseRegistrationDto {
     private String name;
     private String description;
-    private String address;
+    private Address address;
     private String city;
     private Integer maxPeople;
     private Double cancellationFee;
@@ -24,7 +25,7 @@ public class HouseRegistrationDto {
     public HouseRegistrationDto() {
     }
 
-    public HouseRegistrationDto(String name, String description, String address, String city, Integer maxPeople, Double cancellationFee, Double price, Set<Rule> appliedRules, List<Room> rooms, Set<AdditionalService> additionalServices) {
+    public HouseRegistrationDto(String name, String description, Address address, String city, Integer maxPeople, Double cancellationFee, Double price, Set<Rule> appliedRules, List<Room> rooms, Set<AdditionalService> additionalServices) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -53,11 +54,11 @@ public class HouseRegistrationDto {
         this.description = description;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

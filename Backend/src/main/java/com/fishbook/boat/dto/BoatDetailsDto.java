@@ -21,6 +21,7 @@ public class BoatDetailsDto {
     private Double cancellationFee;
     private LocationDto location;
     private BoatSpecificationsDto boatSpecifications;
+    private String sellerEmail;
     private List<String> rules;
     private List<String> navigationEquipment;
     private List<String> fishingEquipment;

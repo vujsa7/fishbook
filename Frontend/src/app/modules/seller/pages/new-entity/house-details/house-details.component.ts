@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Room } from '../../../models/room.model';
 
 @Component({
   selector: 'app-house-details',
@@ -10,6 +9,8 @@ import { Room } from '../../../models/room.model';
 export class HouseDetailsComponent implements OnInit {
   newEntityForm!: FormGroup;
   @Input() entityRegistrationRequest!: any;
+  @Input() edit!: boolean;
+  @Input() entityUpdateRequest!: any;
   @Output() addHouseDetailsEvent = new EventEmitter();
 
   constructor() { }
@@ -57,8 +58,13 @@ export class HouseDetailsComponent implements OnInit {
   }
   
   addHouseDetails(){
-    this.entityRegistrationRequest.maxPeople = this.newEntityForm.controls.maxPeople.value;
-    this.entityRegistrationRequest.rooms = this.newEntityForm.controls.rooms.value;
+    if(this.edit){
+      this.entityUpdateRequest.maxPeople = this.newEntityForm.controls.maxPeople.value;
+      this.entityUpdateRequest.rooms = this.newEntityForm.controls.rooms.value;
+    } else {
+      this.entityRegistrationRequest.maxPeople = this.newEntityForm.controls.maxPeople.value;
+      this.entityRegistrationRequest.rooms = this.newEntityForm.controls.rooms.value;
+    }
 
     this.addHouseDetailsEvent.emit();
   }

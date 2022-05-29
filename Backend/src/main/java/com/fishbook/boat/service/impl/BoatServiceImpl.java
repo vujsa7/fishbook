@@ -1,5 +1,6 @@
 package com.fishbook.boat.service.impl;
 
+import com.fishbook.additional.entity.information.dao.AdditionalServiceRepository;
 import com.fishbook.boat.dao.BoatRepository;
 import com.fishbook.boat.model.Boat;
 import com.fishbook.boat.service.BoatService;
@@ -15,12 +16,14 @@ import java.util.Optional;
 @Service
 public class BoatServiceImpl implements BoatService {
     private final BoatRepository boatRepository;
+    private final AdditionalServiceRepository additionalServiceRepository;
     private final EntityRepository entityRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public BoatServiceImpl(BoatRepository boatRepository, EntityRepository entityRepository, UserRepository userRepository) {
+    public BoatServiceImpl(BoatRepository boatRepository, AdditionalServiceRepository additionalServiceRepository, EntityRepository entityRepository, UserRepository userRepository) {
         this.boatRepository = boatRepository;
+        this.additionalServiceRepository = additionalServiceRepository;
         this.entityRepository = entityRepository;
         this.userRepository = userRepository;
     }
@@ -31,7 +34,8 @@ public class BoatServiceImpl implements BoatService {
     }
 
     @Override
-    public Long saveNewBoat(Boat boat) {
+    public Long save(Boat boat) {
+        additionalServiceRepository.saveAll(boat.getAdditionalServices());
         return boatRepository.save(boat).getId();
     }
 

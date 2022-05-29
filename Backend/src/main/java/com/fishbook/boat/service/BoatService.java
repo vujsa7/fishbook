@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface BoatService {
     Optional<Boat> findById(Long id);
-    Long saveNewBoat(Boat boat);
+    Long save(Boat boat);
     void deleteById(Long id);
     List<Boat> getAll();
     List<Boat> getAllByOwnerUsername(String username);
