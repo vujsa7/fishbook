@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AdditionalService } from 'src/app/shared/models/additional-service.model';
 
 @Component({
   selector: 'app-pricing',
@@ -8,13 +10,14 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class PricingComponent implements OnInit {
   newEntityForm!: FormGroup;
+  skipperService: any = {name: "Skipper", price: -1}
   @Input() entityRegistrationRequest!: any;
   @Input() entityType!: string;
   @Input() edit!: boolean;
   @Input() entityUpdateRequest!: any;
   @Output() addPricingEvent = new EventEmitter();
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -28,6 +31,8 @@ export class PricingComponent implements OnInit {
     this.newEntityForm = new FormGroup({
       price: new FormControl('', [Validators.required]),
       cancellationFee: new FormControl('', [Validators.required]),
+      skipperService: new FormControl(''),
+      skipperPrice: new FormControl(''),
       additionalServices: new FormArray([])
     })
   }
@@ -67,7 +72,12 @@ export class PricingComponent implements OnInit {
   addPricing() {
     if(this.newEntityForm.valid){
       if(this.entityType == "boat" || this.entityType == "house") {
-        this.addEntityPricing();
+        if(this.newEntityForm.controls.skipperService.value && this.newEntityForm.controls.skipperPrice.value == undefined){
+          this.toastr.error("Must specify price of skipper service", "Error");
+          return;
+        } else {
+          this.addEntityPricing();
+        }
       }
       if(this.entityType == "adventure"){
         this.addAdventurePricing();
@@ -81,10 +91,18 @@ export class PricingComponent implements OnInit {
       this.entityUpdateRequest.price = this.newEntityForm.controls.price.value;
       this.entityUpdateRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
       this.entityUpdateRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+      if(this.newEntityForm.controls.skipperService.value){
+        this.skipperService.price = this.newEntityForm.controls.skipperPrice.value;
+        this.entityRegistrationRequest.additionalServices.push(this.skipperService);
+      }
     } else{
       this.entityRegistrationRequest.price = this.newEntityForm.controls.price.value;
       this.entityRegistrationRequest.cancellationFee = this.newEntityForm.controls.cancellationFee.value;
       this.entityRegistrationRequest.additionalServices = this.newEntityForm.controls.additionalServices.value;
+      if(this.newEntityForm.controls.skipperService.value){
+        this.skipperService.price = this.newEntityForm.controls.skipperPrice.value;
+        this.entityRegistrationRequest.additionalServices.push(this.skipperService);
+      }
     }
   }
 

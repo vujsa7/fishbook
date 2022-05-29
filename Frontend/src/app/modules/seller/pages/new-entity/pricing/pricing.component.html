@@ -43,6 +43,16 @@
                 </svg>                
             <span class="grey-text ms-2" (click)="addAdditionalService()">Add another additional service</span>
         </div>
+        <div *ngIf="entityType == 'boat'" class="skipper-fields mt-2">
+            <label class="mb-2"><input type="checkbox" formControlName="skipperService"/>
+                <span class="checkbox-label">Boat skipper (if selected please input the price below)</span>
+            </label>
+            <div class="input-container">
+                <input id="skipperPrice" type="number" name="skipperPrice" formControlName="skipperPrice">
+                <label for="skipperPrice" class="input-label">Price</label>
+                <span class="measurment">$</span>
+            </div>
+        </div>
     </form>
     <app-primary-button [text]="'Next'" class="next-btn" (click)="addPricing()" [isBtnDisabled]="!newEntityForm.valid"></app-primary-button>
 </div>

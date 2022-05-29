@@ -50,4 +50,16 @@
             right: 5px;
             color: color(darkgrey);
         }
+
+    .skipper-fields{
+        width: 33.12vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .checkbox-label{
+            color: color(blue);
+            margin-left: 5px;
+            @include noselect;
+        }
         
