@@ -1,0 +1,15 @@
+<div 
+    tabindex="0"
+    id="map-container"
+    (mouseenter)="onMouseEnterMap()" 
+    (mousedown)="onMouseDown()"
+    (mouseleave)="onMouseLeaveMap()" 
+    (keydown.shift)="onKeyDown($event)" 
+    (keyup)="onKeyUp()"
+    class="map d-flex justify-content-center"
+>
+    <div class="scroll-message-map d-flex flex-row align-items-center justify-content-center" [ngClass]="{'scroll-message-map-active': mapScrollMessageDisplayed, 'scroll-message-map-display-none': mapScrollMessageDisplayed}">
+        <span class="scroll-message-text">Use shift + scroll to zoom in on a map</span>
+    </div>
+    <div id="ol-map"></div>
+</div>

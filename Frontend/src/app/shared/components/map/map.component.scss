@@ -1,0 +1,51 @@
+@import 'src/styles/main.scss';
+
+.map{
+    height: 450px;
+    width: 100%;
+    position: relative;
+
+    @include media("<tablet-large"){
+        padding: 0 $grid-margin-width;
+    }
+
+    &:focus{
+        outline: none;
+    }
+}
+
+    .scroll-message-map{
+        position: absolute;
+        height: 450px;
+        width: 100%;
+        z-index: 98;
+        background: rgba(0, 0, 0, 0.7);
+        transition: all 0.2s ease-in;
+        padding: 0 $grid-margin-width 0 $grid-margin-width ;
+        opacity: 0;
+        visibility: hidden;
+
+        @include media("<tablet-large"){
+            height: 400px;
+            width: calc(100% - #{$grid-margin-width}*2);
+        }
+    }
+
+    .scroll-message-map.scroll-message-map-active{
+        visibility: initial;
+        opacity: 1;
+    }
+
+    .scroll-message-map.scroll-message-map-display-none{
+        display: none;
+    }
+
+        .scroll-message-text{
+            color: white;
+            font-size: $h4-size;
+        }
+
+#ol-map{
+    height: 100%;
+    width: 100%;
+}
