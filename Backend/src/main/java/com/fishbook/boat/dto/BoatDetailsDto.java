@@ -1,5 +1,6 @@
 package com.fishbook.boat.dto;
 
+import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.location.dto.LocationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,4 +26,5 @@ public class BoatDetailsDto {
     private List<String> rules;
     private List<String> navigationEquipment;
     private List<String> fishingEquipment;
+    private List<AdditionalService> additionalServices;
 }

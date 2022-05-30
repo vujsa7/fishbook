@@ -14,6 +14,7 @@ import { AdventureDetailsComponent } from './pages/new-entity/adventure-details/
 import { HouseDetailsComponent } from './pages/new-entity/house-details/house-details.component';
 import { MyEntitiesComponent } from './pages/my-entities/my-entities.component';
 import { AvailabilityDialogComponent } from './components/availability-dialog/availability-dialog.component';
+import { SpecialOfferDialogComponent } from './components/special-offer-dialog/special-offer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AvailabilityDialogComponent } from './components/availability-dialog/av
     AdventureDetailsComponent,
     HouseDetailsComponent,
     MyEntitiesComponent,
-    AvailabilityDialogComponent
+    AvailabilityDialogComponent,
+    SpecialOfferDialogComponent
   ],
   imports: [
     CommonModule,

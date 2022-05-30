@@ -4,6 +4,7 @@ import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { AvailabilityDialogComponent } from 'src/app/modules/seller/components/availability-dialog/availability-dialog.component';
+import { SpecialOfferDialogComponent } from 'src/app/modules/seller/components/special-offer-dialog/special-offer-dialog.component';
 import { EntityDetailsService } from '../../services/entity-details.service';
 
 @Component({
@@ -63,6 +64,15 @@ export class EntityDetailsComponent implements OnDestroy, OnInit {
       entityType: this.entityType
     }      
     this.dialog.open(AvailabilityDialogComponent, dialogConfig);
+  }
+
+  createSpecialOffer() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      entityId: this.entityDetails.id,
+      entityType: this.entityType
+    }      
+    this.dialog.open(SpecialOfferDialogComponent, dialogConfig);
   }
 
   ngOnDestroy() {

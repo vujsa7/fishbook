@@ -1,0 +1,51 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5 class="mb-3">Special offer</h5>
+    <form [formGroup]="specialOfferForm" class="w-100">
+        <mat-form-field appearance="fill">
+            <mat-label>From</mat-label>
+            <input matInput type="datetime-local" (change)="onFromDateChanged($event)" [min]="minDate">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>To</mat-label>
+            <input matInput type="datetime-local" (change)="onToDateChanged($event)" [min]="minDate">
+        </mat-form-field>
+        <div class="d-flex flex-column form-fields">
+            <div class="input-container" [ngClass]="{'input-container-error' : (specialOfferForm.controls.maxNumberOfPeople.touched && specialOfferForm.controls.maxNumberOfPeople.errors?.['required'])}">
+                <input id="maxNumberOfPeople" type="number" formControlName="maxNumberOfPeople" name="maxNumberOfPeople" (focus)="specialOfferForm.controls.maxNumberOfPeople.markAsUntouched()" required>
+                <label for="maxNumberOfPeople" class="input-label">Maximum people</label>
+                <span class="error-message" *ngIf="specialOfferForm.controls.maxNumberOfPeople.touched && specialOfferForm.controls.maxNumberOfPeople.errors?.['required']">Maximum people must be specified.</span>
+            </div>
+        </div>
+        <div class="grid">
+            <div *ngFor="let additionalService of additionalServices">
+                <label><input type="checkbox" formArrayName="additionalServices"
+                        [checked]="specialOfferForm.controls['additionalServices'].value.includes(additionalService)"
+                        (value)="additionalService.name"
+                        (change)="additionalServicesChanged($event, additionalService)"/>
+                    <span class="ms-2">{{additionalService.name}} {{additionalService.price}}$</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-fields">
+            <div class="input-container" [ngClass]="{'input-container-error' : (specialOfferForm.controls.discount.touched && specialOfferForm.controls.discount.errors?.['required'])}">
+                <select id="discount" formControlName="discount" name="discount" (focus)="specialOfferForm.controls.discount.markAsUntouched()" required>
+                    <option style="display:none"></option>
+                    <option [ngValue]="5">5%</option>
+                    <option [ngValue]="10">10%</option>
+                    <option [ngValue]="15">15%</option>
+                    <option [ngValue]="25">25%</option>
+                    <option [ngValue]="35">35%</option>
+                    <option [ngValue]="35">45%</option>
+                    <option [ngValue]="35">50%</option>
+                </select>
+                <label for="discount" class="input-label">Discount</label>
+                <span class="error-message" *ngIf="specialOfferForm.controls.discount.touched && specialOfferForm.controls.discount.errors?.['required']">Discount must be specified.</span>
+            </div>
+        </div>
+    </form>
+    
+    <div class="d-flex flex-row w-100 justify-content-between">
+        <app-secondary-button text="Cancel" class="w-50 me-1" (click)="close()"></app-secondary-button>
+        <app-primary-button text="Save" class="w-50 ms-1" [isBtnDisabled]="!validRange || !specialOfferForm.valid" (click)="saveSpecialOffer()"></app-primary-button>
+    </div>
+</div>

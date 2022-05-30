@@ -25,10 +25,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -97,7 +94,7 @@ public class HouseController {
         return new ResponseEntity(new HouseDetailsDto(house.getId(), storageService.getImageUrls(house.getImages()), house.getName(), house.getOwner().getFullName(),
                 house.getDescription(), 0.0, house.getPricePerDay(), house.getCancellationFee(), new LocationDto(house.getAddress().getAddress(), house.getAddress().getCity().getName(),
                 house.getAddress().getCity().getCountry().getName(), house.getAddress().getLongitude(), house.getAddress().getLatitude()), new HouseSpecificationsDto(house.getRooms().size(), house.getBedsByRooms(), house.getBedCount()),
-                house.getOwner().getEmail(), house.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList())), HttpStatus.OK);
+                house.getOwner().getEmail(), house.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()), new ArrayList<>(house.getAdditionalServices())), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

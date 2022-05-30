@@ -1,3 +1,4 @@
+import { AdditionalService } from "src/app/shared/models/additional-service.model";
 import { MapLocation } from "src/app/shared/models/map-location.model";
 import { SpecialOffer } from "./special-offer.model";
 
@@ -18,6 +19,7 @@ export class AdventureDetails {
     rules: Array<string>;
     fishingEquipment: Array<string>;
     previousAdventureImages: Array<string>;
+    additionalServices: Array<AdditionalService>;
 
     constructor(
         id: number,
@@ -35,7 +37,8 @@ export class AdventureDetails {
         specialOffers: Array<SpecialOffer>,
         rules: Array<string>,
         fishingEquipment: Array<string>,
-        previousAdventureImages: Array<string>
+        previousAdventureImages: Array<string>,
+        additionalServices: Array<AdditionalService>
     ) {
         this.id = id
         this.images = images
@@ -53,6 +56,7 @@ export class AdventureDetails {
         this.rules = rules
         this.fishingEquipment = fishingEquipment
         this.previousAdventureImages = previousAdventureImages
+        this.additionalServices = additionalServices
     }
 
 }

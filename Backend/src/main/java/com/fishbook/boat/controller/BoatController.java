@@ -1,5 +1,6 @@
 package com.fishbook.boat.controller;
 
+import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.boat.dto.BoatDetailsDto;
 import com.fishbook.boat.dto.BoatRegistrationDto;
 import com.fishbook.boat.dto.BoatSpecificationsDto;
@@ -22,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -97,7 +99,7 @@ public class BoatController {
                 boat.getMaxNumberOfPeople(), boat.getLength(), boat.getLoadCapacity(), boat.getMaxSpeed(), boat.getPower(), boat.getMotors(), boat.getFuelConsumption(), boat.getMaxDistance(),
                 boat.getEnergyConsumption()), boat.getOwner().getEmail(), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
                 boat.getNavigationEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()),
-                boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList())), HttpStatus.OK);
+                boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(boat.getAdditionalServices())), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
