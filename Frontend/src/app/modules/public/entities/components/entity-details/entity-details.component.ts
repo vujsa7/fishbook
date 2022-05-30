@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
+import { AvailabilityDialogComponent } from 'src/app/modules/seller/components/availability-dialog/availability-dialog.component';
 import { EntityDetailsService } from '../../services/entity-details.service';
 
 @Component({
@@ -17,7 +19,7 @@ export class EntityDetailsComponent implements OnDestroy, OnInit {
   loggedInUserUsername: string = "";
   private routerSub: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute, private entityDetailsService: EntityDetailsService, private authService: AuthService) {
+  constructor(private router: Router, private route: ActivatedRoute, private entityDetailsService: EntityDetailsService, private authService: AuthService, private dialog: MatDialog) {
     this.routerSub = router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url.includes('houses')){
@@ -53,6 +55,14 @@ export class EntityDetailsComponent implements OnDestroy, OnInit {
         this.ownerUsername = this.entityDetails.sellerEmail;
       });
     }
+  }
+
+  setAvailability() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      entityType: this.entityType
+    }      
+    this.dialog.open(AvailabilityDialogComponent, dialogConfig);
   }
 
   ngOnDestroy() {

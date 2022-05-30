@@ -5,8 +5,13 @@
     margin-top: 70px;
 }
 
-    .edit{
+    .toolbar-btn{
         color: color(lightblue);
+        margin-right: 40px;
+        margin-left: 10px;
+    }
+
+    .edit{
         margin-right: $grid-margin-width;
     }
 
