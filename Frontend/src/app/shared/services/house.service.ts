@@ -11,14 +11,11 @@ import { EntityBasicInfo } from '../models/entity-basic-info.model';
 })
 export class HouseService {
   private baseUrl: string = environment.baseUrl + 'houses';
-  private header: HttpHeaders;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.header = authService.getHeader();
-   }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   postRegistrationRequest(houseRegistrationRequest: Object): Observable<any>{
-    return this.http.post(this.baseUrl, houseRegistrationRequest, { headers: this.header });
+    return this.http.post(this.baseUrl, houseRegistrationRequest, { headers: this.authService.getHeader() });
   }
 
   getAllHouses(): Observable<EntityBasicInfo[]> {

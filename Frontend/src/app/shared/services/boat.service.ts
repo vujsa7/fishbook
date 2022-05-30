@@ -11,14 +11,11 @@ import { EntityBasicInfo } from '../models/entity-basic-info.model';
 })
 export class BoatService {
   private baseUrl: string = environment.baseUrl + 'boats';
-  private header: HttpHeaders;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.header = authService.getHeader();
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   postRegistrationRequest(boatRegistrationRequest: Object): Observable<any>{
-    return this.http.post(this.baseUrl, boatRegistrationRequest, { headers: this.header });
+    return this.http.post(this.baseUrl, boatRegistrationRequest, { headers: this.authService.getHeader() });
   }
 
   getAllBoats(): Observable<EntityBasicInfo[]> {
