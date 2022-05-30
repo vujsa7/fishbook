@@ -5,7 +5,7 @@ import com.fishbook.entity.model.Entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @MappedSuperclass
@@ -21,10 +21,10 @@ public class ReservationOptions {
     private Long id;
 
     @Column(nullable = false)
-    private Date startDateTime;
+    private LocalDateTime startDateTime;
 
     @Column(nullable = false)
-    private Date endDateTime;
+    private LocalDateTime endDateTime;
 
     @Column(nullable = false)
     private Integer maxNumberOfPeople;
@@ -37,4 +37,12 @@ public class ReservationOptions {
 
     @Column(nullable = false)
     private Double price;
+
+    public ReservationOptions(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxNumberOfPeople,
+                              Set<AdditionalService> additionalServices) {
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.maxNumberOfPeople = maxNumberOfPeople;
+        this.additionalServices = additionalServices;
+    }
 }
