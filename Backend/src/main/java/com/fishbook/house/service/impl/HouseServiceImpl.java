@@ -39,10 +39,14 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Long save(House house) {
-        additionalServiceRepository.saveAll(house.getAdditionalServices());
-        roomRepository.saveAll(house.getRooms());
-        return houseRepository.save(house).getId();
+    public Long save(House newHouse) {
+        additionalServiceRepository.saveAll(newHouse.getAdditionalServices());
+        House house = houseRepository.save(newHouse);
+        for(Room room : house.getRooms()){
+            room.setHouse(house);
+            roomRepository.save(room);
+        }
+        return house.getId();
     }
 
     @Override

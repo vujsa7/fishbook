@@ -61,7 +61,8 @@ export class EntityDetailsComponent implements OnDestroy, OnInit {
   setAvailability() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      entityType: this.entityType
+      entityType: this.entityType,
+      entityId: this.entityDetails.id
     }      
     this.dialog.open(AvailabilityDialogComponent, dialogConfig);
   }
