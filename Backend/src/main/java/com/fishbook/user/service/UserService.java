@@ -19,4 +19,6 @@ public interface UserService extends UserDetailsService {
     List<User> getUsers(String role);
     void deleteUser(Long id);
     void createDeleteAccountRequest(String email, String requestMessage);
+    Integer getPoints(String email);
+    Integer getPenalties(String email);
 }

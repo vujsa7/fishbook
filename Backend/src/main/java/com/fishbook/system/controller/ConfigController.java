@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +60,12 @@ public class ConfigController {
             }
         }
         throw new ApiRequestException("Unable to update global configuration.");
+    }
+
+    @GetMapping(value = "/clientLevelMarks")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity getClientLevelMarks(){
+        List<Integer> marks = configService.getClientLevelMarks();
+        return new ResponseEntity<>(marks, HttpStatus.OK);
     }
 }

@@ -51,16 +51,16 @@ insert into role (name) values ('ROLE_INSTRUCTOR')
 insert into role (name) values ('ROLE_HOUSE_OWNER')
 insert into role (name) values ('ROLE_ADMIN')
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Clementine', 'Charles', 'admin@gmail.com', '$2a$10$t5B4Vu20.u//zjDP2IU4kOR49tqzbUo9WRVQ50rV1Og3FxBsioG2C', '+1 (359) 824-2578', 1, 5, '213dsa214edw132.jpg', true, false);
-insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Aphrodite', 'Sellers', 'boat-seller@gmail.com', '$2a$10$qonYFJh8vYljXXcoih76ke2fG8PMx1r18rdqpodqfgwMJR6njA3Xq', '+1 (655) 143-1354', 2, 2, 'masiofu218h421ij.jpg', true, false);
-insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Ursa', 'Foster', 'house-seller@gmail.com', '$2a$10$CsCg4yGBinBwzr2KnOMftuBvERAwk86nnhMmOyhyb97rZpetWCQDK', '+1 (344) 589-9773', 3, 4, 'a1312klfsad87124j.jpg', true, false);
-insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Farrah', 'Wilkins', 'instructor-seller@gmail.com', '$2a$10$Rg7YmVRX6KoLBqtNRsonOO2bMcM4I/FxR80avrUuwWiB6Q7tbnthG', '+1 (109) 862-3819', 4, 3, '44124a3148iZJm4.jpg', true, false);
-insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Alexander', 'Sparks', 'client@gmail.com', '$2a$10$l45eAw.KTerds3fxaaIKMuGssB5dTZ9GXb7hTiSShgN18faN/F1C.', '+1 (327) 206-3487', 5, 1, '4WOWSXxIU8iZJm4.jpg', true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Aphrodite', 'Sellers', 'boat-seller@gmail.com', '$2a$10$qonYFJh8vYljXXcoih76ke2fG8PMx1r18rdqpodqfgwMJR6njA3Xq', '+1 (655) 143-1354', 2, 2, 'masiofu218h421ij.jpg', 0, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Ursa', 'Foster', 'house-seller@gmail.com', '$2a$10$CsCg4yGBinBwzr2KnOMftuBvERAwk86nnhMmOyhyb97rZpetWCQDK', '+1 (344) 589-9773', 3, 4, 'a1312klfsad87124j.jpg', 0, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Farrah', 'Wilkins', 'instructor-seller@gmail.com', '$2a$10$Rg7YmVRX6KoLBqtNRsonOO2bMcM4I/FxR80avrUuwWiB6Q7tbnthG', '+1 (109) 862-3819', 4, 3, '44124a3148iZJm4.jpg', 0, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, penalties, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Alexander', 'Sparks', 'client@gmail.com', '$2a$10$l45eAw.KTerds3fxaaIKMuGssB5dTZ9GXb7hTiSShgN18faN/F1C.', '+1 (327) 206-3487', 5, 1, '4WOWSXxIU8iZJm4.jpg', 0, 0, true, false);
 
 
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 100, 200, 0.5, 0.5)
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (1, 200, 200, 0.5, 0.5)
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (2, 300, 200, 0.5, 0.5)
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (3, 400, 200, 0.5, 0.5)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 0, 200, 2, 0.5)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (1, 500, 200, 5, 0.5)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (2, 1000, 200, 7, 0.5)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (3, 2000, 200, 9, 0.5)
 
 insert into global_config (system_fee, buyer_points_per_reservation, seller_points_per_reservation) values (1000.0, 20, 20)
 

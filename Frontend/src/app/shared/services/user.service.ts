@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   
-  
   private baseUrl: string = environment.baseUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -36,5 +35,13 @@ export class UserService {
 
   postDeleteAccountRequest(requestMessage: string): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'users/' + this.authService.getTokenUsername() + '/deleteAccountRequest', requestMessage, { headers: this.authService.getHeader()});
+  }
+
+  getClientLevelMarks(): Observable<Array<number>> {
+    return this.http.get<Array<number>>(this.baseUrl + 'config/clientLevelMarks', { headers: this.authService.getHeader()})
+  }
+
+  getPointsAchieved(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'users/points', { headers: this.authService.getHeader()})
   }
 }

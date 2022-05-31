@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ConfigServiceImpl implements ConfigService {
@@ -50,5 +51,22 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public Optional<GlobalConfig> findGlobalConfigById(Integer id) {
         return globalConfigRepository.findById(id);
+    }
+
+    @Override
+    public List<Integer> getClientLevelMarks() {
+        List<Integer> levelMarks = loyaltyConfigRepository.findAll().stream().map(l -> l.getBuyerMinPoints()).collect(Collectors.toList());
+        return levelMarks;
+    }
+
+    @Override
+    public Integer getClientLoyaltyPointsForNextLevel(Integer points) {
+        List<Integer> levelMarks = this.getClientLevelMarks();
+        for(Integer mark : levelMarks){
+            if(points < mark){
+                return mark;
+            }
+        }
+        return levelMarks.get(levelMarks.size()-1);
     }
 }

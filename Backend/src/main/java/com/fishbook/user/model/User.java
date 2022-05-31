@@ -52,6 +52,12 @@ public class User implements UserDetails {
     
     private String profileImage;
 
+    @Column
+    public Integer points;
+
+    @Column
+    public Integer penalties;
+
     public User() {}
 
     public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role) {
@@ -65,6 +71,12 @@ public class User implements UserDetails {
         this.isEnabled = true;
         this.isDeleted = false;
         this.verificationCodes = new HashSet<>();
+        if(!role.equals("ADMIN")){
+            this.points = 0;
+        }
+        if(role.equals("CLIENT")){
+            this.penalties = 0;
+        }
     }
 
     public User(String firstName, String lastName, String email, String password, String phoneNumber, Address address, Role role, Boolean isEnabled) {
@@ -78,8 +90,13 @@ public class User implements UserDetails {
         this.isEnabled = isEnabled;
         this.isDeleted = false;
         this.verificationCodes = new HashSet<>();
+        if(!role.equals("ADMIN")){
+            this.points = 0;
+        }
+        if(role.equals("CLIENT")){
+            this.penalties = 0;
+        }
     }
-
 
     public Long getId() {
         return id;
@@ -222,4 +239,12 @@ public class User implements UserDetails {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+
+    public Integer getPoints() { return points; }
+
+    public void setPoints(Integer points) { this.points = points; }
+
+    public Integer getPenalties() { return penalties; }
+
+    public void setPenalties(Integer penalties) { this.penalties = penalties; }
 }

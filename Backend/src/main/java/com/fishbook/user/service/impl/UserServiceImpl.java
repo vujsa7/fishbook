@@ -165,4 +165,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         deleteAccountRequest.setRequestMessage(requestMessage);
         deleteAccountRequestRepository.save(deleteAccountRequest);
     }
+
+    @Override
+    public Integer getPoints(String email) {
+        User user = userRepository.findByEmail(email);
+        if(user.getPoints() != null)
+            return user.getPoints();
+        return -1;
+    }
+
+    public Integer getPenalties(String email){
+        User user = userRepository.findByEmail(email);
+        if(user.getPenalties() != null)
+            return user.getPenalties();
+        return -1;
+    }
 }

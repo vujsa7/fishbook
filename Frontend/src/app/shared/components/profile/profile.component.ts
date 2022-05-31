@@ -26,6 +26,9 @@ export class ProfileComponent implements OnInit {
   newProfileImg: any;
   userProfileImg!: string;
   profileType: string = "";
+  levelMarks: Array<number> = [];
+  points: number = -1;
+  
 
   constructor(private authService: AuthService, private locationService: LocationService, private router: Router, private userService: UserService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -55,6 +58,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserProfilePhoto().subscribe(data => {
       this.userProfileImg = data;
     })
+    this.initLoyalty();
   }
 
   onCountryChanged() {
@@ -198,4 +202,17 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(DeleteAccountDialogComponent, dialogConfig);
   }
 
+  initLoyalty() {
+    if(this.profileType == "ROLE_CLIENT"){
+      this.userService.getClientLevelMarks().subscribe(data => {
+        this.levelMarks = data;
+      });
+    }
+    this.userService.getPointsAchieved().subscribe(data => {
+      this.points = data;
+    });
+  }
+
 }
+
+

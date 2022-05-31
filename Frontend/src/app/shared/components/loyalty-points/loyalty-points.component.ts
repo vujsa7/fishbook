@@ -11,6 +11,7 @@ export class LoyaltyPointsComponent implements OnInit {
   constructor(private authService: AuthService){}
 
   @Input() points: number = -1;
+  @Input() levelMarks!: Array<number>;
   profileType: string = "";
   lowPointsIcon: string = "";
   previousLevelTarget: number = -1;
@@ -27,28 +28,28 @@ export class LoyaltyPointsComponent implements OnInit {
   }
 
   initializeCustomerLoyaltyConfig() {
-    if(this.points <= 500){
+    if(this.points < this.levelMarks[1]){
       this.lowPointsIcon = "seahorse-icon";
       this.previousLevelTarget = 0;
       this.highPointsIcon = "swordfish-icon";
-      this.nextLevelTarget = 500;
+      this.nextLevelTarget = this.levelMarks[1];
       this.customerLevel = "Baby Seahorse Customer";
-    } else if(this.points <= 1000){
+    } else if(this.points < this.levelMarks[2]){
       this.lowPointsIcon = "swordfish-icon";
-      this.previousLevelTarget = 500;
+      this.previousLevelTarget = this.levelMarks[1];
       this.highPointsIcon = "shark-icon";
-      this.nextLevelTarget = 1000;
+      this.nextLevelTarget = this.levelMarks[2];
       this.customerLevel = "Wild Swordfish Customer";
-    } else if(this.points <= 2000){
-      this.previousLevelTarget = 1000;
+    } else if(this.points < this.levelMarks[3]){
+      this.previousLevelTarget = this.levelMarks[2];
       this.lowPointsIcon = "shark-icon";
       this.highPointsIcon = "whale-icon";
-      this.nextLevelTarget = 2000;
+      this.nextLevelTarget = this.levelMarks[3];
       this.customerLevel = "Experienced Shark Customer";
     } else {
-      this.previousLevelTarget = 2000;
+      this.previousLevelTarget = this.levelMarks[3];
       this.lowPointsIcon = "whale-icon";
-      this.nextLevelTarget = 2000;
+      this.nextLevelTarget = this.levelMarks[3];
       this.customerLevel = "Mighty Whale Customer";
     }
   }

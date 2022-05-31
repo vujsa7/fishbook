@@ -5,10 +5,8 @@ import com.fishbook.email.service.EmailService;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
 import com.fishbook.storage.service.StorageService;
-import com.fishbook.user.dto.PasswordUpdateDto;
-import com.fishbook.user.dto.UserDto;
-import com.fishbook.user.dto.UserInfoDto;
-import com.fishbook.user.dto.UserRegistrationDto;
+import com.fishbook.system.service.ConfigService;
+import com.fishbook.user.dto.*;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.RoleService;
 import com.fishbook.user.service.UserService;
@@ -40,15 +38,17 @@ public class UserController {
     private final VerificationCodeService verificationCodeService;
     private final RoleService roleService;
     private final StorageService storageService;
+    private final ConfigService configService;
 
     @Autowired
-    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verificationCodeService, RoleService roleService, StorageService storageService) {
+    public UserController(UserService userService, EmailService emailService, PasswordEncoder passwordEncoder, VerificationCodeService verificationCodeService, RoleService roleService, StorageService storageService, ConfigService configService) {
         this.userService = userService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.verificationCodeService = verificationCodeService;
         this.roleService = roleService;
         this.storageService = storageService;
+        this.configService = configService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -201,5 +201,21 @@ public class UserController {
         }
         userService.createDeleteAccountRequest(principal.getName(), message);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/points")
+    @PreAuthorize("hasAnyRole('CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    public ResponseEntity getPointsAchieved(Principal principal){
+        Integer points = userService.getPoints(principal.getName());
+        return new ResponseEntity<>(points, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/stats")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity getStats(Principal principal){
+        Integer penalties = userService.getPenalties(principal.getName());
+        Integer points = userService.getPoints(principal.getName());
+        StatsDto stats = new StatsDto(penalties, 3, points, configService.getClientLoyaltyPointsForNextLevel(points));
+        return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 }

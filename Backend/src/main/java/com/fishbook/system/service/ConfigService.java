@@ -13,4 +13,6 @@ public interface ConfigService {
     void update(GlobalConfig globalConfig);
     Optional<LoyaltyConfig> findLoyaltyConfigById(Integer id);
     Optional<GlobalConfig> findGlobalConfigById(Integer id);
+    List<Integer> getClientLevelMarks();
+    Integer getClientLoyaltyPointsForNextLevel(Integer points);
 }
