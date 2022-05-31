@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import _ from 'lodash';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { OptionsDialogComponent } from 'src/app/shared/components/options-dialog/options-dialog.component';
 import { EntitySubscription } from '../../models/entity-subscription.model';
@@ -28,7 +29,13 @@ export class SubscribedEntitiesComponent implements OnInit {
   constructor(private subscriptionService: SubscriptionService, private renderer: Renderer2, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.subscriptionService.getSubscriptionList());
+    this.subscriptionService.getSubscriptionList().subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    );
     this.renderer.listen('body', 'click', (e: Event) => {
       for (let el of this.optionBox) {
         if (el.nativeElement.contains(e.target)) {
@@ -42,11 +49,6 @@ export class SubscribedEntitiesComponent implements OnInit {
       }
       this.selectedOptionBoxId = -1;
     })
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   selectOptionBox(id: number): void {
@@ -86,6 +88,7 @@ export class SubscribedEntitiesComponent implements OnInit {
           message: "You have succesfully unsubscribed. You won't receive notifications from this subscription anymore.",
           buttonText: "Okay",
         };
+        _.remove(this.dataSource.data, entity => entity.entityId === id);
         this.dialog.open(InfoDialogComponent, dialogConfig);
       }
     );

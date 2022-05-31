@@ -14,10 +14,10 @@ export class SubscriptionService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   public toggleSubscribe(subscription: { entityId: number }): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'subscription', subscription, { headers: this.authService.getHeader() });
+    return this.http.post<any>(this.baseUrl + 'subscriptions', subscription, { headers: this.authService.getHeader() });
   }
 
   public checkSubscriptionStatus(entityId: number): Observable<boolean> {
-    return this.http.get<boolean>(this.baseUrl + 'subscription/' + entityId, { headers: this.authService.getHeader() });
+    return this.http.get<boolean>(this.baseUrl + 'subscriptions/' + entityId, { headers: this.authService.getHeader() });
   }
 }

@@ -66,12 +66,18 @@
                 <div class="d-flex flex-column align-items-center">
                     <span class="white-text fw-bold eq-title">Included navigation equipment</span>
                     <span *ngFor="let equipment of navigationEquipment" class="white-text eq-text">{{equipment}}</span>
+                    <div *ngIf="navigationEquipment.length == 0" class="empty-box d-flex align-items-center justify-content-between">
+                        <span class="white-text">Navigation equipment is not included</span>
+                    </div>
                 </div>
             </div>
             <div class="glass-wrapper-4 glass-container">
                 <div class="d-flex flex-column align-items-center">
                     <span class="white-text fw-bold eq-title">Included fishing equipment</span>
                     <span *ngFor="let equipment of fishingEquipment" class="white-text eq-text">{{equipment}}</span>
+                    <div *ngIf="fishingEquipment.length == 0" class="empty-box d-flex align-items-center justify-content-between">
+                        <span class="white-text">Fishing equipment is not included</span>
+                    </div>
                 </div>
             </div>
         </div>

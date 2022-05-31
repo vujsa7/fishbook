@@ -10,8 +10,11 @@
         </div>
         <div class="glass-container equipment d-flex flex-column">
             <span class="fw-bold white-text title align-self-center">Included fishing equipment</span>
-            <div class="d-flex flex-column equipment-wrapper">
+            <div class="d-flex flex-column equipment-wrapper align-items-center">
                 <span *ngFor="let equipment of fishingEquipment" class="white-text eq-text">{{equipment}}</span>
+                <div *ngIf="fishingEquipment.length == 0" class="empty-box d-flex align-items-center justify-content-between">
+                    <span class="white-text">Fishing equipment is not included</span>
+                </div>
             </div>
         </div>
     </div>

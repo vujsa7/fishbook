@@ -65,8 +65,8 @@ export class SpecialOffersComponent implements OnInit {
     )
   }
 
-  loggedIn() {
-    return this.authService.isLoggedIn();
+  canSubscribe() {
+    return this.authService.isLoggedIn() && this.authService.getTokenRole() == "ROLE_CLIENT";
   }
 
 }

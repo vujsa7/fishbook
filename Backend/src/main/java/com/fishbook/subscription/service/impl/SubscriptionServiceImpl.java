@@ -8,6 +8,9 @@ import com.fishbook.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -29,6 +32,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public boolean isSubscribed(String email, Long entityId) {
         User user = userRepository.findByEmail(email);
         return user.getSubscribedEntities().stream().filter(e -> e.getId().equals(entityId)).findFirst().isPresent();
+    }
+
+    @Override
+    public List<Entity> getSubscribedEntities(String email) {
+        return userRepository.findByEmail(email).getSubscribedEntities().stream().collect(Collectors.toList());
     }
 
 }
