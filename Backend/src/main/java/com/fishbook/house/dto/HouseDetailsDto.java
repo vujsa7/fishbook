@@ -2,6 +2,7 @@ package com.fishbook.house.dto;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.location.dto.LocationDto;
+import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,5 @@ public class HouseDetailsDto {
     private String sellerEmail;
     private List<String> rules;
     private List<AdditionalService> additionalServices;
+    private List<SpecialOfferPreviewDto> specialOffers;
 }

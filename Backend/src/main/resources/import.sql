@@ -147,3 +147,15 @@ insert into entity_image (name, priority, entity_id) values ('8-2.jpg', 3, 8)
 insert into entity (id, name, description, address_id, price_per_day, cancellation_fee, is_deleted, owner_id) values (nextval('entity_id_seq'),'Diamond', 'Like the name suggests, this boat is like a diamond in the sea. If you are a couple this is the perfect boat for you.', 9, 110.0, 10, false, 2)
 insert into boats (id, boat_type, max_number_of_people, energy_consumption, fuel_consumption, boat_length, load_capacity, max_distance, max_speed, motors, power) values (9, 'CABIN_CRUISER', 2, 8, 20, 6.0, 1500, 60, 120, 2, 1000)
 insert into entity_image (name, priority, entity_id) values ('9.jpg', 1, 9)
+
+insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Barbeque dinner', 10);
+insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Unlimited drinks', 25);
+insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Wifi', 5);
+
+insert into entity_additional_service(entity_id, service_id) values (7, 1)
+insert into entity_additional_service(entity_id, service_id) values (7, 2)
+insert into entity_additional_service(entity_id, service_id) values (7, 3)
+
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-06 00:00:00', '2021-06-09 00:00:00', 10, 200.0, 10.0, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-10 00:00:00', '2021-06-13 00:00:00', 10, 190.0, 10.0, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-13 00:00:00', '2021-06-16 00:00:00', 12, 210.0, 10.0, 7)

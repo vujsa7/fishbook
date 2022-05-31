@@ -1,6 +1,5 @@
 package com.fishbook.house.controller;
 
-import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.additional.entity.information.service.AdditionalServiceService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.house.dto.HouseDetailsDto;
@@ -10,9 +9,10 @@ import com.fishbook.house.dto.HouseUpdateDto;
 import com.fishbook.house.model.House;
 import com.fishbook.house.service.HouseService;
 import com.fishbook.location.dto.LocationDto;
-import com.fishbook.location.model.Address;
-import com.fishbook.location.model.City;
 import com.fishbook.location.service.LocationService;
+import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
+import com.fishbook.reservation.model.SpecialOffer;
+import com.fishbook.reservation.service.SpecialOfferService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -36,14 +36,16 @@ public class HouseController {
     private final UserService userService;
     private final AdditionalServiceService additionalServiceService;
     private final StorageService storageService;
+    private final SpecialOfferService specialOfferService;
 
     @Autowired
-    public HouseController(HouseService houseService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService) {
+    public HouseController(HouseService houseService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService, SpecialOfferService specialOfferService) {
         this.houseService = houseService;
         this.locationService = locationService;
         this.userService = userService;
         this.additionalServiceService = additionalServiceService;
         this.storageService = storageService;
+        this.specialOfferService = specialOfferService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -91,10 +93,12 @@ public class HouseController {
             return new ResponseEntity("House with that id doesn't exist", HttpStatus.NOT_FOUND);
         }
         House house = houseOptional.get();
+        List<SpecialOffer> specialOffers = new ArrayList(specialOfferService.getSpecialOffersByEntityId(house.getId()));
+        List<SpecialOfferPreviewDto> specialOfferPreviews = specialOffers.stream().map(s -> new SpecialOfferPreviewDto(s.getId(), s.getStartDateTime(), s.getEndDateTime(), s.getPrice()*(100 + s.getDiscount())/100, s.getPrice())).collect(Collectors.toList());
         return new ResponseEntity(new HouseDetailsDto(house.getId(), storageService.getImageUrls(house.getImages()), house.getName(), house.getOwner().getFullName(),
                 house.getDescription(), 0.0, house.getPricePerDay(), house.getCancellationFee(), new LocationDto(house.getAddress().getAddress(), house.getAddress().getCity().getName(),
                 house.getAddress().getCity().getCountry().getName(), house.getAddress().getLongitude(), house.getAddress().getLatitude()), new HouseSpecificationsDto(house.getRooms().size(), house.getBedsByRooms(), house.getBedCount()),
-                house.getOwner().getEmail(), house.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()), new ArrayList<>(house.getAdditionalServices())), HttpStatus.OK);
+                house.getOwner().getEmail(), house.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()), new ArrayList<>(house.getAdditionalServices()), specialOfferPreviews), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

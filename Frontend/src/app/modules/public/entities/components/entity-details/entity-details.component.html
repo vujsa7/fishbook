@@ -58,8 +58,8 @@
         </div>
         <boat-specifications class="boat-specifications" *ngIf="entityType == 'boat'" [boatSpecifications]="entityDetails.boatSpecifications" [navigationEquipment]="entityDetails.navigationEquipment" [fishingEquipment]="entityDetails.fishingEquipment"></boat-specifications>
         <adventure-about class="adventure-about" *ngIf="entityType == 'adventure'" [aboutSeller]="entityDetails.aboutSeller" [fishingEquipment]="entityDetails.fishingEquipment" [sellerImg]="entityDetails.sellerImg"></adventure-about>
-        <entity-special-offers *ngIf="entityDetails.specialOffers" [specialOffers]="entityDetails.specialOffers"></entity-special-offers>
+        <entity-special-offers *ngIf="entityDetails.specialOffers && entityDetails.specialOffers.length != 0" [specialOffers]="entityDetails.specialOffers" [entityId]="entityDetails.id"></entity-special-offers>
         <adventure-gallery class="adventure-gallery" *ngIf="entityType == 'adventure' && entityDetails.previousAdventureImages.length != 0" [previousAdventureImages]="entityDetails.previousAdventureImages"></adventure-gallery>
     </div>
-    <app-map [lat]="entityDetails.location.lat" [lon]="entityDetails.location.lon"></app-map>
+    <app-map *ngIf="entityDetails" [lat]="entityDetails.location.lat" [lon]="entityDetails.location.lon"></app-map>
 </div>

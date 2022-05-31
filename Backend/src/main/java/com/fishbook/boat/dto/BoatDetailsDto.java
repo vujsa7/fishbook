@@ -2,6 +2,7 @@ package com.fishbook.boat.dto;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.location.dto.LocationDto;
+import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,5 @@ public class BoatDetailsDto {
     private List<String> navigationEquipment;
     private List<String> fishingEquipment;
     private List<AdditionalService> additionalServices;
+    private List<SpecialOfferPreviewDto> specialOffers;
 }

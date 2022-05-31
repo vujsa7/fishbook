@@ -1,9 +1,14 @@
 @import 'src/styles/main.scss';
 
-
-h3{
-    margin-bottom: 15px !important;
+.title{
+    margin-bottom: 15px;
+    position: relative;
 }
+
+    .subscribe-btn{
+        position: absolute;
+        right: 0;
+    }
 
 .custom-carousel{
     width: 100%;

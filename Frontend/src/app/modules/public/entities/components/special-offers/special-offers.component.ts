@@ -1,13 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { SpecialOffer } from '../../models/special-offer.model';
+import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
   selector: 'entity-special-offers',
   templateUrl: './special-offers.component.html',
   styleUrls: ['./special-offers.component.scss']
 })
-export class SpecialOffersComponent {
+export class SpecialOffersComponent implements OnInit {
+
+  isSubscribed!: boolean;
+
+  constructor(private subscriptionService: SubscriptionService, private authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.subscriptionService.checkSubscriptionStatus(this.entityId).subscribe(data => {
+      this.isSubscribed = data;
+    })
+  }
 
   customOptions: OwlOptions = {
     loop: true,
@@ -39,5 +51,22 @@ export class SpecialOffersComponent {
   }
 
   @Input() specialOffers!: Array<SpecialOffer>;
+  @Input() entityId!: number;
+
+  toggleSubscribe() {
+    let subscription = { entityId: this.entityId }
+    this.subscriptionService.toggleSubscribe(subscription).subscribe(
+      data => {
+        this.isSubscribed = !this.isSubscribed;
+      },
+      error => {
+
+      }
+    )
+  }
+
+  loggedIn() {
+    return this.authService.isLoggedIn();
+  }
 
 }

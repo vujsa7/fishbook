@@ -52,6 +52,9 @@ public abstract class Entity {
     @OneToMany(mappedBy = "entity")
     private Set<EntityImage> images;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribedEntities")
+    private Set<User> subscribedUsers;
+
     public Entity() {}
 
     public Entity(String name, String description, Double cancellationFee, Double pricePerDay, Boolean isDeleted, User owner, Address address, Set<Rule> rules, Set<AdditionalService> additionalServices) {

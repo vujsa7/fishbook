@@ -26,7 +26,7 @@ public class ReservationOptions {
     @Column(nullable = false)
     private LocalDateTime endDateTime;
 
-    @Column(nullable = false)
+    @Column
     private Integer maxNumberOfPeople;
 
     @ManyToMany

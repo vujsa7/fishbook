@@ -1,6 +1,5 @@
 package com.fishbook.boat.controller;
 
-import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.boat.dto.BoatDetailsDto;
 import com.fishbook.boat.dto.BoatRegistrationDto;
 import com.fishbook.boat.dto.BoatSpecificationsDto;
@@ -11,6 +10,9 @@ import com.fishbook.boat.service.BoatService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.location.dto.LocationDto;
 import com.fishbook.location.service.LocationService;
+import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
+import com.fishbook.reservation.model.SpecialOffer;
+import com.fishbook.reservation.service.SpecialOfferService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -36,13 +38,15 @@ public class BoatController {
     private final LocationService locationService;
     private final UserService userService;
     private final StorageService storageService;
+    private final SpecialOfferService specialOfferService;
 
     @Autowired
-    public BoatController(BoatService boatService, LocationService locationService, UserService userService, StorageService storageService) {
+    public BoatController(BoatService boatService, LocationService locationService, UserService userService, StorageService storageService, SpecialOfferService specialOfferService) {
         this.boatService = boatService;
         this.locationService = locationService;
         this.userService = userService;
         this.storageService = storageService;
+        this.specialOfferService = specialOfferService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,13 +97,15 @@ public class BoatController {
             return new ResponseEntity("Boat with that id doesn't exist", HttpStatus.NOT_FOUND);
         }
         Boat boat = boatOptional.get();
+        List<SpecialOffer> specialOffers = new ArrayList(specialOfferService.getSpecialOffersByEntityId(boat.getId()));
+        List<SpecialOfferPreviewDto> specialOfferPreviews = specialOffers.stream().map(s -> new SpecialOfferPreviewDto(s.getId(), s.getStartDateTime(), s.getEndDateTime(), s.getPrice()*(100 + s.getDiscount())/100, s.getPrice())).collect(Collectors.toList());
         return new ResponseEntity(new BoatDetailsDto(boat.getId(), storageService.getImageUrls(boat.getImages()), boat.getName(), boat.getOwner().getFullName(),
                 boat.getDescription(), 0.0, boat.getPricePerDay(), boat.getCancellationFee(), new LocationDto(boat.getAddress().getAddress(), boat.getAddress().getCity().getName(),
                 boat.getAddress().getCity().getCountry().getName(), boat.getAddress().getLongitude(), boat.getAddress().getLatitude()), new BoatSpecificationsDto(boat.getBoatType().toString(),
                 boat.getMaxNumberOfPeople(), boat.getLength(), boat.getLoadCapacity(), boat.getMaxSpeed(), boat.getPower(), boat.getMotors(), boat.getFuelConsumption(), boat.getMaxDistance(),
                 boat.getEnergyConsumption()), boat.getOwner().getEmail(), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
                 boat.getNavigationEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()),
-                boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(boat.getAdditionalServices())), HttpStatus.OK);
+                boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(boat.getAdditionalServices()), specialOfferPreviews), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

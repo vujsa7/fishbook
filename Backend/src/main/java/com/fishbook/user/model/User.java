@@ -53,10 +53,17 @@ public class User implements UserDetails {
     private String profileImage;
 
     @Column
-    public Integer points;
+    private Integer points;
 
     @Column
-    public Integer penalties;
+    private Integer penalties;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "subscribed_entity_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "entity_id"))
+    private Set<com.fishbook.entity.model.Entity> subscribedEntities;
 
     public User() {}
 
@@ -247,4 +254,9 @@ public class User implements UserDetails {
     public Integer getPenalties() { return penalties; }
 
     public void setPenalties(Integer penalties) { this.penalties = penalties; }
+
+    public Set<com.fishbook.entity.model.Entity> getSubscribedEntities() { return subscribedEntities; }
+
+    public void setSubscribedEntities(Set<com.fishbook.entity.model.Entity> subscribedEntities) { this.subscribedEntities = subscribedEntities; }
+
 }

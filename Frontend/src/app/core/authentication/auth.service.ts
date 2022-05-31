@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
     providedIn: 'root'
 })
 export class AuthService {
+
     private userEmail = new BehaviorSubject('');
     userEmailObservable = this.userEmail.asObservable();
 
@@ -24,7 +25,7 @@ export class AuthService {
         this.userEmail.next(this.getTokenUsername());
     }
 
-    flushToken(): void{
+    flushToken(): void {
         localStorage.removeItem('jwtToken');
         this.userEmail.next("");
     }
@@ -82,6 +83,13 @@ export class AuthService {
         } catch (Error) {
             return null;
         }
+    }
+
+    isLoggedIn() {
+        if(this.getToken() && this.getToken() != "")
+            return true;
+        else
+            return false;
     }
 
 }

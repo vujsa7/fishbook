@@ -8,6 +8,9 @@ import com.fishbook.fishing.lesson.dto.FishingLessonUpdateDto;
 import com.fishbook.fishing.lesson.model.FishingLesson;
 import com.fishbook.fishing.lesson.service.FishingLessonService;
 import com.fishbook.location.dto.LocationDto;
+import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
+import com.fishbook.reservation.model.SpecialOffer;
+import com.fishbook.reservation.service.SpecialOfferService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
 import com.fishbook.user.service.UserService;
@@ -32,6 +35,7 @@ public class FishingLessonController {
     private final UserService userService;
     private final FishingLessonService fishingLessonService;
     private final StorageService storageService;
+    private final SpecialOfferService specialOfferService;
 
     @PostMapping
     @PreAuthorize("hasRole('INSTRUCTOR')")
@@ -74,11 +78,13 @@ public class FishingLessonController {
             return new ResponseEntity("Adventure with that id doesn't exist", HttpStatus.NOT_FOUND);
         }
         FishingLesson fishingLesson = fishingLessonOptional.get();
+        List<SpecialOffer> specialOffers = new ArrayList(specialOfferService.getSpecialOffersByEntityId(fishingLesson.getId()));
+        List<SpecialOfferPreviewDto> specialOfferPreviews = specialOffers.stream().map(s -> new SpecialOfferPreviewDto(s.getId(), s.getStartDateTime(), s.getEndDateTime(), s.getPrice()*(100 + s.getDiscount())/100, s.getPrice())).collect(Collectors.toList());
         return new ResponseEntity(new FishingLessonDetailsDto(fishingLesson.getId(), storageService.getImageUrls(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getOwner().getFullName(),
                 fishingLesson.getDescription(), 0.0, fishingLesson.getPricePerDay(), fishingLesson.getCancellationFee(), new LocationDto(fishingLesson.getAddress().getAddress(), fishingLesson.getAddress().getCity().getName(),
                 fishingLesson.getAddress().getCity().getCountry().getName(), fishingLesson.getAddress().getLongitude(), fishingLesson.getAddress().getLatitude()), fishingLesson.getMaxNumberOfPeople(), "https://images.unsplash.com/photo-1463062511209-f7aa591fa72f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
                 fishingLesson.getInstructorBiography(), fishingLesson.getOwner().getEmail(), fishingLesson.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
-                fishingLesson.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(), new ArrayList<>(fishingLesson.getAdditionalServices())), HttpStatus.OK);
+                fishingLesson.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(), new ArrayList<>(fishingLesson.getAdditionalServices()), specialOfferPreviews), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

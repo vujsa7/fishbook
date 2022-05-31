@@ -15,6 +15,9 @@ import { BoatModule } from './boat/boat.module';
 import { SpecialOffersComponent } from './components/special-offers/special-offers.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EntityDetailsService } from './services/entity-details.service';
+import { EntityService } from './services/entity.service';
+import { SubscriptionService } from '../../client/dashboard/services/subscription.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CarouselModule ,
     ReactiveFormsModule,
     FormsModule,
+  ],
+  providers: [
+    EntityService,
+    EntityDetailsService,
+    SubscriptionService
   ]
 })
 export class EntitiesModule { }

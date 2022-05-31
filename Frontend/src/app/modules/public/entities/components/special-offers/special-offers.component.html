@@ -1,5 +1,9 @@
 <div class="d-flex flex-column align-items-center special-offers">
-    <h3>Special offers</h3>
+    <div *ngIf="loggedIn()" class="d-flex w-100 align-items-center justify-content-center title">
+        <h3>Special offers</h3>
+        <app-secondary-button *ngIf="!isSubscribed" (click)="toggleSubscribe()" class="subscribe-btn" text="Subscribe"></app-secondary-button>
+        <app-primary-button *ngIf="isSubscribed" (click)="toggleSubscribe()" class="subscribe-btn" text="Subscribed"></app-primary-button>
+    </div>
     <owl-carousel-o class="custom-carousel" [options]="customOptions">
         <ng-container *ngFor="let specialOffer of specialOffers">
           <ng-template carouselSlide>
