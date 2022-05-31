@@ -10,7 +10,7 @@
             </div>
             <div class="d-flex flex-column left-margin">
                 <h2 class="gradient">{{user.firstName}} {{user.lastName}}</h2>
-                <app-loyalty-points *ngIf="(profileType=='ROLE_SELLER' || profileType=='ROLE_CLIENT') && levelMarks.length != 0 && points != -1" [points]="points" [levelMarks]="levelMarks" ></app-loyalty-points>
+                <app-loyalty-points *ngIf="(profileType=='ROLE_BOAT_OWNER' || profileType=='ROLE_CLIENT') && levelMarks.length != 0 && points != -1" [points]="points" [levelMarks]="levelMarks" ></app-loyalty-points>
             </div>
         </div>
         <div class="d-flex justify-content-between content-top-margin">

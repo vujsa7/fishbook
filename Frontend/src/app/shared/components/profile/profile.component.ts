@@ -208,6 +208,11 @@ export class ProfileComponent implements OnInit {
         this.levelMarks = data;
       });
     }
+    if(this.profileType != "ROLE_ADMIN"){
+      this.userService.getSellerLevelMarks().subscribe(data => {
+        this.levelMarks = data;
+      });
+    }
     this.userService.getPointsAchieved().subscribe(data => {
       this.points = data;
     });

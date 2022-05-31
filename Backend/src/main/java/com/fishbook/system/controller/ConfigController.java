@@ -68,4 +68,11 @@ public class ConfigController {
         List<Integer> marks = configService.getClientLevelMarks();
         return new ResponseEntity<>(marks, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/sellerLevelMarks")
+    @PreAuthorize("hasAnyRole('BOAT_OWNER', 'INSTRUCTOR', 'HOUSE_OWNER')")
+    public ResponseEntity getSellerLevelMarks(){
+        List<Integer> marks = configService.getSellerLevelMarks();
+        return new ResponseEntity<>(marks, HttpStatus.OK);
+    }
 }

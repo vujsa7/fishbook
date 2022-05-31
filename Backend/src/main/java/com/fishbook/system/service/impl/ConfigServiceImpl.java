@@ -60,6 +60,12 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     @Override
+    public List<Integer> getSellerLevelMarks() {
+        List<Integer> levelMarks = loyaltyConfigRepository.findAll().stream().map(l -> l.getSellerMinPoints()).collect(Collectors.toList());
+        return levelMarks;
+    }
+
+    @Override
     public Integer getClientLoyaltyPointsForNextLevel(Integer points) {
         List<Integer> levelMarks = this.getClientLevelMarks();
         for(Integer mark : levelMarks){

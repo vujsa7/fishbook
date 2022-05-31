@@ -41,6 +41,10 @@ export class UserService {
     return this.http.get<Array<number>>(this.baseUrl + 'config/clientLevelMarks', { headers: this.authService.getHeader()})
   }
 
+  getSellerLevelMarks(): Observable<Array<number>> {
+    return this.http.get<Array<number>>(this.baseUrl + 'config/sellerLevelMarks', { headers: this.authService.getHeader()})
+  }
+
   getPointsAchieved(): Observable<number> {
     return this.http.get<number>(this.baseUrl + 'users/points', { headers: this.authService.getHeader()})
   }
