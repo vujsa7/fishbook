@@ -38,6 +38,11 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
         specialOfferRepository.save(specialOffer);
     }
 
+    @Override
+    public List<SpecialOffer> getAll(Long entityId) {
+        return specialOfferRepository.findAllByEntityId(entityId);
+    }
+
     private Double calculatePrice(SpecialOffer specialOffer){
         Long numOfDays = ChronoUnit.DAYS.between(specialOffer.getStartDateTime(), specialOffer.getEndDateTime());
         Double initialPrice = numOfDays * specialOffer.getEntity().getPricePerDay();

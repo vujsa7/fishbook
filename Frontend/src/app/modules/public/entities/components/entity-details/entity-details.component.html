@@ -61,5 +61,8 @@
         <entity-special-offers *ngIf="entityDetails.specialOffers" [specialOffers]="entityDetails.specialOffers"></entity-special-offers>
         <adventure-gallery class="adventure-gallery" *ngIf="entityType == 'adventure' && entityDetails.previousAdventureImages.length != 0" [previousAdventureImages]="entityDetails.previousAdventureImages"></adventure-gallery>
     </div>
+    <div id="calendar-wrapper">
+        <app-calendar *ngIf="entityDetails" [sellerId]="entityDetails.sellerId" [entityType]="entityType" [entityId]="entityDetails.id"></app-calendar>
+    </div>
     <app-map [lat]="entityDetails.location.lat" [lon]="entityDetails.location.lon"></app-map>
 </div>

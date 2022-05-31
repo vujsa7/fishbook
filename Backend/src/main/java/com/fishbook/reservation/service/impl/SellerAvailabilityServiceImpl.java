@@ -23,4 +23,9 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
         }
         sellerAvailabilityRepository.save(sellerAvailability);
     }
+
+    @Override
+    public List<SellerAvailability> getAll(Long sellerId) {
+        return sellerAvailabilityRepository.findAllBySellerId(sellerId);
+    }
 }

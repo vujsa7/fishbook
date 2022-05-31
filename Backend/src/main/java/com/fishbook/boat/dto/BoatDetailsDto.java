@@ -23,6 +23,7 @@ public class BoatDetailsDto {
     private LocationDto location;
     private BoatSpecificationsDto boatSpecifications;
     private String sellerEmail;
+    private Long sellerId;
     private List<String> rules;
     private List<String> navigationEquipment;
     private List<String> fishingEquipment;

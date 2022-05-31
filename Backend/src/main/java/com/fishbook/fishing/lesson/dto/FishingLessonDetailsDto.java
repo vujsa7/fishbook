@@ -25,6 +25,7 @@ public class FishingLessonDetailsDto {
     private String sellerImg;
     private String aboutSeller;
     private String sellerEmail;
+    private Long sellerId;
     private List<String> rules;
     private List<String> fishingEquipment;
     private List<String> previousAdventureImages;

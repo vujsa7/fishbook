@@ -52,6 +52,7 @@ export class AvailabilityDialogComponent implements OnInit {
     this.sellerAvailabilityService.postSellerAvailability(request).subscribe(
       data => {
       this.toastr.success("Successfully set your availability. Check your calendar.", "Success");
+      location.reload();
       this.close();
       },
       error => { 

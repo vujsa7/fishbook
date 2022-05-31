@@ -24,6 +24,15 @@ import { DeleteAccountDialogComponent } from './components/delete-account-dialog
 import { LoyaltyTypePipe } from './pipes/loyalty-type.pipe';
 import { OptionsDialogComponent } from './components/options-dialog/options-dialog.component';
 import { MapComponent } from './components/map/map.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -47,7 +56,8 @@ import { MapComponent } from './components/map/map.component';
     SellerLinksComponent,
     DeleteAccountDialogComponent,
     OptionsDialogComponent,
-    MapComponent
+    MapComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +65,8 @@ import { MapComponent } from './components/map/map.component';
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    FullCalendarModule
   ],
   exports: [
     PrimaryButtonComponent,
@@ -75,7 +86,8 @@ import { MapComponent } from './components/map/map.component';
     AdminLinksComponent,
     PublicLinksComponent,
     OptionsDialogComponent,
-    MapComponent
+    MapComponent,
+    CalendarComponent
   ]
 })
 export class SharedModule { }
