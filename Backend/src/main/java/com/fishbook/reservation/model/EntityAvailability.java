@@ -10,14 +10,19 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class EntityAvailability extends DateTimePeriod {
 
     @ManyToOne
     private Entity entity;
 
+
     public EntityAvailability(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(fromDateTime, toDateTime);
+    }
+
+    public EntityAvailability(LocalDateTime fromDateTime, LocalDateTime toDateTime, Entity entity) {
+        super(fromDateTime, toDateTime);
+        this.entity = entity;
     }
 }

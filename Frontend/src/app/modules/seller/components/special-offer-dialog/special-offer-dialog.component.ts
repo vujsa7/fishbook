@@ -106,6 +106,7 @@ export class SpecialOfferDialogComponent implements OnInit {
     this.specialOfferService.postSpecialOffer(request).subscribe(
       data => {
         this.toastr.success("Successfully saved special offer. Check your calendar.", "Success");
+        location.reload();
         this.close();
       },
       error => { 

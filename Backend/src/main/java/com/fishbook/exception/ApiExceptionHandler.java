@@ -16,20 +16,35 @@ public class ApiExceptionHandler {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
 
         // Create payload containing exception detail
-        ApiException apiException = new ApiException(e.getMessage(), e, badRequest, ZonedDateTime.now(ZoneId.of("Z")));
+        ApiException apiException = new ApiException(e.getMessage(), badRequest, ZonedDateTime.now(ZoneId.of("Z")));
         // Return response entity
         return new ResponseEntity<>(apiException, badRequest);
     }
 
-    @ExceptionHandler(DateTimeRangeException.class)
-    public ResponseEntity<Object> handleBadRequest(DateTimeRangeException ex) {
-        ApiException apiException = new ApiException(ex.getMessage(), ex, HttpStatus.BAD_REQUEST, ZonedDateTime.now(ZoneId.of("Z")));
+    @ExceptionHandler(value = {
+            UserNotFoundException.class,
+            EntityNotFoundException.class
+    })
+    public ResponseEntity<Object> handleNotFound(RuntimeException e){
+        ApiException apiException = new ApiException(e.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now(ZoneId.of("Z")));
+        return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {
+            DateTimeRangeException.class,
+            NoActiveReservationException.class
+    })
+    public ResponseEntity<Object> handleBadRequest(RuntimeException ex) {
+        ApiException apiException = new ApiException(ex.getMessage(), HttpStatus.BAD_REQUEST, ZonedDateTime.now(ZoneId.of("Z")));
         return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(DateTimeRangeOverlappingException.class)
-    public ResponseEntity<Object> handleConflict(DateTimeRangeOverlappingException ex) {
-        ApiException apiException = new ApiException(ex.getMessage(), ex, HttpStatus.CONFLICT, ZonedDateTime.now(ZoneId.of("Z")));
+    @ExceptionHandler(value = {
+            DateTimeRangeOverlappingException.class,
+            EntityNotAvailableException.class
+    })
+    public ResponseEntity<Object> handleConflict(RuntimeException ex) {
+        ApiException apiException = new ApiException(ex.getMessage(), HttpStatus.CONFLICT, ZonedDateTime.now(ZoneId.of("Z")));
         return new ResponseEntity<>(apiException, HttpStatus.CONFLICT);
     }
 }

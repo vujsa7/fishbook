@@ -9,5 +9,6 @@ import java.util.List;
 public interface SpecialOfferRepository extends JpaRepository<SpecialOffer, Long> {
 
     List<SpecialOffer> findAllByEntity(Entity entity);
-    List<SpecialOffer> findAllByEntityId(Long id);
+    List<SpecialOffer> findAllByEntityId(Long entityId);
+
 }

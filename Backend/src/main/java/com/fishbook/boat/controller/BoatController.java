@@ -103,7 +103,7 @@ public class BoatController {
                 boat.getDescription(), 0.0, boat.getPricePerDay(), boat.getCancellationFee(), new LocationDto(boat.getAddress().getAddress(), boat.getAddress().getCity().getName(),
                 boat.getAddress().getCity().getCountry().getName(), boat.getAddress().getLongitude(), boat.getAddress().getLatitude()), new BoatSpecificationsDto(boat.getBoatType().toString(),
                 boat.getMaxNumberOfPeople(), boat.getLength(), boat.getLoadCapacity(), boat.getMaxSpeed(), boat.getPower(), boat.getMotors(), boat.getFuelConsumption(), boat.getMaxDistance(),
-                boat.getEnergyConsumption()), boat.getOwner().getEmail(), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
+                boat.getEnergyConsumption()), boat.getOwner().getEmail(), boat.getOwner().getId(), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
                 boat.getNavigationEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()),
                 boat.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(boat.getAdditionalServices()), specialOfferPreviews), HttpStatus.OK);
     }

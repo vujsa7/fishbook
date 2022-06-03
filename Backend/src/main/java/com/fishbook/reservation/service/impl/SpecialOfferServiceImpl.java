@@ -39,8 +39,13 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
     }
 
     @Override
+
     public List<SpecialOffer> getSpecialOffersByEntityId(Long id) {
         return specialOfferRepository.findAllByEntityId(id);
+    }
+
+    public List<SpecialOffer> getAll(Long entityId) {
+        return specialOfferRepository.findAllByEntityId(entityId);
     }
 
     private Double calculatePrice(SpecialOffer specialOffer){

@@ -24,6 +24,7 @@ public class HouseDetailsDto {
     private LocationDto location;
     private HouseSpecificationsDto houseSpecifications;
     private String sellerEmail;
+    private Long sellerId;
     private List<String> rules;
     private List<AdditionalService> additionalServices;
     private List<SpecialOfferPreviewDto> specialOffers;

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
@@ -14,5 +14,10 @@ export class SellerAvailabilityService {
 
   postSellerAvailability(sellerAvailability: any): Observable<any> {
     return this.http.post(this.baseUrl, sellerAvailability, { headers : this.authService.getHeader() })
+  }
+
+  getAvailabilities(sellerId: number): Observable<any> {
+    let params = new HttpParams().set('sellerId', sellerId);
+    return this.http.get(this.baseUrl, { params: params });
   }
 }
