@@ -1,5 +1,6 @@
 package com.fishbook.exception;
 
+import org.hibernate.StaleObjectStateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,7 +42,8 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(value = {
             DateTimeRangeOverlappingException.class,
-            EntityNotAvailableException.class
+            EntityNotAvailableException.class,
+            StaleObjectStateException.class
     })
     public ResponseEntity<Object> handleConflict(RuntimeException ex) {
         ApiException apiException = new ApiException(ex.getMessage(), HttpStatus.CONFLICT, ZonedDateTime.now(ZoneId.of("Z")));
