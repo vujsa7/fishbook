@@ -109,7 +109,7 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
     public ResponseEntity getUsers(@RequestParam(value = "role") String role){
         List<UserInfoDto> users = userService.getUsers(role).stream()
                 .map(user -> new UserInfoDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getAddress().getCity().getCountry().getName(),
