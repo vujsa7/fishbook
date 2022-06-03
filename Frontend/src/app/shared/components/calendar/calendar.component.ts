@@ -68,7 +68,7 @@ export class CalendarComponent implements OnInit {
               "Special offer ",
               specialOffer.startDateTime,
               specialOffer.endDateTime,
-              "rgb(8, 75, 131)"
+              "linear-gradient(265.59deg, #4BB3FD -1.67%, #6F10CE 99.98%, rgba(110, 17, 205, 0.0104167) 99.99%, rgba(111, 16, 206, 0) 100%)"
             )
           );
         }
