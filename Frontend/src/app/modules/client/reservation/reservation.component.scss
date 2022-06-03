@@ -10,14 +10,25 @@ h5{
     margin-bottom: 20px !important;
 }
 
+.empty-box{
+    height: 100vh;
+}
+
 .date{
     height: 54px;
     margin-bottom: 30px;
 }
 
-    .date-picker{
+    .range-calendar{
+        position: relative;
         width: 430px;
         margin-right: 20px;
+
+        span{
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+        }
     }
 
 .additional-service-list{
@@ -57,5 +68,5 @@ h5{
     }
 
     .please-select-dates{
-        min-height: 100px;
+        min-height: 300px;
     }

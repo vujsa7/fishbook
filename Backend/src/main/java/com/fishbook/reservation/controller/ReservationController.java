@@ -13,6 +13,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fishbook.additional.entity.information.model.AdditionalService;
+import com.fishbook.entity.model.Entity;
+import com.fishbook.reservation.dto.DateRangeDto;
+import com.fishbook.reservation.dto.EntityOfferDetailsDto;
+import com.fishbook.reservation.model.EntityAvailability;
+import com.fishbook.reservation.model.SellerAvailability;
+import com.fishbook.reservation.service.EntityAvailabilityService;
+import com.fishbook.reservation.service.SellerAvailabilityService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,6 +36,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReservationController {
 
+    private final SellerAvailabilityService sellerAvailabilityService;
+    private final EntityAvailabilityService entityAvailabilityService;
     private final ReservationService reservationService;
 
     @GetMapping
@@ -54,5 +72,23 @@ public class ReservationController {
                                              @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
 
         return new ResponseEntity<>(reservationService.calculateRevenue(new CalculateRevenueDto(startDate, endDate, entityId)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/details/{entityId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity getReservationOfferDetails(@PathVariable Long entityId) {
+        Entity entity = reservationService.getReservationOfferDetails(entityId);
+        if (entity == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        List<DateRangeDto> dateRangeDtos = new ArrayList<>();
+        if (entity.getClass().getName().contains("FishingLesson")) {
+            List<SellerAvailability> sellerAvailability = sellerAvailabilityService.getAvailabilityForSeller(entity.getOwner().getId());
+            dateRangeDtos = sellerAvailability.stream().map(a -> new DateRangeDto(a.getFromDateTime(), a.getToDateTime())).collect(Collectors.toList());
+        } else {
+            List<EntityAvailability> entityAvailability = entityAvailabilityService.getAvailabilityForEntity(entity.getId());
+            dateRangeDtos = entityAvailability.stream().map(a -> new DateRangeDto(a.getFromDateTime(), a.getToDateTime())).collect(Collectors.toList());
+        }
+        Set<AdditionalService> additionalServices = entity.getAdditionalServices();
+        return new ResponseEntity(new EntityOfferDetailsDto(entityId, entity.getName(), entity.getPricePerDay(), additionalServices == null ? Collections.emptySet() : additionalServices, dateRangeDtos), HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 @import 'src/styles/main.scss';
 
 .title{
+    margin-top: 15px;
     margin-bottom: 15px;
     position: relative;
 }
@@ -11,7 +12,7 @@
     }
 
 .box{
-    height: 100px;
+    height: 50px;
 }
 
 .custom-carousel{

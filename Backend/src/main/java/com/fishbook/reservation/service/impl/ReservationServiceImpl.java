@@ -6,17 +6,22 @@ import com.fishbook.reservation.dao.SellerReservationRepository;
 import com.fishbook.reservation.dto.CalculateRevenueDto;
 import com.fishbook.reservation.model.Reservation;
 import com.fishbook.reservation.model.ReservationOptions;
+import com.fishbook.entity.dao.EntityRepository;
+import com.fishbook.entity.model.Entity;
 import com.fishbook.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
 
     private final SellerReservationRepository reservationRepository;
+    private final EntityRepository entityRepository;
 
     @Override
     public List<Reservation> getAll(Long entityId) {
@@ -38,5 +43,14 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.getEntityReservation(dto.getEntityId(), dto.getFromDateTime(), dto.getToDateTime())
                 .stream()
                 .mapToDouble(ReservationOptions::getPrice).sum();
+    }
+
+    @Override
+    public Entity getReservationOfferDetails(Long entityId) {
+        Optional<Entity> entity = entityRepository.findById(entityId);
+        if(entity.isPresent())
+            return entity.get();
+        else
+            return null;
     }
 }

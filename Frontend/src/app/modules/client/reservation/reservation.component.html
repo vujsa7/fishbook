@@ -1,49 +1,73 @@
-<div class="page-wrapper" *ngIf="reservationOfferDetails">
-    <h3>Reservation of {{reservationOfferDetails.entityName}}</h3>
-    <h5>Date of reservation</h5>
-    <div class="d-flex date">
-        <app-range-date-picker #rangeDatePicker [availableDates]="reservationOfferDetails.availableDates" class="date-picker" (rangeChanged)="onRangeChanged($event)"></app-range-date-picker>
-        <app-secondary-button (click)="clearDateRange()" [inputStyle]="{'height': '54px'}" [isBtnDisabled]="!isDateRangeSelected()" [text]="'Clear selection'"></app-secondary-button>
+<div>
+    <app-spinner-fullscreen *ngIf="!reservationOfferDetails"></app-spinner-fullscreen>
+    <div class="empty-box d-flex align-items-center justify-content-center w-100 "
+        *ngIf="reservationOfferDetails && reservationOfferDetails.availableDates.length == 0">
+        <span class="grey-text">{{reservationOfferDetails.entityName}} has no available dates for reservations</span>
     </div>
-    <h5>Choose additional services</h5>
-    <div [formGroup]="reservationForm">
-        <mat-chip-list class="additional-service-list" aria-label="Additional Services Selection" formArrayName="additionalServices">
-            <mat-chip matRipple [style.color]="service.value ? '#FFFFFF !important': '#A2A2A2'"
-                [style.background]="service.value ? '#4BB3FD': '#F2F2F2'"
-                *ngFor="let service of additionalServicesFormArray.controls; let i = index"
-                (click)="toggleAdditionalService(i)">
-                {{reservationOfferDetails.additionalServices[i].name}}
-                (+${{reservationOfferDetails.additionalServices[i].price}})</mat-chip>
-        </mat-chip-list>
-    </div>
-    <div class="fb-container d-flex flex-column">
-        <div class="d-flex flex-column" *ngIf="range && range.start && range.end">
-            <div class="d-flex justify-content-between">
-                <h5 class="total-title">Reservation details</h5>
-                <span class="grey-text" *ngIf="range">Date {{range.start | date:'longDate'}} - {{range.end | date:'longDate'}}</span>
+    <div class="page-wrapper"
+        *ngIf="reservationOfferDetails && reservationOfferDetails.availableDates && reservationOfferDetails.availableDates.length > 0 ">
+        <h3>Reservation of {{reservationOfferDetails.entityName}}</h3>
+        <h5>Date of reservation</h5>
+        <div class="d-flex date">
+            <div class="range-calendar">
+                <app-range-date-picker #rangeDatePicker [availableDates]="reservationOfferDetails.availableDates"
+                    [unavailableDates]="unavailableDatesForSelection" class="date-picker"
+                    (rangeChanged)="onRangeChanged($event)"></app-range-date-picker>
+                <span *ngIf="isSkipperSelected" class="grey-text ssmall">* Dates include skipper availability</span>
             </div>
-            <div class="d-flex">
-                <span class="grey-text res-detail">{{reservationOfferDetails.entityName}}</span>
-                <hr class="dot-line">
-                <span class="grey-text res-detail">${{reservationOfferDetails.pricePerDay}}</span>
+            <app-secondary-button (click)="clearDateRange()" [inputStyle]="{'height': '54px'}"
+                [isBtnDisabled]="!isDateRangeSelected()" [text]="'Clear selection'"></app-secondary-button>
+        </div>
+        <div
+            *ngIf="reservationOfferDetails.additionalServices && reservationOfferDetails.additionalServices.length > 0">
+            <h5>Choose additional services</h5>
+            <div [formGroup]="reservationForm">
+                <mat-chip-list class="additional-service-list" aria-label="Additional Services Selection"
+                    formArrayName="additionalServices">
+                    <mat-chip matRipple [style.color]="service.value ? '#FFFFFF !important': '#A2A2A2'"
+                        [style.background]="service.value ? '#4BB3FD': '#F2F2F2'"
+                        *ngFor="let service of additionalServicesFormArray.controls; let i = index"
+                        (click)="toggleAdditionalService(i)">
+                        {{reservationOfferDetails.additionalServices[i].name}}
+                        (+${{reservationOfferDetails.additionalServices[i].price}})</mat-chip>
+                </mat-chip-list>
             </div>
-            <div *ngFor="let service of additionalServicesFormArray.controls; let i = index">
-                <div class="d-flex" *ngIf="service.value==true">
-                    <span class="grey-text res-detail">{{reservationOfferDetails.additionalServices[i].name}}</span>
-                    <hr class="dot-line">
-                    <span class="grey-text res-detail">${{reservationOfferDetails.additionalServices[i].price}}</span>
+        </div>
+        <div class="fb-container d-flex flex-column">
+            <div class="d-flex flex-column" *ngIf="range && range.start && range.end">
+                <div class="d-flex justify-content-between">
+                    <h5 class="total-title">Reservation details</h5>
+                    <span class="grey-text" *ngIf="range">Date {{range.start | date:'longDate'}} - {{range.end |
+                        date:'longDate'}}</span>
                 </div>
+                <div class="d-flex">
+                    <span class="grey-text res-detail">{{reservationOfferDetails.entityName}}</span>
+                    <hr class="dot-line">
+                    <span class="grey-text res-detail">${{reservationOfferDetails.pricePerDay}} per day x
+                        {{getDifferenceInDays(range.end, range.start)}} days</span>
+                </div>
+                <div *ngFor="let service of additionalServicesFormArray.controls; let i = index">
+                    <div class="d-flex" *ngIf="service.value==true">
+                        <span class="grey-text res-detail">{{reservationOfferDetails.additionalServices[i].name}}</span>
+                        <hr class="dot-line">
+                        <span
+                            class="grey-text res-detail">${{reservationOfferDetails.additionalServices[i].price}}</span>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <span class="lightblue-text res-detail">Reservation total</span>
+                    <hr class="dot-line">
+                    <span class="lightblue-text res-detail">${{getTotal()}}</span>
+                </div>
+                <app-primary-button class="make-reservation-btn align-self-end" [text]="'Make reservation'"
+                    (click)="openReservationDialog()"></app-primary-button>
             </div>
-            <div class="d-flex">
-                <span class="lightblue-text res-detail">Reservation total</span>
-                <hr class="dot-line">
-                <span class="lightblue-text res-detail">${{getTotal()}}</span>
+            <div class="please-select-dates w-100 d-flex justify-content-center align-items-center"
+                *ngIf="!range || !range.start || !range.end">
+                <span class="grey-text">Please select the dates for reservation</span>
             </div>
-            <app-primary-button class="make-reservation-btn align-self-end" [text]="'Make reservation'" (click)="openReservationDialog()"></app-primary-button>
-        </div>
-        <div class="please-select-dates w-100 d-flex justify-content-center align-items-center" *ngIf="!range || !range.start || !range.end">
-            <span class="grey-text">Please select the dates for reservation</span>
         </div>
     </div>
+
 
 </div>

@@ -31,4 +31,14 @@ public class EntityAvailabilityServiceImpl implements EntityAvailabilityService 
 
         entityAvailabilityRepository.save(entityAvailability);
     }
+
+    @Override
+    public List<EntityAvailability> getAllEntitiesAvailabilities() {
+        return entityAvailabilityRepository.findAll();
+    }
+
+    @Override
+    public List<EntityAvailability> getAvailabilityForEntity(Long id) {
+        return entityAvailabilityRepository.findAllByEntityId(id);
+    }
 }

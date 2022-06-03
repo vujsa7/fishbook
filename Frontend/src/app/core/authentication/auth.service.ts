@@ -85,7 +85,7 @@ export class AuthService {
         }
     }
 
-    isLoggedIn() {
+    isAuthenticated() {
         if(this.getToken() && this.getToken() != "")
             return true;
         else

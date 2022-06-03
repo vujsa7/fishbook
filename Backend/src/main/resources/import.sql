@@ -55,12 +55,13 @@ insert into users (id, first_name, last_name, email, password, phone_number, add
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Ursa', 'Foster', 'house-seller@gmail.com', '$2a$10$CsCg4yGBinBwzr2KnOMftuBvERAwk86nnhMmOyhyb97rZpetWCQDK', '+1 (344) 589-9773', 3, 4, 'a1312klfsad87124j.jpg', 0, true, false);
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Farrah', 'Wilkins', 'instructor-seller@gmail.com', '$2a$10$Rg7YmVRX6KoLBqtNRsonOO2bMcM4I/FxR80avrUuwWiB6Q7tbnthG', '+1 (109) 862-3819', 4, 3, '44124a3148iZJm4.jpg', 0, true, false);
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, penalties, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Alexander', 'Sparks', 'client@gmail.com', '$2a$10$l45eAw.KTerds3fxaaIKMuGssB5dTZ9GXb7hTiSShgN18faN/F1C.', '+1 (327) 206-3487', 5, 1, '4WOWSXxIU8iZJm4.jpg', 0, 0, true, false);
+insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Monica', 'Turning', 'monica@gmail.com', '$2a$10$fXTFNOnVu.S/wnHtQh1lBOvB3gcHMu.tKUj7ygpot9uC4spDRIzRy', '+1 (129) 842-3516', 6, 3, '44124a3155iZJm4.jpg', 0, true, false);
 
 
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 0, 200, 2, 0.5)
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (1, 500, 200, 5, 0.5)
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (2, 1000, 200, 7, 0.5)
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (3, 2000, 200, 9, 0.5)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 0, 0, 2, 2)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (1, 500, 500, 5, 5)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (2, 1000, 1000, 7, 9)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (3, 2000, 2500, 9, 11)
 
 insert into global_config (system_fee, buyer_points_per_reservation, seller_points_per_reservation) values (1000.0, 20, 20)
 
@@ -151,10 +152,44 @@ insert into entity_image (name, priority, entity_id) values ('9.jpg', 1, 9)
 insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Barbeque dinner', 10);
 insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Unlimited drinks', 25);
 insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Wifi', 5);
+insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Skipper', 30);
 
 insert into entity_additional_service(entity_id, service_id) values (7, 1)
 insert into entity_additional_service(entity_id, service_id) values (7, 2)
 insert into entity_additional_service(entity_id, service_id) values (7, 3)
+insert into entity_additional_service(entity_id, service_id) values (7, 4)
+
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, version, entity_id) values (nextval('special_offer_id_seq'), '2022-06-06 00:00:00', '2021-06-09 00:00:00', 10, 200.0, 10.0, 1, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, version, entity_id) values (nextval('special_offer_id_seq'), '2022-06-10 00:00:00', '2021-06-13 00:00:00', 10, 190.0, 10.0, 1, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, version, entity_id) values (nextval('special_offer_id_seq'), '2022-06-13 00:00:00', '2021-06-16 00:00:00', 12, 210.0, 10.0, 1, 7)
+
+-- Farah Wilkins availability (Instructor seller)
+insert into seller_availability (id, from_date_time, to_date_time, version, seller_id) values (nextval('seller_availability_id_seq'), '2022-06-01 00:00:00', '2022-06-30 00:00:00', 1, 4)
+insert into seller_availability (id, from_date_time, to_date_time, version, seller_id) values (nextval('seller_availability_id_seq'), '2022-08-01 00:00:00', '2022-08-30 00:00:00', 1, 4)
+insert into seller_availability (id, from_date_time, to_date_time, version, seller_id) values (nextval('seller_availability_id_seq'), '2022-10-01 00:00:00', '2022-10-30 00:00:00', 1, 4)
+-- Monica Turning availability (Instructor seller)
+insert into seller_availability (id, from_date_time, to_date_time, version, seller_id) values (nextval('seller_availability_id_seq'), '2022-02-01 00:00:00', '2022-08-17 00:00:00', 1, 6)
+
+-- Atlantic's Bliss availability (House)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-06-01 00:00:00', '2022-08-15 00:00:00', 1, 4)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-08-20 00:00:00', '2023-01-30 00:00:00', 1, 4)
+-- Panama's Creek House availability (House)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-06-01 00:00:00', '2022-10-08 00:00:00', 1, 5)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-10-20 00:00:00', '2024-01-15 00:00:00', 1, 5)
+-- Hawaii Paradise availability (House)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-06-10 00:00:00', '2025-01-30 00:00:00', 1, 6)
+
+-- Godzilla 3.1 availability (Boat)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-07-15 00:00:00', '2022-12-28 00:00:00', 1, 7)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2023-01-03 00:00:00', '2023-12-28 00:00:00', 1, 7)
+-- Pirates Dream availability (Boat)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-07-01 00:00:00', '2022-12-27 00:00:00', 1, 8)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2023-02-01 00:00:00', '2023-12-28 00:00:00', 1, 8)
+-- Diamond availability (Boat)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2022-06-15 00:00:00', '2022-08-28 00:00:00', 1, 9)
+insert into entity_availability (id, from_date_time, to_date_time, version, entity_id) values (nextval('entity_availability_id_seq'), '2023-09-03 00:00:00', '2023-10-28 00:00:00', 1, 9)
+
+insert into seller_unavailability (id, from_date_time, to_date_time, version, seller_id) values (nextval('seller_unavailability_id_seq'), '2022-07-21 00:00:00', '2022-07-23 00:00:00', 1, 2)
 
 insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-06 00:00:00', '2022-06-09 00:00:00', 10, 200.0, 10.0, 7)
 insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-10 00:00:00', '2022-06-13 00:00:00', 10, 190.0, 10.0, 7)
@@ -170,3 +205,4 @@ insert into seller_availability (id, from_date_time, to_date_time, seller_id, ve
 -- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
 -- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
 -- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
+
