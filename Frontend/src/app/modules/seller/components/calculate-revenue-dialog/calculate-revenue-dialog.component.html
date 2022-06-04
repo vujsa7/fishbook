@@ -1,0 +1,25 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5 class="mb-3">Calculate revenue</h5>
+    <form [formGroup]="revenueForm" class="w-100">
+        <mat-form-field appearance="fill">
+            <mat-label>From</mat-label>
+            <input matInput type="datetime-local" (change)="onFromDateChanged($event)" [min]="minDate">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>To</mat-label>
+            <input matInput type="datetime-local" (change)="onToDateChanged($event)" [min]="minDate">
+        </mat-form-field>
+        <div class="d-flex flex-column form-fields">
+            <div class="input-container" [ngClass]="{'input-container-error' : (revenueForm.controls.revenue.touched && revenueForm.controls.revenue.errors?.['required'])}">
+                <input id="revenue" type="number" formControlName="revenue" name="revenue" (focus)="revenueForm.controls.revenue.markAsUntouched()" required>
+                <label for="revenue" class="input-label">Revenue</label>
+                <span class="error-message" *ngIf="revenueForm.controls.revenue.touched && revenueForm.controls.revenue.errors?.['required']">There was an error calculating your revenue</span>
+            </div>
+        </div>
+    </form>
+    
+    <div class="d-flex flex-row w-100 justify-content-between">
+        <app-secondary-button text="Cancel" class="w-50 me-1" (click)="close()"></app-secondary-button>
+        <app-primary-button text="Calculate" class="w-50 ms-1" [isBtnDisabled]="!validRange" (click)="calculateRevenue()"></app-primary-button>
+    </div>
+</div>

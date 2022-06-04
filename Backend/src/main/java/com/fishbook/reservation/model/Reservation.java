@@ -20,6 +20,8 @@ public class Reservation extends ReservationOptions {
     @ManyToOne
     private User client;
 
+    private Boolean isCancelled;
+
     public Reservation(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxNumberOfPeople, Set<AdditionalService> additionalServices) {
         super(startDateTime, endDateTime, maxNumberOfPeople, additionalServices);
     }

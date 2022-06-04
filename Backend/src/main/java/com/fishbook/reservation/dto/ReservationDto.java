@@ -23,4 +23,5 @@ public class ReservationDto {
     private String clientLastName;
     private String clientEmail;
     private String clientPhoneNumber;
+    private Boolean isCancelled;
 }

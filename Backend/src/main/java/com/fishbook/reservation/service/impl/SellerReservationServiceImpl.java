@@ -58,6 +58,7 @@ public class SellerReservationServiceImpl implements SellerReservationService {
         reservation.setClient(userRepository.findById(clientId).orElseThrow(UserNotFoundException::new));
         reservation.setEntity(entity);
         reservation.setPrice(calculatePrice(reservation));
+        reservation.setIsCancelled(false);
         reservationRepository.save(reservation);
     }
 

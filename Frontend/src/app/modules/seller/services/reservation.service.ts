@@ -24,4 +24,15 @@ export class ReservationService {
     }
     return this.http.get(this.baseUrl + 'reservations', options);
   }
+
+  calculateRevenue(request: any): Observable<any> {
+    let options = {
+      params: new HttpParams()
+          .set('entityId', request.entityId)
+          .set('startDate', request.startDate)
+          .set('endDate', request.endDate),
+      headers: this.authService.getHeader()
+    }
+    return this.http.get(this.baseUrl + 'reservations/revenue', options);
+  }
 }
