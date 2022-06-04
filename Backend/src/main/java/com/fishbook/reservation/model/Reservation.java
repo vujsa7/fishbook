@@ -28,11 +28,15 @@ public class Reservation extends ReservationOptions {
         return this.getStartDateTime().isBefore(reservation.getEndDateTime()) && reservation.getStartDateTime().isBefore(this.getEndDateTime());
     }
 
-    public boolean inRange(SellerAvailability sellerAvailability) {
+    public Boolean inRange(SellerAvailability sellerAvailability) {
         return sellerAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && sellerAvailability.getToDateTime().isAfter(this.getEndDateTime());
     }
 
-    public boolean inRange(EntityAvailability entityAvailability) {
+    public Boolean inRange(EntityAvailability entityAvailability) {
         return entityAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && entityAvailability.getToDateTime().isAfter(this.getEndDateTime());
+    }
+
+    public Boolean isFinished() {
+        return getEndDateTime().isBefore(LocalDateTime.now());
     }
 }

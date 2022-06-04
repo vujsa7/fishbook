@@ -6,6 +6,7 @@ import com.fishbook.reservation.model.SellerAvailability;
 import com.fishbook.reservation.service.SellerAvailabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
     private final SellerAvailabilityRepository sellerAvailabilityRepository;
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void save(SellerAvailability sellerAvailability) {
         List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findAllBySellerId(sellerAvailability.getSeller().getId());
         if (sellerAvailabilities.stream().anyMatch(s -> s.isOverlapping(sellerAvailability))) {
