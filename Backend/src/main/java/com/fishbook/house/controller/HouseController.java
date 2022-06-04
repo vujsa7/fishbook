@@ -2,6 +2,7 @@ package com.fishbook.house.controller;
 
 import com.fishbook.additional.entity.information.service.AdditionalServiceService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
+import com.fishbook.entity.dto.EntityStatisticDto;
 import com.fishbook.house.dto.HouseDetailsDto;
 import com.fishbook.house.dto.HouseRegistrationDto;
 import com.fishbook.house.dto.HouseSpecificationsDto;
@@ -12,6 +13,7 @@ import com.fishbook.location.dto.LocationDto;
 import com.fishbook.location.service.LocationService;
 import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import com.fishbook.reservation.model.SpecialOffer;
+import com.fishbook.reservation.service.ReservationService;
 import com.fishbook.reservation.service.SpecialOfferService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
@@ -32,18 +34,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/houses")
 public class HouseController {
     private final HouseService houseService;
-    private final LocationService locationService;
     private final UserService userService;
-    private final AdditionalServiceService additionalServiceService;
     private final StorageService storageService;
     private final SpecialOfferService specialOfferService;
+    private final ReservationService reservationService;
 
     @Autowired
-    public HouseController(HouseService houseService, LocationService locationService, UserService userService, AdditionalServiceService additionalServiceService, StorageService storageService, SpecialOfferService specialOfferService) {
+    public HouseController(HouseService houseService, UserService userService, StorageService storageService, SpecialOfferService specialOfferService, ReservationService reservationService) {
         this.houseService = houseService;
-        this.locationService = locationService;
+        this.reservationService = reservationService;
         this.userService = userService;
-        this.additionalServiceService = additionalServiceService;
         this.storageService = storageService;
         this.specialOfferService = specialOfferService;
     }
@@ -70,6 +70,15 @@ public class HouseController {
                 .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
                         house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
                         house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(houses, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/statistics", params = "ownerUsername")
+    public ResponseEntity getHouseStatistics(@RequestParam String ownerUsername){
+        List<EntityStatisticDto> houses = houseService.getAllByOwnerUsername(ownerUsername).stream()
+                .map(house -> new EntityStatisticDto(house.getId(), house.getName(), house.getRating(), reservationService.getNumberOfReservations(house)))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(houses, HttpStatus.OK);

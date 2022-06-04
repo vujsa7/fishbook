@@ -8,10 +8,12 @@ import com.fishbook.boat.model.Boat;
 import com.fishbook.boat.model.BoatType;
 import com.fishbook.boat.service.BoatService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
+import com.fishbook.entity.dto.EntityStatisticDto;
 import com.fishbook.location.dto.LocationDto;
 import com.fishbook.location.service.LocationService;
 import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import com.fishbook.reservation.model.SpecialOffer;
+import com.fishbook.reservation.service.ReservationService;
 import com.fishbook.reservation.service.SpecialOfferService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
@@ -35,18 +37,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/boats")
 public class BoatController {
     private final BoatService boatService;
-    private final LocationService locationService;
     private final UserService userService;
     private final StorageService storageService;
     private final SpecialOfferService specialOfferService;
+    private final ReservationService reservationService;
 
     @Autowired
-    public BoatController(BoatService boatService, LocationService locationService, UserService userService, StorageService storageService, SpecialOfferService specialOfferService) {
+    public BoatController(BoatService boatService, UserService userService, StorageService storageService, SpecialOfferService specialOfferService, ReservationService reservationService) {
         this.boatService = boatService;
-        this.locationService = locationService;
         this.userService = userService;
         this.storageService = storageService;
         this.specialOfferService = specialOfferService;
+        this.reservationService = reservationService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,6 +76,15 @@ public class BoatController {
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
                         boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
                         boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(boats, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/statistics", params = "ownerUsername")
+    public ResponseEntity getBoatStatistics(@RequestParam String ownerUsername){
+        List<EntityStatisticDto> boats = boatService.getAllByOwnerUsername(ownerUsername).stream()
+                .map(boat -> new EntityStatisticDto(boat.getId(), boat.getName(), boat.getRating(), reservationService.getNumberOfReservations(boat)))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(boats, HttpStatus.OK);

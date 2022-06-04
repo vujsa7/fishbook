@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyEntitiesComponent } from './pages/my-entities/my-entities.component';
 import { NewEntityComponent } from './pages/new-entity/new-entity.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { SellerComponent } from './seller.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'edit-adventure/:id', component: NewEntityComponent},
   { path: 'edit-boat/:id', component: NewEntityComponent},
   { path: 'edit-house/:id', component: NewEntityComponent},
+  { path: 'statistics', component: StatisticsComponent },
   { path: '', component: SellerComponent },
   { path: '**', redirectTo: '' }
 ];

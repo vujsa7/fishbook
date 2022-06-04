@@ -48,6 +48,11 @@ public class ReservationServiceImpl implements ReservationService {
         sendConfirmationEmail(reservation);
     }
 
+    @Override
+    public Integer getNumberOfReservations(Entity entity) {
+        return reservationRepository.countAllByEntity(entity);
+    }
+
     private void sendConfirmationEmail(Reservation reservation) throws InterruptedException {
         Email email = new Email(reservation.getClient().getEmail(), "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
                 "from " + reservation.getStartDateTime() + " to " + reservation.getEndDateTime());

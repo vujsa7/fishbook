@@ -1,5 +1,6 @@
 package com.fishbook.fishing.lesson.controller;
 
+import com.fishbook.entity.dto.EntityStatisticDto;
 import com.fishbook.fishing.lesson.dto.FishingLessonCreatedDto;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.fishing.lesson.dto.FishingLessonDetailsDto;
@@ -10,6 +11,7 @@ import com.fishbook.fishing.lesson.service.FishingLessonService;
 import com.fishbook.location.dto.LocationDto;
 import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import com.fishbook.reservation.model.SpecialOffer;
+import com.fishbook.reservation.service.ReservationService;
 import com.fishbook.reservation.service.SpecialOfferService;
 import com.fishbook.storage.service.StorageService;
 import com.fishbook.user.model.User;
@@ -36,6 +38,7 @@ public class FishingLessonController {
     private final FishingLessonService fishingLessonService;
     private final StorageService storageService;
     private final SpecialOfferService specialOfferService;
+    private final ReservationService reservationService;
 
     @PostMapping
     @PreAuthorize("hasRole('INSTRUCTOR')")
@@ -55,6 +58,15 @@ public class FishingLessonController {
                 .map(fishingLesson -> new EntityBasicInfoDto(fishingLesson.getId(), storageService.getPriorityImageUrl(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getDescription(),
                     fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName(), fishingLesson.getAddress().getCity().getCountry().getName(),
                     fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(lessons, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/statistics", params = "ownerUsername")
+    public ResponseEntity getFishingLessonStatistics(@RequestParam String ownerUsername){
+        List<EntityStatisticDto> lessons = fishingLessonService.getAll(ownerUsername).stream()
+                .map(fishingLesson -> new EntityStatisticDto(fishingLesson.getId(), fishingLesson.getName(), fishingLesson.getRating(), reservationService.getNumberOfReservations(fishingLesson)))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(lessons, HttpStatus.OK);

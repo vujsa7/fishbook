@@ -16,6 +16,8 @@ import { MyEntitiesComponent } from './pages/my-entities/my-entities.component';
 import { AvailabilityDialogComponent } from './components/availability-dialog/availability-dialog.component';
 import { SpecialOfferDialogComponent } from './components/special-offer-dialog/special-offer-dialog.component';
 import { ReservationDialogComponent } from './components/reservation-dialog/reservation-dialog.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { OverviewComponent } from './pages/statistics/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ReservationDialogComponent } from './components/reservation-dialog/rese
     MyEntitiesComponent,
     AvailabilityDialogComponent,
     SpecialOfferDialogComponent,
-    ReservationDialogComponent
+    ReservationDialogComponent,
+    StatisticsComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,

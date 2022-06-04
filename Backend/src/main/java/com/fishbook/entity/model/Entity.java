@@ -33,6 +33,8 @@ public abstract class Entity {
     @Column(nullable = false)
     private Boolean isDeleted;
 
+    private Double rating;
+
     @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
     private User owner;
@@ -67,6 +69,7 @@ public abstract class Entity {
         this.address = address;
         this.rules = rules;
         this.additionalServices = additionalServices;
+        this.rating = 0.0;
     }
 
     public Long getId() {
@@ -155,5 +158,13 @@ public abstract class Entity {
 
     public void setImages(Set<EntityImage> images) {
         this.images = images;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }
