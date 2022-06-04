@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="fb-container d-flex flex-column">
-            <div class="d-flex flex-column" *ngIf="range && range.start && range.end">
+            <div class="d-flex flex-column" *ngIf="range && range.start != undefined && range.end != undefined">
                 <div class="d-flex justify-content-between">
                     <h5 class="total-title">Reservation details</h5>
                     <span class="grey-text" *ngIf="range">Date {{range.start | date:'longDate'}} - {{range.end |

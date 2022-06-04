@@ -16,7 +16,7 @@ export class ReservationService {
 
 
 
-  private baseUrl: string = environment.baseUrl + "reservations";
+  private baseUrl: string = environment.baseUrl + "clientReservations";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -50,11 +50,8 @@ export class ReservationService {
     return this.http.get<ReservationOfferDetails>(this.baseUrl + '/details/' + entityId, { headers: this.authService.getHeader() });
   }
 
-  makeReservation() {
-    // TODO: Implement making reservation
-    return new Observable(subscriber => {
-      subscriber.next("reservationMade");
-    })
+  makeReservation(reservation: any) {
+    return this.http.post<ReservationOfferDetails>(this.baseUrl, reservation, { headers: this.authService.getHeader() });
   }
 
   getBoatOwnerUnavailability(entityId: number): Observable<Array<DateRange>> {

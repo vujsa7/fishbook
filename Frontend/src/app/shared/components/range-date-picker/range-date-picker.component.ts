@@ -34,9 +34,11 @@ export class RangeDatePickerComponent implements OnInit, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     this.changeMaxDate();
-}
+  }
 
   rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
+    if(date! <= new Date())
+      return false;
     if(this.availableDates){
       for(let availableDateRange of this.availableDates){
         if(this.isDateInsideDateRange(date!, availableDateRange.start, availableDateRange.end)){
@@ -74,7 +76,7 @@ export class RangeDatePickerComponent implements OnInit, OnDestroy {
         if(this.isDateInsideDateRange(this.selectedStartingDate, availableDateRange.start, availableDateRange.end)){
           if(this.unavailableDates.length > 0){
             for(let unavailableDateRange of this.unavailableDates)
-              if(this.isDateInsideDateRange(new Date(unavailableDateRange.start), availableDateRange.start, availableDateRange.end)){
+              if(new Date(unavailableDateRange.start) > this.selectedStartingDate && this.isDateInsideDateRange(new Date(unavailableDateRange.start), availableDateRange.start, availableDateRange.end)){
                 this.maxDate = new Date(unavailableDateRange.start);
                 return;
               }    

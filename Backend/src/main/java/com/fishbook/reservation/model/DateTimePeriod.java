@@ -38,4 +38,16 @@ public class DateTimePeriod {
     public Boolean isOverlapping(DateTimePeriod period) {
         return this.getFromDateTime().isBefore(period.getToDateTime()) && period.getFromDateTime().isBefore(this.getToDateTime());
     }
+
+    public Boolean isContaining(LocalDateTime start, LocalDateTime end) {
+        return this.getFromDateTime().isBefore(start) && this.getToDateTime().isAfter(end);
+    }
+
+    public Boolean isEqual(LocalDateTime start, LocalDateTime end) {
+        return this.getFromDateTime().isEqual(start) && this.getToDateTime().isEqual(end);
+    }
+
+    public Boolean isOverlapping(LocalDateTime start, LocalDateTime end) {
+        return this.getFromDateTime().isBefore(end) && start.isBefore(this.getToDateTime());
+    }
 }

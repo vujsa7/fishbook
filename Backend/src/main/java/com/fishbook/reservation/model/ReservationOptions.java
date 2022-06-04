@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @MappedSuperclass
@@ -44,5 +45,14 @@ public class ReservationOptions {
         this.endDateTime = endDateTime;
         this.maxNumberOfPeople = maxNumberOfPeople;
         this.additionalServices = additionalServices;
+    }
+
+    public ReservationOptions(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, HashSet<AdditionalService> additionalServices, Entity entity, Double price) {
+        this.startDateTime = start;
+        this.endDateTime = end;
+        this.maxNumberOfPeople = maxNumberOfPeople;
+        this.additionalServices = additionalServices;
+        this.entity = entity;
+        this.price = price;
     }
 }

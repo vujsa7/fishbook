@@ -9,6 +9,7 @@ import DateUtil from 'src/app/core/utils/date.util';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { OptionsDialogComponent } from 'src/app/shared/components/options-dialog/options-dialog.component';
 import { RangeDatePickerComponent } from 'src/app/shared/components/range-date-picker/range-date-picker.component';
+import { AdditionalService } from 'src/app/shared/models/additional-service.model';
 import { DateRange } from 'src/app/shared/models/date-range.model';
 import { ReservationOfferDetails } from '../models/reservation-offer-details.model';
 import { ReservationService } from '../services/reservation.service';
@@ -159,7 +160,22 @@ export class ReservationComponent implements OnInit {
   }
 
   makeReservationCallBack() {
-    this.reservationService.makeReservation().subscribe(
+    this.range.start.setMinutes(this.range.start.getMinutes() - this.range.start.getTimezoneOffset());
+    this.range.end.setMinutes(this.range.end.getMinutes() - this.range.end.getTimezoneOffset());
+    let additionalServices = new Array<AdditionalService>();
+    _.forEach(this.reservationForm.get("additionalServices")?.value, (additionalService, i: number) => {
+      if(additionalService){
+        additionalServices.push(this.reservationOfferDetails.additionalServices[i]);
+      }
+    })
+    let reservation = {
+      start: this.range.start,
+      end: this.range.end,
+      totalPrice: this.getTotal(),
+      additionalServices: additionalServices,
+      entityId: this.entityId
+    }
+    this.reservationService.makeReservation(reservation).subscribe(
       data => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = {
@@ -171,6 +187,15 @@ export class ReservationComponent implements OnInit {
         dialogRef.componentInstance.okay.subscribe(_ => {
           window.location.replace("/client/dashboard");
         })
+      },
+      error => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+          title: "Reservation failed",
+          message: error.error.message,
+          buttonText: "Okay",
+        };
+        this.dialog.open(InfoDialogComponent, dialogConfig);
       }
     );
   }

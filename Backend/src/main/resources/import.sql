@@ -58,7 +58,7 @@ insert into users (id, first_name, last_name, email, password, phone_number, add
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Monica', 'Turning', 'monica@gmail.com', '$2a$10$fXTFNOnVu.S/wnHtQh1lBOvB3gcHMu.tKUj7ygpot9uC4spDRIzRy', '+1 (129) 842-3516', 6, 3, '44124a3155iZJm4.jpg', 0, true, false);
 
 
-insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 0, 0, 2, 2)
+insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (0, 0, 0, 0, 0)
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (1, 500, 500, 5, 5)
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (2, 1000, 1000, 7, 9)
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (3, 2000, 2500, 9, 11)
@@ -153,11 +153,13 @@ insert into additional_service(id, name, price) values (nextval('additional_serv
 insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Unlimited drinks', 25);
 insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Wifi', 5);
 insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Skipper', 30);
+insert into additional_service(id, name, price) values (nextval('additional_service_id_seq'), 'Skipper', 50);
 
 insert into entity_additional_service(entity_id, service_id) values (7, 1)
 insert into entity_additional_service(entity_id, service_id) values (7, 2)
 insert into entity_additional_service(entity_id, service_id) values (7, 3)
 insert into entity_additional_service(entity_id, service_id) values (7, 4)
+insert into entity_additional_service(entity_id, service_id) values (9, 5)
 
 insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, version, entity_id) values (nextval('special_offer_id_seq'), '2022-06-06 00:00:00', '2021-06-09 00:00:00', 10, 200.0, 10.0, 1, 7)
 insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, version, entity_id) values (nextval('special_offer_id_seq'), '2022-06-10 00:00:00', '2021-06-13 00:00:00', 10, 190.0, 10.0, 1, 7)
