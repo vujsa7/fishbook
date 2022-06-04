@@ -119,6 +119,7 @@ export class ReservationDialogComponent implements OnInit {
     this.reservationService.postReservation(request).subscribe(
       data => {
         this.toastr.success("Successfully saved reservation. Check your calendar.", "Success");
+        location.reload();
         this.close();
       },
       error => { 

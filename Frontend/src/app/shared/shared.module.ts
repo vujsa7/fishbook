@@ -27,10 +27,12 @@ import { MapComponent } from './components/map/map.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
+  timeGridPlugin,
   interactionPlugin
 ]);
 

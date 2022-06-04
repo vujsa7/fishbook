@@ -156,6 +156,10 @@ insert into entity_additional_service(entity_id, service_id) values (7, 1)
 insert into entity_additional_service(entity_id, service_id) values (7, 2)
 insert into entity_additional_service(entity_id, service_id) values (7, 3)
 
-insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-06 00:00:00', '2021-06-09 00:00:00', 10, 200.0, 10.0, 7)
-insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-10 00:00:00', '2021-06-13 00:00:00', 10, 190.0, 10.0, 7)
-insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-13 00:00:00', '2021-06-16 00:00:00', 12, 210.0, 10.0, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-06 00:00:00', '2022-06-09 00:00:00', 10, 200.0, 10.0, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-10 00:00:00', '2022-06-13 00:00:00', 10, 190.0, 10.0, 7)
+insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-13 00:00:00', '2022-06-16 00:00:00', 12, 210.0, 10.0, 7)
+
+insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 5, 450.0, 1, 5)
+insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-01-01 08:00:00', '2022-06-03 08:00:00', 4, 0)
+insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-06-13 08:00:00', '2022-09-01 08:00:00', 4, 0)
