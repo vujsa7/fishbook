@@ -1,6 +1,8 @@
 package com.fishbook.reservation.service.impl;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
+import com.fishbook.email.model.Email;
+import com.fishbook.email.service.EmailService;
 import com.fishbook.entity.dao.EntityRepository;
 import com.fishbook.entity.model.Entity;
 import com.fishbook.exception.ApiRequestException;
@@ -8,6 +10,7 @@ import com.fishbook.reservation.dao.EntityAvailabilityRepository;
 import com.fishbook.reservation.dao.ReservationRepository;
 import com.fishbook.reservation.dao.SellerAvailabilityRepository;
 import com.fishbook.reservation.dao.SellerUnavailabilityRepository;
+import com.fishbook.reservation.dto.ClientReservationDto;
 import com.fishbook.reservation.model.*;
 import com.fishbook.reservation.service.ClientReservationService;
 import com.fishbook.system.service.ConfigService;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +38,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
     private final SellerAvailabilityRepository sellerAvailabilityRepository;
     private final ConfigService configService;
     private final ReservationRepository reservationRepository;
+    private final EmailService emailService;
 
     @Override
     public Entity getReservationOfferDetails(Long entityId) {
@@ -68,9 +73,38 @@ public class ClientReservationServiceImpl implements ClientReservationService {
         // Check if price is right
         if(calculatePriceForReservation(reservationCandidate, user).compareTo(reservationCandidate.getTotalPrice()) != 0)
             throw new ApiRequestException("Price doesn't match with our price in the system. Please try again.");
-        Reservation reservation = new Reservation(reservationCandidate.getStart(), reservationCandidate.getEnd(), 0, reservationCandidate.getTotalPrice(),  reservationCandidate.getAdditionalServices(), entity, user);
+
+        Reservation reservation = new Reservation(reservationCandidate.getStart(), reservationCandidate.getEnd(), 0, reservationCandidate.getTotalPrice(),  new HashSet<>(reservationCandidate.getAdditionalServices()), entity, user);
         reservationRepository.save(reservation);
+
+        try{
+            sendConfirmationEmail(reservation);
+        } catch (InterruptedException e) { e.printStackTrace(); }
+
+
         return reservationCandidate;
+    }
+
+    @Override
+    public List<Reservation> getReservationHistory(String email) {
+        User user = userRepository.findByEmail(email);
+        return reservationRepository.findAllByClientId(user.getId());
+    }
+
+    @Override
+    public String getStatus(Boolean isCancelled, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        if(isCancelled)
+            return "Canceled";
+        LocalDateTime now = LocalDateTime.now();
+        now = now.with(LocalTime.MIN);
+        now = now.with(LocalTime.MIDNIGHT);
+        if(endDateTime.isBefore(now))
+            return "Completed";
+        if((startDateTime.isEqual(now) || startDateTime.isBefore(now)) && endDateTime.isAfter(now))
+            return "Active";
+        if(startDateTime.isAfter(now))
+            return "Upcoming";
+        return "Unknown";
     }
 
     private void createFishingLessonReservation(ReservationCandidate reservationCandidate, Entity entity, User user) {
@@ -121,16 +155,21 @@ public class ClientReservationServiceImpl implements ClientReservationService {
     }
 
 
-    private Double calculatePriceForReservation(ReservationCandidate reservationCandidate, User user) {
+    private Double calculatePriceForReservation(ReservationCandidate reservationCandidate, User client) {
         long days = calculateDaysForReservation(reservationCandidate);
         Entity entity = entityRepository.getById(reservationCandidate.getEntityId());
-        Double totalPrice = entity.getPricePerDay() * days;
+        Double basePrice = entity.getPricePerDay() * days;
         for (AdditionalService additionalService: reservationCandidate.getAdditionalServices()) {
-            totalPrice += additionalService.getPrice();
+            basePrice += additionalService.getPrice();
         }
-        Integer discount = configService.getClientDiscountPercentageForPoints(user.getPoints()).intValue();
+        Integer discount = configService.getClientDiscountPercentageForPoints(client.getPoints()).intValue();
+        Double totalPrice = basePrice;
         if(discount > 0)
-            totalPrice = totalPrice * (1 - discount/100);
+            totalPrice -= (basePrice * discount/100);
+        Integer sellerFee = configService.getSellerExtraRevenueForPoints(entity.getOwner().getPoints()).intValue();
+        if(sellerFee > 0)
+            totalPrice += (basePrice * sellerFee/100);
+        totalPrice += configService.getGlobalConfig().getSystemFee();
         return totalPrice;
     }
 
@@ -172,6 +211,12 @@ public class ClientReservationServiceImpl implements ClientReservationService {
             entityAvailabilityRepository.save(new EntityAvailability(boatAvailability.getFromDateTime(), reservationStart.minusDays(1), boatAvailability.getEntity()));
             entityAvailabilityRepository.delete(boatAvailability);
         }
+    }
+
+    private void sendConfirmationEmail(Reservation reservation) throws InterruptedException {
+        Email email = new Email(reservation.getClient().getEmail(), "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
+                " from " + reservation.getStartDateTime() + " to " + reservation.getEndDateTime());
+        emailService.sendEmail(email);
     }
 
 }

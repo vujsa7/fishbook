@@ -47,7 +47,7 @@ public class ReservationOptions {
         this.additionalServices = additionalServices;
     }
 
-    public ReservationOptions(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, HashSet<AdditionalService> additionalServices, Entity entity, Double price) {
+    public ReservationOptions(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, Set<AdditionalService> additionalServices, Entity entity, Double price) {
         this.startDateTime = start;
         this.endDateTime = end;
         this.maxNumberOfPeople = maxNumberOfPeople;

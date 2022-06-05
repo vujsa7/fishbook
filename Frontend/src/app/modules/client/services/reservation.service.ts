@@ -14,15 +14,14 @@ import { DateRange } from 'src/app/shared/models/date-range.model';
 })
 export class ReservationService {
 
-
-
   private baseUrl: string = environment.baseUrl + "clientReservations";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getReservationHistoryList(): Array<Reservation> {
-    // TODO: Fetch reservations from backend
-    return reservationHistory as Array<Reservation>;
+  getReservationHistoryList(): Observable<Array<Reservation>> {
+    // // TODO: Fetch reservations from backend
+    // return reservationHistory as Array<Reservation>;
+    return this.http.get<Array<Reservation>>(this.baseUrl + "/history", { headers: this.authService.getHeader() })
   }
 
   cancelReservation(reservationId: number): Observable<boolean> {
@@ -44,6 +43,10 @@ export class ReservationService {
     return new Observable(subscriber => {
       subscriber.next("review left");
     })
+  }
+
+  fetchDiscountAndFees(entityId: number): Observable<any> {
+    return this.http.get<any>(environment.baseUrl + 'config/discountAndFees/' + entityId, { headers: this.authService.getHeader()})
   }
 
   getReservationOfferDetails(entityId: number): Observable<ReservationOfferDetails> {

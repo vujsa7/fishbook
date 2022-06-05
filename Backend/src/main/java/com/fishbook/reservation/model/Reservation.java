@@ -39,8 +39,9 @@ public class Reservation extends ReservationOptions {
         return entityAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && entityAvailability.getToDateTime().isAfter(this.getEndDateTime());
     }
 
-    public Reservation(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, Double price, List<AdditionalService> additionalServices, com.fishbook.entity.model.Entity entity, User user) {
-        super(start, end, maxNumberOfPeople, new HashSet<>(additionalServices), entity, price);
+    public Reservation(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, Double price, Set<AdditionalService> additionalServices, com.fishbook.entity.model.Entity entity, User user) {
+        super(start, end, maxNumberOfPeople, additionalServices, entity, price);
         this.client = user;
+        this.isCancelled = false;
     }
 }

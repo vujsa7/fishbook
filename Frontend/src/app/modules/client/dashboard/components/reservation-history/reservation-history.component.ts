@@ -32,25 +32,31 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
   constructor(private reservationService: ReservationService, private renderer: Renderer2, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.reservationService.getReservationHistoryList());
-    this.renderer.listen('body', 'click', (e: Event) => {
-      for (let el of this.optionBox) {
-        if (el.nativeElement.contains(e.target)) {
-          return;
+    this.reservationService.getReservationHistoryList().subscribe(data => {
+      this.dataSource =  new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.renderer.listen('body', 'click', (e: Event) => {
+        for (let el of this.optionBox) {
+          if (el.nativeElement.contains(e.target)) {
+            return;
+          }
         }
-      }
-      for (let el of this.optionBtn) {
-        if (el.nativeElement.contains(e.target)) {
-          return;
+        for (let el of this.optionBtn) {
+          if (el.nativeElement.contains(e.target)) {
+            return;
+          }
         }
-      }
-      this.selectedOptionBoxId = -1;
-    })
+        this.selectedOptionBoxId = -1;
+      })
+    });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if(this.dataSource){
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    } 
   }
 
   getClass(status: string): string {
@@ -61,6 +67,17 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
     if (status == "Canceled")
       return "red";
     return "darkgrey";
+  }
+
+  getReservationType(type: string): string{
+    if(type.includes("FishingLesson"))
+      return "Adventure";
+    else if(type.includes("Boat"))
+      return "Boat";
+    else if(type.includes("House"))
+      return "House";
+    else
+      return "Unknown";
   }
 
   getTextClass(status: string): string {

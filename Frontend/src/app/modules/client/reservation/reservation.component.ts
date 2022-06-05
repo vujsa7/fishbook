@@ -30,6 +30,7 @@ export class ReservationComponent implements OnInit {
   boatOwnerUnavailableDates!: Array<DateRange>;
   unavailableDatesForSelection: Array<DateRange> = [];
   isSkipperSelected: boolean = false;
+  discountAndFees! : any;
 
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService, private dialog: MatDialog, private datePipe: DatePipe) {
@@ -42,7 +43,14 @@ export class ReservationComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.entityId = params['id'];
       this.fetchReservationOfferDetails();
+      this.fetchDiscountsAndFees();
     });
+  }
+
+  fetchDiscountsAndFees() {
+    this.reservationService.fetchDiscountAndFees(this.entityId).subscribe(data => {
+      this.discountAndFees = data;
+    })
   }
 
   fetchReservationOfferDetails() {
@@ -122,6 +130,14 @@ export class ReservationComponent implements OnInit {
     sum += this.sumAdditionalServices();
     if (this.range)
       sum += this.sumPriceForSelectedDates();
+    if(this.discountAndFees){
+      if(this.discountAndFees.discount > 0)
+        sum -= sum * this.discountAndFees.discount/100;
+      if(this.discountAndFees.sellerFee > 0)
+        sum += sum * this.discountAndFees.sellerFee/100;
+      if(this.discountAndFees.systemFee > 0)
+        sum += this.discountAndFees.systemFee;
+    }
     return sum;
   }
 

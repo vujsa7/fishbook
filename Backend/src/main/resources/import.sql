@@ -63,7 +63,7 @@ insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, d
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (2, 1000, 1000, 7, 9)
 insert into loyalty_config (loyalty_type, buyer_min_points, seller_min_points, discount, extra_revenue) values (3, 2000, 2500, 9, 11)
 
-insert into global_config (system_fee, buyer_points_per_reservation, seller_points_per_reservation) values (1000.0, 20, 20)
+insert into global_config (system_fee, buyer_points_per_reservation, seller_points_per_reservation) values (10, 20, 20)
 
 insert into rule (description, type) values ('No smoking', 'boat')
 insert into rule (description, type) values ('No trash in water', 'boat')

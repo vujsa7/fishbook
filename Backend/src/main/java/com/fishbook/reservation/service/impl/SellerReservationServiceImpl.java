@@ -49,7 +49,7 @@ public class SellerReservationServiceImpl implements SellerReservationService {
     }
 
     private void sendConfirmationEmail(Reservation reservation) throws InterruptedException {
-        Email email = new Email(reservation.getClient().getEmail(), "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
+        Email email = new Email("user.fishbook@gmail.com", "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
                 "from " + reservation.getStartDateTime() + " to " + reservation.getEndDateTime());
         emailService.sendEmail(email);
     }

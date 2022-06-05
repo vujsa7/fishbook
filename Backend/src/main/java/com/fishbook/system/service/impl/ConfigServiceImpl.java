@@ -1,5 +1,7 @@
 package com.fishbook.system.service.impl;
 
+import com.fishbook.entity.dao.EntityRepository;
+import com.fishbook.entity.model.Entity;
 import com.fishbook.system.dao.GlobalConfigRepository;
 import com.fishbook.system.dao.LoyaltyConfigRepository;
 import com.fishbook.system.model.GlobalConfig;
@@ -16,11 +18,13 @@ import java.util.stream.Collectors;
 public class ConfigServiceImpl implements ConfigService {
     private final LoyaltyConfigRepository loyaltyConfigRepository;
     private final GlobalConfigRepository globalConfigRepository;
+    private final EntityRepository entityRepository;
 
     @Autowired
-    public ConfigServiceImpl(LoyaltyConfigRepository loyaltyConfigRepository, GlobalConfigRepository globalConfigRepository){
+    public ConfigServiceImpl(LoyaltyConfigRepository loyaltyConfigRepository, GlobalConfigRepository globalConfigRepository, EntityRepository entityRepository){
         this.loyaltyConfigRepository = loyaltyConfigRepository;
         this.globalConfigRepository = globalConfigRepository;
+        this.entityRepository = entityRepository;
     }
 
     @Override
@@ -61,8 +65,8 @@ public class ConfigServiceImpl implements ConfigService {
 
     @Override
     public List<Double> getClientDiscounts() {
-        List<Double> levelMarks = loyaltyConfigRepository.findAll().stream().map(l -> l.getDiscount()).collect(Collectors.toList());
-        return levelMarks;
+        List<Double> discounts = loyaltyConfigRepository.findAll().stream().map(l -> l.getDiscount()).collect(Collectors.toList());
+        return discounts;
     }
 
     @Override
@@ -94,5 +98,34 @@ public class ConfigServiceImpl implements ConfigService {
                 break;
         }
         return discount;
+    }
+
+    @Override
+    public Double getSellerExtraRevenueForPoints(Integer points) {
+        Double extraRevenue = 0.0;
+        List<Double> extraRevenues = getSellerExtraRevenues();
+        int cnt = 0;
+        for(Integer levelMark : getSellerLevelMarks()){
+            if(points >= levelMark){
+                extraRevenue = extraRevenues.get(cnt);
+            } else
+                break;
+        }
+        return extraRevenue;
+    }
+
+    @Override
+    public Double getSellerExtraRevenueForEntity(Long entityId) {
+        Optional<Entity> optionalEntity = entityRepository.findById(entityId);
+        if(optionalEntity.isEmpty())
+            return null;
+        Entity entity = optionalEntity.get();
+        Double sellerExtraRevenue = getSellerExtraRevenueForPoints(entity.getOwner().getPoints());
+        return sellerExtraRevenue;
+    }
+
+    private List<Double> getSellerExtraRevenues() {
+        List<Double> extraRevenues = loyaltyConfigRepository.findAll().stream().map(l -> l.getExtraRevenue()).collect(Collectors.toList());
+        return extraRevenues;
     }
 }

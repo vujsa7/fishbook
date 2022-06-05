@@ -20,4 +20,7 @@ public interface ConfigService {
     List<Integer> getSellerLevelMarks();
     Integer getClientLoyaltyPointsForNextLevel(Integer points);
     Double getClientDiscountPercentageForPoints(Integer points);
+    Double getSellerExtraRevenueForPoints(Integer points);
+
+    Double getSellerExtraRevenueForEntity(Long entityId);
 }

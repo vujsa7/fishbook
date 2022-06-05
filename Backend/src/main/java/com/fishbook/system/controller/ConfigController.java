@@ -1,9 +1,11 @@
 package com.fishbook.system.controller;
 
 import com.fishbook.exception.ApiRequestException;
+import com.fishbook.system.dto.DiscountAndFeesDto;
 import com.fishbook.system.model.GlobalConfig;
 import com.fishbook.system.model.LoyaltyConfig;
 import com.fishbook.system.service.ConfigService;
+import com.fishbook.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +21,12 @@ import java.util.Optional;
 @RequestMapping("/api/config")
 public class ConfigController {
     private final ConfigService configService;
+    private final UserService userService;
 
     @Autowired
-    public ConfigController(ConfigService configService){
+    public ConfigController(ConfigService configService, UserService userService){
         this.configService = configService;
+        this.userService = userService;
     }
 
     @GetMapping(value = "/loyalty")
@@ -74,5 +79,16 @@ public class ConfigController {
     public ResponseEntity getSellerLevelMarks(){
         List<Integer> marks = configService.getSellerLevelMarks();
         return new ResponseEntity<>(marks, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/discountAndFees/{entityId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity getClientDiscount(Principal principal, @PathVariable Long entityId){
+        Double clientDiscount = configService.getClientDiscountPercentageForPoints(userService.findByEmail(principal.getName()).getPoints());
+        Double sellerExtraRevenue = configService.getSellerExtraRevenueForEntity(entityId);
+        if(sellerExtraRevenue == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        Double systemFee = configService.getGlobalConfig().getSystemFee();
+        return new ResponseEntity( new DiscountAndFeesDto(clientDiscount, sellerExtraRevenue, systemFee), HttpStatus.OK);
     }
 }
