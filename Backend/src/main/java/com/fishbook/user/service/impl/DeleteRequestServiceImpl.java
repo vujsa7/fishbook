@@ -37,23 +37,23 @@ public class DeleteRequestServiceImpl implements DeleteRequestService {
         if (dto.getApproved()) {
             user.setDeleted(true);
             userRepository.save(user);
-            sendConfirmationEmail();
+            sendConfirmationEmail(dto.getResponse());
         } else {
             user.setEnabled(true);
             userRepository.save(user);
-            sendRejectionEmail();
+            sendRejectionEmail(dto.getResponse());
         }
 
         deleteAccountRequestRepository.delete(deleteAccountRequest);
     }
 
-    private void sendConfirmationEmail() throws InterruptedException {
-        Email email = new Email("user.fishbook@gmail.com", "Account deletion", "You have successfully deleted your account.");
+    private void sendConfirmationEmail(String content) throws InterruptedException {
+        Email email = new Email("user.fishbook@gmail.com", "Account deletion", content);
         emailService.sendEmail(email);
     }
 
-    private void sendRejectionEmail() throws InterruptedException {
-        Email email = new Email("user.fishbook@gmail.com", "Account deletion", "Your request for deleting your account has been rejected.");
+    private void sendRejectionEmail(String content) throws InterruptedException {
+        Email email = new Email("user.fishbook@gmail.com", "Account deletion", content);
         emailService.sendEmail(email);
     }
 }
