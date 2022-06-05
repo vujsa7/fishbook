@@ -23,6 +23,8 @@ public class Reservation extends ReservationOptions {
 
     private Boolean isCancelled;
 
+    private Boolean loyaltyPointsAdded;
+
     public Reservation(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxNumberOfPeople, Set<AdditionalService> additionalServices) {
         super(startDateTime, endDateTime, maxNumberOfPeople, additionalServices);
     }
