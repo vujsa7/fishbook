@@ -50,7 +50,7 @@ export class ReportDialogComponent implements OnInit {
     }
     this.reportService.postReport(request).subscribe(
       data => {
-        this.toastr.success("Successfully saved reservation. Check your calendar.", "Success");
+        this.toastr.success("Successfully saved report.", "Success");
         location.reload();
         this.close();
       },
