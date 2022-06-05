@@ -21,6 +21,7 @@ import { OverviewComponent } from './pages/statistics/overview/overview.componen
 import { CalculateRevenueDialogComponent } from './components/calculate-revenue-dialog/calculate-revenue-dialog.component';
 import { EntityStatisticsComponent } from './pages/entity-statistics/entity-statistics.component';
 import { NgChartsModule } from 'ng2-charts';
+import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NgChartsModule } from 'ng2-charts';
     OverviewComponent,
     CalculateRevenueDialogComponent,
     EntityStatisticsComponent,
+    ReportDialogComponent,
   ],
   imports: [
     CommonModule,

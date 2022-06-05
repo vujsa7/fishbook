@@ -25,6 +25,10 @@ export class ReservationService {
     return this.http.get(this.baseUrl + 'reservations', options);
   }
 
+  getReservation(reservationId: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'reservations/' + reservationId, { headers : this.authService.getHeader() });
+  } 
+
   calculateRevenue(request: any): Observable<any> {
     let options = {
       params: new HttpParams()

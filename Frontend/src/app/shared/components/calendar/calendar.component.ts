@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
+import { ReportDialogComponent } from 'src/app/modules/seller/components/report-dialog/report-dialog.component';
 import { ReservationService } from 'src/app/modules/seller/services/reservation.service';
 import { SellerAvailabilityService } from 'src/app/modules/seller/services/seller-availability.service';
 import { SpecialOfferService } from 'src/app/modules/seller/services/special-offer.service';
@@ -24,6 +26,11 @@ export class CalendarComponent implements OnInit {
     events: (fetchInfo, sucessCallback, failureCallback) => {
       sucessCallback(this.events);
     },
+    eventClick:(info) => {
+      if(info.event.title.split(" ")[0] == "Reservation") {
+        this.createReport(parseInt(info.event.id))
+      }
+    },
     eventBorderColor : "#ffffff",
     headerToolbar: {
       left: 'prev,next today',
@@ -36,7 +43,7 @@ export class CalendarComponent implements OnInit {
   };
   events : CalendarEvent[] = [];
   
-  constructor(private sellerAvailabilityService: SellerAvailabilityService, private specialOfferService: SpecialOfferService, private reservationService: ReservationService) { }
+  constructor(private sellerAvailabilityService: SellerAvailabilityService, private specialOfferService: SpecialOfferService, private reservationService: ReservationService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     if(this.entityType == "adventure") {
@@ -110,6 +117,14 @@ export class CalendarComponent implements OnInit {
         }
       }
     )
+  }
+
+  private createReport(reservationId: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      reservationId: reservationId,
+    }      
+    this.dialog.open(ReportDialogComponent, dialogConfig);
   }
 
 }
