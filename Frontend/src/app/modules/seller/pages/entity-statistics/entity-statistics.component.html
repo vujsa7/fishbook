@@ -1,0 +1,12 @@
+<div class="d-flex flex-column page-wrapper">
+    <h3>Monthly view for 2022</h3>
+    <div class="canvas-wrapper mt-2">
+        <canvas baseChart
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="chartLegend"
+            [type]="chartType">
+        </canvas>
+    </div>
+</div>
