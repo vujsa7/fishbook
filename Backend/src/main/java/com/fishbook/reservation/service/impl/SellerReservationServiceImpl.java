@@ -14,6 +14,8 @@ import com.fishbook.reservation.model.EntityAvailability;
 import com.fishbook.reservation.model.Reservation;
 import com.fishbook.reservation.model.SellerAvailability;
 import com.fishbook.reservation.service.SellerReservationService;
+import com.fishbook.system.dao.GlobalConfigRepository;
+import com.fishbook.system.service.LoyaltyPointsService;
 import com.fishbook.user.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class SellerReservationServiceImpl implements SellerReservationService {
     private final SellerAvailabilityRepository sellerAvailabilityRepository;
     private final EntityAvailabilityRepository entityAvailabilityRepository;
     private final EmailService emailService;
+    private final LoyaltyPointsService loyaltyPointsService;
+    private final GlobalConfigRepository globalConfigRepository;
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
@@ -88,8 +92,10 @@ public class SellerReservationServiceImpl implements SellerReservationService {
 
     private Double calculatePrice(Reservation reservation){
         Long numOfDays = ChronoUnit.DAYS.between(reservation.getStartDateTime(), reservation.getEndDateTime());
-        double basePrice = numOfDays * reservation.getEntity().getPricePerDay();
-
-        return basePrice + reservation.getAdditionalServices().stream().mapToDouble(AdditionalService::getPrice).sum();
+        double basePrice = (numOfDays > 0 ? numOfDays : 1) * reservation.getEntity().getPricePerDay();
+        double price = basePrice + reservation.getAdditionalServices().stream().mapToDouble(AdditionalService::getPrice).sum();
+        price = price * ((100 - loyaltyPointsService.getLoyaltyDiscount(reservation.getClient().getId())) / 100);
+        price += price * (loyaltyPointsService.getLoyaltyRevenue(reservation.getEntity().getOwner().getId()) / 100);
+        return price + globalConfigRepository.getById(1).getSystemFee();
     }
 }

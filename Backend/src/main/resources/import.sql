@@ -193,8 +193,15 @@ insert into entity_availability (id, from_date_time, to_date_time, version, enti
 
 --insert into seller_unavailability (id, from_date_time, to_date_time, version, seller_id) values (nextval('seller_unavailability_id_seq'), '2022-07-21 00:00:00', '2022-07-23 00:00:00', 1, 2)
 
-insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 5, 450.0, 1, 5, false)
-insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-08-03 08:00:00', '2022-08-13 08:00:00', 5, 500.0, 1, 5, false)
+insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 5, 450.0, 1, 5, false, false)
+insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-08-03 08:00:00', '2022-08-13 08:00:00', 5, 500.0, 1, 5, false, false)
+
+-- test
+--insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-05-03 08:00:00', '2022-05-13 08:00:00', 5, 500.0, 1, 5, false, false)
+--insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-05-13 08:00:00', '2022-05-15 08:00:00', 5, 500.0, 1, 5, false, false)
+--insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-08-03 08:00:00', '2022-08-13 08:00:00', 5, 500.0, 1, 5, true, false)
+-- test
+
 insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-01-01 08:00:00', '2022-06-03 08:00:00', 4, 0)
 insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-06-13 08:00:00', '2022-08-03 08:00:00', 4, 0)
 
