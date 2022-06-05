@@ -259,4 +259,7 @@ public class User implements UserDetails {
 
     public void setSubscribedEntities(Set<com.fishbook.entity.model.Entity> subscribedEntities) { this.subscribedEntities = subscribedEntities; }
 
+    public void addLoyaltyPoints(Integer points) {
+        this.points += points;
+    }
 }

@@ -23,6 +23,8 @@ public class Reservation extends ReservationOptions {
 
     private Boolean isCancelled;
 
+    private Boolean loyaltyPointsAdded;
+
     public Reservation(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxNumberOfPeople, Set<AdditionalService> additionalServices) {
         super(startDateTime, endDateTime, maxNumberOfPeople, additionalServices);
     }
@@ -31,7 +33,11 @@ public class Reservation extends ReservationOptions {
         return this.getStartDateTime().isBefore(reservation.getEndDateTime()) && reservation.getStartDateTime().isBefore(this.getEndDateTime());
     }
 
-    public boolean inRange(SellerAvailability sellerAvailability) {
+    public Boolean isOverlapping(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return this.getStartDateTime().isBefore(endDateTime) && startDateTime.isBefore(this.getEndDateTime());
+    }
+
+    public Boolean inRange(SellerAvailability sellerAvailability) {
         return sellerAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && sellerAvailability.getToDateTime().isAfter(this.getEndDateTime());
     }
 

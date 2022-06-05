@@ -23,4 +23,7 @@ public interface SellerReservationRepository extends JpaRepository<Reservation, 
 
     @Query("select r from Reservation r where r.entity.id = :entityId and (r.startDateTime <= current_timestamp and r.endDateTime >= current_timestamp or r.startDateTime > current_timestamp) and r.isCancelled = false")
     List<Reservation> findActiveAndFutureReservations(Long entityId);
+
+    @Query("select r from Reservation r where r.endDateTime <= current_timestamp and r.isCancelled = false and r.loyaltyPointsAdded = false")
+    List<Reservation> findFinishedReservations();
 }
