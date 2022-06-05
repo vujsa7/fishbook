@@ -9,7 +9,14 @@ import java.util.List;
 public interface ReservationService {
 
     Integer getNumberOfReservations(Entity entity);
+
     Double calculateRevenue(CalculateRevenueDto dto);
+
     List<Reservation> getAll(Long entityId);
+
     Reservation get(Long id);
+
+    Entity getReservationOfferDetails(Long entityId);
+
 }
+

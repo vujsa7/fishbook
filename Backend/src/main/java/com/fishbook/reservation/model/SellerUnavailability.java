@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,4 +17,9 @@ public class SellerUnavailability extends DateTimePeriod {
 
     @ManyToOne
     private User seller;
+
+    public SellerUnavailability(LocalDateTime start, LocalDateTime end, User seller) {
+        super(start, end);
+        this.seller = seller;
+    }
 }

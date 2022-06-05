@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateFilterFn } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
@@ -11,10 +11,12 @@ import { DateRange } from '../../models/date-range.model';
 })
 export class RangeDatePickerComponent implements OnInit, OnDestroy {
 
-  @Input() availableDates?: Array<DateRange>;
+  @Input() availableDates!: Array<DateRange>;
+  @Input() unavailableDates!: Array<DateRange>;
   rangeSub!: Subscription;
   calendarMaxDate: Date = new Date(8640000000000000);
   maxDate: Date = this.calendarMaxDate;
+  selectedStartingDate!: Date;
 
   @Output() rangeChanged = new EventEmitter<Object>(); 
 
@@ -22,6 +24,7 @@ export class RangeDatePickerComponent implements OnInit, OnDestroy {
     start: new FormControl(),
     end: new FormControl(),
   });
+  
 
   ngOnInit(): void {
     this.rangeSub = this.range.valueChanges.subscribe(_ => {
@@ -29,31 +32,56 @@ export class RangeDatePickerComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.changeMaxDate();
+  }
+
   rangeFilter: DateFilterFn<Date> = (date: Date | null) => {
+    if(date! <= new Date())
+      return false;
     if(this.availableDates){
-      for(let dateRange of this.availableDates){
-        let start = new Date(dateRange.start)
-        start.setHours(0, 0, 0, 0)
-        let end = new Date(dateRange.end)
-        end.setHours(0, 0, 0, 0)
-        if(date! >= start && date! <= end)
-          return true;
+      for(let availableDateRange of this.availableDates){
+        if(this.isDateInsideDateRange(date!, availableDateRange.start, availableDateRange.end)){
+          if(this.unavailableDates.length > 0){
+            for(let unavailableDateRange of this.unavailableDates){
+              if(this.isDateInsideDateRange(date!, unavailableDateRange.start, unavailableDateRange.end))
+                return false;
+            }
+            return true;
+          }
+          else
+            return true;
+        }
       }
       return false;
     }
     return true;
   };
 
+
+  private isDateInsideDateRange(date: Date, dateRangeStart: string, dateRangeEnd: string) {
+    let start = new Date(dateRangeStart)
+    let end = new Date(dateRangeEnd)
+    return date >= start && date <= end;
+  }
+
   startDateChanged(e: any){
-    const date = e.value;
-    if (date && this.availableDates) {
-      for(let dateRange of this.availableDates){
-        let start = new Date(dateRange.start)
-        start.setHours(0, 0, 0, 0)
-        let end = new Date(dateRange.end)
-        end.setHours(0, 0, 0, 0)
-        if(date! >= start && date! <= end){
-          this.maxDate = end;
+    this.selectedStartingDate = e.value;
+    this.changeMaxDate();
+  }
+
+  changeMaxDate() {
+    if (this.selectedStartingDate && this.availableDates) {
+      for(let availableDateRange of this.availableDates){
+        if(this.isDateInsideDateRange(this.selectedStartingDate, availableDateRange.start, availableDateRange.end)){
+          if(this.unavailableDates.length > 0){
+            for(let unavailableDateRange of this.unavailableDates)
+              if(new Date(unavailableDateRange.start) > this.selectedStartingDate && this.isDateInsideDateRange(new Date(unavailableDateRange.start), availableDateRange.start, availableDateRange.end)){
+                this.maxDate = new Date(unavailableDateRange.start);
+                return;
+              }    
+          }
+          this.maxDate = new Date(availableDateRange.end);
           return;
         }
       }

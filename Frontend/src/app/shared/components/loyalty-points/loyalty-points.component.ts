@@ -21,10 +21,13 @@ export class LoyaltyPointsComponent implements OnInit {
   customerLevel: string = "";
   
   ngOnInit(): void {
-    this.profileType = this.authService.getTokenRole();
-    if (this.profileType == "ROLE_CLIENT"){
-      this.initializeCustomerLoyaltyConfig();
+    let role = this.authService.getTokenRole(); 
+    if(role == "ROLE_CLIENT"){
+      this.profileType = "Customer";
+    } else if (role != "ROLE_ADMIN"){
+      this.profileType = "Seller";
     }
+    this.initializeCustomerLoyaltyConfig();
   }
 
   initializeCustomerLoyaltyConfig() {
@@ -33,24 +36,24 @@ export class LoyaltyPointsComponent implements OnInit {
       this.previousLevelTarget = 0;
       this.highPointsIcon = "swordfish-icon";
       this.nextLevelTarget = this.levelMarks[1];
-      this.customerLevel = "Baby Seahorse Customer";
+      this.customerLevel = "Baby Seahorse " + this.profileType;
     } else if(this.points < this.levelMarks[2]){
       this.lowPointsIcon = "swordfish-icon";
       this.previousLevelTarget = this.levelMarks[1];
       this.highPointsIcon = "shark-icon";
       this.nextLevelTarget = this.levelMarks[2];
-      this.customerLevel = "Wild Swordfish Customer";
+      this.customerLevel = "Wild Swordfish " + this.profileType;
     } else if(this.points < this.levelMarks[3]){
       this.previousLevelTarget = this.levelMarks[2];
       this.lowPointsIcon = "shark-icon";
       this.highPointsIcon = "whale-icon";
       this.nextLevelTarget = this.levelMarks[3];
-      this.customerLevel = "Experienced Shark Customer";
+      this.customerLevel = "Experienced Shark " + this.profileType;
     } else {
       this.previousLevelTarget = this.levelMarks[3];
       this.lowPointsIcon = "whale-icon";
       this.nextLevelTarget = this.levelMarks[3];
-      this.customerLevel = "Mighty Whale Customer";
+      this.customerLevel = "Mighty Whale " + this.profileType;
     }
   }
 

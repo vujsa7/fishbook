@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import _ from 'lodash';
+import DateUtil from 'src/app/core/utils/date.util';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { OptionsDialogComponent } from 'src/app/shared/components/options-dialog/options-dialog.component';
 import { Reservation } from '../../../models/reservation.model';
@@ -119,16 +120,11 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
     if(reservation){
       let start = new Date(reservation!.start)
       let today = new Date()
-      if(this.getDifferenceInDays(start, today) < 3 || start < today)
+      if(DateUtil.getDifferenceInDays(start, today) < 3 || start < today)
         return false;
       return true;
     }
     return false;
-  }
-
-  getDifferenceInDays(date1: any, date2: any) {
-    const diffInMs = Math.abs(date2 - date1);
-    return diffInMs / (1000 * 60 * 60 * 24);
   }
 
   reportSeller(reservation: Reservation){

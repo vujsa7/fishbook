@@ -6,6 +6,7 @@ import com.fishbook.reservation.model.SellerAvailability;
 import com.fishbook.reservation.service.SellerAvailabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,4 +29,16 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
     public List<SellerAvailability> getAll(Long sellerId) {
         return sellerAvailabilityRepository.findAllBySellerId(sellerId);
     }
+
+    @Override
+    public List<SellerAvailability> getAllSellerAvailabilities() {
+        return sellerAvailabilityRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public List<SellerAvailability> getAvailabilityForSeller(Long id) {
+        return sellerAvailabilityRepository.findAllBySellerId(id);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.fishbook.location.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class City {
@@ -17,6 +18,9 @@ public class City {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "country_id")
     private Country country;
+
+    @OneToMany(mappedBy="city")
+    private Set<Address> addresses;
 
     public City() {}
 

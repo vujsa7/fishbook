@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Reservation extends ReservationOptions {
 
@@ -36,5 +37,10 @@ public class Reservation extends ReservationOptions {
 
     public boolean inRange(EntityAvailability entityAvailability) {
         return entityAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && entityAvailability.getToDateTime().isAfter(this.getEndDateTime());
+    }
+
+    public Reservation(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, Double price, List<AdditionalService> additionalServices, com.fishbook.entity.model.Entity entity, User user) {
+        super(start, end, maxNumberOfPeople, new HashSet<>(additionalServices), entity, price);
+        this.client = user;
     }
 }
