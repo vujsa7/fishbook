@@ -19,6 +19,8 @@ import { ReservationDialogComponent } from './components/reservation-dialog/rese
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { OverviewComponent } from './pages/statistics/overview/overview.component';
 import { CalculateRevenueDialogComponent } from './components/calculate-revenue-dialog/calculate-revenue-dialog.component';
+import { EntityStatisticsComponent } from './pages/entity-statistics/entity-statistics.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { CalculateRevenueDialogComponent } from './components/calculate-revenue-
     ReservationDialogComponent,
     StatisticsComponent,
     OverviewComponent,
-    CalculateRevenueDialogComponent
+    CalculateRevenueDialogComponent,
+    EntityStatisticsComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { CalculateRevenueDialogComponent } from './components/calculate-revenue-
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    NgChartsModule,
   ]
 })
 export class SellerModule { }
