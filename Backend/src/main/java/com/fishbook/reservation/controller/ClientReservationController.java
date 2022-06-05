@@ -82,4 +82,16 @@ public class ClientReservationController {
                 clientReservationService.getStatus(r.getIsCancelled(), r.getStartDateTime(), r.getEndDateTime()), r.getEntity().getId())).collect(Collectors.toList());
         return new ResponseEntity(clientReservationDtos, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/{reservationId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity cancelReservation(Principal principal, @PathVariable Long reservationId) {
+        try{
+            clientReservationService.cancelReservation(reservationId, principal.getName());
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (ApiRequestException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

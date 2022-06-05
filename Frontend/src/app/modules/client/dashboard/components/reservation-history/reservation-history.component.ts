@@ -121,10 +121,20 @@ export class ReservationHistoryComponent implements OnInit, AfterViewInit {
   cancelReservationCallback(reservationId: number) {
     this.reservationService.cancelReservation(reservationId).subscribe(
       data => {
+        _.find(this.dataSource.data, r => r.id == reservationId)!.status = "Canceled";
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = {
           title: "Reservation cancelled",
           message: "Reservation was successfuly cancelled.",
+          buttonText: "Okay",
+        };
+        this.dialog.open(InfoDialogComponent, dialogConfig);
+      },
+      error => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+          title: "Failed",
+          message: "Unable to cancel reservation at this time. We are sorry for this interruption, please try again.",
           buttonText: "Okay",
         };
         this.dialog.open(InfoDialogComponent, dialogConfig);

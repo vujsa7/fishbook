@@ -1,11 +1,14 @@
 package com.fishbook.reservation.service.impl;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
+import com.fishbook.boat.model.Boat;
 import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
 import com.fishbook.entity.dao.EntityRepository;
 import com.fishbook.entity.model.Entity;
 import com.fishbook.exception.ApiRequestException;
+import com.fishbook.fishing.lesson.model.FishingLesson;
+import com.fishbook.house.model.House;
 import com.fishbook.reservation.dao.EntityAvailabilityRepository;
 import com.fishbook.reservation.dao.ReservationRepository;
 import com.fishbook.reservation.dao.SellerAvailabilityRepository;
@@ -69,7 +72,6 @@ public class ClientReservationServiceImpl implements ClientReservationService {
             createHouseReservation(reservationCandidate, entity, user);
 
         }
-        // Check if price is right
         if(calculatePriceForReservation(reservationCandidate, user).compareTo(reservationCandidate.getTotalPrice()) != 0)
             throw new ApiRequestException("Price doesn't match with our price in the system. Please try again.");
 
@@ -104,6 +106,54 @@ public class ClientReservationServiceImpl implements ClientReservationService {
         if(startDateTime.isAfter(now))
             return "Upcoming";
         return "Unknown";
+    }
+
+    @Transactional
+    @Override
+    public void cancelReservation(Long reservationId, String email) throws ApiRequestException {
+        User client = userRepository.findByEmail(email);
+        Reservation reservation = reservationRepository.findAllByClientId(client.getId()).stream().filter(r -> r.getId()==reservationId).findFirst().orElse(null);
+        if(reservation == null)
+            throw new ApiRequestException("Client doesn't seem to have specified reservation");
+        reservation.setIsCancelled(true);
+        reservationRepository.save(reservation);
+        Entity entity = reservation.getEntity();
+        if(entity instanceof FishingLesson)
+            mergeSellerAvailabilities(reservation.getStartDateTime(), reservation.getEndDateTime(), entity.getOwner());
+        else if(entity instanceof House)
+            mergeEntityAvailabilities(reservation.getStartDateTime(), reservation.getEndDateTime(), entity);
+        else if(entity instanceof Boat){
+            AdditionalService skipperService = reservation.getAdditionalServices().stream().filter(a -> a.getName().equals("Skipper")).findFirst().orElse(null);
+            if(skipperService != null){
+                List<SellerUnavailability> sellerUnavailabilities = sellerUnavailabilityRepository.findSellerUnavailability(entity.getOwner().getId());
+                SellerUnavailability unavailability = sellerUnavailabilities.stream().filter(u -> u.isEqual(reservation.getStartDateTime(), reservation.getEndDateTime())).findFirst().orElse(null);
+                if(unavailability != null)
+                    sellerUnavailabilityRepository.delete(unavailability);
+            }
+            mergeEntityAvailabilities(reservation.getStartDateTime(), reservation.getEndDateTime(), entity);
+        }
+    }
+
+    private void mergeEntityAvailabilities(LocalDateTime reservationStart, LocalDateTime reservationEnd, Entity entity) {
+        List<EntityAvailability> entityAvailabilities = entityAvailabilityRepository.findEntityAvailabilitiesToMerge(reservationStart.minusDays(1), reservationEnd.plusDays(1), entity.getId());
+        if(entityAvailabilities.size() != 2)
+            throw new RuntimeException("Something is wrong with availabilities");
+        EntityAvailability availabilityBefore = entityAvailabilities.stream().filter(a -> a.getToDateTime().compareTo(reservationStart.minusDays(1))==0).findFirst().get();
+        EntityAvailability availabilityAfter = entityAvailabilities.stream().filter(a -> a.getFromDateTime().compareTo(reservationEnd.plusDays(1))==0).findFirst().get();
+        entityAvailabilityRepository.save(new EntityAvailability(availabilityBefore.getFromDateTime(), availabilityAfter.getToDateTime(), entity));
+        entityAvailabilityRepository.delete(availabilityBefore);
+        entityAvailabilityRepository.delete(availabilityAfter);
+    }
+
+    private void mergeSellerAvailabilities(LocalDateTime reservationStart, LocalDateTime reservationEnd, User owner) {
+        List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findSellerAvailabilitiesToMerge(reservationStart.minusDays(1), reservationEnd.plusDays(1), owner.getId());
+        if(sellerAvailabilities.size() != 2)
+            throw new RuntimeException("Something is wrong with availabilities");
+        SellerAvailability availabilityBefore = sellerAvailabilities.stream().filter(a -> a.getToDateTime().compareTo(reservationStart.minusDays(1))==0).findFirst().get();
+        SellerAvailability availabilityAfter = sellerAvailabilities.stream().filter(a -> a.getFromDateTime().compareTo(reservationEnd.plusDays(1))==0).findFirst().get();
+        sellerAvailabilityRepository.save(new SellerAvailability(availabilityBefore.getFromDateTime(), availabilityAfter.getToDateTime(), owner));
+        sellerAvailabilityRepository.delete(availabilityBefore);
+        sellerAvailabilityRepository.delete(availabilityAfter);
     }
 
     private void createFishingLessonReservation(ReservationCandidate reservationCandidate, Entity entity, User user) {
@@ -213,7 +263,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
     }
 
     private void sendConfirmationEmail(Reservation reservation, User user) throws InterruptedException {
-        Email email = new Email(user.getEmail(), "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
+        Email email = new Email("user.fishbook@gmail.com", "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
                 " from " + reservation.getStartDateTime() + " to " + reservation.getEndDateTime());
         emailService.sendEmail(email);
     }

@@ -25,10 +25,7 @@ export class ReservationService {
   }
 
   cancelReservation(reservationId: number): Observable<boolean> {
-    // TODO: Implement canceling reservation
-    return new Observable(subscriber => {
-      subscriber.next(true);
-    })
+    return this.http.delete<any>(this.baseUrl + '/' + reservationId, { headers: this.authService.getHeader() })
   }
 
   reportSeller(value: any): Observable<any> {

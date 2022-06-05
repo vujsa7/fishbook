@@ -14,4 +14,5 @@ public interface ClientReservationService {
     ReservationCandidate createReservation(ReservationCandidate reservationCandidate) throws ApiRequestException;
     List<Reservation> getReservationHistory(String name);
     String getStatus(Boolean isCancelled, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    void cancelReservation(Long reservationId, String email) throws ApiRequestException;
 }
