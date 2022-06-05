@@ -1,14 +1,13 @@
 package com.fishbook.user.controller;
 
 import com.fishbook.user.dto.DeleteRequestDto;
+import com.fishbook.user.dto.DeleteResponseDto;
 import com.fishbook.user.service.DeleteRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,5 +29,13 @@ public class DeleteRequestController {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(deleteRequests, HttpStatus.OK);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity handleDeleteRequest(@RequestBody DeleteResponseDto dto) throws InterruptedException {
+        deleteRequestService.handleRequest(dto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
