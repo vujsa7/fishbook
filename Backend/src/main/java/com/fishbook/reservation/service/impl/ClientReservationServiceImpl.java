@@ -10,7 +10,6 @@ import com.fishbook.reservation.dao.EntityAvailabilityRepository;
 import com.fishbook.reservation.dao.ReservationRepository;
 import com.fishbook.reservation.dao.SellerAvailabilityRepository;
 import com.fishbook.reservation.dao.SellerUnavailabilityRepository;
-import com.fishbook.reservation.dto.ClientReservationDto;
 import com.fishbook.reservation.model.*;
 import com.fishbook.reservation.service.ClientReservationService;
 import com.fishbook.system.service.ConfigService;
@@ -78,7 +77,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
         reservationRepository.save(reservation);
 
         try{
-            sendConfirmationEmail(reservation);
+            sendConfirmationEmail(reservation, user);
         } catch (InterruptedException e) { e.printStackTrace(); }
 
 
@@ -213,8 +212,8 @@ public class ClientReservationServiceImpl implements ClientReservationService {
         }
     }
 
-    private void sendConfirmationEmail(Reservation reservation) throws InterruptedException {
-        Email email = new Email(reservation.getClient().getEmail(), "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
+    private void sendConfirmationEmail(Reservation reservation, User user) throws InterruptedException {
+        Email email = new Email(user.getEmail(), "Reservation confirmation", "You have successfully reserved " + reservation.getEntity().getName() +
                 " from " + reservation.getStartDateTime() + " to " + reservation.getEndDateTime());
         emailService.sendEmail(email);
     }

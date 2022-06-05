@@ -40,8 +40,13 @@ public class Reservation extends ReservationOptions {
     }
 
     public Reservation(LocalDateTime start, LocalDateTime end, Integer maxNumberOfPeople, Double price, Set<AdditionalService> additionalServices, com.fishbook.entity.model.Entity entity, User user) {
-        super(start, end, maxNumberOfPeople, additionalServices, entity, price);
+            super(start, end, maxNumberOfPeople, additionalServices, entity, price);
         this.client = user;
         this.isCancelled = false;
     }
+
+    public Boolean isFinished() {
+        return getEndDateTime().isBefore(LocalDateTime.now());
+    }
+
 }

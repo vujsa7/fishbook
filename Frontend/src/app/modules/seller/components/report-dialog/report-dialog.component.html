@@ -1,0 +1,31 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h3 class="mb-3">Report</h3>
+    <div class="d-flex flex-column w-100">
+        <h5 class="mb-3">{{reservation.clientFirstName}} {{reservation.clientLastName}}</h5>
+        <h5 class="mb-3">Contact details</h5>
+        <h5 class="mb-3">Phone number: {{reservation.clientPhoneNumber}}</h5>
+        <h5 class="mb-3">Email address: {{reservation.clientEmail}}</h5>
+    </div>
+    <form [formGroup]="reportForm" class="w-100">
+        <div class="form-fields">
+            <div class="input-container comment" [ngClass]="{'input-container-error' : (reportForm.controls.comment.touched && reportForm.controls.comment.errors?.['required'])}">
+                <textarea id="comment" formControlName="comment" maxLength="200" (focus)="reportForm.controls.comment.markAsUntouched()" required></textarea>
+                <label for="comment" class="input-label">Comment</label>
+            </div>
+            <span class="maxchar">0/200max</span>
+        </div>
+        <div class="grid">
+            <label><input type="checkbox" formControlName="clientArrived"/>
+                <span class="ms-2">Buyer arrived</span>
+            </label>
+            <label><input type="checkbox" formControlName="shouldGetPenalty"/>
+                <span class="ms-2">Should get penalty</span>
+            </label>
+        </div>
+    </form>
+    
+    <div class="d-flex flex-row w-100 justify-content-between">
+        <app-secondary-button text="Cancel" class="w-50 me-1" (click)="close()"></app-secondary-button>
+        <app-primary-button text="Save" class="w-50 ms-1" [isBtnDisabled]="!reportForm.valid" (click)="saveReport()"></app-primary-button>
+    </div>
+</div>

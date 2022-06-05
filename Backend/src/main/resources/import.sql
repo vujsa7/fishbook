@@ -198,6 +198,9 @@ insert into reservation (id, start_date_time, end_date_time, max_number_of_peopl
 insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-01-01 08:00:00', '2022-06-03 08:00:00', 4, 0)
 insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-06-13 08:00:00', '2022-08-03 08:00:00', 4, 0)
 
+-- za izvestaj
+-- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-02-03 08:00:00', '2022-02-13 08:00:00', 7, 1000.0, 7, 5, false)
+
 -- za grafike
 -- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
 -- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)

@@ -17,6 +17,7 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
     private final SellerAvailabilityRepository sellerAvailabilityRepository;
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void save(SellerAvailability sellerAvailability) {
         List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findAllBySellerId(sellerAvailability.getSeller().getId());
         if (sellerAvailabilities.stream().anyMatch(s -> s.isOverlapping(sellerAvailability))) {

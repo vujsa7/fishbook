@@ -33,7 +33,8 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(value = {
             DateTimeRangeException.class,
-            NoActiveReservationException.class
+            NoActiveReservationException.class,
+            ReservationNotFinishedException.class
     })
     public ResponseEntity<Object> handleBadRequest(RuntimeException ex) {
         ApiException apiException = new ApiException(ex.getMessage(), HttpStatus.BAD_REQUEST, ZonedDateTime.now(ZoneId.of("Z")));
