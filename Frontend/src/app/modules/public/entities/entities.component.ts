@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AdventureService } from 'src/app/shared/services/adventure.service';
 import { BoatService } from 'src/app/shared/services/boat.service';
 import { HouseService } from 'src/app/shared/services/house.service';
+import { SellerAvailability } from './models/seller-availability.model';
+import { EntityAvailability } from './models/entity-availability.model';
 
 @Component({
   selector: 'app-entities',
@@ -22,12 +24,15 @@ export class EntitiesComponent {
   cities!: Array<string>;
   isSearchApplied: boolean = false;
   maxPrice?: number;
+  sellerAvailabilities!: Array<SellerAvailability>;
+  entityAvailabilities!: Array<EntityAvailability>;
 
   constructor(private entityService: EntityService, private router: Router, private adventureService: AdventureService, private boatService: BoatService, private houseService: HouseService, private toastr: ToastrService) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.entityType = this.router.url.substring(1);
         this.fetchEntitiesBasicInfo();
+        this.fetchEntitiesAvailabilities();
       }
     });
   }
@@ -44,6 +49,21 @@ export class EntitiesComponent {
     );
   }
 
+  fetchEntitiesAvailabilities() {
+    if (this.entityType == "adventures")
+      this.entityService.fetchSellersAvailabilities().subscribe(
+        data => {
+          this.sellerAvailabilities = data;
+        }
+      )
+    else if(this.entityType == "boats" || this.entityType == "houses")
+      this.entityService.fetchEntityAvailabilities().subscribe(
+        data => {
+          this.entityAvailabilities = data;
+        }
+      )
+  }
+
   findMaxPrice() {
     this.maxPrice = _.maxBy(this.entitiesBasicInfo, function (o) { return o.price })?.price;
   }
@@ -53,6 +73,7 @@ export class EntitiesComponent {
   }
 
   onSearchByRentalDetails(rentalDetails: any) {
+    this.removeSearchResults();
     if (rentalDetails.location) {
       this.searchedEntitiesBasicInfo = this.entitiesBasicInfo.filter(item => {
         return item.city.toLowerCase().indexOf(rentalDetails.location.toLowerCase()) > -1 || item.country.toLowerCase().indexOf(rentalDetails.location.toLowerCase()) > -1
@@ -62,10 +83,44 @@ export class EntitiesComponent {
       this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter(item => item.name.toLowerCase().indexOf(rentalDetails.name.toLowerCase()) > -1);
     }
     if (rentalDetails.range) {
-      console.log(rentalDetails.range); // Filter by date range
+      this.filterEntitiesByDates(rentalDetails.range);
     }
     this.filteredEntitiesBasicInfo = this.searchedEntitiesBasicInfo;
     this.isSearchApplied = true;
+  }
+
+  filterEntitiesByDates(range: any) {
+    if (this.entityType == "adventures" && this.sellerAvailabilities && this.sellerAvailabilities.length != 0) {
+      this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter(
+        entity => {
+          let sellerAvailability = _.find(this.sellerAvailabilities, a => a.email == entity.sellerUsername)?.availability;
+          if(sellerAvailability && sellerAvailability.length > 0){
+            for(let availability of sellerAvailability){
+              let availabilityStart = new Date(availability.start)
+              let availabilityEnd = new Date(availability.end)
+              if((range.start > availabilityStart && range.start < availabilityEnd) || (range.end > availabilityStart && range.end < availabilityEnd))
+                return true;
+            }
+          }
+          return false;
+        }
+      )
+    } else if ((this.entityType == "boats" || this.entityType == "houses") && this.entityAvailabilities && this.entityAvailabilities.length != 0){
+      this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter(
+        entity => {
+          let entityAvailability = _.find(this.entityAvailabilities, a => a.id == entity.id)?.availability;
+          if(entityAvailability && entityAvailability.length > 0){
+            for(let availability of entityAvailability){
+              let availabilityStart = new Date(availability.start)
+              let availabilityEnd = new Date(availability.end)
+              if((range.start > availabilityStart && range.start < availabilityEnd) || (range.end > availabilityStart && range.end < availabilityEnd))
+                return true;
+            }
+          }
+          return false;
+        }
+      )
+    }
   }
 
   onFilterSelectionChanged(selectedFilters: any) {
@@ -96,31 +151,31 @@ export class EntitiesComponent {
   }
 
   deleteEntity(id: number) {
-    if(this.entityType == 'adventures'){
+    if (this.entityType == 'adventures') {
       this.adventureService.deleteAdventure(id).subscribe(data => {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
-    if(this.entityType == 'boats'){
+    if (this.entityType == 'boats') {
       this.boatService.deleteBoat(id).subscribe(data => {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
-    if(this.entityType == 'houses'){
+    if (this.entityType == 'houses') {
       this.houseService.deleteHouse(id).subscribe(data => {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
   }

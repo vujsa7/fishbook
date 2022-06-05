@@ -14,6 +14,10 @@ public interface ConfigService {
     Optional<LoyaltyConfig> findLoyaltyConfigById(Integer id);
     Optional<GlobalConfig> findGlobalConfigById(Integer id);
     List<Integer> getClientLevelMarks();
+
+    List<Double> getClientDiscounts();
+
     List<Integer> getSellerLevelMarks();
     Integer getClientLoyaltyPointsForNextLevel(Integer points);
+    Double getClientDiscountPercentageForPoints(Integer points);
 }

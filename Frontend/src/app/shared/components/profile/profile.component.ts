@@ -207,8 +207,7 @@ export class ProfileComponent implements OnInit {
       this.userService.getClientLevelMarks().subscribe(data => {
         this.levelMarks = data;
       });
-    }
-    if(this.profileType != "ROLE_ADMIN"){
+    } else if(this.profileType != "ROLE_ADMIN"){
       this.userService.getSellerLevelMarks().subscribe(data => {
         this.levelMarks = data;
       });

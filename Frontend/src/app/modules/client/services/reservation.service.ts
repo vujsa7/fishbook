@@ -7,14 +7,16 @@ import { Observable } from 'rxjs';
 import reservationHistory from 'src/assets/mocks/reservation-history-list.json';
 import reservationOfferDetails from 'src/assets/mocks/reservation-offer-details.json';
 import { ReservationOfferDetails } from '../models/reservation-offer-details.model';
+import { DateRange } from 'src/app/shared/models/date-range.model';
 
 @Injectable({
   providedIn: 'any'
 })
 export class ReservationService {
- 
 
-  private baseUrl: string = environment.baseUrl + "reservations";
+
+
+  private baseUrl: string = environment.baseUrl + "clientReservations";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -30,31 +32,31 @@ export class ReservationService {
     })
   }
 
-  reportSeller(value: any) : Observable<any>{
+  reportSeller(value: any): Observable<any> {
     // TODO: Implement reporting seller
     return new Observable(subscriber => {
       subscriber.next("reported");
     })
   }
 
-  leaveReview(review: { stars: number; review: string; }) : Observable<any> {
+  leaveReview(review: { stars: number; review: string; }): Observable<any> {
     // TODO: Implement reviewing entity
     return new Observable(subscriber => {
       subscriber.next("review left");
     })
   }
 
-  getReservationOfferDetails(entityId: number): ReservationOfferDetails {
-    // TODO: Implement getting reservation details
-    return reservationOfferDetails as ReservationOfferDetails;
+  getReservationOfferDetails(entityId: number): Observable<ReservationOfferDetails> {
+    return this.http.get<ReservationOfferDetails>(this.baseUrl + '/details/' + entityId, { headers: this.authService.getHeader() });
   }
 
-  makeReservation() {
-    // TODO: Implement making reservation
-    return new Observable(subscriber => {
-      subscriber.next("reservationMade");
-    })
+  makeReservation(reservation: any) {
+    return this.http.post<ReservationOfferDetails>(this.baseUrl, reservation, { headers: this.authService.getHeader() });
   }
-  
-  
+
+  getBoatOwnerUnavailability(entityId: number): Observable<Array<DateRange>> {
+    return this.http.get<Array<DateRange>>(environment.baseUrl + 'sellerUnavailability/' + entityId, { headers: this.authService.getHeader() });
+  }
+
+
 }

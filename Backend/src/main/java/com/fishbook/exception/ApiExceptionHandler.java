@@ -44,7 +44,8 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = {
             DateTimeRangeOverlappingException.class,
             EntityNotAvailableException.class,
-            StaleObjectStateException.class
+            StaleObjectStateException.class,
+            EntityReservedException.class
     })
     public ResponseEntity<Object> handleConflict(RuntimeException ex) {
         ApiException apiException = new ApiException(ex.getMessage(), HttpStatus.CONFLICT, ZonedDateTime.now(ZoneId.of("Z")));

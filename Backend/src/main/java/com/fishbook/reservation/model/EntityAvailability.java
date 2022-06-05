@@ -25,4 +25,5 @@ public class EntityAvailability extends DateTimePeriod {
         super(fromDateTime, toDateTime);
         this.entity = entity;
     }
+
 }

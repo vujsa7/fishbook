@@ -9,6 +9,7 @@ import com.fishbook.reservation.model.EntityAvailability;
 import com.fishbook.reservation.service.EntityAvailabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,5 +31,15 @@ public class EntityAvailabilityServiceImpl implements EntityAvailabilityService 
         }
 
         entityAvailabilityRepository.save(entityAvailability);
+    }
+    @Override
+    public List<EntityAvailability> getAllEntitiesAvailabilities() {
+        return entityAvailabilityRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public List<EntityAvailability> getAvailabilityForEntity(Long id) {
+        return entityAvailabilityRepository.findEntityAvailabilities(id);
     }
 }

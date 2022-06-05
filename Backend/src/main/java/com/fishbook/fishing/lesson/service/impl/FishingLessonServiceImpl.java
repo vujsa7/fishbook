@@ -2,10 +2,12 @@ package com.fishbook.fishing.lesson.service.impl;
 
 import com.fishbook.additional.entity.information.dao.AdditionalServiceRepository;
 import com.fishbook.entity.dao.EntityRepository;
+import com.fishbook.exception.EntityReservedException;
 import com.fishbook.fishing.lesson.dao.FishingLessonRepository;
 import com.fishbook.fishing.lesson.model.FishingLesson;
 import com.fishbook.fishing.lesson.service.FishingLessonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fishbook.reservation.dao.SellerReservationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,17 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class FishingLessonServiceImpl implements FishingLessonService {
     private final FishingLessonRepository fishingLessonRepository;
     private final AdditionalServiceRepository additionalServiceRepository;
     private final EntityRepository entityRepository;
-
-    @Autowired
-    public FishingLessonServiceImpl(FishingLessonRepository fishingLessonRepository, AdditionalServiceRepository additionalServiceRepository, EntityRepository entityRepository) {
-        this.fishingLessonRepository = fishingLessonRepository;
-        this.additionalServiceRepository = additionalServiceRepository;
-        this.entityRepository = entityRepository;
-    }
+    private final SellerReservationRepository reservationRepository;
 
     @Override
     public Optional<FishingLesson> findById(Long id) {
@@ -48,7 +45,11 @@ public class FishingLessonServiceImpl implements FishingLessonService {
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void deleteById(Long id) {
+        if (reservationRepository.findActiveAndFutureReservations(id).size() > 0) {
+            throw new EntityReservedException();
+        }
         entityRepository.deleteById(id);
     }
 }

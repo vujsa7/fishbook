@@ -1,5 +1,13 @@
 @import "src/styles/main.scss";
 
+.fb-container{
+    max-width: 480px;
+
+    @include media("<phone-medium"){
+        max-width: 480px;
+    }
+}
+
 .square-container{
     position: relative;
     width: 100%;

@@ -60,6 +60,12 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     @Override
+    public List<Double> getClientDiscounts() {
+        List<Double> levelMarks = loyaltyConfigRepository.findAll().stream().map(l -> l.getDiscount()).collect(Collectors.toList());
+        return levelMarks;
+    }
+
+    @Override
     public List<Integer> getSellerLevelMarks() {
         List<Integer> levelMarks = loyaltyConfigRepository.findAll().stream().map(l -> l.getSellerMinPoints()).collect(Collectors.toList());
         return levelMarks;
@@ -74,5 +80,19 @@ public class ConfigServiceImpl implements ConfigService {
             }
         }
         return levelMarks.get(levelMarks.size()-1);
+    }
+
+    @Override
+    public Double getClientDiscountPercentageForPoints(Integer points) {
+        Double discount = 0.0;
+        List<Double> discounts = getClientDiscounts();
+        int cnt = 0;
+        for(Integer levelMark : getClientLevelMarks()){
+            if(points >= levelMark){
+                discount = discounts.get(cnt);
+            } else
+                break;
+        }
+        return discount;
     }
 }

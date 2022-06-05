@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CalculateRevenueDialogComponent } from '../../../components/calculate-revenue-dialog/calculate-revenue-dialog.component';
 import { EntityStatistic } from '../../../models/entity-statistic.model';
 import { EntityService } from '../../../services/entity.service';
 
@@ -58,6 +59,14 @@ export class OverviewComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  calculateRevenue(id: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      entityId: id,
+    }      
+    this.dialog.open(CalculateRevenueDialogComponent, dialogConfig);
   }
 
 }

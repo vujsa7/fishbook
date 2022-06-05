@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { CoreModule } from './core/core.module';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -30,6 +31,7 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    CoreModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FullCalendarModule

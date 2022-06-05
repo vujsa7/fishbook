@@ -22,11 +22,11 @@
                     </div>
                     <div #optionBox class="fb-container options-box" [ngClass]="{'options-box-visible': isOptionsBoxVisible(entityStatistic.id)}">
                         <div class="d-flex flex-column" *ngIf="selectedOptionBoxId == entityStatistic.id">
-                            <div class="d-flex ob-row align-items-center">
+                            <div class="d-flex ob-row align-items-center" [routerLink]="['/seller/statistics/' + entityStatistic.id]">
                                 <svg class="star-icon"></svg>
                                 <span class="lightblue-text">Statistics</span>
                             </div>
-                            <div class="d-flex ob-row align-items-center">
+                            <div class="d-flex ob-row align-items-center" (click)="calculateRevenue(entityStatistic.id)">
                                 <svg class="eye-icon"></svg>
                                 <span class="lightblue-text">Calculate revenue</span>
                             </div>

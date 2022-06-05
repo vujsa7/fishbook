@@ -16,9 +16,10 @@ export class SpecialOffersComponent implements OnInit {
   constructor(private subscriptionService: SubscriptionService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.subscriptionService.checkSubscriptionStatus(this.entityId).subscribe(data => {
-      this.isSubscribed = data;
-    })
+    if(this.authService.isAuthenticated() && this.authService.getTokenRole() == "ROLE_CLIENT")
+      this.subscriptionService.checkSubscriptionStatus(this.entityId).subscribe(data => {
+        this.isSubscribed = data;
+      })
   }
 
   customOptions: OwlOptions = {
@@ -65,8 +66,8 @@ export class SpecialOffersComponent implements OnInit {
     )
   }
 
-  canSubscribe() {
-    return this.authService.isLoggedIn() && this.authService.getTokenRole() == "ROLE_CLIENT";
+  isClient() {
+    return this.authService.isAuthenticated() && this.authService.getTokenRole() == "ROLE_CLIENT";
   }
 
 }

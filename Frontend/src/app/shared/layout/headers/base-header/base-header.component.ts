@@ -37,15 +37,17 @@ export class BaseHeaderComponent{
   }
 
   refreshHeaderInfo() {
-    this.userService.getUserProfilePhoto().subscribe(
-      data => {
-        this.profileImageUrl = data;
-      },
-      _ => {
-        this.profileImageUrl = "";
-      }
-    )
-    this.fullName = this.authService.getTokenFullName();
+    if(this.authService.isAuthenticated()){
+      this.userService.getUserProfilePhoto().subscribe(
+        data => {
+          this.profileImageUrl = data;
+        },
+        _ => {
+          this.profileImageUrl = "";
+        }
+      )
+      this.fullName = this.authService.getTokenFullName();
+    }
     this.userRole = this.authService.getTokenRole();
   }
 
