@@ -33,4 +33,12 @@ public class SpecialOffer extends ReservationOptions {
     public Boolean isOverlapping(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return this.getStartDateTime().isBefore(endDateTime) && startDateTime.isBefore(this.getEndDateTime());
     }
+
+    public Boolean inRange(SellerAvailability sellerAvailability) {
+        return sellerAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && sellerAvailability.getToDateTime().isAfter(this.getEndDateTime());
+    }
+
+    public Boolean inRange(EntityAvailability entityAvailability) {
+        return entityAvailability.getFromDateTime().isBefore(this.getStartDateTime()) && entityAvailability.getToDateTime().isAfter(this.getEndDateTime());
+    }
 }
