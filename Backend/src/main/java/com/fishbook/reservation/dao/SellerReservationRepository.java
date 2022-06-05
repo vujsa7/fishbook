@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface SellerReservationRepository extends JpaRepository<Reservation, Long> {
 
-    @Query("select r from Reservation r where r.client.id = :clientId and r.entity.id = :entityId and r.startDateTime <= current_timestamp and r.endDateTime >= current_timestamp")
+    @Query("select r from Reservation r where r.client.id = :clientId and r.entity.id = :entityId and r.startDateTime <= current_timestamp and r.endDateTime >= current_timestamp and r.isCancelled = false")
     Optional<Reservation> getActiveReservation(Long clientId, Long entityId);
 
     @Query("select r from Reservation r where r.entity.id = :entityId and r.startDateTime >= :startDateTime and r.endDateTime <= :endDateTime and r.isCancelled = false")
@@ -20,4 +20,7 @@ public interface SellerReservationRepository extends JpaRepository<Reservation, 
     Integer countAllByEntity(Entity entity);
 
     List<Reservation> findAllByEntityId(Long entityId);
+
+    @Query("select r from Reservation r where r.entity.id = :entityId and (r.startDateTime <= current_timestamp and r.endDateTime >= current_timestamp or r.startDateTime > current_timestamp) and r.isCancelled = false")
+    List<Reservation> findActiveAndFutureReservations(Long entityId);
 }

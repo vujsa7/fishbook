@@ -102,7 +102,7 @@ export class EntitiesComponent {
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
     if(this.entityType == 'boats'){
@@ -111,7 +111,7 @@ export class EntitiesComponent {
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
     if(this.entityType == 'houses'){
@@ -120,7 +120,7 @@ export class EntitiesComponent {
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.filteredEntitiesBasicInfo = this.filteredEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
   }

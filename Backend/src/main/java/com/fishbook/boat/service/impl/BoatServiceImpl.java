@@ -5,28 +5,25 @@ import com.fishbook.boat.dao.BoatRepository;
 import com.fishbook.boat.model.Boat;
 import com.fishbook.boat.service.BoatService;
 import com.fishbook.entity.dao.EntityRepository;
+import com.fishbook.exception.EntityReservedException;
+import com.fishbook.reservation.dao.SellerReservationRepository;
 import com.fishbook.user.dao.UserRepository;
 import com.fishbook.user.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BoatServiceImpl implements BoatService {
     private final BoatRepository boatRepository;
     private final AdditionalServiceRepository additionalServiceRepository;
     private final EntityRepository entityRepository;
     private final UserRepository userRepository;
-
-    @Autowired
-    public BoatServiceImpl(BoatRepository boatRepository, AdditionalServiceRepository additionalServiceRepository, EntityRepository entityRepository, UserRepository userRepository) {
-        this.boatRepository = boatRepository;
-        this.additionalServiceRepository = additionalServiceRepository;
-        this.entityRepository = entityRepository;
-        this.userRepository = userRepository;
-    }
+    private final SellerReservationRepository reservationRepository;
 
     @Override
     public Optional<Boat> findById(Long id) {
@@ -40,7 +37,11 @@ public class BoatServiceImpl implements BoatService {
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void deleteById(Long id) {
+        if (reservationRepository.findActiveAndFutureReservations(id).size() > 0) {
+            throw new EntityReservedException();
+        }
         entityRepository.deleteById(id);
     }
 

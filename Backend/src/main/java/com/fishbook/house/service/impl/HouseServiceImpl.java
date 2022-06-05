@@ -2,36 +2,32 @@ package com.fishbook.house.service.impl;
 
 import com.fishbook.additional.entity.information.dao.AdditionalServiceRepository;
 import com.fishbook.entity.dao.EntityRepository;
+import com.fishbook.exception.EntityReservedException;
 import com.fishbook.house.dao.HouseRepository;
 import com.fishbook.house.dao.RoomRepository;
 import com.fishbook.house.model.House;
 import com.fishbook.house.model.Room;
 import com.fishbook.house.service.HouseService;
+import com.fishbook.reservation.dao.SellerReservationRepository;
 import com.fishbook.user.dao.UserRepository;
 import com.fishbook.user.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class HouseServiceImpl implements HouseService {
     private final HouseRepository houseRepository;
     private final RoomRepository roomRepository;
     private final EntityRepository entityRepository;
     private final UserRepository userRepository;
     private final AdditionalServiceRepository additionalServiceRepository;
-
-    @Autowired
-    public HouseServiceImpl(HouseRepository houseRepository, RoomRepository roomRepository, EntityRepository entityRepository, UserRepository userRepository, AdditionalServiceRepository additionalServiceRepository) {
-        this.houseRepository = houseRepository;
-        this.roomRepository = roomRepository;
-        this.entityRepository = entityRepository;
-        this.userRepository = userRepository;
-        this.additionalServiceRepository = additionalServiceRepository;
-    }
+    private final SellerReservationRepository reservationRepository;
 
     @Override
     public Optional<House> findById(Long id) {
@@ -61,7 +57,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void deleteById(Long id) {
+        if (reservationRepository.findActiveAndFutureReservations(id).size() > 0) {
+            throw new EntityReservedException();
+        }
         entityRepository.deleteById(id);
     }
 

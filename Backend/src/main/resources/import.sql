@@ -161,10 +161,12 @@ insert into special_offer (id, start_date_time, end_date_time, max_number_of_peo
 insert into special_offer (id, start_date_time, end_date_time, max_number_of_people, price, discount, entity_id) values (nextval('special_offer_id_seq'), '2022-06-13 00:00:00', '2022-06-16 00:00:00', 12, 210.0, 10.0, 7)
 
 insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 5, 450.0, 1, 5, false)
+insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-08-03 08:00:00', '2022-08-13 08:00:00', 5, 500.0, 1, 5, false)
 insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-01-01 08:00:00', '2022-06-03 08:00:00', 4, 0)
-insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-06-13 08:00:00', '2022-09-01 08:00:00', 4, 0)
+insert into seller_availability (id, from_date_time, to_date_time, seller_id, version) values (nextval('seller_availability_id_seq'), '2022-06-13 08:00:00', '2022-08-03 08:00:00', 4, 0)
 
-insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
-insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
-insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
-insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
+-- za grafike
+-- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
+-- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
+-- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)
+-- insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 7, 450.0, 1, 5, false)

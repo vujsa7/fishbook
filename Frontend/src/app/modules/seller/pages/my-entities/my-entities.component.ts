@@ -70,7 +70,7 @@ export class MyEntitiesComponent implements OnInit {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
     if(this.entityType == 'house'){
@@ -78,7 +78,7 @@ export class MyEntitiesComponent implements OnInit {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
     if(this.entityType == 'adventure'){
@@ -86,7 +86,7 @@ export class MyEntitiesComponent implements OnInit {
         this.entitiesBasicInfo = this.entitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
         this.searchedEntitiesBasicInfo = this.searchedEntitiesBasicInfo.filter((entity: { id: number; }) => entity.id != id);
       }, error => {
-        this.toastr.error("Error deleting entity");
+        this.toastr.error(error.error.message);
       })
     }
   }
