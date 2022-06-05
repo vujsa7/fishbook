@@ -40,6 +40,6 @@ public class EntityAvailabilityServiceImpl implements EntityAvailabilityService 
     @Transactional
     @Override
     public List<EntityAvailability> getAvailabilityForEntity(Long id) {
-        return entityAvailabilityRepository.findAllByEntityId(id);
+        return entityAvailabilityRepository.findEntityAvailabilities(id);
     }
 }

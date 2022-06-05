@@ -26,6 +26,6 @@ public class SellerUnavailabilityServiceImpl implements SellerUnavailabilityServ
         if(boat.isEmpty())
             return null;
 
-        return sellerUnavailabilityRepository.findAllBySellerId(boat.get().getOwner().getId());
+        return sellerUnavailabilityRepository.findSellerUnavailability(boat.get().getOwner().getId());
     }
 }

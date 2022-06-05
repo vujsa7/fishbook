@@ -14,7 +14,6 @@ import com.fishbook.system.service.ConfigService;
 import com.fishbook.user.dao.UserRepository;
 import com.fishbook.user.model.User;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,7 +75,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
 
     private void createFishingLessonReservation(ReservationCandidate reservationCandidate, Entity entity, User user) {
         // Check SellerAvailability
-        List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findAllBySellerId(entity.getOwner().getId());
+        List<SellerAvailability> sellerAvailabilities = sellerAvailabilityRepository.findSellerAvailabilities(entity.getOwner().getId());
         SellerAvailability sellerAvailability = sellerAvailabilities.stream()
                 .filter(a -> (a.getFromDateTime().isBefore(reservationCandidate.getStart()) || a.getFromDateTime().isEqual(reservationCandidate.getStart()))
                         && (a.getToDateTime().isAfter(reservationCandidate.getEnd()) || a.getToDateTime().isEqual(reservationCandidate.getEnd())))
@@ -88,7 +87,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
     }
 
     private void createBoatReservation(ReservationCandidate reservationCandidate, Entity entity, User user) {
-        List<EntityAvailability> boatAvailabilities = entityAvailabilityRepository.findAllByEntityId(reservationCandidate.getEntityId());
+        List<EntityAvailability> boatAvailabilities = entityAvailabilityRepository.findEntityAvailabilities(reservationCandidate.getEntityId());
         EntityAvailability boatAvailability = boatAvailabilities.stream()
                 .filter(a -> (a.getFromDateTime().isBefore(reservationCandidate.getStart()) || a.getFromDateTime().isEqual(reservationCandidate.getStart()))
                         && (a.getToDateTime().isAfter(reservationCandidate.getEnd()) || a.getToDateTime().isEqual(reservationCandidate.getEnd())))
@@ -97,7 +96,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
             throw new ApiRequestException("Boat is not available for reservation at that time. Please choose other dates.");
         AdditionalService skipperService = reservationCandidate.getAdditionalServices().stream().filter(a -> a.getName().equals("Skipper")).findFirst().orElse(null);
         if(skipperService != null){
-            List<SellerUnavailability> sellerUnavailabilities = sellerUnavailabilityRepository.findAllBySellerId(entity.getOwner().getId());
+            List<SellerUnavailability> sellerUnavailabilities = sellerUnavailabilityRepository.findSellerUnavailability(entity.getOwner().getId());
             SellerUnavailability sellerUnavailability = sellerUnavailabilities.stream()
                     .filter(u -> u.isOverlapping(reservationCandidate.getStart(), reservationCandidate.getEnd()))
                     .findFirst().orElse(null);
@@ -111,7 +110,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
 
 
     private void createHouseReservation(ReservationCandidate reservationCandidate, Entity entity, User user) {
-        List<EntityAvailability> houseAvailabilities = entityAvailabilityRepository.findAllByEntityId(reservationCandidate.getEntityId());
+        List<EntityAvailability> houseAvailabilities = entityAvailabilityRepository.findEntityAvailabilities(reservationCandidate.getEntityId());
         EntityAvailability houseAvailability = houseAvailabilities.stream()
                 .filter(a -> (a.getFromDateTime().isBefore(reservationCandidate.getStart()) || a.getFromDateTime().isEqual(reservationCandidate.getStart()))
                         && (a.getToDateTime().isAfter(reservationCandidate.getEnd()) || a.getToDateTime().isEqual(reservationCandidate.getEnd())))

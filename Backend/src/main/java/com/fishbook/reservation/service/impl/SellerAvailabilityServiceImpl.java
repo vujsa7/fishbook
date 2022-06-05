@@ -38,7 +38,7 @@ public class SellerAvailabilityServiceImpl implements SellerAvailabilityService 
     @Transactional
     @Override
     public List<SellerAvailability> getAvailabilityForSeller(Long id) {
-        return sellerAvailabilityRepository.findAllBySellerId(id);
+        return sellerAvailabilityRepository.findSellerAvailabilities(id);
     }
 
 }
