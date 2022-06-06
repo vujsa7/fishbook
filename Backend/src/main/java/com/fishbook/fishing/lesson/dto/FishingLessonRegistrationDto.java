@@ -5,16 +5,32 @@ import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.location.model.Address;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class FishingLessonRegistrationDto {
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String description;
+
     private Address address;
+
+    @NotNull
     private Double cancellationFee;
+
+    @NotNull
     private Double pricePerDay;
+
+    @NotNull
     private Integer maxNumberOfPeople;
+
+    @NotBlank
     private String instructorBiography;
+
     private Set<Rule> rules;
     private Set<Equipment> equipment;
     private Set<AdditionalService> additionalServices;

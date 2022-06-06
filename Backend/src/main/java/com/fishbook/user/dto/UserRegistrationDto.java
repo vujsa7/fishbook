@@ -1,12 +1,24 @@
 package com.fishbook.user.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserRegistrationDto {
 
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
+
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
     private String phoneNumber;
+
     private String address;
     private String city;
 

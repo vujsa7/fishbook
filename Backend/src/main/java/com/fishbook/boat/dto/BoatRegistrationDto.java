@@ -5,24 +5,52 @@ import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.additional.entity.information.model.Equipment;
 import com.fishbook.location.model.Address;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 public class BoatRegistrationDto {
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String description;
+
     private Address address;
     private String city;
+
+    @NotNull
     private Double length;
+
+    @NotNull
     private Integer motors;
+
+    @NotNull
     private Integer power;
+
+    @NotNull
     private Integer maxSpeed;
+
+    @NotNull
     private Integer maxPeople;
+
+    @NotNull
     private Integer loadCapacity;
+
+    @NotNull
     private Integer fuelConsumption;
+
+    @NotNull
     private Integer maxDistance;
+
+    @NotNull
     private Integer energyConsumption;
+
+    @NotNull
     private Double cancellationFee;
+
+    @NotNull
     private Double price;
     private String boatType;
     private Set<Rule> appliedRules = new HashSet<>();

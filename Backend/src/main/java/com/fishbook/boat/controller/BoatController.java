@@ -26,6 +26,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class BoatController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_BOAT_OWNER')")
-    public ResponseEntity<Long> registerNewBoat(@RequestBody BoatRegistrationDto boatRegistrationDto,  Principal principal){
+    public ResponseEntity<Long> registerNewBoat(@Valid @RequestBody BoatRegistrationDto boatRegistrationDto, Principal principal){
         try {
             User user = userService.findByEmail(principal.getName());
 

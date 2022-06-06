@@ -1,7 +1,13 @@
 package com.fishbook.user.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class PasswordUpdateDto {
+
+    @NotBlank
     private String currentPassword;
+
+    @NotBlank
     private String newPassword;
 
     public PasswordUpdateDto() {
