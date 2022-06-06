@@ -1,5 +1,7 @@
 package com.fishbook.reports.service.impl;
 
+import com.fishbook.email.model.Email;
+import com.fishbook.email.service.EmailService;
 import com.fishbook.exception.ApiRequestException;
 import com.fishbook.exception.EntityNotFoundException;
 import com.fishbook.exception.ReservationNotFinishedException;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +30,7 @@ public class ReportServiceImpl implements ReportService {
     private final BuyerReportRepository buyerReportRepository;
     private final SellerReservationRepository sellerReservationRepository;
     private final ReservationRepository reservationRepository;
+    private final EmailService emailService;
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
@@ -57,5 +61,21 @@ public class ReportServiceImpl implements ReportService {
             throw new ApiRequestException("You have already reported this seller on this occasion. Please wait for the administrator's response on your email.");
         BuyerReport report = BuyerReport.builder().comment(message).reservation(reservation).build();
         buyerReportRepository.save(report);
+    }
+
+    @Override
+    public List<BuyerReport> getAllBuyerReports() {
+        return buyerReportRepository.findAll();
+    }
+
+    @Override
+    public void respondToBuyerReport(Long id, String response) throws InterruptedException {
+        BuyerReport report = buyerReportRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Email email = new Email("user.fishbook@gmail.com", "Response to report", "Response to report \"" + report.getComment() + "\" made by " + report.getReservation().getClient().getFirstName()
+                + " " + report.getReservation().getClient().getLastName() + " for seller " + report.getReservation().getEntity().getOwner().getFirstName() + " " +
+                report.getReservation().getEntity().getOwner().getLastName() + ":\n" + response);
+        buyerReportRepository.delete(report);
+        emailService.sendEmail(email);
+        emailService.sendEmail(email);
     }
 }

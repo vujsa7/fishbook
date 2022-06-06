@@ -5,5 +5,7 @@
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'buyer-reports' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('buyer-reports')">Buyer reports</button>
         </div>
     </div>
-    <div class="d-flex" id="content-wrapper"></div>
+    <div *ngIf="selectedButton == 'buyer-reports'">
+        <app-buyer-reports></app-buyer-reports>
+    </div>
 </div>
