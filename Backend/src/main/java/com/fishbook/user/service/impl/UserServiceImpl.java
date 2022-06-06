@@ -162,6 +162,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void createDeleteAccountRequest(String email, String requestMessage) {
         User user = userRepository.findByEmail(email);
         LocalDateTime now = LocalDateTime.now();

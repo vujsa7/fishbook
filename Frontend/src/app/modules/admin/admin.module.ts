@@ -16,6 +16,8 @@ import { ServicesComponent } from './pages/services/services.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordRenewalComponent } from './pages/password-renewal/password-renewal.component';
+import { DeleteRequestsComponent } from './pages/requests/components/delete-requests/delete-requests.component';
+import { DeleteRequestResponseDialogComponent } from './pages/requests/components/delete-request-response-dialog/delete-request-response-dialog.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { PasswordRenewalComponent } from './pages/password-renewal/password-rene
     UsersComponent,
     ReportsComponent,
     ServicesComponent,
-    PasswordRenewalComponent
+    PasswordRenewalComponent,
+    DeleteRequestsComponent,
+    DeleteRequestResponseDialogComponent
   ],
   imports: [
     CommonModule,
