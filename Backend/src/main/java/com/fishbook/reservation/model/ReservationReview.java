@@ -26,5 +26,5 @@ public class ReservationReview {
     @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     private Reservation reservation;
 
-
+    private Boolean approved;
 }

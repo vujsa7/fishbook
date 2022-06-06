@@ -1,23 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { DeleteRequestService } from 'src/app/modules/admin/services/delete-request.service';
+import { ReservationReviewService } from 'src/app/modules/admin/services/reservation-review.service';
 import { AvailabilityDialogComponent } from 'src/app/modules/seller/components/availability-dialog/availability-dialog.component';
 
 @Component({
-  selector: 'app-delete-request-response-dialog',
-  templateUrl: './delete-request-response-dialog.component.html',
-  styleUrls: ['./delete-request-response-dialog.component.scss']
+  selector: 'app-reservation-review-response-dialog',
+  templateUrl: './reservation-review-response-dialog.component.html',
+  styleUrls: ['./reservation-review-response-dialog.component.scss']
 })
-export class DeleteRequestResponseDialogComponent implements OnInit {
-  header: string = "Respond to request";
+export class ReservationReviewResponseDialogComponent implements OnInit {
+  header: string = "Respond to review";
   response: string = "";
-  requestId: number = -1;
+  reviewId: number = -1;
   approved: boolean = false;
 
-  constructor(private dialogRef: MatDialogRef<AvailabilityDialogComponent>, @Inject(MAT_DIALOG_DATA) data: any, private toastr: ToastrService, private deleteRequestService: DeleteRequestService) { 
+  constructor(private dialogRef: MatDialogRef<AvailabilityDialogComponent>, @Inject(MAT_DIALOG_DATA) data: any, private toastr: ToastrService, private reviewService: ReservationReviewService) { 
     this.approved = data.approved;
-    this.requestId = data.requestId;
+    this.reviewId = data.reviewId;
   }
 
   ngOnInit(): void {
@@ -29,11 +29,11 @@ export class DeleteRequestResponseDialogComponent implements OnInit {
 
   sendResponse() {
     let response = {
-      requestId: this.requestId, 
+      reservationReviewId: this.reviewId, 
       response: this.response,
       approved: this.approved
     }
-    this.deleteRequestService.sendResponse(response).subscribe(
+    this.reviewService.sendResponse(response).subscribe(
       data => {
         this.toastr.success("Success");
         location.reload();

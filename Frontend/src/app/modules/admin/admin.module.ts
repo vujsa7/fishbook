@@ -21,6 +21,8 @@ import { DeleteRequestResponseDialogComponent } from './pages/requests/component
 import { SellerReportResponseDialogComponent } from './pages/reports/components/seller-report-response-dialog/seller-report-response-dialog.component';
 import { BuyerReportsComponent } from './pages/reports/components/buyer-reports/buyer-reports.component';
 import { BuyerReportResponseDialogComponent } from './pages/reports/components/buyer-report-response-dialog/buyer-report-response-dialog.component';
+import { ReservationReviewComponent } from './pages/reports/components/reservation-review/reservation-review.component';
+import { ReservationReviewResponseDialogComponent } from './pages/reports/components/reservation-review-response-dialog/reservation-review-response-dialog.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { BuyerReportResponseDialogComponent } from './pages/reports/components/b
     DeleteRequestResponseDialogComponent,
     SellerReportResponseDialogComponent,
     BuyerReportsComponent,
-    BuyerReportResponseDialogComponent
+    BuyerReportResponseDialogComponent,
+    ReservationReviewComponent,
+    ReservationReviewResponseDialogComponent
   ],
   imports: [
     CommonModule,

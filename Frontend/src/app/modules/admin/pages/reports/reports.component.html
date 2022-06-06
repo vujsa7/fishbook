@@ -3,6 +3,7 @@
         <div class="toolbar">
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'seller-reports' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('seller-reports')">Seller reports</button>
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'buyer-reports' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('buyer-reports')">Buyer reports</button>
+            <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'reservation-reviews' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('reservation-reviews')">Reservation reviews</button>
         </div>
     </div>
     <div *ngIf="selectedButton == 'seller-reports' && sellerReports" class="d-flex" id="content-wrapper">
@@ -32,5 +33,8 @@
     </div>
     <div *ngIf="selectedButton == 'buyer-reports'">
         <app-buyer-reports></app-buyer-reports>
+    </div>
+    <div *ngIf="selectedButton == 'reservation-reviews'">
+        <app-reservation-review></app-reservation-review>
     </div>
 </div>

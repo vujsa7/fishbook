@@ -1,0 +1,38 @@
+<div class="d-flex flex-column">
+    <div class="fb-container" id="request-card" *ngFor="let review of reviews">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column">
+                <span>Seller email</span>
+                <span>{{review.sellerEmail}}</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span>Seller phone number</span>
+                <span>{{review.sellerPhoneNumber}}</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span>Client email</span>
+                <span>{{review.clientEmail}}</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span>Client phone number</span>
+                <span>{{review.clientPhoneNumber}}</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span>Reservation id</span>
+                <span>{{review.reservationId}}</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span>Reservation rating</span>
+                <span>{{review.rating}}</span>
+            </div>
+        </div>
+        <div class="d-flex flex-column mt-2">
+            <span>Review comment</span>
+            <div class="mt-1">{{review.comment}}</div>
+        </div>
+        <div class="d-flex flex-row-reverse mt-4">
+            <app-primary-button text="Approve review" class="ms-3" (click)="approveReview(review.id)"></app-primary-button>
+            <app-secondary-button text="Deny review" (click)="denyReview(review.id)"></app-secondary-button>
+        </div>
+    </div> 
+</div>
