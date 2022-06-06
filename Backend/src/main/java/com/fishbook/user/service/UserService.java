@@ -21,4 +21,6 @@ public interface UserService extends UserDetailsService {
     void createDeleteAccountRequest(String email, String requestMessage);
     Integer getPoints(String email);
     Integer getPenalties(String email);
+    void banUsersWhoHaveThreePenalties();
+    void resetUsersPenalties();
 }

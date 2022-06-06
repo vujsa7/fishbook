@@ -36,6 +36,7 @@ import java.util.HashSet;
 import java.util.UUID;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -197,5 +198,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(user.getPenalties() != null)
             return user.getPenalties();
         return -1;
+    }
+
+    @Override
+    public void banUsersWhoHaveThreePenalties() {
+        List<User> usersToBan = userRepository.findAll().stream().filter(u -> u.getRole().getName().equals("ROLE_CLIENT") && u.getPenalties()>=3).collect(Collectors.toList());
+        for(User u : usersToBan){
+            u.setDeleted(true);
+            userRepository.save(u);
+        }
+    }
+
+    @Override
+    public void resetUsersPenalties() {
+        List<User> clients = userRepository.findAll().stream().filter(u -> u.getRole().getName().equals("ROLE_CLIENT")).collect(Collectors.toList());
+        for(User u : clients){
+            u.setPenalties(0);
+            userRepository.save(u);
+        }
     }
 }

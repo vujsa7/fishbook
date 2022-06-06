@@ -5,5 +5,29 @@
             <button class="btn ps-0 shadow-none" [ngClass]="selectedButton == 'buyer-reports' ? 'toolbar-btn' : 'btn-unselected'" (click)="selectButton('buyer-reports')">Buyer reports</button>
         </div>
     </div>
-    <div class="d-flex" id="content-wrapper"></div>
+    <div *ngIf="selectedButton == 'seller-reports' && sellerReports" class="d-flex" id="content-wrapper">
+        <div class="d-flex flex-column w-100 fb-container mb-4" *ngFor="let sellerReport of sellerReports">
+            <div class="d-flex mb-1">
+                <span class="grey-text me-2">Seller email:</span>
+                <div class="blue-text">{{sellerReport.sellerEmail}}</div>
+            </div>
+            <div class="d-flex mb-1">
+                <span class="grey-text me-2">Buyer email:</span>
+                <div class="blue-text">{{sellerReport.buyerEmail}}</div>
+            </div>
+            <div class="d-flex mb-1">
+                <span class="grey-text me-2">Buyer arrived:</span>
+                <div class="blue-text">{{sellerReport.buyerArrived ? 'Yes': 'No'}}</div>
+            </div>
+            <div class="d-flex mb-1">
+                <span class="grey-text me-2">Should get penalty:</span>
+                <div class="blue-text">{{sellerReport.shouldGetPenalty ? 'Yes': 'No'}}</div>
+            </div>
+            <div class="d-flex mb-2">
+                <span class="grey-text me-2">Comment:</span>
+                <div class="blue-text">{{sellerReport.comment}}</div>
+            </div>
+            <app-primary-button text="Give your response" (click)="openResponseDialog(sellerReport)"></app-primary-button>
+        </div>
+    </div>
 </div>

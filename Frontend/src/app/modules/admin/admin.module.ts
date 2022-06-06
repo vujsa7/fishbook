@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordRenewalComponent } from './pages/password-renewal/password-renewal.component';
 import { DeleteRequestsComponent } from './pages/requests/components/delete-requests/delete-requests.component';
 import { DeleteRequestResponseDialogComponent } from './pages/requests/components/delete-request-response-dialog/delete-request-response-dialog.component';
+import { SellerReportResponseDialogComponent } from './pages/reports/components/seller-report-response-dialog/seller-report-response-dialog.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DeleteRequestResponseDialogComponent } from './pages/requests/component
     ServicesComponent,
     PasswordRenewalComponent,
     DeleteRequestsComponent,
-    DeleteRequestResponseDialogComponent
+    DeleteRequestResponseDialogComponent,
+    SellerReportResponseDialogComponent
   ],
   imports: [
     CommonModule,

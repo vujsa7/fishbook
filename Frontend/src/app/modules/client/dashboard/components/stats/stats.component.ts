@@ -39,10 +39,10 @@ export class StatsComponent implements OnInit {
       this.statsService.fetchStatsInfo().subscribe(data => {
         this.statsInfo = data;
         this.pointsChart.data.datasets[0].data[0] = this.statsInfo.currentPoints;
-        this.pointsChart.data.datasets[0].data[1] = this.statsInfo.pointsForNextLevel;
+        this.pointsChart.data.datasets[0].data[1] = this.statsInfo.pointsForNextLevel - this.statsInfo.currentPoints;
         this.pointsChart.update();
         this.penaltiesChart.data.datasets[0].data[0] = this.statsInfo.currentPenalties;
-        this.penaltiesChart.data.datasets[0].data[1] = this.statsInfo.penaltiesForBan;
+        this.penaltiesChart.data.datasets[0].data[1] = this.statsInfo.penaltiesForBan  - this.statsInfo.currentPenalties;
         this.penaltiesChart.update();
       });
   }

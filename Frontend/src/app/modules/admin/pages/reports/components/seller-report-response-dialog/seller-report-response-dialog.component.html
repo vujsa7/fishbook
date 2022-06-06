@@ -1,0 +1,18 @@
+<div class="dialog-container d-flex flex-column align-items-center">
+    <h5>Report seller</h5>
+    <form [formGroup]="reportSellerForm" class="w-100">
+        <div class="input-container delete-account-message-wrapper">
+            <textarea id="sellerMessage" formControlName="sellerMessage" (focus)="reportSellerForm.controls.sellerMessage.markAsUntouched()" maxLength="376" cols="30" rows="10" required></textarea>
+            <label for="sellerMessage" class="input-label">Message to seller</label>
+        </div>
+        <div class="input-container delete-account-message-wrapper">
+            <textarea id="buyerMessage" formControlName="buyerMessage" (focus)="reportSellerForm.controls.buyerMessage.markAsUntouched()" maxLength="376" cols="30" rows="10" required></textarea>
+            <label for="buyerMessage" class="input-label">Message to buyer</label>
+        </div>
+        <mat-checkbox [(ngModel)]="givePenalty" [ngModelOptions]="{standalone: true}" class="mb-2">Give penalty to buyer</mat-checkbox>
+        <div class="d-flex">
+            <app-secondary-button class="w-100 me-2" [text]="'Cancel'" (click)="close()"></app-secondary-button>
+            <app-primary-button [isBtnDisabled]="!reportSellerForm.valid" class="button w-100 ms-2" [text]="'Send'" (click)="onSubmit()"></app-primary-button>
+        </div>
+    </form>
+</div>
