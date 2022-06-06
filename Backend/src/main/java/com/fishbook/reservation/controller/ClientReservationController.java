@@ -1,5 +1,5 @@
 package com.fishbook.reservation.controller;
-import com.fishbook.reservation.dto.ClientReservationDto;
+import com.fishbook.reservation.dto.*;
 import com.fishbook.reservation.model.Reservation;
 import com.fishbook.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +12,6 @@ import java.util.List;
 import com.fishbook.additional.entity.information.model.AdditionalService;
 import com.fishbook.entity.model.Entity;
 import com.fishbook.exception.ApiRequestException;
-import com.fishbook.reservation.dto.CreateReservationDto;
-import com.fishbook.reservation.dto.DateRangeDto;
-import com.fishbook.reservation.dto.EntityOfferDetailsDto;
 import com.fishbook.reservation.model.EntityAvailability;
 import com.fishbook.reservation.model.ReservationCandidate;
 import com.fishbook.reservation.model.SellerAvailability;
@@ -79,7 +76,7 @@ public class ClientReservationController {
         List<Reservation> reservationHistory = clientReservationService.getReservationHistory(principal.getName());
         List<ClientReservationDto> clientReservationDtos = reservationHistory.stream().map(r -> new ClientReservationDto(r.getId(), storageService.getPriorityImageUrl(r.getEntity().getImages()), r.getEntity().getName(),
                 r.getEntity().getClass().getName(), r.getStartDateTime(), r.getEndDateTime(), r.getPrice(),
-                clientReservationService.getStatus(r.getIsCancelled(), r.getStartDateTime(), r.getEndDateTime()), r.getEntity().getId())).collect(Collectors.toList());
+                clientReservationService.getStatus(r), r.getEntity().getId())).collect(Collectors.toList());
         return new ResponseEntity(clientReservationDtos, HttpStatus.OK);
     }
 
@@ -92,6 +89,16 @@ public class ClientReservationController {
         } catch (ApiRequestException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @PostMapping(value = "/{reservationId}/review")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity reviewReservation(@PathVariable Long reservationId, Principal principal, @RequestBody ReservationReviewDto reservationReviewDto){
+        try {
+            clientReservationService.reviewReservation(reservationReviewDto.getRating(), reservationReviewDto.getComment(), principal.getName(), reservationId);
+            return new ResponseEntity(reservationReviewDto, HttpStatus.CREATED);
+        } catch (ApiRequestException e){
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 }

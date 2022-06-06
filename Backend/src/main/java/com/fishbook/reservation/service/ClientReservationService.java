@@ -13,6 +13,7 @@ public interface ClientReservationService {
     Entity getReservationOfferDetails(Long entityId);
     ReservationCandidate createReservation(ReservationCandidate reservationCandidate) throws ApiRequestException;
     List<Reservation> getReservationHistory(String name);
-    String getStatus(Boolean isCancelled, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    String getStatus(Reservation reservation);
     void cancelReservation(Long reservationId, String email) throws ApiRequestException;
+    void reviewReservation(Integer rating, String comment, String name, Long reservationId);
 }

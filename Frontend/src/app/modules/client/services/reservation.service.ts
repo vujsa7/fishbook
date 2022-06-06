@@ -19,8 +19,6 @@ export class ReservationService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getReservationHistoryList(): Observable<Array<Reservation>> {
-    // // TODO: Fetch reservations from backend
-    // return reservationHistory as Array<Reservation>;
     return this.http.get<Array<Reservation>>(this.baseUrl + "/history", { headers: this.authService.getHeader() })
   }
 
@@ -28,18 +26,12 @@ export class ReservationService {
     return this.http.delete<any>(this.baseUrl + '/' + reservationId, { headers: this.authService.getHeader() })
   }
 
-  reportSeller(value: any): Observable<any> {
-    // TODO: Implement reporting seller
-    return new Observable(subscriber => {
-      subscriber.next("reported");
-    })
+  reportSeller(report: { message: string, reservationId: number} ): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'reports/buyers', report, { headers: this.authService.getHeader() })
   }
 
-  leaveReview(review: { stars: number; review: string; }): Observable<any> {
-    // TODO: Implement reviewing entity
-    return new Observable(subscriber => {
-      subscriber.next("review left");
-    })
+  leaveReview(reservationId: number, review: { rating: number; comment: string; }): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/' + reservationId + '/review', review, { headers: this.authService.getHeader() })
   }
 
   fetchDiscountAndFees(entityId: number): Observable<any> {

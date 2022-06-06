@@ -9,10 +9,8 @@ import com.fishbook.entity.model.Entity;
 import com.fishbook.exception.ApiRequestException;
 import com.fishbook.fishing.lesson.model.FishingLesson;
 import com.fishbook.house.model.House;
-import com.fishbook.reservation.dao.EntityAvailabilityRepository;
-import com.fishbook.reservation.dao.ReservationRepository;
-import com.fishbook.reservation.dao.SellerAvailabilityRepository;
-import com.fishbook.reservation.dao.SellerUnavailabilityRepository;
+import com.fishbook.reports.model.BuyerReport;
+import com.fishbook.reservation.dao.*;
 import com.fishbook.reservation.model.*;
 import com.fishbook.reservation.service.ClientReservationService;
 import com.fishbook.system.service.ConfigService;
@@ -40,6 +38,7 @@ public class ClientReservationServiceImpl implements ClientReservationService {
     private final SellerAvailabilityRepository sellerAvailabilityRepository;
     private final ConfigService configService;
     private final ReservationRepository reservationRepository;
+    private final ReservationReviewRepository reservationReviewRepository;
     private final EmailService emailService;
 
     @Override
@@ -93,17 +92,20 @@ public class ClientReservationServiceImpl implements ClientReservationService {
     }
 
     @Override
-    public String getStatus(Boolean isCancelled, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        if(isCancelled)
+    public String getStatus(Reservation reservation) {
+        if(reservation.getIsCancelled())
             return "Canceled";
         LocalDateTime now = LocalDateTime.now();
         now = now.with(LocalTime.MIN);
         now = now.with(LocalTime.MIDNIGHT);
-        if(endDateTime.isBefore(now))
+        if(reservation.getEndDateTime().isBefore(now)) {
+            if(reservation.getReservationReview() == null)
+                return "Unrated";
             return "Completed";
-        if((startDateTime.isEqual(now) || startDateTime.isBefore(now)) && endDateTime.isAfter(now))
+        }
+        if((reservation.getStartDateTime().isEqual(now) || reservation.getStartDateTime().isBefore(now)) && reservation.getEndDateTime().isAfter(now))
             return "Active";
-        if(startDateTime.isAfter(now))
+        if(reservation.getStartDateTime().isAfter(now))
             return "Upcoming";
         return "Unknown";
     }
@@ -115,6 +117,11 @@ public class ClientReservationServiceImpl implements ClientReservationService {
         Reservation reservation = reservationRepository.findAllByClientId(client.getId()).stream().filter(r -> r.getId()==reservationId).findFirst().orElse(null);
         if(reservation == null)
             throw new ApiRequestException("Client doesn't seem to have specified reservation");
+        LocalDateTime now = LocalDateTime.now();
+        now = now.with(LocalTime.MIN);
+        now = now.with(LocalTime.MIDNIGHT);
+        if(reservation.getStartDateTime().isBefore(now.plusDays(3)))
+            throw new ApiRequestException("Reservation is in 3 days, you can't cancel now.");
         reservation.setIsCancelled(true);
         reservationRepository.save(reservation);
         Entity entity = reservation.getEntity();
@@ -132,6 +139,27 @@ public class ClientReservationServiceImpl implements ClientReservationService {
             }
             mergeEntityAvailabilities(reservation.getStartDateTime(), reservation.getEndDateTime(), entity);
         }
+        client.setPoints(client.getPoints()-5);
+        userRepository.save(client);
+    }
+
+    @Override
+    public void reviewReservation(Integer rating, String comment, String email, Long reservationId) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationId);
+        if(reservationOptional.isEmpty())
+            throw new ApiRequestException("There is no reservation with that id.");
+        Reservation reservation = reservationOptional.get();
+        if(!reservation.getClient().getEmail().equals(email))
+            throw new ApiRequestException("Bad request!");
+        LocalDateTime now = LocalDateTime.now();
+        now = now.with(LocalTime.MIDNIGHT);
+        if(reservation.getEndDateTime().isAfter(now))
+            throw new ApiRequestException("Reservation is not yet finished, you can't rate it.");
+        Optional<ReservationReview> reservationReviewOptional = reservationReviewRepository.findOneByReservationId(reservationId);
+        if(reservationReviewOptional.isPresent())
+            throw new ApiRequestException("You have already rated this reservation, you can't do it again.");
+        ReservationReview review = ReservationReview.builder().comment(comment).rating(rating).reservation(reservation).build();
+        reservationReviewRepository.save(review);
     }
 
     private void mergeEntityAvailabilities(LocalDateTime reservationStart, LocalDateTime reservationEnd, Entity entity) {

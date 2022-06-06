@@ -195,6 +195,7 @@ insert into entity_availability (id, from_date_time, to_date_time, version, enti
 
 insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-06-03 08:00:00', '2022-06-13 08:00:00', 5, 450.0, 1, 5, false, false)
 insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-08-03 08:00:00', '2022-08-13 08:00:00', 5, 500.0, 1, 5, false, false)
+insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-05-28 00:00:00', '2022-06-01 00:00:00', 2, 500.0, 5, 5, false, false)
 
 -- test
 --insert into reservation (id, start_date_time, end_date_time, max_number_of_people, price, entity_id, client_id, is_cancelled, loyalty_points_added) values (nextval('reservation_id_seq'), '2022-05-03 08:00:00', '2022-05-13 08:00:00', 5, 500.0, 1, 5, false, false)

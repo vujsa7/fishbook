@@ -27,13 +27,24 @@ export class ReportDialogComponent implements OnInit {
 
   onSubmit(): void {
     if (this.reportSellerForm.valid) {
-      this.reservationService.reportSeller(this.reportSellerForm.get("reportSellerMessage")?.value).subscribe(
+      let report = {message: this.reportSellerForm.get("reportSellerMessage")?.value, reservationId: this.reservation.id}
+      this.reservationService.reportSeller(report).subscribe(
         _ => {
           this.dialogRef.close();
           const dialogConfig = new MatDialogConfig();
           dialogConfig.data = {
             title: "Seller reported",
             message: "You have reported this seller. Our administrators will look into this and will get back to you via email as soon as they can.",
+            buttonText: "Okay"
+          };
+          this.dialog.open(InfoDialogComponent, dialogConfig);
+        },
+        _ => {
+          this.dialogRef.close();
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = {
+            title: "Something went wrong",
+            message: _.error.message,
             buttonText: "Okay"
           };
           this.dialog.open(InfoDialogComponent, dialogConfig);

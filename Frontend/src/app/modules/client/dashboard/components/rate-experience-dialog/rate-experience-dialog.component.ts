@@ -31,16 +31,27 @@ export class RateExperienceDialogComponent implements OnInit {
   onSubmit(): void {
     if (this.rateForm.valid) {
       let review = {
-        stars: this.rateForm.controls.stars?.value,
-        review: this.rateForm.controls.review?.value
+        rating: this.rateForm.controls.stars?.value,
+        comment: this.rateForm.controls.review?.value
       }
-      this.reservationService.leaveReview(review).subscribe(
+      this.reservationService.leaveReview(this.reservation.id, review).subscribe(
         _ => {
+          this.reservation.status = "Completed";
           this.dialogRef.close();
           const dialogConfig = new MatDialogConfig();
           dialogConfig.data = {
             title: "Feedback left",
             message: "You have succesfully left your feedback. Thank you for reviewing and helping our community get better.",
+            buttonText: "Okay"
+          };
+          this.dialog.open(InfoDialogComponent, dialogConfig);
+        },
+        _ => {
+          this.dialogRef.close();
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = {
+            title: "Something went wrong",
+            message: _.error.message,
             buttonText: "Okay"
           };
           this.dialog.open(InfoDialogComponent, dialogConfig);

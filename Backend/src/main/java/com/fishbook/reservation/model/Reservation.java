@@ -1,11 +1,13 @@
 package com.fishbook.reservation.model;
 
 import com.fishbook.additional.entity.information.model.AdditionalService;
+import com.fishbook.reports.model.BuyerReport;
 import com.fishbook.user.model.User;
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.HashSet;
@@ -24,6 +26,12 @@ public class Reservation extends ReservationOptions {
     private Boolean isCancelled;
 
     private Boolean loyaltyPointsAdded;
+
+    @OneToOne(mappedBy = "reservation")
+    private BuyerReport buyerReport;
+
+    @OneToOne(mappedBy = "reservation")
+    private ReservationReview reservationReview;
 
     public Reservation(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxNumberOfPeople, Set<AdditionalService> additionalServices) {
         super(startDateTime, endDateTime, maxNumberOfPeople, additionalServices);
