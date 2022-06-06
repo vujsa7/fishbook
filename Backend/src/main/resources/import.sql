@@ -50,6 +50,10 @@ insert into role (name) values ('ROLE_BOAT_OWNER')
 insert into role (name) values ('ROLE_INSTRUCTOR')
 insert into role (name) values ('ROLE_HOUSE_OWNER')
 insert into role (name) values ('ROLE_ADMIN')
+
+--PASSWORD FOR EVERY EMAIL IS WHATEVER COMES BEFORE '@gmail.com'
+-- FOR INSTANCE FOR admin@gmail.com pass is admin
+-- FOR house-seller@gmail.com pass is house-seller
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Clementine', 'Charles', 'admin@gmail.com', '$2a$10$t5B4Vu20.u//zjDP2IU4kOR49tqzbUo9WRVQ50rV1Og3FxBsioG2C', '+1 (359) 824-2578', 1, 5, '213dsa214edw132.jpg', true, false);
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Aphrodite', 'Sellers', 'boat-seller@gmail.com', '$2a$10$qonYFJh8vYljXXcoih76ke2fG8PMx1r18rdqpodqfgwMJR6njA3Xq', '+1 (655) 143-1354', 2, 2, 'masiofu218h421ij.jpg', 0, true, false);
 insert into users (id, first_name, last_name, email, password, phone_number, address_id, role_id, profile_image, points, is_enabled, is_deleted) values (nextval('users_id_seq'), 'Ursa', 'Foster', 'house-seller@gmail.com', '$2a$10$CsCg4yGBinBwzr2KnOMftuBvERAwk86nnhMmOyhyb97rZpetWCQDK', '+1 (344) 589-9773', 3, 4, 'a1312klfsad87124j.jpg', 0, true, false);
