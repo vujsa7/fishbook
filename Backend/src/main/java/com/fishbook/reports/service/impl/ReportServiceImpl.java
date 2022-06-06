@@ -76,8 +76,8 @@ public class ReportServiceImpl implements ReportService {
         Optional<Report> reportOptional = reportRepository.findById(reportId);
         if (reportOptional.isEmpty())
             throw new ApiRequestException("No report with that id");
-        Email emailToSeller = new Email(sellerEmail, "Response about your report", sellerMessage);
-        Email emailToBuyer = new Email(buyerEmail, "A buyer reported you", buyerMessage);
+        Email emailToSeller = new Email("user.fishbook@gmail.com", "Response about your report", sellerMessage);
+        Email emailToBuyer = new Email("user.fishbook@gmail.com", "A buyer reported you", buyerMessage);
         try {
             emailService.sendEmail(emailToSeller);
             emailService.sendEmail(emailToBuyer);
