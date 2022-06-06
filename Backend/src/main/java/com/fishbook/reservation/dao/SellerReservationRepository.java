@@ -17,6 +17,9 @@ public interface SellerReservationRepository extends JpaRepository<Reservation, 
     @Query("select r from Reservation r where r.entity.id = :entityId and r.startDateTime >= :startDateTime and r.endDateTime <= :endDateTime and r.isCancelled = false")
     List<Reservation> getEntityReservation(Long entityId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
+    @Query("select r from Reservation r where r.startDateTime >= :startDateTime and r.endDateTime <= :endDateTime and r.isCancelled = false")
+    List<Reservation> getEntityReservation(LocalDateTime startDateTime, LocalDateTime endDateTime);
+
     Integer countAllByEntity(Entity entity);
 
     List<Reservation> findAllByEntityId(Long entityId);

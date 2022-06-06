@@ -48,7 +48,7 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/revenue")
-    @PreAuthorize("hasAnyRole('BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR', 'ADMIN')")
     public ResponseEntity<Double> getRevenue(@RequestParam(value = "entityId") Long entityId,
                                              @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
                                              @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {

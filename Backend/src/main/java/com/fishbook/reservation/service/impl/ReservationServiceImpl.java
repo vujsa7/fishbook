@@ -40,9 +40,15 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Double calculateRevenue(CalculateRevenueDto dto) {
-        return reservationRepository.getEntityReservation(dto.getEntityId(), dto.getFromDateTime(), dto.getToDateTime())
-                .stream()
-                .mapToDouble(ReservationOptions::getPrice).sum();
+        if(dto.getEntityId() == -1) {
+            return reservationRepository.getEntityReservation(dto.getFromDateTime(), dto.getToDateTime())
+                    .stream()
+                    .mapToDouble(ReservationOptions::getPrice).sum();
+        } else {
+            return reservationRepository.getEntityReservation(dto.getEntityId(), dto.getFromDateTime(), dto.getToDateTime())
+                    .stream()
+                    .mapToDouble(ReservationOptions::getPrice).sum();
+        }
     }
 
     @Override
