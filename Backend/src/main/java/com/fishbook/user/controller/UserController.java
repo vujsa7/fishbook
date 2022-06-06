@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.net.URI;
 
 import java.security.Principal;
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity registerNewClient(@RequestBody UserRegistrationDto userRegistrationDto, HttpServletRequest request){
+    public ResponseEntity registerNewClient(@Valid @RequestBody UserRegistrationDto userRegistrationDto, HttpServletRequest request){
         if(userService.findByEmail(userRegistrationDto.getEmail()) != null){
             return new ResponseEntity<>(userRegistrationDto, HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -96,7 +97,7 @@ public class UserController {
 
     @PostMapping(value = "/admins", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity createAdmin(@RequestBody UserDto userDto){
+    public ResponseEntity createAdmin(@Valid @RequestBody UserDto userDto){
         if(userService.findByEmail(userDto.getEmail()) != null){
             return new ResponseEntity<>(userDto, HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -142,7 +143,7 @@ public class UserController {
 
     @PutMapping(value = "/{username}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
-    public ResponseEntity updateUser(@PathVariable String username, Principal principal, @RequestBody UserDto userDto){
+    public ResponseEntity updateUser(@PathVariable String username, Principal principal, @Valid @RequestBody UserDto userDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
@@ -158,7 +159,7 @@ public class UserController {
 
     @PutMapping(value = "/{username}/password")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
-    public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @RequestBody PasswordUpdateDto passwordUpdateDto){
+    public ResponseEntity updatePassword(@PathVariable String username, Principal principal, @Valid @RequestBody PasswordUpdateDto passwordUpdateDto){
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

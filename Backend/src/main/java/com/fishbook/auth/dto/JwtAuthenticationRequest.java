@@ -1,5 +1,7 @@
 package com.fishbook.auth.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class JwtAuthenticationRequest {
 
     public JwtAuthenticationRequest(){
@@ -11,7 +13,10 @@ public class JwtAuthenticationRequest {
         this.password = password;
     }
 
+    @NotBlank
     private String username;
+
+    @NotBlank
     private String password;
 
     public String getUsername() {

@@ -2,12 +2,23 @@ package com.fishbook.user.dto;
 
 import com.fishbook.location.model.Address;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserDto {
+
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
+
     private String email;
+
     private String password;
+
+    @NotBlank
     private String phoneNumber;
+
     private Address address;
 
     public UserDto() {

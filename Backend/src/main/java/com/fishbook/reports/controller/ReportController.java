@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class ReportController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('BOAT_OWNER', 'HOUSE_OWNER', 'INSTRUCTOR')")
-    public ResponseEntity<?> createReport(@RequestBody CreateReportDto dto) {
+    public ResponseEntity<?> createReport(@Valid @RequestBody CreateReportDto dto) {
         reportService.createReport(Report.builder()
                 .comment(dto.getComment())
                 .clientArrived(dto.getClientArrived())
@@ -43,7 +44,7 @@ public class ReportController {
 
     @PostMapping(value = "/buyers")
     @PreAuthorize("hasRole('CLIENT')")
-    public ResponseEntity createBuyerReport(@RequestBody BuyerReportDto buyerReportDto, Principal principal){
+    public ResponseEntity createBuyerReport(@Valid @RequestBody BuyerReportDto buyerReportDto, Principal principal){
         try{
             reportService.createBuyerReport(buyerReportDto.getMessage(), buyerReportDto.getReservationId(), principal.getName());
             return new ResponseEntity(buyerReportDto, HttpStatus.CREATED);

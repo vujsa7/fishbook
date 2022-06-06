@@ -26,6 +26,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class HouseController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_HOUSE_OWNER')")
-    public ResponseEntity registerNewHouse(@RequestBody HouseRegistrationDto houseRegistrationDto, Principal principal){
+    public ResponseEntity registerNewHouse(@Valid @RequestBody HouseRegistrationDto houseRegistrationDto, Principal principal){
         try {
             User user = userService.findByEmail(principal.getName());
 

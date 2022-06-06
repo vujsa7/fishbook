@@ -23,6 +23,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class FishingLessonController {
 
     @PostMapping
     @PreAuthorize("hasRole('INSTRUCTOR')")
-    public ResponseEntity createFishingLesson(@RequestBody FishingLessonRegistrationDto dto, Principal principal){
+    public ResponseEntity createFishingLesson(@Valid @RequestBody FishingLessonRegistrationDto dto, Principal principal){
         User instructor = userService.findByEmail(principal.getName());
         FishingLesson fishingLesson = new FishingLesson(dto.getName(), dto.getDescription(), dto.getCancellationFee(), dto.getPricePerDay(),
                 false, instructor, dto.getAddress(), dto.getRules(), dto.getAdditionalServices(), dto.getInstructorBiography(),

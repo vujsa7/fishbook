@@ -5,19 +5,33 @@ import com.fishbook.additional.entity.information.model.Rule;
 import com.fishbook.house.model.Room;
 import com.fishbook.location.model.Address;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class HouseRegistrationDto {
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String description;
+
     private Address address;
     private String city;
+
+    @NotNull
     private Integer maxPeople;
+
+    @NotNull
     private Double cancellationFee;
+
+    @NotNull
     private Double price;
+
     private Set<Rule> appliedRules = new HashSet<>();
     private List<Room> rooms = new ArrayList<>();
     private Set<AdditionalService> additionalServices = new HashSet<>();
