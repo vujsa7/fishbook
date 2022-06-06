@@ -19,6 +19,8 @@ import { PasswordRenewalComponent } from './pages/password-renewal/password-rene
 import { DeleteRequestsComponent } from './pages/requests/components/delete-requests/delete-requests.component';
 import { DeleteRequestResponseDialogComponent } from './pages/requests/components/delete-request-response-dialog/delete-request-response-dialog.component';
 import { SellerReportResponseDialogComponent } from './pages/reports/components/seller-report-response-dialog/seller-report-response-dialog.component';
+import { BuyerReportsComponent } from './pages/reports/components/buyer-reports/buyer-reports.component';
+import { BuyerReportResponseDialogComponent } from './pages/reports/components/buyer-report-response-dialog/buyer-report-response-dialog.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { SellerReportResponseDialogComponent } from './pages/reports/components/
     PasswordRenewalComponent,
     DeleteRequestsComponent,
     DeleteRequestResponseDialogComponent,
-    SellerReportResponseDialogComponent
+    SellerReportResponseDialogComponent,
+    BuyerReportsComponent,
+    BuyerReportResponseDialogComponent
   ],
   imports: [
     CommonModule,

@@ -74,7 +74,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void createResponseOnSellerReport(Long reportId, String sellerMessage, String buyerMessage, Boolean givePenalty, String sellerEmail, String buyerEmail, Boolean buyerArrived) throws InterruptedException {
         Optional<Report> reportOptional = reportRepository.findById(reportId);
-        if(reportOptional.isEmpty())
+        if (reportOptional.isEmpty())
             throw new ApiRequestException("No report with that id");
         Email emailToSeller = new Email(sellerEmail, "Response about your report", sellerMessage);
         Email emailToBuyer = new Email(buyerEmail, "A buyer reported you", buyerMessage);
@@ -82,13 +82,13 @@ public class ReportServiceImpl implements ReportService {
             emailService.sendEmail(emailToSeller);
             emailService.sendEmail(emailToBuyer);
             User user = userRepository.findByEmail(buyerEmail);
-            if(!buyerArrived){
+            if (!buyerArrived) {
                 user.setPenalties(user.getPenalties() + 1);
             }
-            if(givePenalty){
+            if (givePenalty) {
                 user.setPenalties(user.getPenalties() + 1);
             }
-            if(user.getPenalties() >= 3)
+            if (user.getPenalties() >= 3)
                 user.setDeleted(true);
             userRepository.save(user);
             reportRepository.delete(reportOptional.get());
@@ -96,4 +96,21 @@ public class ReportServiceImpl implements ReportService {
             throw new InterruptedException("Emails not sent");
         }
     }
+
+    @Override
+    public List<BuyerReport> getAllBuyerReports() {
+        return buyerReportRepository.findAll();
+    }
+
+    @Override
+    public void respondToBuyerReport(Long id, String response) throws InterruptedException {
+        BuyerReport report = buyerReportRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Email email = new Email("user.fishbook@gmail.com", "Response to report", "Response to report \"" + report.getComment() + "\" made by " + report.getReservation().getClient().getFirstName()
+                + " " + report.getReservation().getClient().getLastName() + " for seller " + report.getReservation().getEntity().getOwner().getFirstName() + " " +
+                report.getReservation().getEntity().getOwner().getLastName() + ":\n" + response);
+        buyerReportRepository.delete(report);
+        emailService.sendEmail(email);
+        emailService.sendEmail(email);
+    }
 }
+

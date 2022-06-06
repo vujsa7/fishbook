@@ -2,12 +2,15 @@ package com.fishbook.reports.controller;
 
 import com.fishbook.exception.ApiRequestException;
 import com.fishbook.reports.dto.AdminResponseOnSellerReportDto;
+import com.fishbook.reports.dto.BuyerReportDetailsDto;
 import com.fishbook.reports.dto.BuyerReportDto;
+import com.fishbook.reports.dto.BuyerReportResponseDto;
 import com.fishbook.reports.dto.CreateReportDto;
 import com.fishbook.reports.dto.SellerReportPreviewDto;
 import com.fishbook.reports.model.BuyerReport;
 import com.fishbook.reports.model.Report;
 import com.fishbook.reports.service.ReportService;
+import com.fishbook.user.dto.DeleteResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -47,7 +50,26 @@ public class ReportController {
         } catch (ApiRequestException e){
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @GetMapping(value = "/buyers")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getAllBuyerReports() {
+        List<BuyerReportDetailsDto> reports = reportService.getAllBuyerReports().stream()
+                .map(buyerReport -> new BuyerReportDetailsDto(buyerReport.getId(), buyerReport.getComment(), buyerReport.getReservation().getId(),
+                        buyerReport.getReservation().getEntity().getOwner().getEmail(), buyerReport.getReservation().getEntity().getOwner().getPhoneNumber(),
+                        buyerReport.getReservation().getClient().getEmail(), buyerReport.getReservation().getClient().getPhoneNumber()))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(reports, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/buyers")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity respondToBuyerReport(@RequestBody BuyerReportResponseDto dto) throws InterruptedException {
+        reportService.respondToBuyerReport(dto.getReportId(), dto.getResponse());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/seller")

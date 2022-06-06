@@ -30,4 +30,7 @@
             <app-primary-button text="Give your response" (click)="openResponseDialog(sellerReport)"></app-primary-button>
         </div>
     </div>
+    <div *ngIf="selectedButton == 'buyer-reports'">
+        <app-buyer-reports></app-buyer-reports>
+    </div>
 </div>
