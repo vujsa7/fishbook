@@ -1,6 +1,8 @@
 package com.fishbook.reservation.controller;
 
+import com.fishbook.exception.ApiRequestException;
 import com.fishbook.reservation.dto.SellerAvailabilityDetailsDto;
+import com.fishbook.reservation.dto.SpecialOfferClientDetailsDto;
 import com.fishbook.reservation.dto.SpecialOfferDetailsDto;
 import com.fishbook.reservation.dto.SpecialOfferDto;
 import com.fishbook.reservation.model.SpecialOffer;
@@ -28,6 +30,19 @@ public class SpecialOfferController {
                 .map(specialOffer -> new SpecialOfferDetailsDto(specialOffer.getId(), specialOffer.getStartDateTime(), specialOffer.getEndDateTime(), specialOffer.getMaxNumberOfPeople(),
                         specialOffer.getAdditionalServices(), specialOffer.getEntity().getId(), specialOffer.getDiscount(), specialOffer.getVersion()))
                 .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity getSpecialOffer(@PathVariable Long id){
+        try{
+            SpecialOffer specialOffer = specialOfferService.getSpecialOfferById(id);
+            return new ResponseEntity(new SpecialOfferClientDetailsDto(specialOffer.getId(), specialOffer.getStartDateTime(), specialOffer.getEndDateTime(),
+                    specialOffer.getAdditionalServices(), specialOffer.getEntity().getId(), specialOffer.getEntity().getName(), specialOffer.getPrice()), HttpStatus.OK);
+        } catch (ApiRequestException e){
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping

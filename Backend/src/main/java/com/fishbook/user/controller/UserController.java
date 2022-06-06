@@ -2,6 +2,7 @@ package com.fishbook.user.controller;
 
 import com.fishbook.email.model.Email;
 import com.fishbook.email.service.EmailService;
+import com.fishbook.exception.ApiRequestException;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.registration.service.VerificationCodeService;
 import com.fishbook.storage.service.StorageService;
@@ -199,8 +200,12 @@ public class UserController {
         if(!Objects.equals(username, principal.getName())){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        userService.createDeleteAccountRequest(principal.getName(), message);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            userService.createDeleteAccountRequest(principal.getName(), message);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ApiRequestException e){
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/points")

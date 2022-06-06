@@ -70,6 +70,17 @@ public class ClientReservationController {
         }
     }
 
+    @PostMapping(value = "/specialOffers/{specialOfferId}")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity postClientReservationOnSpecialOffer(Principal principal, @PathVariable Long specialOfferId){
+        try{
+            clientReservationService.createReservationOnSpecialOffer(specialOfferId, principal.getName());
+            return new ResponseEntity(HttpStatus.CREATED);
+        } catch (ApiRequestException e){
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping(value = "/history")
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity getReservationHistory(Principal principal){

@@ -16,4 +16,5 @@ public interface ClientReservationService {
     String getStatus(Reservation reservation);
     void cancelReservation(Long reservationId, String email) throws ApiRequestException;
     void reviewReservation(Integer rating, String comment, String name, Long reservationId);
+    void createReservationOnSpecialOffer(Long specialOfferId, String email);
 }

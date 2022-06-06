@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +85,14 @@ public class SpecialOfferServiceImpl implements SpecialOfferService {
 
     public List<SpecialOffer> getAll(Long entityId) {
         return specialOfferRepository.findAllByEntityId(entityId);
+    }
+
+    @Override
+    public SpecialOffer getSpecialOfferById(Long specialOfferId) {
+        Optional<SpecialOffer> specialOfferOptional = specialOfferRepository.findById(specialOfferId);
+        if(specialOfferOptional.isEmpty())
+            throw new ApiRequestException("There is no special offer with that id.");
+        else return specialOfferOptional.get();
     }
 
     private Double calculatePrice(SpecialOffer specialOffer){

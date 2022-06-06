@@ -44,9 +44,10 @@ export class DeleteAccountDialogComponent implements OnInit{
           const dialogConfig = new MatDialogConfig();
           dialogConfig.data = {
             title: "Unable to delete",
-            message: "Unknown error occured. Please try again sometime later or contact our system administrator to report this issue.",
+            message: _.error.message,
             buttonText: "Okay"
           };
+          this.dialog.open(InfoDialogComponent, dialogConfig);
         }
       );
     }

@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import _ from 'lodash';
 import { Subscription } from 'rxjs';
 import DateUtil from 'src/app/core/utils/date.util';
@@ -12,6 +12,7 @@ import { RangeDatePickerComponent } from 'src/app/shared/components/range-date-p
 import { AdditionalService } from 'src/app/shared/models/additional-service.model';
 import { DateRange } from 'src/app/shared/models/date-range.model';
 import { ReservationOfferDetails } from '../models/reservation-offer-details.model';
+import { SpecialOfferDetails } from '../models/special-offer-details.model';
 import { ReservationService } from '../services/reservation.service';
 
 @Component({
@@ -30,10 +31,12 @@ export class ReservationComponent implements OnInit {
   boatOwnerUnavailableDates!: Array<DateRange>;
   unavailableDatesForSelection: Array<DateRange> = [];
   isSkipperSelected: boolean = false;
-  discountAndFees! : any;
+  discountAndFees!: any;
+  specialOfferId: any;
+  specialOfferDetails!: SpecialOfferDetails;
 
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private dialog: MatDialog, private datePipe: DatePipe) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private dialog: MatDialog, private datePipe: DatePipe, private router: Router) {
     this.reservationForm = new FormGroup({
       additionalServices: new FormArray([]),
     });
@@ -41,16 +44,27 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
-      this.entityId = params['id'];
-      this.fetchReservationOfferDetails();
-      this.fetchDiscountsAndFees();
+      if (this.router.url.includes("reservation")) {
+        this.entityId = params['id'];
+        this.fetchReservationOfferDetails();
+        this.fetchDiscountsAndFees(this.entityId);
+      } else if (this.router.url.includes("specialOffers")) {
+        this.specialOfferId = params['id'];
+        this.fetchSpecialOfferDetails();
+        
+      }
+
     });
   }
 
-  fetchDiscountsAndFees() {
-    this.reservationService.fetchDiscountAndFees(this.entityId).subscribe(data => {
-      this.discountAndFees = data;
-    })
+
+  fetchSpecialOfferDetails() {
+    this.reservationService.getSpecialOfferDetails(this.specialOfferId).subscribe(
+      data => {
+        this.specialOfferDetails = data;
+        this.fetchDiscountsAndFees(data.entityId);
+      }
+    )
   }
 
   fetchReservationOfferDetails() {
@@ -65,6 +79,12 @@ export class ReservationComponent implements OnInit {
         );
       }
     });
+  }
+
+  fetchDiscountsAndFees(entityId: number) {
+    this.reservationService.fetchDiscountAndFees(entityId).subscribe(data => {
+      this.discountAndFees = data;
+    })
   }
 
   get additionalServicesFormArray() {
@@ -86,8 +106,8 @@ export class ReservationComponent implements OnInit {
   }
 
   updateAvailableDateRanges() {
-    if(this.isSkipperSelected && this.boatOwnerUnavailableDates && this.boatOwnerUnavailableDates.length != 0){
-      if(this.range && this.range.start && this.range.end && this.isSelectedDateRangeUnavailable()){
+    if (this.isSkipperSelected && this.boatOwnerUnavailableDates && this.boatOwnerUnavailableDates.length != 0) {
+      if (this.range && this.range.start && this.range.end && this.isSelectedDateRangeUnavailable()) {
         this.clearDateRange();
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = {
@@ -104,8 +124,8 @@ export class ReservationComponent implements OnInit {
   }
 
   isSelectedDateRangeUnavailable(): boolean {
-    for(let unavailableDateRange of this.boatOwnerUnavailableDates){
-      if(DateUtil.isOverlapping(unavailableDateRange, this.range))
+    for (let unavailableDateRange of this.boatOwnerUnavailableDates) {
+      if (DateUtil.isOverlapping(unavailableDateRange, this.range))
         return true;
     }
     return false;
@@ -130,12 +150,25 @@ export class ReservationComponent implements OnInit {
     sum += this.sumAdditionalServices();
     if (this.range)
       sum += this.sumPriceForSelectedDates();
-    if(this.discountAndFees){
-      if(this.discountAndFees.discount > 0)
-        sum -= sum * this.discountAndFees.discount/100;
-      if(this.discountAndFees.sellerFee > 0)
-        sum += sum * this.discountAndFees.sellerFee/100;
-      if(this.discountAndFees.systemFee > 0)
+    if (this.discountAndFees) {
+      if (this.discountAndFees.discount > 0)
+        sum -= sum * this.discountAndFees.discount / 100;
+      if (this.discountAndFees.sellerFee > 0)
+        sum += sum * this.discountAndFees.sellerFee / 100;
+      if (this.discountAndFees.systemFee > 0)
+        sum += this.discountAndFees.systemFee;
+    }
+    return sum;
+  }
+
+  getSpecialOfferTotal(): number {
+    let sum = this.specialOfferDetails.price;
+    if (this.discountAndFees) {
+      if (this.discountAndFees.discount > 0)
+        sum -= sum * this.discountAndFees.discount / 100;
+      if (this.discountAndFees.sellerFee > 0)
+        sum += sum * this.discountAndFees.sellerFee / 100;
+      if (this.discountAndFees.systemFee > 0)
         sum += this.discountAndFees.systemFee;
     }
     return sum;
@@ -180,7 +213,7 @@ export class ReservationComponent implements OnInit {
     this.range.end.setMinutes(this.range.end.getMinutes() - this.range.end.getTimezoneOffset());
     let additionalServices = new Array<AdditionalService>();
     _.forEach(this.reservationForm.get("additionalServices")?.value, (additionalService, i: number) => {
-      if(additionalService){
+      if (additionalService) {
         additionalServices.push(this.reservationOfferDetails.additionalServices[i]);
       }
     })
@@ -214,6 +247,46 @@ export class ReservationComponent implements OnInit {
         this.dialog.open(InfoDialogComponent, dialogConfig);
       }
     );
+  }
+
+  openSpecialOfferDialog(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      title: "Make reservation?",
+      message: "Are you sure you want to create reservation at " + this.specialOfferDetails.entityName + " from " + this.datePipe.transform(this.specialOfferDetails.start, 'longDate') + " to " + this.datePipe.transform(this.specialOfferDetails.end, 'longDate') + " with the total of $" + this.getSpecialOfferTotal() + "?",
+      buttonNoText: "No",
+      buttonYesText: "Yes"
+    };
+    const dialogRef = this.dialog.open(OptionsDialogComponent, dialogConfig);
+    dialogRef.componentInstance.accept.subscribe(_ => {
+      this.makeReservationOnSpecialOfferCallBack();
+    })
+  }
+
+  makeReservationOnSpecialOfferCallBack() {
+    this.reservationService.makeReservationOnSpecialOffer(this.specialOfferId).subscribe(
+      data => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+          title: "Reservation successfully made",
+          message: "You have made a reservation.",
+          buttonText: "Okay",
+        };
+        const dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig);
+        dialogRef.componentInstance.okay.subscribe(_ => {
+          window.location.replace("/client/dashboard");
+        })
+      },
+      error => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+          title: "Reservation failed",
+          message: error.error.message,
+          buttonText: "Okay",
+        };
+        this.dialog.open(InfoDialogComponent, dialogConfig);
+      }
+    )
   }
 
 }

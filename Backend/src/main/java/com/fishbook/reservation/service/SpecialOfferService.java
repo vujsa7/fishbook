@@ -11,4 +11,5 @@ public interface SpecialOfferService {
     List<SpecialOffer> getSpecialOffersByEntityId(Long id);
     List<SpecialOffer> getAll(Long entityId);
 
+    SpecialOffer getSpecialOfferById(Long specialOfferId);
 }

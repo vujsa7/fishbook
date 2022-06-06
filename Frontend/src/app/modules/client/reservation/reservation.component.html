@@ -1,14 +1,14 @@
 <div>
-    <app-spinner-fullscreen *ngIf="!reservationOfferDetails"></app-spinner-fullscreen>
+    <app-spinner-fullscreen *ngIf="!reservationOfferDetails && !specialOfferDetails"></app-spinner-fullscreen>
     <div class="empty-box d-flex align-items-center justify-content-center w-100 "
         *ngIf="reservationOfferDetails && reservationOfferDetails.availableDates.length == 0">
         <span class="grey-text">{{reservationOfferDetails.entityName}} has no available dates for reservations</span>
     </div>
-    <div class="page-wrapper"
-        *ngIf="reservationOfferDetails && reservationOfferDetails.availableDates && reservationOfferDetails.availableDates.length > 0 ">
-        <h3>Reservation of {{reservationOfferDetails.entityName}}</h3>
-        <h5>Date of reservation</h5>
-        <div class="d-flex date">
+    <div class="page-wrapper">
+        <h3 *ngIf="reservationOfferDetails">Reservation of {{reservationOfferDetails.entityName}}</h3>
+        <h3 *ngIf="specialOfferDetails">Special offer - {{specialOfferDetails.entityName}}</h3>
+        <h5 *ngIf="reservationOfferDetails && reservationOfferDetails.availableDates && reservationOfferDetails.availableDates.length > 0">Date of reservation</h5>
+        <div class="d-flex date" *ngIf="reservationOfferDetails && reservationOfferDetails.availableDates && reservationOfferDetails.availableDates.length > 0">
             <div class="range-calendar">
                 <app-range-date-picker #rangeDatePicker [availableDates]="reservationOfferDetails.availableDates"
                     [unavailableDates]="unavailableDatesForSelection" class="date-picker"
@@ -18,8 +18,7 @@
             <app-secondary-button (click)="clearDateRange()" [inputStyle]="{'height': '54px'}"
                 [isBtnDisabled]="!isDateRangeSelected()" [text]="'Clear selection'"></app-secondary-button>
         </div>
-        <div
-            *ngIf="reservationOfferDetails.additionalServices && reservationOfferDetails.additionalServices.length > 0">
+        <div *ngIf="reservationOfferDetails && reservationOfferDetails.additionalServices && reservationOfferDetails.additionalServices.length > 0">
             <h5>Choose additional services</h5>
             <div [formGroup]="reservationForm">
                 <mat-chip-list class="additional-service-list" aria-label="Additional Services Selection"
@@ -33,12 +32,20 @@
                 </mat-chip-list>
             </div>
         </div>
-        <div class="fb-container d-flex flex-column">
+        <div *ngIf="specialOfferDetails && specialOfferDetails.additionalServices && specialOfferDetails.additionalServices.length > 0">
+            <h5>Included additional services</h5>
+                <mat-chip-list class="additional-service-list" aria-label="Additional Services Selection">
+                    <mat-chip matRipple [style]="{'color': '#FFFFFF !important', 'background': '#4BB3FD'}"
+                        *ngFor="let service of specialOfferDetails.additionalServices">
+                        {{service.name}}
+                        (+${{service.price}})</mat-chip>
+                </mat-chip-list>
+        </div>
+        <div class="fb-container d-flex flex-column" *ngIf="reservationOfferDetails">
             <div class="d-flex flex-column" *ngIf="range && range.start != undefined && range.end != undefined">
                 <div class="d-flex justify-content-between">
                     <h5 class="total-title">Reservation details</h5>
-                    <span class="grey-text" *ngIf="range">Date {{range.start | date:'longDate'}} - {{range.end |
-                        date:'longDate'}}</span>
+                    <span class="grey-text" *ngIf="range">Date {{range.start | date:'longDate'}} - {{range.end | date:'longDate'}}</span>
                 </div>
                 <div class="d-flex">
                     <span class="grey-text res-detail">{{reservationOfferDetails.entityName}}</span>
@@ -71,7 +78,6 @@
                         <span class="grey-text res-detail">${{discountAndFees.systemFee}}</span>
                     </div>
                 </div>
-                
                 <div class="d-flex">
                     <span class="lightblue-text res-detail">Reservation total</span>
                     <hr class="dot-line">
@@ -84,6 +90,41 @@
                 *ngIf="!range || !range.start || !range.end">
                 <span class="grey-text">Please select the dates for reservation</span>
             </div>
+        </div>
+        <div class="fb-container d-flex flex-column" *ngIf="specialOfferDetails">
+            <div class="d-flex justify-content-between">
+                <h5 class="total-title">Special offer details</h5>
+                <span class="grey-text" *ngIf="specialOfferDetails.start && specialOfferDetails.end">Date {{specialOfferDetails.start | date:'longDate'}} - {{specialOfferDetails.end | date:'longDate'}}</span>
+            </div>
+            <div class="d-flex">
+                <span class="grey-text res-detail">{{specialOfferDetails.entityName}} Special Offer Price</span>
+                <hr class="dot-line">
+                <span class="grey-text res-detail">${{specialOfferDetails.price}}</span>
+            </div>
+            <div *ngIf="discountAndFees">
+                <div class="d-flex" *ngIf="discountAndFees.discount > 0">
+                    <span class="grey-text res-detail">Discount</span>
+                    <hr class="dot-line">
+                    <span class="grey-text res-detail">{{discountAndFees.discount}}%</span>
+                </div>
+                <div class="d-flex" *ngIf="discountAndFees.sellerFee > 0">
+                    <span class="grey-text res-detail">Seller Fee</span>
+                    <hr class="dot-line">
+                    <span class="grey-text res-detail">{{discountAndFees.sellerFee}}%</span>
+                </div>
+                <div class="d-flex" *ngIf="discountAndFees.systemFee > 0">
+                    <span class="grey-text res-detail">System Fee</span>
+                    <hr class="dot-line">
+                    <span class="grey-text res-detail">${{discountAndFees.systemFee}}</span>
+                </div>
+                <div class="d-flex">
+                    <span class="lightblue-text res-detail">Special offer total</span>
+                    <hr class="dot-line">
+                    <span class="lightblue-text res-detail">${{getSpecialOfferTotal()}}</span>
+                </div>
+            </div>
+            <app-primary-button class="make-reservation-btn align-self-end" [text]="'Make reservation'"
+                    (click)="openSpecialOfferDialog()"></app-primary-button>
         </div>
     </div>
 

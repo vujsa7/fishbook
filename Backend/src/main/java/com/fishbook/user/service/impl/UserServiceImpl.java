@@ -1,6 +1,7 @@
 package com.fishbook.user.service.impl;
 
 import com.fishbook.entity.dao.EntityRepository;
+import com.fishbook.exception.ApiRequestException;
 import com.fishbook.location.dao.AddressRepository;
 import com.fishbook.location.dao.CityRepository;
 import com.fishbook.location.model.Address;
@@ -11,6 +12,9 @@ import com.fishbook.registration.dao.VerificationCodeRepository;
 import com.fishbook.registration.model.VerificationCode;
 import com.fishbook.password.renewal.model.PasswordRenewalMark;
 import com.fishbook.registration.model.RegistrationRequest;
+import com.fishbook.reservation.dao.ReservationRepository;
+import com.fishbook.reservation.dao.SellerReservationRepository;
+import com.fishbook.reservation.model.Reservation;
 import com.fishbook.user.dao.DeleteAccountRequestRepository;
 import com.fishbook.user.dao.RoleRepository;
 import com.fishbook.user.dao.UserRepository;
@@ -25,6 +29,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.UUID;
@@ -42,11 +48,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordRenewalMarkRepository passwordRenewalMarkRepository;
     private final EntityRepository entityRepository;
     private final DeleteAccountRequestRepository deleteAccountRequestRepository;
+    private final ReservationRepository reservationRepository;
+    private final SellerReservationRepository sellerReservationRepository;
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AddressRepository addressRepository,
                            CityRepository cityRepository, VerificationCodeRepository verificationCodeRepository, LocationService locationService,
                            PasswordRenewalMarkRepository passwordRenewalMarkRepository, EntityRepository entityRepository,
-                           DeleteAccountRequestRepository deleteAccountRequestRepository) {
+                           DeleteAccountRequestRepository deleteAccountRequestRepository, ReservationRepository reservationRepository, SellerReservationRepository sellerReservationRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.addressRepository = addressRepository;
@@ -56,6 +64,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.passwordRenewalMarkRepository = passwordRenewalMarkRepository;
         this.entityRepository = entityRepository;
         this.deleteAccountRequestRepository = deleteAccountRequestRepository;
+        this.reservationRepository = reservationRepository;
+        this.sellerReservationRepository = sellerReservationRepository;
     }
 
 
@@ -123,10 +133,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userRepository.save(user);
             verificationCodeRepository.delete(verificationCode);
         }
-
-
-        //else
-        // TODO: Throw UserAlreadyEnabledException
     }
 
     @Override
@@ -158,12 +164,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void createDeleteAccountRequest(String email, String requestMessage) {
         User user = userRepository.findByEmail(email);
+        LocalDateTime now = LocalDateTime.now();
+        now = now.with(LocalTime.MIN);
+        now = now.with(LocalTime.MIDNIGHT);
+        LocalDateTime finalNow = now;
+        if(user.getRole().getName().equals("ROLE_CLIENT")){
+            Reservation clientActiveReservation = reservationRepository.findAllByClientId(user.getId()).stream().filter(r -> r.getStartDateTime().isAfter(finalNow) || (finalNow.isAfter(r.getStartDateTime()) && finalNow.isBefore(r.getEndDateTime()))).findFirst().orElse(null);
+            if(clientActiveReservation != null){
+                throw new ApiRequestException("You can't close down your account, you have active reservations!");
+            }
+        }
         user.setEnabled(false);
         userRepository.save(user);
         DeleteAccountRequest deleteAccountRequest = new DeleteAccountRequest();
         deleteAccountRequest.setUser(user);
         deleteAccountRequest.setRequestMessage(requestMessage);
         deleteAccountRequestRepository.save(deleteAccountRequest);
+
     }
 
     @Override

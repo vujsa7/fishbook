@@ -10,7 +10,7 @@
     <owl-carousel-o class="custom-carousel" [options]="customOptions">
         <ng-container *ngFor="let specialOffer of specialOffers">
           <ng-template carouselSlide>
-            <div class="fb-container d-flex flex-column">
+            <div class="fb-container d-flex flex-column" [routerLink]="['/client/specialOffers/', specialOffer.id]">
                 <div class="d-flex dates align-items-center">
                     <div class="d-flex border-right flex-column w-50 h-100 justify-content-center align-items-center">
                         <span class="grey-text small">From</span>
