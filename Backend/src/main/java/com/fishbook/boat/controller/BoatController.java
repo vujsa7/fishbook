@@ -10,7 +10,6 @@ import com.fishbook.boat.service.BoatService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.entity.dto.EntityStatisticDto;
 import com.fishbook.location.dto.LocationDto;
-import com.fishbook.location.service.LocationService;
 import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import com.fishbook.reservation.model.SpecialOffer;
 import com.fishbook.reservation.service.ReservationService;
@@ -76,7 +75,7 @@ public class BoatController {
         List<EntityBasicInfoDto> boats = boatService.getAll().stream()
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
                         boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
-                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail()))
+                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail(), boat.getRating()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(boats, HttpStatus.OK);
@@ -96,7 +95,7 @@ public class BoatController {
         List<EntityBasicInfoDto> boats = boatService.getAllByOwnerUsername(ownerUsername).stream()
                 .map(boat -> new EntityBasicInfoDto(boat.getId(), storageService.getPriorityImageUrl(boat.getImages()), boat.getName(), boat.getDescription(),
                         boat.getPricePerDay(), boat.getAddress().getCity().getName(), boat.getAddress().getCity().getCountry().getName(),
-                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail()))
+                        boat.getOwner().getFirstName() + " " + boat.getOwner().getLastName(), boat.getOwner().getEmail(), boat.getRating()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(boats, HttpStatus.OK);
@@ -112,7 +111,7 @@ public class BoatController {
         List<SpecialOffer> specialOffers = new ArrayList(specialOfferService.getSpecialOffersByEntityId(boat.getId()));
         List<SpecialOfferPreviewDto> specialOfferPreviews = specialOffers.stream().map(s -> new SpecialOfferPreviewDto(s.getId(), s.getStartDateTime(), s.getEndDateTime(), s.getPrice()*(100 + s.getDiscount())/100, s.getPrice())).collect(Collectors.toList());
         return new ResponseEntity(new BoatDetailsDto(boat.getId(), storageService.getImageUrls(boat.getImages()), boat.getName(), boat.getOwner().getFullName(),
-                boat.getDescription(), 0.0, boat.getPricePerDay(), boat.getCancellationFee(), new LocationDto(boat.getAddress().getAddress(), boat.getAddress().getCity().getName(),
+                boat.getDescription(), boat.getRating(), boat.getPricePerDay(), boat.getCancellationFee(), new LocationDto(boat.getAddress().getAddress(), boat.getAddress().getCity().getName(),
                 boat.getAddress().getCity().getCountry().getName(), boat.getAddress().getLongitude(), boat.getAddress().getLatitude()), new BoatSpecificationsDto(boat.getBoatType().toString(),
                 boat.getMaxNumberOfPeople(), boat.getLength(), boat.getLoadCapacity(), boat.getMaxSpeed(), boat.getPower(), boat.getMotors(), boat.getFuelConsumption(), boat.getMaxDistance(),
                 boat.getEnergyConsumption()), boat.getOwner().getEmail(), boat.getOwner().getId(), boat.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),

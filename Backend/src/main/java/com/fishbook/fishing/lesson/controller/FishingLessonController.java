@@ -58,7 +58,7 @@ public class FishingLessonController {
         List<EntityBasicInfoDto> lessons = fishingLessonService.getAll().stream()
                 .map(fishingLesson -> new EntityBasicInfoDto(fishingLesson.getId(), storageService.getPriorityImageUrl(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getDescription(),
                     fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName(), fishingLesson.getAddress().getCity().getCountry().getName(),
-                    fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail()))
+                    fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail(), fishingLesson.getRating()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(lessons, HttpStatus.OK);
@@ -78,7 +78,7 @@ public class FishingLessonController {
         List<EntityBasicInfoDto> lessons = fishingLessonService.getAll(ownerUsername).stream()
                 .map(fishingLesson -> new EntityBasicInfoDto(fishingLesson.getId(), storageService.getPriorityImageUrl(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getDescription(),
                         fishingLesson.getPricePerDay(), fishingLesson.getAddress().getCity().getName(), fishingLesson.getAddress().getCity().getCountry().getName(),
-                        fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail()))
+                        fishingLesson.getOwner().getFirstName() + " " + fishingLesson.getOwner().getLastName(), fishingLesson.getOwner().getEmail(), fishingLesson.getRating()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(lessons, HttpStatus.OK);
@@ -94,7 +94,7 @@ public class FishingLessonController {
         List<SpecialOffer> specialOffers = new ArrayList(specialOfferService.getSpecialOffersByEntityId(fishingLesson.getId()));
         List<SpecialOfferPreviewDto> specialOfferPreviews = specialOffers.stream().map(s -> new SpecialOfferPreviewDto(s.getId(), s.getStartDateTime(), s.getEndDateTime(), s.getPrice()*(100 + s.getDiscount())/100, s.getPrice())).collect(Collectors.toList());
         return new ResponseEntity(new FishingLessonDetailsDto(fishingLesson.getId(), storageService.getImageUrls(fishingLesson.getImages()), fishingLesson.getName(), fishingLesson.getOwner().getFullName(),
-                fishingLesson.getDescription(), 0.0, fishingLesson.getPricePerDay(), fishingLesson.getCancellationFee(), new LocationDto(fishingLesson.getAddress().getAddress(), fishingLesson.getAddress().getCity().getName(),
+                fishingLesson.getDescription(), fishingLesson.getRating(), fishingLesson.getPricePerDay(), fishingLesson.getCancellationFee(), new LocationDto(fishingLesson.getAddress().getAddress(), fishingLesson.getAddress().getCity().getName(),
                 fishingLesson.getAddress().getCity().getCountry().getName(), fishingLesson.getAddress().getLongitude(), fishingLesson.getAddress().getLatitude()), fishingLesson.getMaxNumberOfPeople(), "https://images.unsplash.com/photo-1463062511209-f7aa591fa72f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
                 fishingLesson.getInstructorBiography(), fishingLesson.getOwner().getEmail(), fishingLesson.getOwner().getId(), fishingLesson.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()),
                 fishingLesson.getFishingEquipment().stream().map(equipment -> equipment.getName()).collect(Collectors.toList()), new ArrayList<>(), new ArrayList<>(fishingLesson.getAdditionalServices()), specialOfferPreviews), HttpStatus.OK);

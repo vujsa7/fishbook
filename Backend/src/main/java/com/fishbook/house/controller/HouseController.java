@@ -1,6 +1,5 @@
 package com.fishbook.house.controller;
 
-import com.fishbook.additional.entity.information.service.AdditionalServiceService;
 import com.fishbook.entity.dto.EntityBasicInfoDto;
 import com.fishbook.entity.dto.EntityStatisticDto;
 import com.fishbook.house.dto.HouseDetailsDto;
@@ -10,7 +9,6 @@ import com.fishbook.house.dto.HouseUpdateDto;
 import com.fishbook.house.model.House;
 import com.fishbook.house.service.HouseService;
 import com.fishbook.location.dto.LocationDto;
-import com.fishbook.location.service.LocationService;
 import com.fishbook.reservation.dto.SpecialOfferPreviewDto;
 import com.fishbook.reservation.model.SpecialOffer;
 import com.fishbook.reservation.service.ReservationService;
@@ -70,7 +68,7 @@ public class HouseController {
         List<EntityBasicInfoDto> houses = houseService.getAll().stream()
                 .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
                         house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
-                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail()))
+                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail(), house.getRating()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(houses, HttpStatus.OK);
@@ -90,7 +88,7 @@ public class HouseController {
         List<EntityBasicInfoDto> houses = houseService.getAllByOwnerUsername(ownerUsername).stream()
                 .map(house -> new EntityBasicInfoDto(house.getId(), storageService.getPriorityImageUrl(house.getImages()), house.getName(), house.getDescription(),
                         house.getPricePerDay(), house.getAddress().getCity().getName(), house.getAddress().getCity().getCountry().getName(),
-                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail()))
+                        house.getOwner().getFirstName() + " " + house.getOwner().getLastName(), house.getOwner().getEmail(), house.getRating()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(houses, HttpStatus.OK);
@@ -106,7 +104,7 @@ public class HouseController {
         List<SpecialOffer> specialOffers = new ArrayList(specialOfferService.getSpecialOffersByEntityId(house.getId()));
         List<SpecialOfferPreviewDto> specialOfferPreviews = specialOffers.stream().map(s -> new SpecialOfferPreviewDto(s.getId(), s.getStartDateTime(), s.getEndDateTime(), s.getPrice()*(100 + s.getDiscount())/100, s.getPrice())).collect(Collectors.toList());
         return new ResponseEntity(new HouseDetailsDto(house.getId(), storageService.getImageUrls(house.getImages()), house.getName(), house.getOwner().getFullName(),
-                house.getDescription(), 0.0, house.getPricePerDay(), house.getCancellationFee(), new LocationDto(house.getAddress().getAddress(), house.getAddress().getCity().getName(),
+                house.getDescription(), house.getRating(), house.getPricePerDay(), house.getCancellationFee(), new LocationDto(house.getAddress().getAddress(), house.getAddress().getCity().getName(),
                 house.getAddress().getCity().getCountry().getName(), house.getAddress().getLongitude(), house.getAddress().getLatitude()), new HouseSpecificationsDto(house.getRooms().size(), house.getBedsByRooms(), house.getBedCount()),
                 house.getOwner().getEmail(), house.getOwner().getId(), house.getRules().stream().map(rule -> rule.getDescription()).collect(Collectors.toList()), new ArrayList<>(house.getAdditionalServices()), specialOfferPreviews), HttpStatus.OK);
 
